@@ -1,0 +1,6 @@
+.fundobom{
+    background-image: linear-gradient(0deg, #FFF323, #ffa700, #ff7400, #ff6600);
+}
+.fundobomcontrario{
+    background-image: linear-gradient(180deg, #FFF323, #ffa700, #ff7400, #ff6600);
+}
