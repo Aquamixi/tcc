@@ -27,4 +27,9 @@ class receita extends Model
         'categoria_id',
         'velocidade_id'
     ];
+
+    public function sabor()
+    {
+        return $this->hasOne('\App\Models\sabor', 'id', 'sabor_id');
+    }
 }
