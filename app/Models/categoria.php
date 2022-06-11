@@ -14,4 +14,9 @@ class categoria extends Model
     protected $fillable = [
         'categoria'
     ];
+
+    public function sub_categoria()
+    {
+        return $this->hasOne(subCategoria::class, 'categoria_id', 'id');
+    }
 }

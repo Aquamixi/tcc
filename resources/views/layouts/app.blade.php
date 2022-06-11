@@ -7,6 +7,7 @@
         <script src="https://kit.fontawesome.com/873886f170.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        @yield('extra_css')
     </head>
 
     
@@ -27,21 +28,20 @@
                                         Sabor
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="/home?sabor=Salgado">Salgado</a></li>
-                                        <li><a class="dropdown-item" href="/home?sabor=apimentado">Apimentada</a></li>
-                                        <li><a class="dropdown-item" href="/home?sabor=doce">Doce</a></li>
+                                        @foreach ($sabores as $item)
+                                            <li><a class="dropdown-item" href="/home?sabor={{$item->sabor}}">{{$item->sabor}}</a></li>
+                                        @endforeach
                                     </ul>
                                 </li>
 
                                 <li class="nav-item dropdown ms-4">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Dropdown
+                                        Categoria
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                        @foreach ($categorias as $item)
+                                            <li><a class="dropdown-item" href="/home?categoria={{$item->categoria}}">{{$item->categoria}}</a></li>
+                                        @endforeach
                                     </ul>
                                 </li>
                             </ul>
@@ -50,9 +50,9 @@
                         <button type="button" class="btn btn-warning mb-2 me-4">
                             <i class="fa-solid fa-receipt"></i>
                         </button>
-                        <form class="me-5 mt-0 end-3 mb-2">
-                            <input type="search" class="form-control 01" placeholder="Search..." aria-label="Search">
-                        </form>
+                        {!! Form::open(['url' => '/home', 'method' => 'GET', 'class' => 'me-5 mt-0 end-3 mb-2']) !!}
+                            {!! Form::text('search', null, ['class' => 'form-control 01', 'aria-label' => 'Pesquisa', 'placeholder' => 'Pesquisa']) !!}
+                        {!! Form::close() !!}
                         <div class="dropdown end-1 text-end">
                             <a href="#" class="d-block link-dark text-decoration-none " id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
@@ -84,7 +84,7 @@
                 <div class="col">
                     <a href="/" class="d-flex align-items-center mb-0 link-dark text-decoration-none">
                     </a>
-                    <p class="text-muted">© 2021</p>
+                    <p class="text-muted">© 2022</p>
                 </div>
             
                 <div class="col">
@@ -127,7 +127,7 @@
                     Você veio da caravana de ondeammm? Ma vejam só, vejam só. O Raul Gil é gayam! ... Maa O Ah Ae! Ih Ih! O Raul Gil é gayamm!</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
     
