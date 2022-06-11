@@ -10,7 +10,6 @@
         @yield('extra_css')
     </head>
 
-    
     <body>
         <header class="p-3 mb-3">
             <nav class="navbar navbar-expand navbar-light bg-white">
@@ -50,7 +49,7 @@
                         <button type="button" class="btn btn-warning mb-2 me-4">
                             <i class="fa-solid fa-receipt"></i>
                         </button>
-                        {!! Form::open(['url' => '/home', 'method' => 'GET', 'class' => 'me-5 mt-0 end-3 mb-2']) !!}
+                        {!! Form::open(['url' => '/home?search', 'method' => 'GET', 'class' => 'me-5 mt-0 end-3 mb-2']) !!}
                             {!! Form::text('search', null, ['class' => 'form-control 01', 'aria-label' => 'Pesquisa', 'placeholder' => 'Pesquisa']) !!}
                         {!! Form::close() !!}
                         <div class="dropdown end-1 text-end">
