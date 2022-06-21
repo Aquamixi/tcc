@@ -35,7 +35,8 @@ class receitaFactory extends Factory
             'user_id' => $this->faker->numberBetween(1, 50),
             'sabor_id' => $this->faker->numberBetween(1, 6),
             'categoria_id' => $this->faker->numberBetween(1, 7),
-            'velocidade_id' => $this->faker->numberBetween(1, 3)
+            'velocidade_id' => $this->faker->numberBetween(1, 3),
+            'nacionalidade_id' => $this->faker->numberBetween(1, 40)
         ];
     }
 }
