@@ -30,6 +30,16 @@ class receita extends Model
 
     public function sabor()
     {
-        return $this->hasOne('\App\Models\sabor', 'id', 'sabor_id');
+        return $this->belongsTo(sabor::class, 'sabor_id', 'id');
+    }
+
+    public function categoria()
+    {
+        return $this->belongsTo(categoria::class, 'categoria_id', 'id');
+    }
+
+    public function ingrediente()
+    {
+        return $this->belongsTo(ingrediente::class, 'ingrediente_id', 'id');
     }
 }

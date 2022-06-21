@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateReceitaGruposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -33,8 +33,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('receita_grupos', function (Blueprint $table) {
-            $table->dropForeign('receita_grupos_usuario_id_foreign');
-            $table->dropForeign('receita_grupos_seguidor_id_foreign');
+            $table->dropForeign(['usuario_id']);
+            $table->dropForeign(['seguidor_id']);
         });
 
         Schema::dropIfExists('receita_grupos');

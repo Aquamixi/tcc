@@ -55,9 +55,10 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{$receita->sabor_id}}</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                    <h5 class="card-title">{{$receita->sabor->sabor}}</h5>
+                                    <p class="card-text">{{$receita->titulo_receita}}</p>
+                                    <p class="card-text">{{$receita->categoria->sub_categoria->sub_categoria}}</p>
+                                    <p class="card-text"><small class="text-muted">{{$receita->ingrediente->ingrediente}}</small></p>
                                 </div>
                             </div>
                         </div>
