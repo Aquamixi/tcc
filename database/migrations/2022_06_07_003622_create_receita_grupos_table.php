@@ -33,8 +33,8 @@ class CreateReceitaGruposTable extends Migration
     public function down()
     {
         Schema::table('receita_grupos', function (Blueprint $table) {
-            $table->dropForeign(['usuario_id']);
-            $table->dropForeign(['seguidor_id']);
+            $table->dropForeign('receita_grupos_receita_id_foreign');
+            $table->dropForeign('receita_grupos_usuario_id_foreign');
         });
 
         Schema::dropIfExists('receita_grupos');
