@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(categoriaSeeder::class);
         $this->call(velocidadeSeeder::class);
         $this->call(subCategoriaSeeder::class);
+        $this->call(nacionalidadeSeeder::class);
         $this->call(receitaSeeder::class);
     }
 }
