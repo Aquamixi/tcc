@@ -42,4 +42,9 @@ class receita extends Model
     {
         return $this->belongsTo(ingrediente::class, 'ingrediente_id', 'id');
     }
+
+    public function nacionalidade()
+    {
+        return $this->belongsTo(nacionalidade::class, 'nacionalidade_id', 'id');
+    }
 }

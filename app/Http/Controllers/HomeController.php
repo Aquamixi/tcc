@@ -58,6 +58,9 @@ class HomeController extends Controller
                         $fundo->where('sub_categoria', 'LIKE', '%' . $request->search . '%');
                     });
                 })
+                ->orWhereHas('nacionalidade', function($q) use ($request){
+                    $q->where('nacionalidade', 'LIKE', '%' . $request->search . '%');
+                })
                 ->orWhereHas('sabor', function($q) use ($request){
                     $q->where('sabor', 'LIKE', '%' . $request->search . '%');
                 })
