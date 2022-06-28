@@ -67,14 +67,34 @@
             </div>                
 
             <div class="container-fluid col-2 ms-md-auto p-2 m-2 bg-transparent">
-                <ul class="list-group">
+                <ul class="list-group div1">
                     <li class="list-group-item">An item</li>
                     <li class="list-group-item">A second item</li>
                     <li class="list-group-item">A third item</li>
                     <li class="list-group-item">A fourth item</li>
-                    <li class="list-group-item">And a fifth one</li>
+                    <li class="list-group-item teste">And a fifth one</li>
                 </ul>
+            </div>
+            <div class="div1">
+
             </div>
         </div>
     </main>
+@endsection
+@section('pos-script')
+    <script type="text/javascript">
+        $(document).on('click', '.teste', function(){
+            $.ajax({
+                method: 'GET',
+                url: "home/teste",
+                data: {
+                    'usuario': 'erick'
+                },
+                success: function(result){
+                    $(".div1").empty();
+                    $(".div1").html(result);
+                }
+            });
+        });
+    </script>
 @endsection
