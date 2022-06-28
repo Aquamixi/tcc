@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\categoria;
 use App\Models\receita;
+use App\Models\User;
 use App\Models\sabor;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -72,5 +73,10 @@ class HomeController extends Controller
         $receitas = $receitas->orderBy('qtde_curtidas', 'desc')->take(10)->get();
 
         return view('home', compact('receitas', 'receita_hoje', 'sabores', 'categorias'));
+    }
+
+    public function teste(Request $request){
+        $linha = User::where('name', $request->usuario)->first();
+        return view('teste', compact('linha'));
     }
 }
