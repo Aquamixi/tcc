@@ -45,7 +45,7 @@
         </div>
 
         <div class="container-fluid bg-transparent row">
-            <div><h2>Mais Famosas</h2></div>
+            <div class="ms-1"><h2 class="fonteTexto">Mais Famosas</h2></div>
             <div class="container col-9 p-2 m-2">
                 @foreach ($receitas as $receita)
                     <div class="card mb-3 col-10" style="max-width: 800px; min-width: 200px">
