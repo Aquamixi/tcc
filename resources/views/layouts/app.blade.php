@@ -91,7 +91,7 @@
                     <ul class="nav flex-column">
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Facebook</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Instagram</a></li>
-                        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Whatsapp: (45) 99484-8114</a></li>
+                        <li class="nav-item mb-2"><a href="https://web.whatsapp.com/send?phone=5545998038841" target="_blank" class="nav-link p-0 text-muted">Whatsapp: (45) 99484-8114</a></li>
                     </ul>
                 </div>
                 
