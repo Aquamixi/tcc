@@ -25,9 +25,12 @@
             </div>
                 
             <div class="container-fluid mt-5 row">
-                <div class="col-6 text-center">"
+                <div class="col-6 text-center">
                     <div>
-                        
+                        <div class="container">
+                            <input type="file">
+                        </div>
+
                     </div>
                 </div>                                
                 <div class="col-6 text-center ">
