@@ -13,7 +13,7 @@ class velocidadeSeeder extends Seeder
      */
     public function run()
     {
-        $velocidades = ['Curta', 'Média', 'Longa'];
+        $velocidades = ['Receita Rápida', 'Receita Média', 'Receita Longa'];
 
         foreach($velocidades as $velocidade){
             $linha = new \App\Models\velocidade();

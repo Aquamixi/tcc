@@ -547,6 +547,7 @@ class ComposerStaticInited72676c06d2bb8ae7ef136cda579ae8
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\UserMacs' => __DIR__ . '/../..' . '/app/Models/UserMacs.php',
         'App\\Models\\categoria' => __DIR__ . '/../..' . '/app/Models/categoria.php',
         'App\\Models\\comentario' => __DIR__ . '/../..' . '/app/Models/comentario.php',
         'App\\Models\\compartilhamento' => __DIR__ . '/../..' . '/app/Models/compartilhamento.php',
