@@ -14,6 +14,7 @@ class UpdateReceitasTable extends Migration
     public function up()
     {
         Schema::table('receitas', function (Blueprint $table) {
+            $table->boolean('mais_dezoito');
             $table->unsignedBigInteger('nacionalidade_id');
             $table->foreign('nacionalidade_id')->references('id')->on('nacionalidades');
         });

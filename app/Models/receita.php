@@ -48,6 +48,10 @@ class receita extends Model
         return $this->belongsTo(nacionalidade::class, 'nacionalidade_id', 'id');
     }
 
+    public function velocidade(){
+        return $this->belongsTo(velocidade::class, 'velocidade_id', 'id');
+    }
+
     public function scopePesquisa_avancada($query, $val){
         $query->where(function($variavel) use ($val){
             $variavel->where('titulo_receita', 'LIKE', '%' . $val . '%')
@@ -67,6 +71,9 @@ class receita extends Model
             })
             ->orWhereHas('ingrediente', function($q) use ($val){
                 $q->where('ingrediente', 'LIKE', '%' . $val . '%');
+            })
+            ->orWhereHas('velocidade', function($q) use ($val){
+                $q->where('velocidade', 'LIKE', '%' . $val . '%');
             });
         });
     }
