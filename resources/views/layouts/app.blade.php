@@ -50,7 +50,7 @@
                             <i class="fa-solid fa-receipt"></i>
                         </button>
                         {!! Form::open(['url' => '/home?search', 'method' => 'GET', 'class' => 'me-5 mt-0 end-3 mb-2']) !!}
-                            {!! Form::text('search', null, ['class' => 'form-control 01', 'aria-label' => 'Pesquisa', 'placeholder' => 'Pesquisa']) !!}
+                            {!! Form::text('search', null, ['class' => 'form-control 01', 'aria-label' => 'Pesquisa', 'placeholder' => 'Pesquisar']) !!}
                         {!! Form::close() !!}
                         <div class="dropdown end-1 text-end">
                             <a href="#" class="d-block link-dark text-decoration-none " id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">

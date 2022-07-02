@@ -49,34 +49,18 @@ class HomeController extends Controller
         }
 
         if($request->search){
-            $receitas->where(function($query) use ($request){
-                $query->where('titulo_receita', 'LIKE', '%' . $request->search . '%')
-                ->orWhereHas('categoria', function($q) use ($request){
-                    $q->where('categoria', 'LIKE', '%' . $request->search . '%');
-                })
-                ->orWhereHas('categoria', function($q) use ($request){
-                    $q->whereHas('sub_categoria', function($fundo) use ($request){
-                        $fundo->where('sub_categoria', 'LIKE', '%' . $request->search . '%');
-                    });
-                })
-                ->orWhereHas('nacionalidade', function($q) use ($request){
-                    $q->where('nacionalidade', 'LIKE', '%' . $request->search . '%');
-                })
-                ->orWhereHas('sabor', function($q) use ($request){
-                    $q->where('sabor', 'LIKE', '%' . $request->search . '%');
-                })
-                ->orWhereHas('ingrediente', function($q) use ($request){
-                    $q->where('ingrediente', 'LIKE', '%' . $request->search . '%');
-                });
-            });
+            $usuarios = User::where('name', 'LIKE', '%' . $request->search . '%')->get();
+
+            $receitas->pesquisa_avancada($val = $request->search);
+
+            $receitas = $receitas->orderBy('qtde_curtidas', 'desc')->get();
+
+            return view('pesquisa.pesquisa', compact('usuarios', 'receitas', 'sabores', 'categorias'));
         }
+        
         $receitas = $receitas->orderBy('qtde_curtidas', 'desc')->take(10)->get();
 
         return view('home', compact('receitas', 'receita_hoje', 'sabores', 'categorias'));
     }
 
-    public function teste(Request $request){
-        $linha = User::where('name', $request->usuario)->first();
-        return view('teste', compact('linha'));
-    }
 }
