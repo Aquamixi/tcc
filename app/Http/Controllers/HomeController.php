@@ -27,7 +27,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function home(Request $request){
+    public function home(Request $request)
+    {
         //$today = Carbon::today()->format('Y-m-d');
         $sabores = sabor::get();
         $categorias = categoria::get();

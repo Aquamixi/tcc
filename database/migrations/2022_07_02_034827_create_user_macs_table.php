@@ -13,16 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('seguidors', function (Blueprint $table) {
+        Schema::create('user_macs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('usuario_id');
-            $table->unsignedBigInteger('seguidor_id');
-            $table->string('status');
+            $table->string('mac');
         });
 
-        Schema::table('seguidors', function (Blueprint $table) {
+        Schema::table('user_macs', function (Blueprint $table) {
             $table->foreign('usuario_id')->references('id')->on('users');
-            $table->foreign('seguidor_id')->references('id')->on('users');
         });
     }
 
@@ -33,11 +31,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('seguidors', function (Blueprint $table) {
-            $table->dropForeign('seguidors_usuario_id_foreign');
-            $table->dropForeign('seguidors_seguidor_id_foreign');
+        Schema::table('user_macs', function (Blueprint $table) {
+            $table->dropForeign('user_macs_usuario_id_foreign');
         });
 
-        Schema::dropIfExists('seguidors');
+        Schema::dropIfExists('user_macs');
     }
 };
