@@ -83,18 +83,5 @@
 @endsection
 @section('pos-script')
     <script type="text/javascript">
-        $(document).on('click', '.teste', function(){
-            $.ajax({
-                method: 'GET',
-                url: "home/teste",
-                data: {
-                    'usuario': 'erick'
-                },
-                success: function(result){
-                    $(".div1").empty();
-                    $(".div1").html(result);
-                }
-            });
-        });
     </script>
 @endsection
