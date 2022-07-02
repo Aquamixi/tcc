@@ -3,7 +3,7 @@
 @section('titulo', 'MyRecipes')
 
 @section('conteudo')
-    <main role="main" class="fundobom">
+    <main role="main" class="content">
         <div class="container-fluid pt-3">
             <div class="container">
                 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -66,7 +66,7 @@
                 @endforeach
             </div>                
 
-            <div class="container-fluid col-2 ms-md-auto p-2 m-2 bg-transparent">
+            <div class="container-fluid   col-2 ms-md-auto p-2 m-2 bg-transparent">
                 <ul class="list-group div1">
                     <li class="list-group-item">An item</li>
                     <li class="list-group-item">A second item</li>
@@ -74,9 +74,6 @@
                     <li class="list-group-item">A fourth item</li>
                     <li class="list-group-item teste">And a fifth one</li>
                 </ul>
-            </div>
-            <div class="div1">
-
             </div>
         </div>
     </main>

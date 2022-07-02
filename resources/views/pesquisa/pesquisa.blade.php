@@ -4,7 +4,7 @@
 
 @section('conteudo')
 
-    <main role="main" class="fundobom">
+    <main role="main">
         <ul class="nav nav-tabs " id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active text-light bg-transparent" id="receita-tab" data-bs-toggle="tab" data-bs-target="#receitas" type="button" role="tab" aria-controls="receitas" aria-selected="true">

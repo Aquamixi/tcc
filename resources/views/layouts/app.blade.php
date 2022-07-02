@@ -10,7 +10,7 @@
         @yield('extra_css')
     </head>
 
-    <body>
+    <body class="wrapper">
         <header class="p-3 mb-3">
             <nav class="navbar navbar-expand navbar-light bg-white">
                 <div class="container-fluid">
@@ -46,9 +46,9 @@
                             </ul>
                         
                         </div>
-                        <button type="button" class="btn btn-warning mb-2 me-4">
+                        <a href="criar_receitas" class="btn btn-warning mb-2 me-4">
                             <i class="fa-solid fa-receipt"></i>
-                        </button>
+                        </a>
                         {!! Form::open(['url' => '/home?search', 'method' => 'GET', 'class' => 'me-5 mt-0 end-3 mb-2']) !!}
                             {!! Form::text('search', null, ['class' => 'form-control 01', 'aria-label' => 'Pesquisa', 'placeholder' => 'Pesquisar']) !!}
                         {!! Form::close() !!}
@@ -77,8 +77,8 @@
         </header>
 
         @yield('conteudo')
-
-        <footer class="py-3 my-3">
+        <div style="flex-grow:1"></div>
+        <footer class="py-3 my-3 ">
             <div class="container-fluid row">
                 <div class="col">
                     <a href="/" class="d-flex align-items-center mb-0 link-dark text-decoration-none">
