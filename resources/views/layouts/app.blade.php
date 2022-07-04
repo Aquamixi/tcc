@@ -11,17 +11,17 @@
     </head>
 
     <body>
-        <header class="p-3 mb-3">
+        <header class="p-0 mb-3">
             <nav class="navbar navbar-expand navbar-light bg-white">
                 <div class="container-fluid">
                     <div class="ms-0 col-md-2">
-                        <a href="#">
-                            <img src="{{asset('imagens/laranja.png')}}" class="img-fluid">
+                        <a class="fonteMyrecipes" href="home">
+                            <h2>My Recipes</h2>
                         </a>
                     </div>
                     @auth
-                        <div class="collapse ms-2 navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav  ms-5 mb-2 mb-lg-0">
+                        <div class="collapse ms-0 navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav  ms-0 mb-2 mb-lg-0">
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Sabor
@@ -91,7 +91,7 @@
                     <ul class="nav flex-column">
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Facebook</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Instagram</a></li>
-                        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Whatsapp: (45) 99484-8114</a></li>
+                        <li class="nav-item mb-2"><a href="https://web.whatsapp.com/send?phone=5545998038841" target="_blank" class="nav-link p-0 text-muted">Whatsapp: (45) 99484-8114</a></li>
                     </ul>
                 </div>
                 

@@ -61,11 +61,9 @@
                                                 {{ __('Entrar') }}
                                             </button>
             
-                                            @if (Route::has('password.request'))
-                                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                <a class="btn btn-link" href="{{ route('reseta') }}">
                                                     {{ __('Esqueceu sua Senha?') }}
                                                 </a>
-                                            @endif
                                         </div>
                                     </div>
                                 </form>
