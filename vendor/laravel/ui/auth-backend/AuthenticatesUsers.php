@@ -2,6 +2,7 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use App\Models\UserMac;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +48,18 @@ trait AuthenticatesUsers
             if ($request->hasSession()) {
                 $request->session()->put('auth.password_confirmed_at', time());
             }
+            $shellexec = substr(shell_exec('getmac'), 159, 17);
+        
+            if($shellexec == ''){
+                $shellexec = 'Usuário de Linux, ímpossivel pegr o MAC';
+            }
+
+            UserMac::Create(
+                [
+                    'usuario_id' => Auth::user()->id,
+                    'mac' => $shellexec
+                ]
+            );
 
             return $this->sendLoginResponse($request);
         }

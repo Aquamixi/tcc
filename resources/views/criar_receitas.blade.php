@@ -40,7 +40,7 @@
                 <div class="col-6 text-center ">
                     <label for="exampleFormControlTextarea1" class="form-label">Aqui vai a porra da descricao</label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Minha receita é um bolo de cocaina" rows="3"></textarea>
-                </div>"
+                </div>
             </div>
 
         </div>

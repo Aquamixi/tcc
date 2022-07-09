@@ -76,6 +76,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'first_login' => 1,
         ]);
         
         $id = $linha->id;

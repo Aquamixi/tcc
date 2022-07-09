@@ -80,8 +80,47 @@
             </div>
         </div>
     </main>
+
+    <div class="modal fade" id="avisoModal" role="dialog">
+        <div class="modal-dialog">
+        
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Aviso</h4>
+                </div>
+                <div class="modal-body">
+                    Faça login em um computador Windows, para maior segurança e nossa confiança.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="fechaAviso" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+
 @endsection
 @section('pos-script')
     <script type="text/javascript">
+        var first = {{$first_login}};
+
+        if(first == 1){
+            $(document).ready(function(){
+                $("#avisoModal").modal('show');
+            });
+        }
+
+        $('.modal-footer').on('click', '#fechaAviso', function(){
+            $.ajax({
+                type: 'POST',  // http method
+                url: "{{ url('definir_first_login') }}", // url de destino
+                data: { 
+                    data: '0',
+                    "_token": "{{ csrf_token() }}",
+                } // data to submit
+            });
+        });
+
     </script>
 @endsection
