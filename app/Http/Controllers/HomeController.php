@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\sabor;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -34,6 +34,7 @@ class HomeController extends Controller
         $categorias = categoria::get();
         $today = '2022-04-21';
         $receita_hoje = receita::where('data_postagem', $today)->orderBy('qtde_curtidas', 'desc')->take(5)->get();
+        $first_login = Auth::user()->first_login;
 
         $receitas = receita::select();
         
@@ -56,12 +57,12 @@ class HomeController extends Controller
 
             $receitas = $receitas->orderBy('qtde_curtidas', 'desc')->get();
 
-            return view('pesquisa.pesquisa', compact('usuarios', 'receitas', 'sabores', 'categorias'));
+            return view('pesquisa.pesquisa', compact('usuarios', 'first_login', 'receitas', 'sabores', 'categorias'));
         }
         
         $receitas = $receitas->orderBy('qtde_curtidas', 'desc')->take(10)->get();
 
-        return view('home', compact('receitas', 'receita_hoje', 'sabores', 'categorias'));
+        return view('home', compact('receitas', 'first_login', 'receita_hoje', 'sabores', 'categorias'));
     }
 
 }
