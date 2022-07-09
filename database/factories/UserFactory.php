@@ -31,7 +31,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'telefone' => $this->faker->tollFreePhoneNumber,
             'data_nascimento' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
-            'first_login' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
+            'first_login' => $this->faker->numberBetween(0, 1),
             'genero' => 'Indefinido'
         ];
     }
