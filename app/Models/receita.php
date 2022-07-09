@@ -52,6 +52,10 @@ class receita extends Model
         return $this->belongsTo(velocidade::class, 'velocidade_id', 'id');
     }
 
+    public function foto(){
+        return $this->hasOne(fotoReceita::class, 'receita_id', 'id');
+    }
+
     public function scopePesquisa_avancada($query, $val){
         $query->where(function($variavel) use ($val){
             $variavel->where('titulo_receita', 'LIKE', '%' . $val . '%')
