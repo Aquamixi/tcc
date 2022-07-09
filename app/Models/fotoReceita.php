@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class fotoReceita extends Model
 {
     use HasFactory;
+    
+    public $timestamps = false;
+    protected $primaryKey = 'id';
+    protected $fillable = [
+        'foto_receita',
+        'anexo',
+        'receita_id'
+    ];
 }

@@ -23,7 +23,7 @@
                             @else
                                 <div class="carousel-item">
                             @endif
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdcxE6OZOeD3WJ8ZSLWkrYMjnyp7Vs2oPqKQ&usqp=CAU"  height="400px" width="300px" class="d-block w-100" >
+                                <img src="{{$item->foto->anexo}}"  height="400px" width="300px" class="d-block w-100" >
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>{{$item->titulo_receita}}</h5>
                                 </div>
@@ -51,7 +51,7 @@
                     <div class="card mb-3 col-10" style="max-width: 800px; min-width: 200px">
                         <div class="row g-0">
                             <div class="col-md-5">
-                                <img src="https://static1.purepeople.com.br/articles/6/14/83/86/@/1825631-silvio-santos-comentou-a-previsao-de-cig-234x175-2.jpg" class="img-fluid rounded-start" alt="...">
+                                <img src="{{$receita->foto->anexo}}" class="img-fluid rounded-start" alt="...">
                             </div>
                             <div class="col-md-7">
                                 <div class="card-body">

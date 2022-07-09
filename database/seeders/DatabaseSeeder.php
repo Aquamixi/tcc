@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(subCategoriaSeeder::class);
         $this->call(nacionalidadeSeeder::class);
         $this->call(receitaSeeder::class);
+        $this->call(fotoReceitaSeeder::class);
     }
 }

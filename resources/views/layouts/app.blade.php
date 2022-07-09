@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        <header class="p-0 mb-3">
+        <header class="p-1">
             <nav class="navbar navbar-expand navbar-light bg-white">
                 <div class="container-fluid">
                     <div class="ms-0 col-md-2">
@@ -21,7 +21,7 @@
                     </div>
                     @auth
                         <div class="collapse ms-0 navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav  ms-0 mb-2 mb-lg-0">
+                            <ul class="navbar-nav  ms-0 mb-lg-0">
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Sabor
@@ -46,10 +46,10 @@
                             </ul>
                         
                         </div>
-                        <a href="criar_receitas" class="btn btn-warning mb-2 text-light me-4">
+                        <a href="criar_receitas" class="btn btn-warning text-light me-4">
                             <i class="fa-solid fa-receipt"></i>
                         </a>
-                        {!! Form::open(['url' => '/home?search', 'method' => 'GET', 'class' => 'me-5 mt-0 end-3 mb-2']) !!}
+                        {!! Form::open(['url' => '/home?search', 'method' => 'GET', 'class' => 'me-5 mt-0 end-3']) !!}
                             {!! Form::text('search', null, ['class' => 'form-control 01', 'aria-label' => 'Pesquisa', 'placeholder' => 'Pesquisar']) !!}
                         {!! Form::close() !!}
                         <div class="dropdown end-1 text-end">
