@@ -40,16 +40,14 @@
                     </div>
                     <div class="container  d-flex justify-content-center">               
                         <div class="mx-auto col-6 me-1">
-                            <select class="form-select" aria-label="Default select example"  name="sabor" style="height: 50px; ">
-                                <option selected>Sabor</option>
+                            <select class="form-select" aria-label="Default select example"  name="sabor" style="height: 50px; " placeholder="Sabor">
                                 @foreach ($sabores as $item)
                                     <option value="{{$item->id}}">{{$item->sabor}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mx-auto col-6 ms-1">
-                            <select class="form-select" aria-label="Default select example" name="nacionalidade" style="height: 50px">
-                                <option >Nacionalidade</option>
+                            <select class="form-select" aria-label="Default select example" name="nacionalidade" style="height: 50px" placeholder="Nacionalidade">
                                 @foreach ($nacionalidades as $item)
                                     <option value="{{$item->id}}">{{$item->nacionalidade}}</option>
                                 @endforeach
@@ -77,16 +75,14 @@
                     </div>
                     <div class="container  d-flex justify-content-center">    
                         <div class="mx-auto col-6 me-1">
-                            <select class="form-select" aria-label="Default select example" name="categoria" style="height: 50px">
-                                <option >Categoria</option>
+                            <select class="form-select" aria-label="Default select example" name="categoria" style="height: 50px" placeholder="Categoria">
                                 @foreach ($categorias as $item)
                                     <option value="{{$item->id}}">{{$item->categoria}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mx-auto col-6 ms-1">
-                            <select class="form-select" aria-label="Default select example" name="subcateria" style="height: 50px">
-                                <option >SubCategoria</option>
+                            <select class="form-select" aria-label="Default select example" name="subcateria" style="height: 50px" placeholder="SubCategoria">
                                 @foreach ($subcategorias as $item)
                                     <option value="{{$item->id}}">{{$item->sub_categoria}}</option>
                                 @endforeach

@@ -45,18 +45,6 @@ class ReceitaController extends Controller
 
     public function cadastrar_receita(Request $request)
     {
-        $request->validate([
-            'titulo' => 'required',
-            'preparo' => 'required',
-            'tempo' => 'required',
-            'qtde_porcoes' => 'required',
-            'descricao' => 'required',
-            'categoria' => 'required',
-            'nacionalidade' => 'required',
-            'sabor' => 'required',
-            'ingrediente' => 'required',
-            'titulo' => 'required',
-        ]);
 
         $linha = new receita();
         $linha->titulo_receita = $request->titulo;
