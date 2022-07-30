@@ -24,6 +24,7 @@ class receitaFactory extends Factory
         return [
             'titulo_receita' => $this->faker->text($maxNbChars = 15),
             'modo_preparo' => $this->faker->text($maxNbChars = 100),
+            'descricao' => $this->faker->text($maxNbChars = 100),
             'tempo_preparo' => $this->faker->time($format = 'H:i:s', $max = 'now'),
             'qtde_porcoes' => $this->faker->randomDigit,
             'qtde_curtidas' => $this->faker->randomDigit,
