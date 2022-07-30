@@ -36,25 +36,30 @@
                     <div class="container  d-flex justify-content-center">               
                         <div class="mx-auto col-6 me-1">
                             <select class="form-select" aria-label="Default select example" style="height: 50px; ">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <option selected>Sabor</option>
+                                @foreach ($sabores as $item)
+                                    <option value="{{$item->id}}">{{$item->sabor}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mx-auto col-6 ms-1">
                             <select class="form-select" aria-label="Default select example" style="height: 50px">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <option >Nacionalidade</option>
+                                @foreach ($nacionalidades as $item)
+                                    <option value="{{$item->id}}">{{$item->nacionalidade}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="card bg-transparent mt-3 mb-5 border-0">                   
                         <div class="card-body height:114px ">
-                            <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">descrição</h3></label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="descrva brevemente a sua receita" name="descricao" style="resize: none; height:115.7px;"></textarea>
+                            <label for="exampleFormControlTextarea1" class="form-label ">
+                                <h3 class="fonteMaisFamosas">Ingredientes</h3>
+                            </label>
+                            <label for="exampleFormControlTextarea1" class="form-label"> 
+                                <h6 class="fonteMaisFamosas">(Separe os ingredientes por virgula assim: Cebola, Tomate)</h6>
+                            </label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Separe os ingredientes por virgula assim: Cebola, Tomate" name="descricao" style="resize: none; height:115.7px;"></textarea>
                         </div>
                     </div>
                 </div>
@@ -67,25 +72,25 @@
                     </div>
                     <div class="container  d-flex justify-content-center">    
                         <div class="mx-auto col-6 me-1">
-                            <select class="form-select" aria-label="Default select example" style="height: 50px; ">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select class="form-select" aria-label="Default select example" style="height: 50px">
+                                <option >Categoria</option>
+                                @foreach ($categorias as $item)
+                                    <option value="{{$item->id}}">{{$item->categoria}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mx-auto col-6 ms-1">
-                            <select class="form-select" aria-label="Default select example" style="height: 50px; ">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select class="form-select" aria-label="Default select example" style="height: 50px">
+                                <option >SubCategoria</option>
+                                @foreach ($subcategorias as $item)
+                                    <option value="{{$item->id}}">{{$item->sub_categoria}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="card bg-transparent mt-3 mb-5 border-0">                   
                         <div class="card-body height:114px ">
-                            <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">descrição</h3></label>
+                            <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">Modo De Preparo</h3></label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Minha receita é um bolo de cocaina"  style="resize: none; height:115.7px;"></textarea>
                         </div>
                     </div>
@@ -96,8 +101,4 @@
             </div>
         </form>
     </main>
-    @endsection
-@section('pos-script')
-    <script type="text/javascript">
-    </script>
 @endsection
