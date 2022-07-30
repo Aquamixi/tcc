@@ -32,6 +32,14 @@ html, body {
     text-align: left;
     text-shadow: 2px 0 0 #ff9000, -2px 0 0 #ff9000, 0 2px 0 #ff9000, 0 -2px 0 #ff9000, 1px 1px #ff9000, -1px -1px 0 #ff9000, 1px -1px 0 #ff9000, -1px 1px 0 #ff9000;
 }
+
+.faltadados{
+    font-family: PoetsenOne;
+    color: #fff;
+    text-align: left;
+    text-shadow: 2px 0 0 #cc1414, -2px 0 0 #cc1414, 0 2px 0 #cc1414, 0 -2px 0 #cc1414, 1px 1px #cc1414, -1px -1px 0 #cc1414, 1px -1px 0 #cc1414, -1px 1px 0 #cc1414;
+}
+
 .fonteCriarReceitas{
     font-family: PoetsenOne;
     /* opacity: 0.5; */

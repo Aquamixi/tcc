@@ -31,7 +31,6 @@ class receitaFactory extends Factory
             'qtde_compartilhamentos' => $this->faker->randomDigit,
             'avaliacao' => $this->faker->randomFloat($nbMaxDecimals = 1, $min = 0, $max = 5),
             'data_postagem' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
-            'ingrediente_id' => $this->faker->numberBetween(1, 50),
             'user_id' => $this->faker->numberBetween(1, 50),
             'sabor_id' => $this->faker->numberBetween(1, 6),
             'categoria_id' => $this->faker->numberBetween(1, 7),
