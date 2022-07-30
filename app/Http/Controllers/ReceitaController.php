@@ -52,6 +52,7 @@ class ReceitaController extends Controller
         $linha->data_postagem = Carbon::today();
         $linha->user_id = Auth::user()->id;
         $linha->categoria_id = $request->categoria;
+        $linha->descricao = $request->descricao;
         $linha->mais_dezoito = $request->mais_dezoito;
         $linha->nacionalidade_id = $request->nacionalidade;
         $linha->sabor_id = $request->sabor;
