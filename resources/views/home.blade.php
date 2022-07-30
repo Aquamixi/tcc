@@ -58,7 +58,6 @@
                                     <h5 class="card-title">{{$receita->sabor->sabor}}</h5>
                                     <p class="card-text">{{$receita->titulo_receita}}</p>
                                     <p class="card-text">{{$receita->categoria->sub_categoria->sub_categoria}}</p>
-                                    <p class="card-text"><small class="text-muted">{{$receita->ingrediente->ingrediente}}</small></p>
                                 </div>
                             </div>
                         </div>

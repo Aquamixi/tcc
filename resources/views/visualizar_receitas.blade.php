@@ -5,7 +5,7 @@
 
 @section('conteudo')
 
-    <main>
+    <main role="main">
         <div class="container">
             <div class="container p-3">
                 <div class="fonteMaisFamosas text-center"> 
@@ -14,7 +14,7 @@
             </div>
             <div class="container row">
                 <div class="card col-12 " style=" ">
-                    <div class="row m-1 mb-4">
+                    <div class="row m-1 mb-2">
                         <div>
                             <h6> Nome do cara logo pra caralho tipo isso</h6>
                         </div>
@@ -44,7 +44,37 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                <div>
+                    <h5 class="fonteMaisFamosas mt-3"> Descrição</h5>
+                </div>
+                <div class="card col-12  ">
+                    <div class="card-body" style="height:170px;">
+                        This is some text within a card body.
+                    </div>
+                </div>
+                <div class="container  row mx-auto col-12">
+                    <div class="container col-6 ">
+                        <div>
+                            <h5 class="fonteMaisFamosas mt-3">Ingredientes</h5>
+                        </div>
+                        <div class="card col-12  ">
+                            <div class="card-body" style="height:170px;">
+                                This is some text within a card body.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container col-6 ">
+                        <div>
+                            <h5 class="fonteMaisFamosas mt-3">Modo De Preparo</h5>
+                        </div>
+                        <div class="card col-12">
+                            <div class="card-body" style="height:170px;">
+                                This is some text within a card body.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>         
         </div>
 
 
