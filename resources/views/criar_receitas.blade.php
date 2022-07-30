@@ -10,8 +10,13 @@
                 <div class="container col-6">
                     <div class="card bg-transparent border-0 ">
                         <div class="card-body ">
-                            <div class="fonteMaisFamosas text-center"> 
-                                <h2>Titulo Da Receita</h2>                       
+                            <div class="text-center"> 
+                                <label class="form-label fonteMaisFamosas">
+                                    <h2>Titulo Da Receita</h2>     
+                                </label>
+                                <label class="form-label faltadados">
+                                    <h6>{{$errors->has('titulo') ? $errors->first('titulo') : ''}}</h6>
+                                </label>
                             </div>
                             <input type="text" class="form-control fonteCriarReceitas" name="titulo" id="exampleFormControlInput1" placeholder="coloque aqui seu titulo">
                         </div>

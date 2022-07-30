@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class receitaIngrediente extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+    protected $primaryKey = 'id';
+    protected $fillable = [
+        'receita_id',
+        'ingrediente'
+    ];
 }
