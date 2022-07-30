@@ -50,6 +50,7 @@ class ReceitaController extends Controller
             'preparo' => 'required',
             'tempo' => 'required',
             'qtde_porcoes' => 'required',
+            'descricao' => 'required',
             'categoria' => 'required',
             'nacionalidade' => 'required',
             'sabor' => 'required',
@@ -65,7 +66,13 @@ class ReceitaController extends Controller
         $linha->data_postagem = Carbon::today();
         $linha->user_id = Auth::user()->id;
         $linha->categoria_id = $request->categoria;
-        $linha->mais_dezoito = $request->mais_dezoito;
+        $linha->descricao = $request->descricao;
+        if($request->mais_dezoito){
+            $linha->mais_dezoito = 1;
+        }
+        else{
+            $linha->mais_dezoito = 0;
+        }
         $linha->nacionalidade_id = $request->nacionalidade;
         $linha->sabor_id = $request->sabor;
 
