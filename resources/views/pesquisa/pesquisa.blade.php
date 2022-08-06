@@ -30,7 +30,7 @@
                                     <h5 class="card-title">
                                         {{$receita->titulo_receita}}
                                     </h5>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <a href="{{url('visualizar_receitas')}}/{{$receita->id}}" class="btn btn-primary" style="background-color: #ff8c00; color:white; border: 0px">Vá Para a Receita</a>
                                 </div>
                             </div>
                         @endforeach

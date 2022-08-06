@@ -28,7 +28,9 @@ class ReceitaController extends Controller
 
     public function tela_receitas()
     {  
-        $nacionalidades = nacionalidade::orderBy('nacionalidade', 'asc')->get();
+        $br = nacionalidade::where('nacionalidade', 'brasileira')->orderBy('nacionalidade', 'asc')->get();
+        $resto = nacionalidade::where('nacionalidade', '<>', 'brasileira')->orderBy('nacionalidade', 'asc')->get();
+        $nacionalidades = $br->union($resto);
         $sabores = sabor::get();
         $categorias = categoria::get();
 
@@ -112,12 +114,16 @@ class ReceitaController extends Controller
     
     public function editar_receitas(Request $request)
     {
-        $nacionalidades = nacionalidade::orderBy('nacionalidade', 'asc')->get();
+        $br = nacionalidade::where('nacionalidade', 'brasileira')->orderBy('nacionalidade', 'asc')->get();
+        $resto = nacionalidade::where('nacionalidade', '<>', 'brasileira')->orderBy('nacionalidade', 'asc')->get();
+
+        $nacionalidades = $br->union($resto);
+
         $sabores = sabor::get();
         $categorias = categoria::get();
-        $receita = receita::findOrFail($request->id);
+        $linha = receita::findOrFail($request->id);
 
-        return view('receitas.editar_receitas', compact("sabores", "categorias", "nacionalidades", "receita"));
+        return view('receitas.editar_receitas', compact("sabores", "categorias", "nacionalidades", "linha"));
     }
 
     public function editar_receita(Request $request)

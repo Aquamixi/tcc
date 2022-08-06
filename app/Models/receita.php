@@ -40,7 +40,7 @@ class receita extends Model
 
     public function ingrediente()
     {
-        return $this->hasOne(receitaIngrediente::class, 'receita_id', 'id');
+        return $this->hasMany(receitaIngrediente::class, 'receita_id', 'id');
     }
 
     public function nacionalidade()
