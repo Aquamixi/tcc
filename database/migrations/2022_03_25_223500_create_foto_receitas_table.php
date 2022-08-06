@@ -15,7 +15,6 @@ class CreateFotoReceitasTable extends Migration
     {
         Schema::create('foto_receitas', function (Blueprint $table) {
             $table->id();
-            $table->string('foto_receita')->nullable();
             $table->string('anexo')->nullable();
             $table->unsignedBigInteger('receita_id');
         });
