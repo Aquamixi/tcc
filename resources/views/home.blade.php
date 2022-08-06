@@ -48,7 +48,7 @@
             <div class="ms-1"><h2 class="fonteMaisFamosas">Mais Famosas</h2></div>
             <div class="container col-9 p-2 m-2">
                 @foreach ($receitas as $receita)
-                    <div class="card mb-3 col-10" style="max-width: 800px; min-width: 200px">
+                    <div class="card mb-3 col-10" style="width: 43rem;">
                         <div class="row g-0">
                             <div class="col-md-5">
                                 <img src="{{$receita->foto->anexo}}" class="img-fluid rounded-start" alt="...">
