@@ -17,14 +17,13 @@ class CreateReceitasTable extends Migration
             $table->id();
             $table->string('titulo_receita')->nullable();
             $table->text('modo_preparo')->nullable();
-            $table->time('tempo_preparo')->nullable();
+            $table->string('tempo_preparo')->nullable();
             $table->integer('qtde_porcoes')->nullable();
             $table->integer('qtde_curtidas')->nullable();
             $table->integer('qtde_comentarios')->nullable();
             $table->integer('qtde_compartilhamentos')->nullable();
             $table->float('avaliacao')->nullable();
             $table->date('data_postagem');
-            $table->unsignedBigInteger('ingrediente_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('sabor_id');
             $table->unsignedBigInteger('categoria_id');
@@ -32,7 +31,6 @@ class CreateReceitasTable extends Migration
         });
 
         Schema::table('receitas', function (Blueprint $table) {
-            $table->foreign('ingrediente_id')->references('id')->on('ingredientes');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('sabor_id')->references('id')->on('sabors');
             $table->foreign('categoria_id')->references('id')->on('categorias');
@@ -48,7 +46,6 @@ class CreateReceitasTable extends Migration
     public function down()
     {
         Schema::table('receitas', function (Blueprint $table) {
-            $table->dropForeign('receitas_ingrediente_id_foreign');
             $table->dropForeign('receitas_user_id_foreign');
             $table->dropForeign('receitas_sabor_id_foreign');
             $table->dropForeign('receitas_categoria_id_foreign');

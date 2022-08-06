@@ -21,7 +21,7 @@ class receita extends Model
         'qtde_compartilhamentos',
         'avaliacao',
         'data_postagem',
-        'ingrediente_id',
+        'descricao',
         'user_id',
         'sabor_id',
         'categoria_id',
@@ -40,7 +40,7 @@ class receita extends Model
 
     public function ingrediente()
     {
-        return $this->belongsTo(ingrediente::class, 'ingrediente_id', 'id');
+        return $this->hasOne(receitaIngrediente::class, 'receita_id', 'id');
     }
 
     public function nacionalidade()

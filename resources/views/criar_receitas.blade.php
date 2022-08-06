@@ -10,10 +10,15 @@
                 <div class="container col-6">
                     <div class="card bg-transparent border-0 ">
                         <div class="card-body ">
-                            <div class="fonteMaisFamosas text-center"> 
-                                <h2>Titulo Da Receita</h2>                       
+                            <div class="text-center"> 
+                                <label class="form-label fonteMaisFamosas">
+                                    <h2>Titulo Da Receita</h2>     
+                                </label>
+                                <label class="form-label faltadados">
+                                    <h6>{{$errors->has('titulo') ? $errors->first('titulo') : ''}}</h6>
+                                </label>
                             </div>
-                            <input type="text" class="form-control fonteCriarReceitas" name="titulo" id="exampleFormControlInput1" placeholder="coloque aqui seu titulo">
+                            <input type="text" name="titulo" class="form-control fonteCriarReceitas" name="titulo" id="exampleFormControlInput1" placeholder="coloque aqui seu titulo">
                         </div>
                     </div>
                 </div>
@@ -35,26 +40,29 @@
                     </div>
                     <div class="container  d-flex justify-content-center">               
                         <div class="mx-auto col-6 me-1">
-                            <select class="form-select" aria-label="Default select example" style="height: 50px; ">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select class="form-select" aria-label="Default select example"  name="sabor" style="height: 50px; " placeholder="Sabor">
+                                @foreach ($sabores as $item)
+                                    <option value="{{$item->id}}">{{$item->sabor}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mx-auto col-6 ms-1">
-                            <select class="form-select" aria-label="Default select example" style="height: 50px">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select class="form-select" aria-label="Default select example" name="nacionalidade" style="height: 50px" placeholder="Nacionalidade">
+                                @foreach ($nacionalidades as $item)
+                                    <option value="{{$item->id}}">{{$item->nacionalidade}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="card bg-transparent mt-3 mb-5 border-0">                   
                         <div class="card-body height:114px ">
-                            <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">descrição</h3></label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="descrva brevemente a sua receita" name="descricao" style="resize: none; height:115.7px;"></textarea>
+                            <label for="exampleFormControlTextarea1"  class="form-label ">
+                                <h3 class="fonteMaisFamosas">Ingredientes</h3>
+                            </label>
+                            <label for="exampleFormControlTextarea1" class="form-label"> 
+                                <h6 class="fonteMaisFamosas">(Separe os ingredientes por virgula assim: Cebola, Tomate)</h6>
+                            </label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Separe os ingredientes por virgula assim: Cebola, Tomate" name="ingrediente" style="resize: none; height:115.7px;"></textarea>
                         </div>
                     </div>
                 </div>
@@ -62,32 +70,38 @@
                     <div class="card bg-transparent mb-5 border-0">                   
                         <div class="card-body height:114px ">
                             <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">descrição</h3></label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="descrva brevemente a sua receita"  style="resize: none; height:115.7px;"></textarea>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="descrva brevemente a sua receita" name="descricao" style="resize: none; height:115.7px;"></textarea>
                         </div>
                     </div>
                     <div class="container  d-flex justify-content-center">    
                         <div class="mx-auto col-6 me-1">
-                            <select class="form-select" aria-label="Default select example" style="height: 50px; ">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select class="form-select" aria-label="Default select example" name="categoria" style="height: 50px" placeholder="Categoria">
+                                @foreach ($categorias as $item)
+                                    <option value="{{$item->id}}">{{$item->categoria}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mx-auto col-6 ms-1">
-                            <select class="form-select" aria-label="Default select example" style="height: 50px; ">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select class="form-select" aria-label="Default select example" name="subcateria" style="height: 50px" placeholder="SubCategoria">
+                                @foreach ($subcategorias as $item)
+                                    <option value="{{$item->id}}">{{$item->sub_categoria}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="card bg-transparent mt-3 mb-5 border-0">                   
                         <div class="card-body height:114px ">
-                            <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">descrição</h3></label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Minha receita é um bolo de cocaina"  style="resize: none; height:115.7px;"></textarea>
+                            <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">Modo De Preparo</h3></label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Minha receita é um bolo de cocaina" name="preparo" style="resize: none; height:115.7px;"></textarea>
                         </div>
+                    </div>
+                    <div class="containercol-6">
+                        <h5 class="fonteMaisFamosas">Tempo De Preparo</h5>
+                        <input type="text" name="tempo">
+                    </div>
+                    <div class="container col-6">
+                        <h5 class="fonteMaisFamosas">Receita +18</h5>
+                        <input type="checkbox" name="mais_dezoito">
                     </div>
                 </div>
                 <div class="container text-center mb-5">
@@ -96,8 +110,4 @@
             </div>
         </form>
     </main>
-    @endsection
-@section('pos-script')
-    <script type="text/javascript">
-    </script>
 @endsection

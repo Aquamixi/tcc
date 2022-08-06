@@ -58,7 +58,6 @@
                                     <h5 class="card-title">{{$receita->sabor->sabor}}</h5>
                                     <p class="card-text">{{$receita->titulo_receita}}</p>
                                     <p class="card-text">{{$receita->categoria->sub_categoria->sub_categoria}}</p>
-                                    <p class="card-text"><small class="text-muted">{{$receita->ingrediente->ingrediente}}</small></p>
                                 </div>
                             </div>
                         </div>
@@ -66,18 +65,6 @@
                 @endforeach
             </div>                
 
-            <div class="container-fluid col-2 ms-md-auto p-2 m-2 bg-transparent">
-                <ul class="list-group div1">
-                    <li class="list-group-item">An item</li>
-                    <li class="list-group-item">A second item</li>
-                    <li class="list-group-item">A third item</li>
-                    <li class="list-group-item">A fourth item</li>
-                    <li class="list-group-item teste">And a fifth one</li>
-                </ul>
-            </div>
-            <div class="div1">
-
-            </div>
         </div>
     </main>
 

@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(paiSeeder::class);
         $this->call(enderecoSeeder::class);
         $this->call(userSeeder::class);
-        $this->call(ingredienteSeeder::class);
         $this->call(saborSeeder::class);
         $this->call(categoriaSeeder::class);
         $this->call(velocidadeSeeder::class);

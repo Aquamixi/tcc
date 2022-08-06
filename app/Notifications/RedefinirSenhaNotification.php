@@ -47,7 +47,7 @@ class RedefinirSenhaNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = 'http://localhost/password/reset/'.$this->token.'?email='.$this->email;
+        $url = url('password/reset/'.$this->token.'?email='.$this->email);
         return (new MailMessage)
             ->subject(Lang::get('Redefinir senha'))
             ->greeting('Olá ' . $this->name)

@@ -24,6 +24,7 @@ class receitaFactory extends Factory
         return [
             'titulo_receita' => $this->faker->text($maxNbChars = 15),
             'modo_preparo' => $this->faker->text($maxNbChars = 100),
+            'descricao' => $this->faker->text($maxNbChars = 100),
             'tempo_preparo' => $this->faker->time($format = 'H:i:s', $max = 'now'),
             'qtde_porcoes' => $this->faker->randomDigit,
             'qtde_curtidas' => $this->faker->randomDigit,
@@ -31,7 +32,6 @@ class receitaFactory extends Factory
             'qtde_compartilhamentos' => $this->faker->randomDigit,
             'avaliacao' => $this->faker->randomFloat($nbMaxDecimals = 1, $min = 0, $max = 5),
             'data_postagem' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
-            'ingrediente_id' => $this->faker->numberBetween(1, 50),
             'user_id' => $this->faker->numberBetween(1, 50),
             'sabor_id' => $this->faker->numberBetween(1, 6),
             'categoria_id' => $this->faker->numberBetween(1, 7),

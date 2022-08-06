@@ -16,12 +16,11 @@ class CreateReceitaIngredientesTable extends Migration
         Schema::create('receita_ingredientes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('receita_id');
-            $table->unsignedBigInteger('ingrediente_id');
+            $table->string('ingrediente');
         });
 
         Schema::table('receita_ingredientes', function (Blueprint $table) {
             $table->foreign('receita_id')->references('id')->on('receitas');
-            $table->foreign('ingrediente_id')->references('id')->on('ingredientes');
         });
     }
 
@@ -34,7 +33,6 @@ class CreateReceitaIngredientesTable extends Migration
     {
         Schema::table('receita_ingredientes', function (Blueprint $table) {
             $table->dropForeign('receita_ingredientes_receita_id_foreign');
-            $table->dropForeign('receita_ingredientes_ingrediente_id_foreign');
         });
 
         Schema::dropIfExists('receita_ingredientes');
