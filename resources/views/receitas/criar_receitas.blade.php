@@ -81,12 +81,13 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mx-auto col-6 ms-1">
-                            <select class="form-select" aria-label="Default select example" name="subcateria" style="height: 50px" placeholder="SubCategoria">
-                                @foreach ($subcategorias as $item)
-                                    <option value="{{$item->id}}">{{$item->sub_categoria}}</option>
-                                @endforeach
-                            </select>
+                        <div class="mx-auto col-3 ms-1">
+                            <label for="exampleFormControlInput1" class="form-label"><nobr>Tempo De Preparo</nobr></label>
+                            <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Tempo Em Minutos" style="height: 3.1rem ;">    
+                        </div>
+                        <div class="mx-auto col-3 ms-1">
+                            <label for="exampleFormControlInput1" class="form-label"><nobr>Quantidade de Porções</nobr></label>
+                            <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Quantidade Em Numeros" style="height: 3.1rem ;" >    
                         </div>
                     </div>
                     <div class="card bg-transparent mt-3 mb-5 border-0">                   
@@ -95,15 +96,17 @@
                             <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Minha receita é um bolo de cocaina" name="preparo" style="resize: none; height:115.7px;"></textarea>
                         </div>
                     </div>
-                    <div class="containercol-6">
-                        <h5 class="fonteMaisFamosas">Tempo De Preparo</h5>
-                        <input type="text" name="tempo">
-                    </div>
-                    <div class="container col-6">
-                        <h5 class="fonteMaisFamosas">Receita +18</h5>
-                        <input type="checkbox" name="mais_dezoito">
-                    </div>
                 </div>
+                <div class="text-center mx-auto col-2 mb-1 ">
+                    <div class="text-center mx-0 ">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
+                                <label class="form-check-label" for="firstCheckbox">Receita +18</label>
+                            </li>
+                        </ul>
+                    </div>  
+                </div>  
                 <div class="container text-center mb-5">
                     <input class="btn btn-primary col-2 border-0" type="submit" value="Enviar" style="height:50px; background-color: #ff8c00; color:white">
                 </div>
