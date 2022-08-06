@@ -123,6 +123,7 @@ class ReceitaController extends Controller
     public function editar_receita(Request $request)
     {
         $request->validate([
+            'id' => 'required',
             'titulo' => 'required',
             'preparo' => 'required',
             'tempo' => 'required',
@@ -134,7 +135,7 @@ class ReceitaController extends Controller
             'sabor' => 'required'
         ]);
 
-        $linha = new receita();
+        $linha = receita::findOrFail($request->id);
         $linha->titulo_receita = $request->titulo;
         $linha->modo_preparo = $request->preparo;
         $linha->tempo_preparo = $request->tempo;
@@ -162,9 +163,14 @@ class ReceitaController extends Controller
             $linha->velocidade_id = 3;
         }
 
-        $linha->save();
+        $linha->update();
 
         $id = $linha->id;
+
+        $last_ingredientes = receitaIngrediente::where('receita_id', $request->id)->get();
+        foreach($last_ingredientes as $i){
+            $i->delete();
+        }
 
         $ingredientes = explode(',', $request->ingrediente);
 
@@ -176,6 +182,9 @@ class ReceitaController extends Controller
         }
 
         if($request->imagem){
+            $last_imagem = fotoReceita::where('receita_id', $request->id)->first();
+            $last_imagem->delete();
+
             $linha_receita_foto = new fotoReceita();
 
             $request_imagem = $request->imagem;
@@ -189,10 +198,9 @@ class ReceitaController extends Controller
             $linha_receita_foto->receita_id = $id;
             $linha_receita_foto->anexo = $nome_imagem;
             $linha_receita_foto->save();
-
         }
 
-        return redirect()->route('home', ['confirm' => 'receita_cadastrada']);
+        return redirect()->route('home', ['confirm' => 'receita_editada']);
     }
 
     public function visualizar_receitas(Request $request)
