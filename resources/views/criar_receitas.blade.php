@@ -4,7 +4,7 @@
 
 @section('conteudo')
     <main role="main">
-        <form method="POST" action="{{ route('cadastrar_receita') }}">
+        <form method="POST" action="{{ route('cadastrar_receita') }}" enctype="multipart/form-data">
             @csrf
             <div class="container-fluid row mx-0">
                 <div class="container col-6">
