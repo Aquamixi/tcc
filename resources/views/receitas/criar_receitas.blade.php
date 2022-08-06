@@ -83,11 +83,11 @@
                         </div>
                         <div class="mx-auto col-3 ms-1">
                             <label for="exampleFormControlInput1" class="form-label"><nobr>Tempo De Preparo</nobr></label>
-                            <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Tempo Em Minutos" style="height: 3.1rem ;">    
+                            <input type="number" class="form-control" name="tempo" id="exampleFormControlInput1" placeholder="Tempo Em Minutos" style="height: 3.1rem ;">    
                         </div>
                         <div class="mx-auto col-3 ms-1">
                             <label for="exampleFormControlInput1" class="form-label"><nobr>Quantidade de Porções</nobr></label>
-                            <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Quantidade Em Numeros" style="height: 3.1rem ;" >    
+                            <input type="number" class="form-control" name="qtde_porcoes" id="exampleFormControlInput1" placeholder="Quantidade Em Numeros" style="height: 3.1rem ;" >    
                         </div>
                     </div>
                     <div class="card bg-transparent mt-3 mb-5 border-0">                   
@@ -101,7 +101,7 @@
                     <div class="text-center mx-0 ">
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
+                                <input class="form-check-input me-1" name="mais_dezoito" type="checkbox" value="" id="firstCheckbox">
                                 <label class="form-check-label" for="firstCheckbox">Receita +18</label>
                             </li>
                         </ul>
