@@ -54,3 +54,12 @@ html, body {
     flex-grow: 1;
 }
 
+.NoCanto{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 30%;
+    height: 30%;
+    float: right;
+}
+
