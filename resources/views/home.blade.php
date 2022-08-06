@@ -146,7 +146,7 @@
 
             setTimeout(() => {
                 $('#alerta_sucesso_cadastrar').remove()
-            }, 5100);
+            }, 5050);
 
         }
         else if(confirm == 'usuario_invalido'){
@@ -160,7 +160,7 @@
 
             setTimeout(() => {
                 $('#alerta_erro_permissao').remove()
-            }, 5100);
+            }, 5050);
 
         }
         else if(confirm == 'receita_editada'){
@@ -174,7 +174,7 @@
 
             setTimeout(() => {
                 $('#alerta_sucesso_editar').remove()
-            }, 5100);
+            }, 5050);
 
         }
 
