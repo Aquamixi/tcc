@@ -4,7 +4,7 @@
 
 @section('conteudo')
     <main role="main">
-        <form method="POST" action="{{ route('cadastrar_receita') }}">
+        <form method="POST" action="{{ route('cadastrar_receita') }}" enctype="multipart/form-data">
             @csrf
             <div class="container-fluid row mx-0">
                 <div class="container col-6">
@@ -83,9 +83,7 @@
                         </div>
                         <div class="mx-auto col-6 ms-1">
                             <select class="form-select" aria-label="Default select example" name="subcateria" style="height: 50px" placeholder="SubCategoria">
-                                @foreach ($subcategorias as $item)
-                                    <option value="{{$item->id}}">{{$item->sub_categoria}}</option>
-                                @endforeach
+                                
                             </select>
                         </div>
                     </div>
@@ -98,6 +96,10 @@
                     <div class="containercol-6">
                         <h5 class="fonteMaisFamosas">Tempo De Preparo</h5>
                         <input type="text" name="tempo">
+                    </div>
+                    <div class="containercol-6">
+                        <h5 class="fonteMaisFamosas">qtde_porcoes</h5>
+                        <input type="text" name="qtde_porcoes">
                     </div>
                     <div class="container col-6">
                         <h5 class="fonteMaisFamosas">Receita +18</h5>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\categoria;
+use App\Models\fotoReceita;
 use App\Models\nacionalidade;
 use App\Models\subCategoria;
 use App\Models\receita;
@@ -27,24 +28,26 @@ class ReceitaController extends Controller
 
     public function tela_receitas()
     {  
-        
         $nacionalidades = nacionalidade::orderBy('nacionalidade', 'asc')->get();
         $sabores = sabor::get();
         $categorias = categoria::get();
-        $subcategorias = subCategoria::get();
-        return view('criar_receitas', compact("sabores", "categorias", "nacionalidades", "subcategorias"));
-    }
-    
-    public function visualizar_receitas(Request $request)
-    {
-        $sabores = sabor::get();
-        $categorias = categoria::get();
 
-        return view('visualizar_receitas', compact("sabores", "categorias"));
+        return view('receitas.criar_receitas', compact("sabores", "categorias", "nacionalidades"));
     }
 
     public function cadastrar_receita(Request $request)
     {
+        $request->validate([
+            'titulo' => 'required',
+            'preparo' => 'required',
+            'tempo' => 'required',
+            'qtde_porcoes' => 'required',
+            'categoria' => 'required',
+            'descricao' => 'required',
+            'nacionalidade' => 'required',
+            'ingrediente' => 'required',
+            'sabor' => 'required'
+        ]);
 
         $linha = new receita();
         $linha->titulo_receita = $request->titulo;
@@ -86,6 +89,33 @@ class ReceitaController extends Controller
             $cria_ingrediente->receita_id = $id;
             $cria_ingrediente->save();
         }
+
+        if($request->imagem){
+            $linha_receita_foto = new fotoReceita();
+
+            $request_imagem = $request->imagem;
+
+            $ext = $request_imagem->extension();
+            
+            $nome_imagem = $request_imagem->getClientOriginalName() . uniqid() . '.' . $ext;
+
+            $request_imagem->move(public_path('foto_receitas'), $nome_imagem);
+
+            $linha_receita_foto->receita_id = $id;
+            $linha_receita_foto->anexo = $nome_imagem;
+            $linha_receita_foto->save();
+
+        }
+
+        return redirect()->route('home', ['confirm' => 'receita_cadastrada']);
     }
     
+
+    public function visualizar_receitas(Request $request)
+    {
+        $sabores = sabor::get();
+        $categorias = categoria::get();
+
+        return view('receitas.visualizar_receitas', compact("sabores", "categorias"));
+    }
 }
