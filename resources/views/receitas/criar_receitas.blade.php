@@ -48,7 +48,7 @@
                             </select>
                         </div>
                         <div class="mx-auto col-6 ms-1">
-                            <h5>Sabores</h5>
+                            <h5>Nacionalidade</h5>
                             <select class="form-select" aria-label="Default select example" name="nacionalidade" style="height: 50px" >
                                 @foreach ($nacionalidades as $item)
                                     <option value="{{$item->id}}">{{$item->nacionalidade}}</option>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="container  d-flex justify-content-center">    
                         <div class="mx-auto col-6 me-1">
-                            <h5>Sabores</h5>
+                            <h5>Categoria</h5>
                             <select class="form-select" aria-label="Default select example" name="categoria" style="height: 50px" placeholder="Categoria">
                                 @foreach ($categorias as $item)
                                     <option value="{{$item->id}}">{{$item->categoria}}</option>
