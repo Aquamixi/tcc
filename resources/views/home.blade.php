@@ -87,10 +87,36 @@
         </div>
     </div>
 
+    <div class="NoCanto" id="alerta_sucesso_cadastrar" hidden>
+        <div class="alert alert-success" role="alert">
+            Receita Cadastrada com Sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alerta_sucesso_editar" hidden>
+        <div class="alert alert-success" role="alert">
+            Receita Editada com Sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alerta_erro_permissao" hidden>
+        <div class="alert alert-danger" role="alert">
+            <p>
+                Ops!
+            </p>
+            <p>
+                Parece que Essa Receita Não é Sua.
+            </p>
+        </div>
+    </div>
+
 @endsection
 @section('pos-script')
     <script type="text/javascript">
         var first = {{$first_login}};
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const confirm = urlParams.get('confirm');
 
         if(first == 1){
             $(document).ready(function(){
@@ -108,6 +134,49 @@
                 } // data to submit
             });
         });
+
+        if(confirm == 'receita_cadastrada'){
+
+            $('#alerta_sucesso_editar').remove();
+            $('#alerta_erro_permissao').remove();
+
+            $('#alerta_sucesso_cadastrar').prop('hidden', false);
+
+            $('#alerta_sucesso_cadastrar').fadeOut(5000);
+
+            setTimeout(() => {
+                $('#alerta_sucesso_cadastrar').remove()
+            }, 5100);
+
+        }
+        else if(confirm == 'usuario_invalido'){
+
+            $('#alerta_sucesso_editar').remove();
+            $('#alerta_sucesso_cadastrar').remove();
+
+            $('#alerta_erro_permissao').prop('hidden', false);
+
+            $('#alerta_erro_permissao').fadeOut(5000);
+
+            setTimeout(() => {
+                $('#alerta_erro_permissao').remove()
+            }, 5100);
+
+        }
+        else if(confirm == 'receita_editada'){
+
+            $('#alerta_sucesso_cadastrar').remove();
+            $('#alerta_erro_permissao').remove();
+
+            $('#alerta_sucesso_editar').prop('hidden', false);
+
+            $('#alerta_sucesso_editar').fadeOut(5000);
+
+            setTimeout(() => {
+                $('#alerta_sucesso_editar').remove()
+            }, 5100);
+
+        }
 
     </script>
 @endsection
