@@ -41,6 +41,9 @@
                     <div class="container  d-flex justify-content-center">               
                         <div class="mx-auto col-6 me-1">
                             <h5>Sabores</h5>
+                            <label class="form-label faltadados">
+                                <h6>{{$errors->has('sabor') ? $errors->first('sabor') : ''}}</h6>
+                            </label>
                             <select class="form-select" aria-label="Default select example"  name="sabor" style="height: 50px;">
                                 @foreach ($sabores as $item)
                                     <option value="{{$item->id}}">{{$item->sabor}}</option>
@@ -49,6 +52,9 @@
                         </div>
                         <div class="mx-auto col-6 ms-1">
                             <h5>Nacionalidade</h5>
+                            <label class="form-label faltadados">
+                                <h6>{{$errors->has('nacionalidade') ? $errors->first('nacionalidade') : ''}}</h6>
+                            </label>
                             <select class="form-select" aria-label="Default select example" name="nacionalidade" style="height: 50px" >
                                 @foreach ($nacionalidades as $item)
                                     <option value="{{$item->id}}">{{$item->nacionalidade}}</option>
@@ -61,6 +67,9 @@
                             <label for="exampleFormControlTextarea1"  class="form-label ">
                                 <h3 class="fonteMaisFamosas">Ingredientes</h3>
                             </label>
+                            <label class="form-label faltadados">
+                                <h6>{{$errors->has('ingrediente') ? $errors->first('ingrediente') : ''}}</h6>
+                            </label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Separe os ingredientes por virgula assim: Cebola, Tomate" name="ingrediente" style="resize: none; height:115.7px;"></textarea>
                         </div>
                     </div>
@@ -69,12 +78,18 @@
                     <div class="card bg-transparent mb-5 border-0">                   
                         <div class="card-body height:114px ">
                             <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">descrição</h3></label>
+                            <label class="form-label faltadados">
+                                <h6>{{$errors->has('descricao') ? $errors->first('descricao') : ''}}</h6>
+                            </label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="descrva brevemente a sua receita" name="descricao" style="resize: none; height:115.7px;"></textarea>
                         </div>
                     </div>
                     <div class="container  d-flex justify-content-center">    
                         <div class="mx-auto col-6 me-1">
                             <h5>Categoria</h5>
+                            <label class="form-label faltadados">
+                                <h6>{{$errors->has('categoria') ? $errors->first('categoria') : ''}}</h6>
+                            </label>
                             <select class="form-select" aria-label="Default select example" name="categoria" style="height: 50px" placeholder="Categoria">
                                 @foreach ($categorias as $item)
                                     <option value="{{$item->id}}">{{$item->categoria}}</option>
@@ -83,16 +98,25 @@
                         </div>
                         <div class="mx-auto col-3 ms-1">
                             <label for="exampleFormControlInput1" class="form-label"><nobr>Tempo De Preparo</nobr></label>
+                            <label class="form-label faltadados">
+                                <h6>{{$errors->has('tempo') ? $errors->first('tempo') : ''}}</h6>
+                            </label>
                             <input type="number" class="form-control" name="tempo" id="exampleFormControlInput1" placeholder="Tempo Em Minutos" style="height: 3.1rem ;">    
                         </div>
                         <div class="mx-auto col-3 ms-1">
                             <label for="exampleFormControlInput1" class="form-label"><nobr>Quantidade de Porções</nobr></label>
+                            <label class="form-label faltadados">
+                                <h6>{{$errors->has('qtde_porcoes') ? $errors->first('qtde_porcoes') : ''}}</h6>
+                            </label>
                             <input type="number" class="form-control" name="qtde_porcoes" id="exampleFormControlInput1" placeholder="Quantidade Em Numeros" style="height: 3.1rem ;" >    
                         </div>
                     </div>
                     <div class="card bg-transparent mt-3 mb-5 border-0">                   
                         <div class="card-body height:114px ">
                             <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">Modo De Preparo</h3></label>
+                            <label class="form-label faltadados">
+                                <h6>{{$errors->has('preparo') ? $errors->first('preparo') : ''}}</h6>
+                            </label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Minha receita é um bolo de cocaina" name="preparo" style="resize: none; height:115.7px;"></textarea>
                         </div>
                     </div>

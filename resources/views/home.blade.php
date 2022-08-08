@@ -23,9 +23,9 @@
                             @else
                                 <div class="carousel-item">
                             @endif
-                                <img src="{{asset('foto_receitas/' . $item->foto->anexo)}}"  height="400px" width="300px" class="d-block w-100" >
+                                <img src="{{$item->foto ? $item->foto->anexo : asset('foto_receitas/baiacu_2.0.jpg')}}" height="400px" width="300px" class="d-block w-100" >
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5>{{$item->titulo_receita}}</h5>
+                                    <h5><a href="{{url('visualizar_receitas/')}}/{{$item->id}}">{{$item->titulo_receita}}</a></h5>
                                 </div>
                             </div>
                         @endforeach
@@ -54,9 +54,11 @@
                         </div>
                         <div class="col-md-7">
                             <div class="card-body">
-                                <h5 class="card-title">{{$receita->sabor->sabor}}</h5>
-                                <p class="card-text">{{$receita->titulo_receita}}</p>
-                                <p class="card-text">{{$receita->categoria->sub_categoria->sub_categoria}}</p>
+                                <a href="{{url('visualizar_receitas/')}}/{{$receita->id}}">
+                                    <h5 class="card-title">{{$receita->sabor->sabor}}</h5>
+                                    <p class="card-text">{{$receita->titulo_receita}}</p>
+                                    <p class="card-text">{{$receita->categoria->sub_categoria->sub_categoria}}</p>
+                                </a>
                             </div>
                         </div>
                     </div>
