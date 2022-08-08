@@ -32,12 +32,15 @@ class HomeController extends Controller
         $today = Carbon::today()->format('Y-m-d');
         $sabores = sabor::get();
         $categorias = categoria::get();
+
         // $today = '2022-04-21';
+
         $receita_hoje = receita::has('foto')
         ->where('data_postagem', $today)->orderBy('qtde_curtidas', 'desc')->take(5)->get();
+
         $first_login = Auth::user()->first_login;
 
-        $receitas = receita::select()->has('foto');
+        $receitas = receita::select();
         
         if($request->sabor){
             $receitas->whereHas('sabor', function($q) use ($request){

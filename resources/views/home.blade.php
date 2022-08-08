@@ -23,7 +23,7 @@
                             @else
                                 <div class="carousel-item">
                             @endif
-                                <img src="{{$item->foto->anexo}}"  height="400px" width="300px" class="d-block w-100" >
+                                <img src="{{asset('foto_receitas/' . $item->foto->anexo)}}"  height="400px" width="300px" class="d-block w-100" >
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>{{$item->titulo_receita}}</h5>
                                 </div>
@@ -43,28 +43,26 @@
                 </div>
             </div>
         </div>
-
-        <div class="container-fluid bg-transparent row">
-            <div class="ms-1"><h2 class="fonteMaisFamosas">Mais Famosas</h2></div>
-            <div class="container col-9 p-2 m-2">
+        
+        <div class="container-fluid card border-0 bg-transparent">
+            <div class="card-body justify-content-center col-12 mx-auto row">
                 @foreach ($receitas as $receita)
-                    <div class="card mb-3 col-10" style="max-width: 800px; min-width: 200px">
-                        <div class="row g-0">
-                            <div class="col-md-5">
-                                <img src="{{$receita->foto->anexo}}" class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-7">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{$receita->sabor->sabor}}</h5>
-                                    <p class="card-text">{{$receita->titulo_receita}}</p>
-                                    <p class="card-text">{{$receita->categoria->sub_categoria->sub_categoria}}</p>
-                                </div>
+                <div class="card m-2 col-5" >
+                    <div class="row g-0">
+                        <div class="col-md-5">
+                            <img src="{{$receita->foto ? $receita->foto->anexo : asset('foto_receitas/baiacu_2.0.jpg')}}" class="img-fluid rounded-start" style="height: 15rem;">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h5 class="card-title">{{$receita->sabor->sabor}}</h5>
+                                <p class="card-text">{{$receita->titulo_receita}}</p>
+                                <p class="card-text">{{$receita->categoria->sub_categoria->sub_categoria}}</p>
                             </div>
                         </div>
                     </div>
+                </div>
                 @endforeach
-            </div>                
-
+            </div>
         </div>
     </main>
 

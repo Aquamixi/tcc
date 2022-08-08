@@ -22,7 +22,6 @@ class fotoReceitaFactory extends Factory
     public function definition()
     {
         return [
-            'foto_receita' => 'nega maluca',
             'anexo' => 'https://www.anamariabrogui.com.br/assets/uploads/receitas/fotos/usuario-2945-00c22ee0fbcecb788bfa8b8cf4953efa.jpg',
             'receita_id' => $this->faker->numberBetween(1, 50),
         ];
