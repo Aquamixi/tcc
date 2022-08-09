@@ -2,39 +2,38 @@
 
 @section('titulo', 'MyRecipes')
 
-
 @section('conteudo')
-
     <main role="main">
         <div class="container">
             <div class="container p-3">
                 <div class="fonteMaisFamosas text-center"> 
-                    <h2>Titulo Da Receita</h2>                       
+                    <h2>{{$receita->titulo_receita}}</h2>                       
                 </div>
             </div>
             <div class="container row">
                 <div class="card col-12 " style=" ">
                     <div class="row m-1 mb-2">
                         <div>
-                            <h6> Nome do cara logo pra caralho tipo isso</h6>
+                            <h6>Criador: {{$receita->usuario->name}}</h6>
+                            <h6>Data Postagem: {{$receita->data_postagem}}</h6>
                         </div>
                         <div class="col-md-4">
-                            <img src="https://s2.glbimg.com/7o51Cl7EkgutScXm_VwFeJA8nD4=/e.glbimg.com/og/ed/f/original/2020/03/03/tubarao-duende.jpg" class="img-fluid rounded-start " style=" width: 400px; height: 230px;">
+                            <img src="{{$receita->foto ? $receita->foto->anexo : asset('foto_receitas/baiacu_2.0.jpg')}}" class="img-fluid rounded-start " style=" width: 400px; height: 230px;">
                         </div>
                         <div class="col-md-8 ms-0">
                             <div class="card-body">
                                 <div class="container mt-3 row">
-                                    <h5 class=" col-6">Velocidade</h5>
-                                    <h5 class=" col-6 text-end">Quantidade Porções</h5>
+                                    <h5 class=" col-6">Velocidade: {{$receita->velocidade->velocidade}}</h5>
+                                    <h5 class=" col-6 text-end">Quantidade Porções: {{$receita->qtde_porcoes}}</h5>
                                 </div>
                                 <div class="container mt-3">
-                                    <h5 class="col-6">Nacionalidade</h5>
+                                    <h5 class="col-6">Nacionalidade: {{$receita->nacionalidade->nacionalidade}}</h5>
                                 </div>
                                 <div class="container mt-3">
-                                    <h5 class="col-6">Sabor</h5>
+                                    <h5 class="col-6">Sabor: {{$receita->sabor->sabor}}</h5>
                                 </div>
                                 <div class="container mt-3">
-                                    <h5 class="col-6">Categoria</h5>
+                                    <h5 class="col-6">Categoria: {{$receita->categoria->categoria}}</h5>
                                 </div>
                                 <div class="container mt-3 row">
                                     <h5 class=" col-6">Estrelas</h5>
@@ -45,11 +44,11 @@
                     </div>
                 </div>
                 <div>
-                    <h5 class="fonteMaisFamosas mt-3"> Descrição</h5>
+                    <h5 class="fonteMaisFamosas mt-3">Descrição</h5>
                 </div>
                 <div class="card col-12  ">
                     <div class="card-body" style="height:170px;">
-                        This is some text within a card body.
+                        {{$receita->descricao}}
                     </div>
                 </div>
                 <div class="container  row mx-auto col-12">
@@ -59,7 +58,13 @@
                         </div>
                         <div class="card col-12  ">
                             <div class="card-body" style="height:170px;">
-                                This is some text within a card body.
+                                @foreach ($receita->ingrediente as $item)
+                                    @if ($loop->last)
+                                        {{$item->ingrediente}}
+                                    @else
+                                        {{$item->ingrediente}},
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -69,26 +74,14 @@
                         </div>
                         <div class="card col-12">
                             <div class="card-body" style="height:170px;">
-                                This is some text within a card body.
+                                {{$receita->modo_preparo}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>         
         </div>
-
-
-
-
-
-
-
-
-
-
-
     </main>
-
 @endsection
 
 @section('pos-script')

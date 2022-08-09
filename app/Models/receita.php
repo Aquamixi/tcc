@@ -28,6 +28,11 @@ class receita extends Model
         'velocidade_id'
     ];
 
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     public function sabor()
     {
         return $this->belongsTo(sabor::class, 'sabor_id', 'id');
