@@ -15,7 +15,7 @@
                     <div class="row m-1 mb-2">
                         <div>
                             <h6>Criador: {{$receita->usuario->name}}</h6>
-                            <h6>Data Postagem: {{$receita->data_postagem}}</h6>
+                            <h6>Data Postagem: {{Carbon\Carbon::parse($receita->data_postagem)->format('d-m-Y')}}</h6>
                         </div>
                         <div class="col-md-4">
                             <img src="{{$receita->foto ? $receita->foto->anexo : asset('foto_receitas/baiacu_2.0.jpg')}}" class="img-fluid rounded-start " style=" width: 400px; height: 230px;">
