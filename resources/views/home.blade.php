@@ -175,8 +175,6 @@
             setTimeout(() => {
                 $('#alerta_sucesso_editar').remove()
             }, 5050);
-
         }
-
     </script>
 @endsection
