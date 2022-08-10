@@ -17,3 +17,5 @@ Route::post('editar_receita/{id}', [App\Http\Controllers\ReceitaController::clas
 Route::get('visualizar_receitas/{id}', [App\Http\Controllers\ReceitaController::class, 'visualizar_receitas']);
 
 Route::post('definir_first_login', [App\Http\Controllers\UserController::class, 'definir_first_login']);
+
+Route::get('profile/{id}', [App\Http\Controllers\UserController::class, 'profile']);

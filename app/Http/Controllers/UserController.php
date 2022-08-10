@@ -24,4 +24,10 @@ class UserController extends Controller
         $user->first_login = $request->data;
         $user->update();
     }
+
+    public function profile(Request $request)
+    {
+        $usuario = User::findOrFail($request->id);
+        return view('usuario.profile', compact('usuario'));
+    }
 }

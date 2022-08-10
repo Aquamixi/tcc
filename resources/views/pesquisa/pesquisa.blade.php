@@ -25,7 +25,7 @@
                     @else
                         @foreach ($receitas as $receita)
                             <div class="card me-3 mb-3" style="width: 18rem;">
-                                <img class="pt-2" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdcxE6OZOeD3WJ8ZSLWkrYMjnyp7Vs2oPqKQ&usqp=CAU" class="card-img-top">
+                                <img class="pt-2" src="{{$receita->foto ? asset('foto_receitas' . '/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="card-img-top">
                                 <div class="card-body">
                                     <h5 class="card-title">
                                         {{$receita->titulo_receita}}
@@ -42,14 +42,14 @@
                     @if (count($usuarios) == 0)
                         <p>Sem resulatdos para a pesquisa</p>
                     @else
-                        @foreach ($usuarios as $receita)
+                        @foreach ($usuarios as $usuario)
                             <div class="card me-3 mb-3" style="width: 18rem;">
-                                <img class="pt-2" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdcxE6OZOeD3WJ8ZSLWkrYMjnyp7Vs2oPqKQ&usqp=CAU" class="card-img-top">
+                                <img class="pt-2" src="{{$usuario->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" class="card-img-top">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        {{$receita->titulo_receita}}
+                                        {{$usuario->name}}
                                     </h5>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <a href="{{url('profile')}}/{{$usuario->id}}" style="background-color: #ff8c00; color:white; border: 0px" class="btn btn-primary">Vá para a página do usuário</a>
                                 </div>
                             </div>
                         @endforeach

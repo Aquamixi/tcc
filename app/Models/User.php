@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         $this->notify(new RedefinirSenhaNotification($token, $this->email, $this->name));
     }
+
+    public function foto()
+    {
+        return $this->hasOne(fotoUser::class, 'user_id', 'id');
+    }
 }

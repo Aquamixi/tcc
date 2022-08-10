@@ -18,7 +18,7 @@
                             <h6>Data Postagem: {{Carbon\Carbon::parse($receita->data_postagem)->format('d-m-Y')}}</h6>
                         </div>
                         <div class="col-md-4">
-                            <img src="{{$receita->foto ? $receita->foto->anexo : asset('foto_receitas/baiacu_2.0.jpg')}}" class="img-fluid rounded-start " style=" width: 400px; height: 230px;">
+                            <img src="{{$receita->foto ? asset('foto_receitas' . '/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.jpg')}}" class="img-fluid rounded-start " style=" width: 400px; height: 230px;">
                         </div>
                         <div class="col-md-8 ms-0">
                             <div class="card-body">
