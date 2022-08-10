@@ -79,7 +79,18 @@ class receita extends Model
                 $q->where('sabor', 'LIKE', '%' . $val . '%');
             })
             ->orWhereHas('ingrediente', function($q) use ($val){
-                $q->where('ingrediente', 'LIKE', '%' . $val . '%');
+                if(str_contains($val, ',')){
+                    $ingredientes = explode(',', $val);
+                    $index = 0;
+                    foreach($ingredientes as $ingrediente){
+                        $sem_espaco[$index] = trim($ingrediente);
+                        $index++;
+                    }
+                    $q->whereIn('ingrediente', $sem_espaco);
+                }
+                else{
+                    $q->where('ingrediente', 'LIKE', '%' . $val . '%');
+                }
             })
             ->orWhereHas('velocidade', function($q) use ($val){
                 $q->where('velocidade', 'LIKE', '%' . $val . '%');
