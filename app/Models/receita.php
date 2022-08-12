@@ -86,7 +86,7 @@ class receita extends Model
                         $sem_espaco[$index] = trim($ingrediente);
                         $index++;
                     }
-                    $q->whereIn('ingrediente', $sem_espaco);
+                    $q->where('ingrediente', $sem_espaco);
                 }
                 else{
                     $q->where('ingrediente', 'LIKE', '%' . $val . '%');

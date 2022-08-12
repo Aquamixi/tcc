@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\categoria;
 use App\Models\fotoReceita;
 use App\Models\nacionalidade;
-use App\Models\subCategoria;
 use App\Models\receita;
 use App\Models\receitaIngrediente;
 use App\Models\sabor;
@@ -87,7 +86,7 @@ class ReceitaController extends Controller
 
         foreach($ingredientes as $ingrediente){
             $cria_ingrediente = new receitaIngrediente();
-            $cria_ingrediente->ingrediente = $ingrediente;
+            $cria_ingrediente->ingrediente = trim($ingrediente);
             $cria_ingrediente->receita_id = $id;
             $cria_ingrediente->save();
         }
@@ -123,7 +122,11 @@ class ReceitaController extends Controller
         $categorias = categoria::get();
         $linha = receita::findOrFail($request->id);
 
-        return view('receitas.editar_receitas', compact("sabores", "categorias", "nacionalidades", "linha"));
+        foreach($linha->ingrediente as $ingrediente){
+            $completo[] = $ingrediente->ingrediente;
+        }
+
+        return view('receitas.editar_receitas', compact("sabores", "categorias", "nacionalidades", "linha", 'completo'));
     }
 
     public function editar_receita(Request $request)
@@ -182,7 +185,7 @@ class ReceitaController extends Controller
 
         foreach($ingredientes as $ingrediente){
             $cria_ingrediente = new receitaIngrediente();
-            $cria_ingrediente->ingrediente = $ingrediente;
+            $cria_ingrediente->ingrediente = trim($ingrediente);
             $cria_ingrediente->receita_id = $id;
             $cria_ingrediente->save();
         }

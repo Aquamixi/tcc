@@ -6,6 +6,7 @@ use App\Models\categoria;
 use App\Models\receita;
 use App\Models\User;
 use App\Models\sabor;
+use App\Models\seguidor;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -56,12 +57,17 @@ class HomeController extends Controller
 
         if($request->search){
             $usuarios = User::where('name', 'LIKE', '%' . $request->search . '%')->get();
+            $seguidores = seguidor::select('seguidor_id')->where('usuario_id', Auth::user()->id)->get();
+            
+            foreach($seguidores as $seguidor){
+                $array_seguidores[] = $seguidor->seguidor_id;
+            }
 
             $receitas->pesquisa_avancada($val = $request->search);
 
             $receitas = $receitas->orderBy('qtde_curtidas', 'desc')->get();
 
-            return view('pesquisa.pesquisa', compact('usuarios', 'first_login', 'receitas', 'sabores', 'categorias'));
+            return view('pesquisa.pesquisa', compact('array_seguidores', 'usuarios', 'first_login', 'receitas', 'sabores', 'categorias'));
         }
         
         $receitas = $receitas->orderBy('qtde_curtidas', 'desc')->take(10)->get();

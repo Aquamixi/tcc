@@ -18,4 +18,6 @@ Route::get('visualizar_receitas/{id}', [App\Http\Controllers\ReceitaController::
 
 Route::post('definir_first_login', [App\Http\Controllers\UserController::class, 'definir_first_login']);
 
+Route::post('segue_ou_nao', [App\Http\Controllers\UserController::class, 'segue_ou_nao']);
+
 Route::get('profile/{id}', [App\Http\Controllers\UserController::class, 'profile']);

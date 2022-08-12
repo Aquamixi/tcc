@@ -39,13 +39,15 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Próximo</span>
                     </button>
-
                 </div>
             </div>
         </div>
         
         <div class="container-fluid card border-0 bg-transparent">
             <div class="card-body justify-content-center col-12 mx-auto row">
+                <label class="form-label fonteMaisFamosas text-center">
+                    <h2>Receitas {{isset($_GET['categoria']) ? 'Da Categoria: ' . $_GET['categoria'] : ''}} {{isset($_GET['sabor']) ? 'Sabora: ' . $_GET['sabor'] : ''}}</h2>     
+                </label>
                 @foreach ($receitas as $receita)
                     <div class="card m-2 col-5" >
                         <div class="row g-0">
@@ -105,7 +107,7 @@
                 Ops!
             </p>
             <p>
-                Parece que Essa Receita Não é Sua.
+                Não é Possível Acessar Esta Rota
             </p>
         </div>
     </div>
@@ -126,12 +128,12 @@
 
         $('.modal-footer').on('click', '#fechaAviso', function(){
             $.ajax({
-                type: 'POST',  // http method
-                url: "{{ url('definir_first_login') }}", // url de destino
+                type: 'POST', 
+                url: "{{ url('definir_first_login') }}", 
                 data: { 
                     data: '0',
                     "_token": "{{ csrf_token() }}",
-                } // data to submit
+                } 
             });
         });
 

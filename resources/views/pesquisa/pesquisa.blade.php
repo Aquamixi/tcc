@@ -43,13 +43,26 @@
                         <p>Sem resulatdos para a pesquisa</p>
                     @else
                         @foreach ($usuarios as $usuario)
-                            <div class="card me-3 mb-3" style="width: 18rem;">
+                            <div class="card me-3 mb-3 col-5" style="width: 20rem">
                                 <img class="pt-2" src="{{$usuario->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" class="card-img-top">
                                 <div class="card-body">
                                     <h5 class="card-title">
                                         {{$usuario->name}}
                                     </h5>
-                                    <a href="{{url('profile')}}/{{$usuario->id}}" style="background-color: #ff8c00; color:white; border: 0px" class="btn btn-primary">Vá para a página do usuário</a>
+                                    <div class="row">
+                                        <a href="{{url('profile')}}/{{$usuario->id}}" style="background-color: #ff8c00; color:white; border: 0px" class="btn btn-primary col-6">Acessar Página</a>
+                                        @unless ($usuario->id == Auth::user()->id)
+                                            @if(in_array($usuario->id, $array_seguidores))
+                                                <a data-usuario="{{$usuario->id}}" class="segue_ou_nao" title="Deixar de Seguir" data-status="deixar_de_seguir">
+                                                    <i class="fa-solid fa-user-check"></i>
+                                                </a>
+                                            @else
+                                                <a data-usuario="{{$usuario->id}}" class="segue_ou_nao" title="Seguir" data-status="seguir">
+                                                    <i class="fa-solid fa-user-plus"></i>
+                                                </a>
+                                            @endif
+                                        @endunless
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
@@ -58,4 +71,53 @@
             </div>
         </div>
     </main>
+
+    <div class="NoCanto" id="alerta_sucesso_seguir" hidden>
+        <div class="alert alert-success" role="alert">
+            Você começou a segui-lo(a)!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alerta_sucesso_deixar_seguir" hidden>
+        <div class="alert alert-success" role="alert">
+            Você deixou de segui-lo(a)!
+        </div>
+    </div>
+@endsection
+
+@section('pos-script')
+    <script type="text/javascript">
+        $(document).on('click', '.segue_ou_nao', function(){
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('segue_ou_nao') }}", 
+                data: { 
+                    id: $(this).data('usuario'),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    if($(this).data('status') == 'seguir'){
+                        $('#alerta_sucesso_seguir').prop('hidden', false);
+
+                        $('#alerta_sucesso_seguir').fadeOut(5000);
+
+                        setTimeout(() => {
+                            $('#alerta_sucesso_seguir').remove()
+                            window.location.reload(true);
+                        }, 5050);
+                    }
+                    else{
+                        $('#alerta_sucesso_deixar_seguir').prop('hidden', false);
+
+                        $('#alerta_sucesso_deixar_seguir').fadeOut(5000);
+
+                        setTimeout(() => {
+                            $('#alerta_sucesso_deixar_seguir').remove()
+                            window.location.reload(true);
+                        }, 5050);
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

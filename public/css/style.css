@@ -55,11 +55,12 @@ html, body {
 }
 
 .NoCanto{
-    position: absolute;
+    position: fixed;
     top: 0px;
     right: 0px;
     width: 30%;
     height: 30%;
     float: right;
+    z-index: 999;
 }
 
