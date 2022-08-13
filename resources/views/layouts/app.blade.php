@@ -28,7 +28,7 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         @foreach ($sabores as $item)
-                                            <li><a class="dropdown-item" href="/home?sabor={{$item->sabor}}">{{$item->sabor}}</a></li>
+                                            <li><a class="dropdown-item" href="{{'home'}}?sabor={{$item->sabor}}">{{$item->sabor}}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
@@ -39,7 +39,7 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         @foreach ($categorias as $item)
-                                            <li><a class="dropdown-item" href="/home?categoria={{$item->categoria}}">{{$item->categoria}}</a></li>
+                                            <li><a class="dropdown-item" href="{{'home'}}?categoria={{$item->categoria}}">{{$item->categoria}}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>

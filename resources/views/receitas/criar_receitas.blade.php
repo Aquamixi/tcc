@@ -97,17 +97,17 @@
                             </select>
                         </div>
                         <div class="mx-auto col-3 ms-1">
-                            <label for="exampleFormControlInput1" class="form-label col-12"><nobr><h5>Tempo De Preparo</h5></nobr></label>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('tempo') ? $errors->first('tempo') : ''}}</h6>
                             </label>
+                            <div class="d-inline-flex  bd-highlight" style="height: 3.1rem"></div>
                             <input type="number" class="form-control" name="tempo" id="exampleFormControlInput1" placeholder="Tempo Em Minutos" style="height: 3.1rem ;">    
                         </div>
                         <div class="mx-auto col-3 ms-1">
-                            <label for="exampleFormControlInput1" class="form-label col-12"><nobr><h5>Quantidade de Porções</h5></nobr></label>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('qtde_porcoes') ? $errors->first('qtde_porcoes') : ''}}</h6>
                             </label>
+                            <div class="d-inline-flex  bd-highlight" style="height: 3.1rem"></div>
                             <input type="number" class="form-control" name="qtde_porcoes" id="exampleFormControlInput1" placeholder="Quantidade Em Numeros" style="height: 3.1rem ;" >    
                         </div>
                     </div>
@@ -129,8 +129,8 @@
                                 <label class="form-check-label" for="firstCheckbox">Receita +18</label>
                             </li>
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" name="escondida" type="checkbox" value="" id="firstCheckbox">
-                                <label class="form-check-label" for="firstCheckbox">Escondida</label>
+                                <input class="form-check-input me-1" name="escondida" type="checkbox" value="" id="secondCheckbox">
+                                <label class="form-check-label" for="secondCheckbox">Escondida</label>
                             </li>
                         </ul>
                     </div>  
