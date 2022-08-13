@@ -118,7 +118,7 @@
 @endsection
 @section('pos-script')
     <script type="text/javascript">
-        var first = {{$first_login}};
+        var first = {{$first_login ?? 0}};
 
         const urlParams = new URLSearchParams(window.location.search);
         const confirm = urlParams.get('confirm');

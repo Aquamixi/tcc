@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'home']);
+Route::get('/', [App\Http\Controllers\VisitanteController::class, 'home']);
 Route::get('home', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
 
 Route::get('criar_receitas', [App\Http\Controllers\ReceitaController::class, 'tela_receitas'])->name('tela_receitas');

@@ -2,6 +2,8 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use App\Models\categoria;
+use App\Models\sabor;
 use App\Models\UserMac;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,7 +21,10 @@ trait AuthenticatesUsers
      */
     public function showLoginForm()
     {
-        return view('auth.login');
+        $sabores = sabor::get();
+        $categorias = categoria::get();
+
+        return view('auth.login', compact('sabores', 'categorias'));
     }
 
     /**

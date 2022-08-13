@@ -15,7 +15,7 @@
                     <a href="#" class="card-link">Another link</a>
                 </div>
             </div>
-            <div class="card col-9 m-3 me-0 mx-auto" style="width: 40rem; height:20rem;">
+            <div class="card col-9 m-3 me-0 " style="width: 40rem; height:20rem;">
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
