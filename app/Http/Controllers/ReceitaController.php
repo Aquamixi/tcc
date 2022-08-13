@@ -65,6 +65,12 @@ class ReceitaController extends Controller
         else{
             $linha->mais_dezoito = 0;
         }
+        if($request->escondida){
+            $linha->escondida = 1;
+        }
+        else{
+            $linha->escondida = 0;
+        }
         $linha->nacionalidade_id = $request->nacionalidade;
         $linha->sabor_id = $request->sabor;
 
@@ -158,6 +164,12 @@ class ReceitaController extends Controller
         }
         else{
             $linha->mais_dezoito = 0;
+        }
+        if($request->escondida){
+            $linha->escondida = 1;
+        }
+        else{
+            $linha->escondida = 0;
         }
         $linha->nacionalidade_id = $request->nacionalidade;
         $linha->sabor_id = $request->sabor;

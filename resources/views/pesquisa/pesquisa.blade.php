@@ -1,9 +1,6 @@
 @extends('layouts.app')
-
 @section('titulo', 'MyRecipes')
-
 @section('conteudo')
-
     <main role="main">
         <ul class="nav nav-tabs " id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -88,6 +85,7 @@
 @section('pos-script')
     <script type="text/javascript">
         $(document).on('click', '.segue_ou_nao', function(){
+            var status = $(this).data('status');
             $.ajax({
                 type: 'POST', 
                 url: "{{ url('segue_ou_nao') }}", 
@@ -96,7 +94,7 @@
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(){
-                    if($(this).data('status') == 'seguir'){
+                    if(status === 'seguir'){
                         $('#alerta_sucesso_seguir').prop('hidden', false);
 
                         $('#alerta_sucesso_seguir').fadeOut(5000);

@@ -136,6 +136,15 @@
                                 @endif
                                 <label class="form-check-label" for="firstCheckbox">Receita +18</label>
                             </li>
+                            <li class="list-group-item">
+                                @if ($linha->escondida)
+                                    <input class="form-check-input me-1" name="escondida" type="checkbox" value="" id="firstCheckbox" checked>
+                                @else
+                                    <input class="form-check-input me-1" name="escondida" type="checkbox" value="" id="firstCheckbox">
+                                @endif
+                                <input class="form-check-input me-1" name="escondida" type="checkbox" value="" id="firstCheckbox">
+                                <label class="form-check-label" for="firstCheckbox">Escondida</label>
+                            </li>
                         </ul>
                     </div>  
                 </div>  
