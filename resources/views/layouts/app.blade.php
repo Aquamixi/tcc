@@ -27,7 +27,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     @foreach ($sabores as $item)
-                                        <li><a class="dropdown-item" href="{{'/'}}?sabor={{$item->sabor}}">{{$item->sabor}}</a></li>
+                                        <li><a class="dropdown-item" href="{{url('/')}}?sabor={{$item->sabor}}">{{$item->sabor}}</a></li>
                                     @endforeach
                                 </ul>
                             </li>
@@ -38,7 +38,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     @foreach ($categorias as $item)
-                                        <li><a class="dropdown-item" href="{{'/'}}?categoria={{$item->categoria}}">{{$item->categoria}}</a></li>
+                                        <li><a class="dropdown-item" href="{{url('/')}}?categoria={{$item->categoria}}">{{$item->categoria}}</a></li>
                                     @endforeach
                                 </ul>
                             </li>
@@ -49,7 +49,7 @@
                         <i class="fa-solid fa-receipt"></i>
                     </a>
 
-                    {!! Form::open(['url' => '/home?search', 'method' => 'GET', 'class' => 'me-5 mt-0 end-3']) !!}
+                    {!! Form::open(['url' => url('home') . "?search", 'method' => 'GET', 'class' => 'me-5 mt-0 end-3 col-3']) !!}
                         {!! Form::text('search', null, ['class' => 'form-control 01', 'aria-label' => 'Pesquisa', 'placeholder' => 'Pesquisar']) !!}
                     {!! Form::close() !!}
 
@@ -83,6 +83,7 @@
         </header>
 
         @yield('conteudo')
+        
         <div style="flex-grow:1"></div>
         <footer class="py-3 my-3 wrapper">
             <div class="container-fluid row">
