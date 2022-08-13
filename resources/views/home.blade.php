@@ -25,7 +25,7 @@
                             @endif
                                 <img src="{{$item->foto ? asset('foto_receitas' . '/' . $item->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" height="400px" width="300px" class="d-block w-100" >
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5><a href="{{url('visualizar_receitas/')}}/{{$item->id}}">{{$item->titulo_receita}}</a></h5>
+                                    <h5><a href="{{url('visualizar_receitas/')}}/{{$item->id}}" style="text-decoration: none; color: black">{{$item->titulo_receita}}</a></h5>
                                 </div>
                             </div>
                         @endforeach
@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="card-body">
-                                    <a href="{{url('visualizar_receitas/')}}/{{$receita->id}}">
+                                    <a href="{{url('visualizar_receitas/')}}/{{$receita->id}}" style="text-decoration: none; color: black">
                                         <h5 class="card-title">{{$receita->sabor->sabor}}</h5>
                                         <p class="card-text">{{$receita->titulo_receita}}</p>
                                         <p class="card-text">{{$receita->categoria->sub_categoria->sub_categoria}}</p>
