@@ -50,8 +50,8 @@
                             <i class="fa-solid fa-receipt"></i>
                         </a>
 
-                        {!! Form::open(['url' => '/home?search', 'method' => 'GET', 'class' => 'me-5 mt-0 end-3']) !!}
-                            {!! Form::text('search', null, ['class' => 'form-control 01', 'aria-label' => 'Pesquisa', 'placeholder' => 'Pesquisar']) !!}
+                        {!! Form::open(['url' => '/home?search', 'method' => 'GET', 'class' => 'me-5 mt-0 end-3 col-3']) !!}
+                            {!! Form::text('search', null, ['class' => 'form-control 01 ', 'aria-label' => 'Pesquisa', 'placeholder' => 'Pesquisar']) !!}
                         {!! Form::close() !!}
 
                         <div class="dropdown end-1 text-end">

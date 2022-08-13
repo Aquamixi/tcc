@@ -101,18 +101,18 @@
                             </select>
                         </div>
                         <div class="mx-auto col-3 ms-1">
-                            <label for="exampleFormControlInput1" class="form-label"><nobr>Tempo De Preparo</nobr></label>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('tempo') ? $errors->first('tempo') : ''}}</h6>
                             </label>
-                            <input type="number" value="{{$linha->tempo_preparo}}" class="form-control" name="tempo" id="exampleFormControlInput1" placeholder="Tempo Em Minutos" style="height: 3.1rem ;">    
+                            <div class="d-inline-flex  bd-highlight" style="height: 3.1rem"></div>
+                            <input type="number" class="form-control" name="tempo" value="{{$linha->tempo_preparo}}" id="exampleFormControlInput1" placeholder="Tempo Em Minutos" style="height: 3.1rem ;">    
                         </div>
                         <div class="mx-auto col-3 ms-1">
-                            <label for="exampleFormControlInput1" class="form-label"><nobr>Quantidade de Porções</nobr></label>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('qtde_porcoes') ? $errors->first('qtde_porcoes') : ''}}</h6>
                             </label>
-                            <input type="number" value="{{$linha->qtde_porcoes}}" class="form-control" name="qtde_porcoes" id="exampleFormControlInput1" placeholder="Quantidade Em Numeros" style="height: 3.1rem ;" >    
+                            <div class="d-inline-flex  bd-highlight" style="height: 3.1rem"></div>
+                            <input type="number" class="form-control" name="qtde_porcoes" value="{{$linha->qtde_porcoes}}" id="exampleFormControlInput1" placeholder="Quantidade Em Numeros" style="height: 3.1rem ;" >    
                         </div>
                     </div>
                     <div class="card bg-transparent mt-3 mb-5 border-0">                   
@@ -143,7 +143,7 @@
                                 @else
                                     <input class="form-check-input me-1" name="escondida" type="checkbox" value="" id="secondCheckbox">
                                 @endif
-                                <input class="form-check-input me-1" name="escondida" type="checkbox" value="" id="secondCheckbox">
+
                                 <label class="form-check-label" for="secondCheckbox">Escondida</label>
                             </li>
                         </ul>

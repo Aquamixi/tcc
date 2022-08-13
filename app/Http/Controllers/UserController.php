@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\categoria;
+use App\Models\sabor;
 use App\Models\seguidor;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -43,7 +45,10 @@ class UserController extends Controller
 
     public function profile(Request $request)
     {
+        $sabores = sabor::get();
+        $categorias = categoria::get();
+        
         $usuario = User::findOrFail($request->id);
-        return view('usuario.profile', compact('usuario'));
+        return view('usuario.profile', compact('usuario', 'sabores', 'categorias'));
     }
 }
