@@ -56,7 +56,7 @@
                     @auth
                         <div class="dropdown end-1 text-end">
                             <a href="#" class="d-block link-dark text-decoration-none " id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img class="rounded-circle card-img-top" src="{{auth()->user()->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" width="32" height="32">
+                                <img class="rounded-circle card-img-top" src="{{auth()->user()->foto ? asset('foto_usuario' . '/' . auth()->user()->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" width="32" height="32">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownUser1">
                                 <li><a class="dropdown-item" href="{{url('profile')}}/{{Auth::user()->id}}">Seu Perfil</a></li>
