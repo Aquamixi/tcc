@@ -59,6 +59,7 @@ class HomeController extends Controller
             $usuarios = User::where('name', 'LIKE', '%' . $request->search . '%')->get();
             $seguidores = seguidor::select('seguidor_id')->where('usuario_id', Auth::user()->id)->get();
             
+            $array_seguidores = [];
             foreach($seguidores as $seguidor){
                 $array_seguidores[] = $seguidor->seguidor_id;
             }
@@ -70,7 +71,7 @@ class HomeController extends Controller
             return view('pesquisa.pesquisa', compact('array_seguidores', 'usuarios', 'first_login', 'receitas', 'sabores', 'categorias'));
         }
         
-        $receitas = $receitas->orderBy('qtde_curtidas', 'desc')->take(10)->get();
+        $receitas = $receitas->orderBy('qtde_curtidas', 'desc')->simplePaginate(10);
 
         return view('home', compact('receitas', 'first_login', 'receita_hoje', 'sabores', 'categorias'));
     }
