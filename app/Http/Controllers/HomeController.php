@@ -59,6 +59,7 @@ class HomeController extends Controller
             $usuarios = User::where('name', 'LIKE', '%' . $request->search . '%')->get();
             $seguidores = seguidor::select('seguidor_id')->where('usuario_id', Auth::user()->id)->get();
             
+            $array_seguidores = [];
             foreach($seguidores as $seguidor){
                 $array_seguidores[] = $seguidor->seguidor_id;
             }

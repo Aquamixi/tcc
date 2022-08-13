@@ -90,21 +90,21 @@
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('categoria') ? $errors->first('categoria') : ''}}</h6>
                             </label>
-                            <select class="form-select" aria-label="Default select example" name="categoria" style="height: 50px" placeholder="Categoria">
+                            <select class="form-select" aria-label="Default select example" name="categoria" style="height: 3.1rem" placeholder="Categoria">
                                 @foreach ($categorias as $item)
                                     <option value="{{$item->id}}">{{$item->categoria}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mx-auto col-3 ms-1">
-                            <label for="exampleFormControlInput1" class="form-label"><nobr>Tempo De Preparo</nobr></label>
+                            <label for="exampleFormControlInput1" class="form-label col-12"><nobr><h5>Tempo De Preparo</h5></nobr></label>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('tempo') ? $errors->first('tempo') : ''}}</h6>
                             </label>
                             <input type="number" class="form-control" name="tempo" id="exampleFormControlInput1" placeholder="Tempo Em Minutos" style="height: 3.1rem ;">    
                         </div>
                         <div class="mx-auto col-3 ms-1">
-                            <label for="exampleFormControlInput1" class="form-label"><nobr>Quantidade de Porções</nobr></label>
+                            <label for="exampleFormControlInput1" class="form-label col-12"><nobr><h5>Quantidade de Porções</h5></nobr></label>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('qtde_porcoes') ? $errors->first('qtde_porcoes') : ''}}</h6>
                             </label>
