@@ -5,30 +5,44 @@
 
 
 <main role="main">
-    <div class="container-fluid row">
-            <div class="card col-2 m-3" style="width: 30rem; height: 50rem">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+    <div class="container  row">
+        <div class="container col-3">
+                <div class="card mt-2 "  >
+                    <div class="card-body mx-auto">
+                        <div class="btn-group-vertical ">
+                            <button type="button" class="btn btn-outline-warning mt-3" >Perfil</button>
+                            <button type="button" class="btn btn-outline-warning mt-3" >Receitas</button>
+                            <button type="button" class="btn btn-outline-warning mt-3" >Receitas Curtidas</button>
+                            <button type="button" class="btn btn-outline-warning mt-3" >Receitas Favoritas</button>
+                            <button type="button" class="btn btn-outline-warning mt-3 mb-3" >Detalhes Conta</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="container m-3 col-8">
+            <div class="card mb-3" style="width: 60rem;">
+                <div class="row g-0 m-4">
+                    <div class="col-md-4 ">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSU6xHSdzHFBr_BfjyYBYkcCf4_o_KnP5QiQ&usqp=CAU" class="img-fluid rounded-start" height="500px">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <div class="container mt-3 row">
+                                <h5 class=" col-6 ">nome</h5>
+                                <h5 class=" col-6 text-end">idade</h5>
+                            </div>
+                            <div class="container mt-3 row">
+                                <h5 class="col-6">email</h5>
+                            </div>
+                            <div class="container mt-3 row">
+                                <h5 class="col-6">Entrou Em</h5>
+                                <h5 class=" col-6 text-end">idade</h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card col-9 m-3 me-0 " style="width: 40rem; height:20rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>           
         </div>
     </div>
-    
-        
-
-
 </main>
 @endsection
