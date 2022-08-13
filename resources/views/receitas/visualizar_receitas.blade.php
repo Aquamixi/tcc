@@ -36,8 +36,17 @@
                                     <h5 class="col-6">Categoria: {{$receita->categoria->categoria}}</h5>
                                 </div>
                                 <div class="container mt-3 row">
-                                    <h5 class=" col-6">Estrelas</h5>
-                                    <h5 class=" col-6 text-end">Compartilhar</h5>
+                                    <div class=" col-6">
+                                        <h5>Aprovação</h5>
+                                        @for ($i = 0; $i < 5; $i++)
+                                            @if (round($receita->avaliacao) <= $i)
+                                                <span class="fa fa-star"></span>
+                                            @else
+                                                <span class="fa fa-star checked"></span>
+                                            @endif
+                                        @endfor
+                                    </div>
+                                    <h5 class=" col-6 text-end ">Compartilhar</h5>
                                 </div>
                             </div>
                         </div>

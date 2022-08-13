@@ -64,3 +64,6 @@ html, body {
     z-index: 999;
 }
 
+.checked{
+    color: #ffc400;
+}
