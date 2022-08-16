@@ -4,73 +4,86 @@
 
 @section('conteudo')
     <main role="main" class="fundobom">
-        <div class="container-fluid pt-3">
-            <div class="container">
-                <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        @foreach ($receita_hoje as $item)
-                            @if ($loop->first)
-                                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>        
-                            @else
-                                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{$loop->index}}" aria-current="true" aria-label="Slide {{$loop->iteration }}"></button>   
-                            @endif                  
-                        @endforeach
-                    </div>
-                    <div class="carousel-inner">
-                        @foreach ($receita_hoje as $item)
-                            @if ($loop->first)
-                                <div class="carousel-item active">
-                            @else
-                                <div class="carousel-item">
-                            @endif
-                                <img src="{{$item->foto ? asset('foto_receitas' . '/' . $item->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" height="400px" width="300px" class="d-block w-100" >
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5><a href="{{url('visualizar_receitas/')}}/{{$item->id}}" style="text-decoration: none; color: black">{{$item->titulo_receita}}</a></h5>
-                                </div>
+        @if(empty($verificar))
+            <div class="container pt-5 ">
+                <h1 class="fonteMaisFamosas text-center">
+                    Ainda não possuímos receitas cadastradas!
+                </h1>
+                <h3 class="fonteMaisFamosas text-center">
+                    <p>Inscreva-se e cadastre uma!</p>
+                </h3>
+            </div>
+        @else
+            <div class="container-fluid pt-3">
+                <div class="container">
+                    @if (count($receita_hoje) > 0)
+                        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                @foreach ($receita_hoje as $item)
+                                    @if ($loop->first)
+                                        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>        
+                                    @else
+                                        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{$loop->index}}" aria-current="true" aria-label="Slide {{$loop->iteration }}"></button>   
+                                    @endif                  
+                                @endforeach
                             </div>
-                        @endforeach
-                    </div>
-                    
-                    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Anterior</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Próximo</span>
-                    </button>
+                            <div class="carousel-inner">
+                                @foreach ($receita_hoje as $item)
+                                    @if ($loop->first)
+                                        <div class="carousel-item active">
+                                    @else
+                                        <div class="carousel-item">
+                                    @endif
+                                        <img src="{{$item->foto ? asset('foto_receitas' . '/' . $item->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" height="400px" width="300px" class="d-block w-100" >
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <h5><a href="{{url('visualizar_receitas/')}}/{{$item->id}}" style="text-decoration: none; color: black">{{$item->titulo_receita}}</a></h5>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            
+                            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Anterior</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Próximo</span>
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </div>
-        </div>
-        
-        <div class="container-fluid card border-0 bg-transparent">
-            <div class="card-body justify-content-center col-12 mx-auto row">
-                <label class="form-label fonteMaisFamosas text-center">
-                    <h2>Receitas {{isset($_GET['categoria']) ? 'Da Categoria: ' . $_GET['categoria'] : ''}} {{isset($_GET['sabor']) ? 'Sabor: ' . $_GET['sabor'] : ''}}</h2>     
-                </label>
-                @foreach ($receitas as $receita)
-                    <div class="card m-2 col-5" >
-                        <div class="row g-0">
-                            <div class="col-md-5">
-                                <img src="{{$receita->foto ? asset('foto_receitas/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem;">
-                            </div>
-                            <div class="col-md-7">
-                                <div class="card-body">
-                                    <a href="{{url('visualizar_receitas/')}}/{{$receita->id}}" style="text-decoration: none; color: black">
-                                        <h5 class="card-title">{{$receita->sabor->sabor}}</h5>
-                                        <p class="card-text">{{$receita->titulo_receita}}</p>
-                                        <p class="card-text">{{$receita->categoria->sub_categoria->sub_categoria}}</p>
-                                    </a>
+            
+            <div class="container-fluid card border-0 bg-transparent">
+                <div class="card-body justify-content-center col-12 mx-auto row">
+                    <label class="form-label fonteMaisFamosas text-center">
+                        <h2>Receitas {{isset($_GET['categoria']) ? 'Da Categoria: ' . $_GET['categoria'] : ''}} {{isset($_GET['sabor']) ? 'Sabor: ' . $_GET['sabor'] : ''}}</h2>     
+                    </label>
+                    @foreach ($receitas as $receita)
+                        <div class="card m-2 col-5" >
+                            <div class="row g-0">
+                                <div class="col-md-5">
+                                    <img src="{{$receita->foto ? asset('foto_receitas/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem;">
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body">
+                                        <a href="{{url('visualizar_receitas/')}}/{{$receita->id}}" style="text-decoration: none; color: black">
+                                            <h5 class="card-title">{{$receita->sabor->sabor}}</h5>
+                                            <p class="card-text">{{$receita->titulo_receita}}</p>
+                                            <p class="card-text">{{$receita->categoria->sub_categoria->sub_categoria}}</p>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    @endforeach
+                    <div class="text-center">
+                        {!! $receitas->links() !!}
                     </div>
-                @endforeach
-                <div class="text-center">
-                    {!! $receitas->links() !!}
                 </div>
             </div>
-        </div>
+        @endif
     </main>
 
     <div class="modal fade" id="avisoModal" role="dialog">
