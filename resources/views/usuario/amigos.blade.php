@@ -20,7 +20,7 @@
                     @if (count($seguindo) == 0)
                         <p>Este Usuário Ainda Não Segue Ninguém</p>
                     @else
-                        <table class="table table-sm">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     Seguindo
@@ -33,10 +33,11 @@
                                             <img class="rounded-circle" src="{{$segue->seguidor->foto ? asset('foto_usuario' . '/' . $segue->seguidor->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" width="32" height="32">
                                         </td>
                                         <td>
-                                            {{$segue->seguidor->name}}
+                                            <a href="{{url('profile')}}/{{$segue->seguidor_id}}" style="text-decoration: none; color: black">
+                                                {{$segue->seguidor->name}}
+                                            </a>
                                         </td>
                                         <td>
-                                            <a href="{{url('profile')}}/{{$segue->seguidor_id}}" style="background-color: #ff8c00; color:white; border: 0px" class="btn btn-primary col-6">Acessar Página</a>
                                         </td>
                                         <td>
                                             @if(in_array($segue->seguidor_id, $array_seguindo))
@@ -61,7 +62,7 @@
                     @if (count($seguidores) == 0)
                         <p>Sem seguidores</p>
                     @else
-                        <table class="table table-sm">
+                        <table class="table">
                             <thead>
                                 <tr>Seguidores</tr>
                             </thead>
@@ -72,10 +73,12 @@
                                             <img class="rounded-circle" src="{{$segue->usuario->foto ? asset('foto_usuario' . '/' . $segue->usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" width="32" height="32">
                                         </td>
                                         <td>
-                                            {{$segue->usuario->name}}
+                                            <a href="{{url('profile')}}/{{$segue->usuario_id}}" style="text-decoration: none; color: black">
+                                                {{$segue->usuario->name}}
+                                            </a>
                                         </td>
                                         <td>
-                                            <a href="{{url('profile')}}/{{$segue->usuario_id}}" style="background-color: #ff8c00; color:white; border: 0px" class="btn btn-primary col-6">Acessar Página</a>
+                                            
                                         </td>
                                         <td>
                                             @if(in_array($segue->usuario_id, $array_seguindo))
