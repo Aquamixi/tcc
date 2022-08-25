@@ -21,3 +21,4 @@ Route::post('definir_first_login', [App\Http\Controllers\UserController::class, 
 Route::post('segue_ou_nao', [App\Http\Controllers\UserController::class, 'segue_ou_nao']);
 
 Route::get('profile/{id}', [App\Http\Controllers\UserController::class, 'profile']);
+Route::get('amigos/{id}', [App\Http\Controllers\UserController::class, 'amigos']);

@@ -17,4 +17,13 @@ class seguidor extends Model
         'status'
     ];
 
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'usuario_id', 'id');
+    }
+
+    public function seguidor()
+    {
+        return $this->belongsTo(User::class, 'seguidor_id', 'id');
+    }
 }

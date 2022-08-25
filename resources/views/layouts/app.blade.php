@@ -60,7 +60,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownUser1">
                                 <li><a class="dropdown-item" href="{{url('profile')}}/{{Auth::user()->id}}">Seu Perfil</a></li>
-                                <li><a class="dropdown-item" href="#">Amigos</a></li>
+                                <li><a class="dropdown-item" href="{{url('amigos')}}/{{Auth::user()->id}}">Amigos</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
