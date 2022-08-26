@@ -12,7 +12,6 @@ class fotoReceita extends Model
     public $timestamps = false;
     protected $primaryKey = 'id';
     protected $fillable = [
-        'foto_receita',
         'anexo',
         'receita_id'
     ];
