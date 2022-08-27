@@ -43,4 +43,24 @@ class User extends Authenticatable
         return $this->hasMany(seguidor::class, 'usuario_id', 'id');
     }
 
+    public function favoritas()
+    {
+        return $this->hasMany(favorito::class, 'user_id', 'id');
+    }
+    
+    public function curtidas()
+    {
+        return $this->hasMany(curtida::class, 'user_id', 'id');
+    }
+    
+    public function receitas()
+    {
+        return $this->hasMany(receita::class, 'user_id', 'id');
+    }
+
+    public function endereco()
+    {
+        return $this->belongsTo(endereco::class, 'endereco_id', 'id');
+    }
+
 }

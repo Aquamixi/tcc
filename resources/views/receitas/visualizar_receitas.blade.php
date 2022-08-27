@@ -13,9 +13,8 @@
             <div class="container row">
                 <div class="card col-12 " style=" ">
                     <div class="row m-1 mb-2">
-                        <div>
-                            <h6>Criador: {{$receita->usuario->name}}</h6>
-                            <h6>Data Postagem: {{Carbon\Carbon::parse($receita->data_postagem)->format('d-m-Y')}}</h6>
+                        <div class="text-center">
+                            <h4>Criador: {{$receita->usuario->name}}</h4>
                         </div>
                         <div class="col-md-4">
                             <img src="{{$receita->foto ? asset('foto_receitas/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start " style=" width: 400px; height: 230px;">
@@ -51,7 +50,8 @@
                             <div class="text-end">
                                 <a title="Curtir" class="botaocurtir" type="radio"><i class="fa-solid fa-thumbs-up"></i></a>
                                 <a title="Favoritar" class="botaofavoritar" type="radio"><i class="fa-solid fa-heart"></i></a>
-                                <a title="Compartilhar" class="botaoshare" type="radio"><i class="fa-solid fa-share"></i></a>
+                                <a title="Compartilhar" class="botaoshare" type="radio" id="share"><i class="fa-solid fa-share"></i></a>
+                                <h6>Data Postagem: {{Carbon\Carbon::parse($receita->data_postagem)->format('d-m-Y')}}</h6>
                             </div>
                         </div>
                     </div>
@@ -95,9 +95,25 @@
             </div>         
         </div>
     </main>
+    <div class="NoCanto" id="alertaSucessoCopia" hidden>
+        <div class="alert alert-success" role="alert">
+            Link copiado com sucesso!
+        </div>
+    </div>
 @endsection
 
 @section('pos-script')
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+    <script type="text/javascript">
+        let urlAtual = window.location.href;
+        $(document).on('click', '#share', function(){
+            $('#alertaSucessoCopia').prop('hidden', false);
+            $('#alertaSucessoCopia').fadeOut(5000);
+            setTimeout(() => {
+                $('#alertaSucessoCopia').remove()
+            }, 5050);
+            return navigator.clipboard.writeText(urlAtual);
+        });
+    </script>
 @endsection
