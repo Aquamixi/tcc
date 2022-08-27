@@ -40,14 +40,18 @@
                                         <h5>Aprovação</h5>
                                         @for ($i = 0; $i < 5; $i++)
                                             @if (round($receita->avaliacao) <= $i)
-                                                <span class="fa fa-star"></span>
+                                                <button type="radio" class="fa fa-star botaostar"id="$i"></button>
                                             @else
-                                                <span class="fa fa-star checked"></span>
+                                                <button type="radio" class="fa fa-star checked botaostar" id="$i"></button>
                                             @endif
                                         @endfor
                                     </div>
-                                    <h5 class=" col-6 text-end ">Compartilhar</h5>
                                 </div>
+                            </div>
+                            <div class="text-end">
+                                <a title="Curtir" class="botaocurtir" type="radio"><i class="fa-solid fa-thumbs-up"></i></a>
+                                <a title="Favoritar" class="botaofavoritar" type="radio"><i class="fa-solid fa-heart"></i></a>
+                                <a title="Compartilhar" class="botaoshare" type="radio"><i class="fa-solid fa-share"></i></a>
                             </div>
                         </div>
                     </div>
@@ -67,17 +71,17 @@
                         </div>
                         <div class="card col-12  ">
                             <div class="card-body" style="height:170px;">
-                                @foreach ($receita->ingrediente as $item)
-                                    @if ($loop->last)
-                                        {{$item->ingrediente}}
-                                    @else
-                                        {{$item->ingrediente}},
-                                    @endif
-                                @endforeach
+                                    @foreach ($receita->ingrediente as $item)
+                                        @if ($loop->last)
+                                            {{$item->ingrediente}}
+                                        @else
+                                            {{$item->ingrediente}},
+                                        @endif
+                                    @endforeach
                             </div>
                         </div>
                     </div>
-                    <div class="container col-6 ">
+                    <div class="container col-6 mb-2 ">
                         <div>
                             <h5 class="fonteMaisFamosas mt-3">Modo De Preparo</h5>
                         </div>
