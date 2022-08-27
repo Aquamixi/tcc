@@ -23,11 +23,11 @@
                     </div>
                 </div>
             </div>
-            <div class="container-fluid row mx-0">
+            <div class="container-fluid row-md mx-0">
                 <div class="container col-6">
                     <div class="card bg-transparent  mb-5 border-0">
                         <div class="card-body">
-                            <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">Adicione a foto da sua receita</h3></label>
+                            <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">Adicione&nbsp;a&nbsp;foto&nbsp;da&nbsp;sua&nbsp;receita</h3></label>
                             <div class="card">
                                 <div class="card-body " style="height:114px;" >
                                     <div class="mb-3">
@@ -117,7 +117,7 @@
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('preparo') ? $errors->first('preparo') : ''}}</h6>
                             </label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="" name="preparo" style="resize: none; height:115.7px;"></textarea>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Descreva como Preparar" name="preparo" style="resize: none; height:115.7px;"></textarea>
                         </div>
                     </div>
                 </div>

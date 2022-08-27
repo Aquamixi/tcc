@@ -3,9 +3,9 @@
     @section('titulo', 'MyRecipes')
     @section('conteudo')
         <main role="main">
-            <div class="container  row">
+            <div class="container nav row">
                 <div class="container col-3">
-                        <div class="card mt-2 "  >
+                        <div class="card mt-2" style="min-width:142px ">
                             <div class="card-body mx-auto">
                                 <div class="btn-group-vertical ">
                                     <button type="button" class="btn btn-outline-warning mt-3" >Perfil</button>
@@ -17,8 +17,8 @@
                             </div>
                         </div>
                 </div>
-                <div class="container m-3 col-8">
-                    <div class="card mb-3" style="width: 60rem;">
+                <div class="container m-2 col-8">
+                    <div class="card mb-3" >
                         <div class="row g-0 m-4">
                             <div class="col-md-4 ">
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSU6xHSdzHFBr_BfjyYBYkcCf4_o_KnP5QiQ&usqp=CAU" class="img-fluid rounded-start" height="500px">
