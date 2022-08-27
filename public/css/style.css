@@ -77,3 +77,40 @@ html, body {
 .botaostar:hover{
     color: #ffc400;
 }
+
+.botaoshare{
+    border: 0;
+    background: #fff;
+    text-decoration: none;
+    color: #000;
+}
+
+.botaoshare:hover{
+    color: #ff9000;
+    cursor: pointer;
+}
+
+.botaofavoritar{
+    border: 0;
+    background: #fff;
+    text-decoration: none;
+    color: #000;
+}
+
+.botaofavoritar:hover{
+    color: red;
+    cursor: pointer;
+}
+
+.botaocurtir{
+    border: 0;
+    background: #fff;
+    text-decoration: none;
+    color: #000;
+}
+
+.botaocurtir:hover{
+    color: rgb(0, 98, 255);
+    cursor: pointer;
+}
+

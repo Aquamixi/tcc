@@ -46,8 +46,12 @@
                                             @endif
                                         @endfor
                                     </div>
-                                    <h5 class=" col-6 text-end ">Compartilhar</h5>
                                 </div>
+                            </div>
+                            <div class="text-end">
+                                <a title="Curtir" class="botaocurtir" type="radio"><i class="fa-solid fa-thumbs-up"></i></a>
+                                <a title="Favoritar" class="botaofavoritar" type="radio"><i class="fa-solid fa-heart"></i></a>
+                                <a title="Compartilhar" class="botaoshare" type="radio"><i class="fa-solid fa-share"></i></a>
                             </div>
                         </div>
                     </div>
@@ -67,7 +71,6 @@
                         </div>
                         <div class="card col-12  ">
                             <div class="card-body" style="height:170px;">
-                                < id="estrelas">
                                     @foreach ($receita->ingrediente as $item)
                                         @if ($loop->last)
                                             {{$item->ingrediente}}
@@ -78,7 +81,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container col-6 ">
+                    <div class="container col-6 mb-2 ">
                         <div>
                             <h5 class="fonteMaisFamosas mt-3">Modo De Preparo</h5>
                         </div>
@@ -97,9 +100,4 @@
 @section('pos-script')
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
-    <script>
-        const botaoestrelas = event.target.querySelector($i);
-        const estrelas = (botaoestrelas.value);
-        console.log($i);
-    </script>
 @endsection
