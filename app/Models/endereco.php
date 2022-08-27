@@ -20,4 +20,14 @@ class endereco extends Model
         'uf_id',
         'pai_id'
     ];
+
+    public function pais()
+    {
+        return $this->belongsTo(pai::class, 'pai_id', 'id');
+    }
+
+    public function uf()
+    {
+        return $this->belongsTo(uf::class, 'uf_id', 'id');
+    }
 }

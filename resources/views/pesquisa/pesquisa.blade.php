@@ -25,9 +25,9 @@
                                 <img class="pt-2" src="{{$receita->foto ? asset('foto_receitas' . '/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="card-img-top">
                                 <div class="card-body">
                                     <h6 class="fs-5 card-title ps-0 ">
-                                        {{$receita->titulo_receita}}
+                                        <a href="{{url('visualizar_receitas')}}/{{$receita->id}}" style="text-decoration: none; color: black">{{$receita->titulo_receita}}</a>
                                     </h6>
-                                    <a href="{{url('visualizar_receitas')}}/{{$receita->id}}" class="btn btn-primary" style="background-color: #ff8c00; color:white; border: 0px">Vá Para a Receita</a>
+                                    
                                 </div>
                             </div>
                         @endforeach
@@ -40,12 +40,12 @@
                         <p>Sem resulatdos para a pesquisa</p>
                     @else
                         @foreach ($usuarios as $usuario)
-                            <div class="card me-3 mb-3 col-3">
+                            <div class="card me-3 mb-3 " style="width: 18rem;">
                                 <img class="pt-2" src="{{$usuario->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" class="card-img-top">
                                 <div class="card-body">
                                     <div class="row">
                                         <h6 class="fs-5 card-title ps-0 col-10">
-                                            {{$usuario->name}}
+                                            <a href="{{url('profile')}}/{{$usuario->id}}" style="text-decoration: none; color: black">{{$usuario->name}}</a>
                                         </h6>
                                         <div class="col-2 text-right">
                                             @unless ($usuario->id == Auth::user()->id)
@@ -60,7 +60,6 @@
                                                 @endif
                                             @endunless
                                         </div>
-                                        <a href="{{url('profile')}}/{{$usuario->id}}" style="background-color: #ff8c00; color:white; border: 0px" class="btn btn-primary col-6">Acessar Página</a>
                                     </div>
                                 </div>
                             </div>
