@@ -37,9 +37,10 @@ class VisitanteController extends Controller
                 $q->where('categoria', $request->categoria);
             });
         }
+        $verificar = receita::first();
 
         $receitas = $receitas->orderBy('qtde_curtidas', 'desc')->simplePaginate(10);
 
-        return view('home', compact('receitas', 'receita_hoje', 'sabores', 'categorias'));
+        return view('home', compact('receitas', 'receita_hoje', 'sabores', 'categorias', 'verificar'));
     }
 }

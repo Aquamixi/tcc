@@ -16,7 +16,6 @@ class CreateFotoUsersTable extends Migration
         Schema::create('foto_users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('foto_user')->nullable();
             $table->string('anexo')->nullable();
         });
 

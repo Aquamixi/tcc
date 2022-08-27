@@ -24,9 +24,9 @@
                             <div class="card me-3 mb-3" style="width: 18rem;">
                                 <img class="pt-2" src="{{$receita->foto ? asset('foto_receitas' . '/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="card-img-top">
                                 <div class="card-body">
-                                    <h5 class="card-title">
+                                    <h6 class="fs-5 card-title ps-0 ">
                                         {{$receita->titulo_receita}}
-                                    </h5>
+                                    </h6>
                                     <a href="{{url('visualizar_receitas')}}/{{$receita->id}}" class="btn btn-primary" style="background-color: #ff8c00; color:white; border: 0px">Vá Para a Receita</a>
                                 </div>
                             </div>
@@ -40,25 +40,27 @@
                         <p>Sem resulatdos para a pesquisa</p>
                     @else
                         @foreach ($usuarios as $usuario)
-                            <div class="card me-3 mb-3 col-5" style="width: 20rem">
-                                <img class="pt-2" src="{{$usuario->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" class="card-img-top">
+                            <div class="card me-3 mb-3 col-3">
+                                <img class="pt-2" src="{{$usuario->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" height="240" width="285" class="img-fluid card-img-top">
                                 <div class="card-body">
-                                    <h5 class="card-title">
-                                        {{$usuario->name}}
-                                    </h5>
                                     <div class="row">
+                                        <h6 class="fs-5 card-title ps-0 col-10">
+                                            {{$usuario->name}}
+                                        </h6>
+                                        <div class="col-2 text-right">
+                                            @unless ($usuario->id == Auth::user()->id)
+                                                @if(in_array($usuario->id, $array_seguidores))
+                                                    <a data-usuario="{{$usuario->id}}" class="segue_ou_nao" title="Deixar de Seguir" data-status="deixar_de_seguir">
+                                                        <i class="fa-solid fa-user-check"></i>
+                                                    </a>
+                                                @else
+                                                    <a data-usuario="{{$usuario->id}}" class="segue_ou_nao" title="Seguir" data-status="seguir">
+                                                        <i class="fa-solid fa-user-plus"></i>
+                                                    </a>
+                                                @endif
+                                            @endunless
+                                        </div>
                                         <a href="{{url('profile')}}/{{$usuario->id}}" style="background-color: #ff8c00; color:white; border: 0px" class="btn btn-primary col-6">Acessar Página</a>
-                                        @unless ($usuario->id == Auth::user()->id)
-                                            @if(in_array($usuario->id, $array_seguidores))
-                                                <a data-usuario="{{$usuario->id}}" class="segue_ou_nao" title="Deixar de Seguir" data-status="deixar_de_seguir">
-                                                    <i class="fa-solid fa-user-check"></i>
-                                                </a>
-                                            @else
-                                                <a data-usuario="{{$usuario->id}}" class="segue_ou_nao" title="Seguir" data-status="seguir">
-                                                    <i class="fa-solid fa-user-plus"></i>
-                                                </a>
-                                            @endif
-                                        @endunless
                                     </div>
                                 </div>
                             </div>
