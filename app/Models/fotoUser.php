@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class fotoUser extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+    protected $primaryKey = 'id';
+    protected $fillable = [
+        'anexo',
+        'user_id'
+    ];
 }

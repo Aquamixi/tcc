@@ -51,4 +51,20 @@ class UserController extends Controller
         $usuario = User::findOrFail($request->id);
         return view('usuario.profile', compact('usuario', 'sabores', 'categorias'));
     }
+
+    public function amigos($id)
+    {
+        $seguindo = seguidor::where('usuario_id', $id)->with('usuario')->get();
+        $seguidores = seguidor::where('seguidor_id', $id)->with('seguidor')->get();
+            
+        $array_seguindo = [];
+        foreach($seguindo as $s){
+            $array_seguindo[] = $s->seguidor_id;
+        }
+
+        $sabores = sabor::get();
+        $categorias = categoria::get();
+
+        return view('usuario.amigos', compact('seguindo', 'seguidores', 'array_seguindo', 'sabores', 'categorias'));
+    }
 }

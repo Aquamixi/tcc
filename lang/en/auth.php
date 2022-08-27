@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'E-Mail Inválido.',
+    'failed' => 'E-Mail Inválido ou Senha incorreta.',
     'password' => 'Senha Incorreta.',
     'throttle' => 'Muitas Tentativas Incorretas. Tente Novamente em :seconds Segundos.',
 
