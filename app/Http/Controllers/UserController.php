@@ -49,6 +49,7 @@ class UserController extends Controller
         $categorias = categoria::get();
         
         $usuario = User::findOrFail($request->id);
+
         return view('usuario.profile', compact('usuario', 'sabores', 'categorias'));
     }
 
@@ -66,5 +67,10 @@ class UserController extends Controller
         $categorias = categoria::get();
 
         return view('usuario.amigos', compact('seguindo', 'seguidores', 'array_seguindo', 'sabores', 'categorias'));
+    }
+
+    public function editar_usuario(Request $request)
+    {
+        dd($request);
     }
 }
