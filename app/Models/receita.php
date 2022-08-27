@@ -2,11 +2,17 @@
 
 namespace App\Models;
 
+use App\Scopes\ReceitaScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class receita extends Model
 {
+    protected static function booted()
+    {
+        static::addGlobalScope(new ReceitaScope);
+    }
+
     use HasFactory;
 
     public $timestamps = false;
