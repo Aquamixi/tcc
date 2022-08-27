@@ -40,9 +40,9 @@
                                         <h5>Aprovação</h5>
                                         @for ($i = 0; $i < 5; $i++)
                                             @if (round($receita->avaliacao) <= $i)
-                                                <span class="fa fa-star"></span>
+                                                <button type="radio" class="fa fa-star botaostar"id="$i"></button>
                                             @else
-                                                <span class="fa fa-star checked"></span>
+                                                <button type="radio" class="fa fa-star checked botaostar" id="$i"></button>
                                             @endif
                                         @endfor
                                     </div>
@@ -67,13 +67,14 @@
                         </div>
                         <div class="card col-12  ">
                             <div class="card-body" style="height:170px;">
-                                @foreach ($receita->ingrediente as $item)
-                                    @if ($loop->last)
-                                        {{$item->ingrediente}}
-                                    @else
-                                        {{$item->ingrediente}},
-                                    @endif
-                                @endforeach
+                                < id="estrelas">
+                                    @foreach ($receita->ingrediente as $item)
+                                        @if ($loop->last)
+                                            {{$item->ingrediente}}
+                                        @else
+                                            {{$item->ingrediente}},
+                                        @endif
+                                    @endforeach
                             </div>
                         </div>
                     </div>
@@ -96,4 +97,9 @@
 @section('pos-script')
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+    <script>
+        const botaoestrelas = event.target.querySelector($i);
+        const estrelas = (botaoestrelas.value);
+        console.log($i);
+    </script>
 @endsection

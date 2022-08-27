@@ -67,3 +67,12 @@ html, body {
 .checked{
     color: #ffc400;
 }
+
+.botaostar{
+    border: 0;
+    background: #fff;
+}
+
+.botaostar:hover{
+    color: #ffc400;
+}
