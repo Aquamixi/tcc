@@ -41,7 +41,7 @@
                     @else
                         @foreach ($usuarios as $usuario)
                             <div class="card me-3 mb-3 col-3">
-                                <img class="pt-2" src="{{$usuario->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" height="240" width="285" class="img-fluid card-img-top">
+                                <img class="pt-2" src="{{$usuario->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" class="card-img-top">
                                 <div class="card-body">
                                     <div class="row">
                                         <h6 class="fs-5 card-title ps-0 col-10">

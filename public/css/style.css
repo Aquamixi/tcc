@@ -68,3 +68,7 @@ html, body {
 .checked{
     color: #ffc400;
 }
+
+.ajusta_imagem{
+    object-fit: fill;
+}
