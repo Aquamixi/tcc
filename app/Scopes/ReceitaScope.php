@@ -21,7 +21,7 @@ class ReceitaScope implements Scope
     {
         $builder->where('escondida', 0);
         
-        if(Auth::user()->data_nascimento){
+        if(Auth::check() and Auth::user()->data_nascimento){
             if(Carbon::parse(Auth::user()->data_nascimento)->diffInYears(Carbon::today()) >= 18){
                 $builder->where('mais_dezoito', 0)->orWhere('mais_dezoito', 1);
             }
