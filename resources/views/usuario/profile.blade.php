@@ -106,7 +106,7 @@
                             
                             <div class="tab-pane fade" id="v-pills-detalhes" role="tabpanel" aria-labelledby="v-pills-detalhes-tab">
                                 <div class="card ps-4">
-                                    <form method="POST" action="{{ url('editar_usuario') }}">
+                                    <form method="POST" action="{{ url('editar_usuario') }}" enctype="multipart/form-data">
                                         @csrf
                                         <div class="card-body mt-3">
                                             <div class="input-group mb-3 row">
@@ -161,6 +161,10 @@
                                                 <span class="input-group-text col-2" id="inputGroup-sizing-default">País:</span>
                                                 <input type="text" value="{{$usuario->endereco ? $usuario->endereco->pais->pais : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="pais" id="pais">
                                             </div>
+                                            <div class="input-group mb-3 row">
+                                                <span class="input-group-text col-2" id="inputGroup-sizing-default">Foto:</span>
+                                                <input type="file" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="imagem" id="imagem">
+                                            </div>
                                             <div class="container text-center ">
                                                 <button class="btn btn-primary col-2 border-0" type="button" id="editar" style="height:50px; background-color: #ff8c00; color:white">Editar</button>
                                             </div>
@@ -203,6 +207,7 @@
                 $('#cep').prop('readonly', false);
                 $('#uf').prop('readonly', false);
                 $('#pais').prop('readonly', false);
+                $('#imagem').prop('readonly', false);
             });
 
             const urlParams = new URLSearchParams(window.location.search);

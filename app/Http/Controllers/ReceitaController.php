@@ -204,7 +204,9 @@ class ReceitaController extends Controller
 
         if($request->imagem){
             $last_imagem = fotoReceita::where('receita_id', $request->id)->first();
-            $last_imagem->delete();
+            if(isset($last_imagem)){
+                $last_imagem->delete();
+            }
 
             $linha_receita_foto = new fotoReceita();
 

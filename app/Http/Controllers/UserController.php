@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\categoria;
 use App\Models\endereco;
+use App\Models\fotoUser;
 use App\Models\sabor;
 use App\Models\seguidor;
 use App\Models\User;
@@ -77,14 +78,6 @@ class UserController extends Controller
 
     public function editar_usuario(Request $request)
     {
-        $request->validate([
-            'nome' => 'required',
-            'email' => 'required',
-            'senha' => 'required',
-            'uf' => 'required',
-            'pais' => 'required'
-        ]);
-
         if(
             $request->rua || 
             $request->numero || 
@@ -94,6 +87,14 @@ class UserController extends Controller
             $request->uf ||
             $request->pais
         ){
+            $request->validate([
+                'nome' => 'required',
+                'email' => 'required',
+                'senha' => 'required',
+                'uf' => 'required',
+                'pais' => 'required'
+            ]);
+
             if(Auth::user()->endereco_id){
                 $endereco = endereco::findOrFail(Auth::user()->endereco_id);
                 if($request->rua){
@@ -133,23 +134,53 @@ class UserController extends Controller
                 $endereco_id = $endereco->id;
             }
         }
-        $user = User::findOrFail(Auth::user()->id);
-        if(isset($endereco_id)){
-            $user->endereco_id = $endereco_id;
-        }
-        $user->name = $request->nome;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->senha);
-        $user->updated_at = Carbon::now();
-        $user->telefone = $request->telefone;
-        $user->data_nascimento = $request->nascimento;
-        if($request->genero){
-            $user->genero = $request->genero;
-        }
         else{
-            $user->genero = 'Indefinido';
+            $request->validate([
+                'nome' => 'required',
+                'email' => 'required',
+                'senha' => 'required'
+            ]);
+    
+            $user = User::findOrFail(Auth::user()->id);
+            if(isset($endereco_id)){
+                $user->endereco_id = $endereco_id;
+            }
+            $user->name = $request->nome;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->senha);
+            $user->updated_at = Carbon::now();
+            $user->telefone = $request->telefone;
+            $user->data_nascimento = $request->nascimento;
+            if($request->genero){
+                $user->genero = $request->genero;
+            }
+            else{
+                $user->genero = 'Indefinido';
+            }
+            $user->update();
+            $user_id = $user->id;
+    
+            if($request->imagem){
+                $last_imagem = fotoUser::where('user_id', $request->id)->first();
+                if(isset($last_imagem)){
+                    $last_imagem->delete();
+                }
+    
+                $linha_user_foto = new fotoUser();
+    
+                $request_imagem = $request->imagem;
+    
+                $ext = $request_imagem->extension();
+                
+                $nome_imagem = $request_imagem->getClientOriginalName() . uniqid() . '.' . $ext;
+                
+                $request_imagem->move(public_path('foto_usuario'), $nome_imagem);
+    
+                $linha_user_foto->user_id = $user_id;
+                $linha_user_foto->anexo = $nome_imagem;
+                $linha_user_foto->save();
+            }
         }
-        $user->update();
 
         return redirect()->route('profile', ['id' => Auth::user()->id, 'editado' => 'editado']);
     }
