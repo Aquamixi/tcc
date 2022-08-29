@@ -147,5 +147,7 @@ class UserController extends Controller
             $user->genero = 'Indefinido';
         }
         $user->update();
+
+        return redirect()->route('profile', ['id' => Auth::user()->id, 'editado' => 'editado']);
     }
 }

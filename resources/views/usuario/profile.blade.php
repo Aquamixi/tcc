@@ -176,6 +176,13 @@
                 </div>
             </div>
         </main>
+
+        <div class="NoCanto" id="alerta_sucesso_editar" hidden>
+            <div class="alert alert-success" role="alert">
+                Usuário Editado com Sucesso!
+            </div>
+        </div>
+
     @endsection
     @section('pos-script')
         <script type="text/javascript">
@@ -197,5 +204,19 @@
                 $('#uf').prop('readonly', false);
                 $('#pais').prop('readonly', false);
             });
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const editado = urlParams.get('editado');
+
+            if(editado == 'editado'){
+                $('#alerta_sucesso_editar').prop('hidden', false);
+
+                $('#alerta_sucesso_editar').fadeOut(5000);
+
+                setTimeout(() => {
+                    $('#alerta_sucesso_editar').remove()
+                }, 5050);
+
+            }
         </script>
     @endsection

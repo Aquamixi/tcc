@@ -22,5 +22,5 @@ Route::post('editar_usuario', [App\Http\Controllers\UserController::class, 'edit
 
 Route::post('segue_ou_nao', [App\Http\Controllers\UserController::class, 'segue_ou_nao']);
 
-Route::get('profile/{id}', [App\Http\Controllers\UserController::class, 'profile']);
+Route::get('profile/{id}', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
 Route::get('amigos/{id}', [App\Http\Controllers\UserController::class, 'amigos']);
