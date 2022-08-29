@@ -31,19 +31,20 @@ class UserController extends Controller
         $user->update();
     }
 
-    public function segue_ou_nao(Request $request)
+    public function seguir(Request $request)
     {
-        $linha = seguidor::where('usuario_id', Auth::user()->id)->where('seguidor_id', $request->id)->first();
-        if($linha){
-            $linha->delete();
-        }
-        else{
-            $novo_seguidor = new seguidor();
-            $novo_seguidor->usuario_id = Auth::user()->id;
-            $novo_seguidor->seguidor_id = $request->id;
-            $novo_seguidor->status = 'Seguindo';
-            $novo_seguidor->save();
-        }
+        $novo_seguidor = new seguidor();
+        $novo_seguidor->seguidor_id = Auth::user()->id;
+        $novo_seguidor->usuario_id = $request->id;
+        $novo_seguidor->status = 'Seguindo';
+        $novo_seguidor->save();
+        
+    }
+
+    public function deixar_seguir(Request $request)
+    {
+        $linha = seguidor::where('seguidor_id', Auth::user()->id)->where('usuario_id', $request->id)->first();
+        $linha->delete();
     }
 
     public function profile(Request $request)
@@ -58,12 +59,14 @@ class UserController extends Controller
 
     public function amigos($id)
     {
-        $seguindo = seguidor::where('usuario_id', $id)->with('usuario')->get();
-        $seguidores = seguidor::where('seguidor_id', $id)->with('seguidor')->get();
+        $seguindo = seguidor::where('seguidor_id', $id)->with('usuario')->get();
+        $seguidores = seguidor::where('usuario_id', $id)->with('seguidor')->get();
+
+        $meus_seguidores = seguidor::where('seguidor_id', Auth::user()->id)->with('usuario')->get();
             
         $array_seguindo = [];
-        foreach($seguindo as $s){
-            $array_seguindo[] = $s->seguidor_id;
+        foreach($meus_seguidores as $s){
+            $array_seguindo[] = $s->usuario_id;
         }
 
         $sabores = sabor::get();

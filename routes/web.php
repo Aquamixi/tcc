@@ -20,7 +20,8 @@ Route::post('definir_first_login', [App\Http\Controllers\UserController::class, 
 
 Route::post('editar_usuario', [App\Http\Controllers\UserController::class, 'editar_usuario'])->name('editar_usuario');
 
-Route::post('segue_ou_nao', [App\Http\Controllers\UserController::class, 'segue_ou_nao']);
+Route::post('seguir', [App\Http\Controllers\UserController::class, 'seguir']);
+Route::post('deixar_seguir', [App\Http\Controllers\UserController::class, 'deixar_seguir']);
 
 Route::get('profile/{id}', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
 Route::get('amigos/{id}', [App\Http\Controllers\UserController::class, 'amigos']);

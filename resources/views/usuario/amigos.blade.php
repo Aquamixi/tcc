@@ -30,22 +30,22 @@
                                 @foreach ($seguindo as $segue)
                                     <tr>
                                         <td>
-                                            <img class="rounded-circle" src="{{$segue->seguidor->foto ? asset('foto_usuario' . '/' . $segue->seguidor->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" width="32" height="32">
+                                            <img class="rounded-circle" src="{{$segue->usuario->foto ? asset('foto_usuario' . '/' . $segue->usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" width="32" height="32">
                                         </td>
                                         <td>
-                                            <a href="{{url('profile')}}/{{$segue->seguidor_id}}" style="text-decoration: none; color: black">
-                                                {{$segue->seguidor->name}}
+                                            <a href="{{url('profile')}}/{{$segue->usuario_id}}" style="text-decoration: none; color: black">
+                                                {{$segue->usuario->name}}
                                             </a>
                                         </td>
                                         <td>
                                         </td>
                                         <td>
-                                            @if(in_array($segue->seguidor_id, $array_seguindo))
-                                                <a data-usuario="{{$segue->seguidor_id}}" class="segue_ou_nao" title="Deixar de Seguir" data-status="deixar_de_seguir">
+                                            @if(in_array($segue->usuario_id, $array_seguindo))
+                                                <a data-usuario="{{$segue->usuario_id}}" class="deixar_seguir" title="Deixar de Seguir">
                                                     <i class="fa-solid fa-user-check"></i>
                                                 </a>
                                             @else
-                                                <a data-usuario="{{$segue->seguidor_id}}" class="segue_ou_nao" title="Seguir" data-status="seguir">
+                                                <a data-usuario="{{$segue->usuario_id}}" class="seguir" title="Seguir">
                                                     <i class="fa-solid fa-user-plus"></i>
                                                 </a>
                                             @endif
@@ -70,26 +70,27 @@
                                 @foreach ($seguidores as $segue)
                                     <tr>
                                         <td>
-                                            <img class="rounded-circle" src="{{$segue->usuario->foto ? asset('foto_usuario' . '/' . $segue->usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" width="32" height="32">
+                                            <img class="rounded-circle" src="{{$segue->seguidor->foto ? asset('foto_usuario' . '/' . $segue->seguidor->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" width="32" height="32">
                                         </td>
                                         <td>
-                                            <a href="{{url('profile')}}/{{$segue->usuario_id}}" style="text-decoration: none; color: black">
-                                                {{$segue->usuario->name}}
+                                            <a href="{{url('profile')}}/{{$segue->seguidor_id}}" style="text-decoration: none; color: black">
+                                                {{$segue->seguidor->name}}
                                             </a>
                                         </td>
                                         <td>
-                                            
                                         </td>
                                         <td>
-                                            @if(in_array($segue->usuario_id, $array_seguindo))
-                                                <a data-usuario="{{$segue->usuario_id}}" class="segue_ou_nao" title="Deixar de Seguir" data-status="deixar_de_seguir">
-                                                    <i class="fa-solid fa-user-check"></i>
-                                                </a>
-                                            @else
-                                                <a data-usuario="{{$segue->usuario_id}}" class="segue_ou_nao" title="Seguir" data-status="seguir">
-                                                    <i class="fa-solid fa-user-plus"></i>
-                                                </a>
-                                            @endif
+                                            @unless (Auth::user()->id == $segue->seguidor_id)
+                                                @if(in_array($segue->seguidor_id, $array_seguindo))
+                                                    <a data-usuario="{{$segue->seguidor_id}}" class="deixar_seguir" title="Deixar de Seguir">
+                                                        <i class="fa-solid fa-user-check"></i>
+                                                    </a>
+                                                @else
+                                                    <a data-usuario="{{$segue->seguidor_id}}" class="seguir" title="Seguir">
+                                                        <i class="fa-solid fa-user-plus"></i>
+                                                    </a>
+                                                @endif
+                                            @endunless
                                         </td>
                                     </tr>
                                 @endforeach
@@ -116,36 +117,44 @@
 
 @section('pos-script')
     <script type="text/javascript">
-        $(document).on('click', '.segue_ou_nao', function(){
-            var status = $(this).data('status');
+        $(document).on('click', '.seguir', function(){
             $.ajax({
                 type: 'POST', 
-                url: "{{ url('segue_ou_nao') }}", 
+                url: "{{ url('seguir') }}", 
                 data: { 
                     id: $(this).data('usuario'),
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(){
-                    if(status === 'seguir'){
-                        $('#alerta_sucesso_seguir').prop('hidden', false);
+                    $('#alerta_sucesso_seguir').prop('hidden', false);
 
-                        $('#alerta_sucesso_seguir').fadeOut(5000);
+                    $('#alerta_sucesso_seguir').fadeOut(5000);
 
-                        setTimeout(() => {
-                            $('#alerta_sucesso_seguir').remove()
-                            window.location.reload(true);
-                        }, 5050);
-                    }
-                    else{
-                        $('#alerta_sucesso_deixar_seguir').prop('hidden', false);
+                    setTimeout(() => {
+                        $('#alerta_sucesso_seguir').remove()
+                        window.location.reload(true);
+                    }, 5050);
+                }
+            });
+        });
 
-                        $('#alerta_sucesso_deixar_seguir').fadeOut(5000);
+        $(document).on('click', '.deixar_seguir', function(){
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('deixar_seguir') }}", 
+                data: { 
+                    id: $(this).data('usuario'),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alerta_sucesso_deixar_seguir').prop('hidden', false);
 
-                        setTimeout(() => {
-                            $('#alerta_sucesso_deixar_seguir').remove()
-                            window.location.reload(true);
-                        }, 5050);
-                    }
+                    $('#alerta_sucesso_deixar_seguir').fadeOut(5000);
+
+                    setTimeout(() => {
+                        $('#alerta_sucesso_deixar_seguir').remove()
+                        window.location.reload(true);
+                    }, 5050);
                 }
             });
         });
