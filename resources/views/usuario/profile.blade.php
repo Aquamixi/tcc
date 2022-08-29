@@ -119,7 +119,7 @@
                                             </div>
                                             <div class="input-group mb-3 row">
                                                 <span class="input-group-text col-2" id="inputGroup-sizing-default">Senha:</span>
-                                                <input type="text" value="********" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="senha" id="senha">
+                                                <input type="password" value="********" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="senha" id="senha">
                                             </div>
                                             <div class="input-group mb-3 row">
                                                 <span class="input-group-text col-2" id="inputGroup-sizing-default">Telefone:</span>
@@ -127,7 +127,7 @@
                                             </div>
                                             <div class="input-group mb-3 row">
                                                 <span class="input-group-text col-2" id="inputGroup-sizing-default">Data Nascimento:</span>
-                                                <input type="text" value="{{$usuario->data_nascimento ? $usuario->data_nascimento : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nascimento" id="nascimento">
+                                                <input type="date" value="{{$usuario->data_nascimento ? $usuario->data_nascimento : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nascimento" id="nascimento">
                                             </div>
                                             <div class="input-group mb-3 row">
                                                 <span class="input-group-text col-2" id="inputGroup-sizing-default">Gênero:</span>
