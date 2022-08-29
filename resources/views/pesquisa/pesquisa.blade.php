@@ -49,12 +49,12 @@
                                         </h6>
                                         <div class="col-2 text-right">
                                             @unless ($usuario->id == Auth::user()->id)
-                                                @if(in_array($usuario->id, $array_seguidores))
-                                                    <a data-usuario="{{$usuario->id}}" class="segue_ou_nao" title="Deixar de Seguir" data-status="deixar_de_seguir">
+                                                @if(in_array($usuario->id, $array_seguindo))
+                                                    <a data-usuario="{{$usuario->id}}" class="deixar_seguir" title="Deixar de Seguir">
                                                         <i class="fa-solid fa-user-check"></i>
                                                     </a>
                                                 @else
-                                                    <a data-usuario="{{$usuario->id}}" class="segue_ou_nao" title="Seguir" data-status="seguir">
+                                                    <a data-usuario="{{$usuario->id}}" class="seguir" title="Seguir">
                                                         <i class="fa-solid fa-user-plus"></i>
                                                     </a>
                                                 @endif
@@ -85,36 +85,44 @@
 
 @section('pos-script')
     <script type="text/javascript">
-        $(document).on('click', '.segue_ou_nao', function(){
-            var status = $(this).data('status');
+        $(document).on('click', '.seguir', function(){
             $.ajax({
                 type: 'POST', 
-                url: "{{ url('segue_ou_nao') }}", 
+                url: "{{ url('seguir') }}", 
                 data: { 
                     id: $(this).data('usuario'),
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(){
-                    if(status === 'seguir'){
-                        $('#alerta_sucesso_seguir').prop('hidden', false);
+                    $('#alerta_sucesso_seguir').prop('hidden', false);
 
-                        $('#alerta_sucesso_seguir').fadeOut(5000);
+                    $('#alerta_sucesso_seguir').fadeOut(5000);
 
-                        setTimeout(() => {
-                            $('#alerta_sucesso_seguir').remove()
-                            window.location.reload(true);
-                        }, 5050);
-                    }
-                    else{
-                        $('#alerta_sucesso_deixar_seguir').prop('hidden', false);
+                    setTimeout(() => {
+                        $('#alerta_sucesso_seguir').remove()
+                        window.location.reload(true);
+                    }, 5050);
+                }
+            });
+        });
 
-                        $('#alerta_sucesso_deixar_seguir').fadeOut(5000);
+        $(document).on('click', '.deixar_seguir', function(){
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('deixar_seguir') }}", 
+                data: { 
+                    id: $(this).data('usuario'),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alerta_sucesso_deixar_seguir').prop('hidden', false);
 
-                        setTimeout(() => {
-                            $('#alerta_sucesso_deixar_seguir').remove()
-                            window.location.reload(true);
-                        }, 5050);
-                    }
+                    $('#alerta_sucesso_deixar_seguir').fadeOut(5000);
+
+                    setTimeout(() => {
+                        $('#alerta_sucesso_deixar_seguir').remove()
+                        window.location.reload(true);
+                    }, 5050);
                 }
             });
         });

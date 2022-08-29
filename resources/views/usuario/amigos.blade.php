@@ -40,15 +40,17 @@
                                         <td>
                                         </td>
                                         <td>
-                                            @if(in_array($segue->usuario_id, $array_seguindo))
-                                                <a data-usuario="{{$segue->usuario_id}}" class="deixar_seguir" title="Deixar de Seguir">
-                                                    <i class="fa-solid fa-user-check"></i>
-                                                </a>
-                                            @else
-                                                <a data-usuario="{{$segue->usuario_id}}" class="seguir" title="Seguir">
-                                                    <i class="fa-solid fa-user-plus"></i>
-                                                </a>
-                                            @endif
+                                            @unless (Auth::user()->id == $segue->usuario_id)
+                                                @if(in_array($segue->usuario_id, $array_seguindo))
+                                                    <a data-usuario="{{$segue->usuario_id}}" class="deixar_seguir" title="Deixar de Seguir">
+                                                        <i class="fa-solid fa-user-check"></i>
+                                                    </a>
+                                                @else
+                                                    <a data-usuario="{{$segue->usuario_id}}" class="seguir" title="Seguir">
+                                                        <i class="fa-solid fa-user-plus"></i>
+                                                    </a>
+                                                @endif
+                                            @endunless
                                         </td>
                                     </tr>
                                 @endforeach
