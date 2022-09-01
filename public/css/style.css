@@ -118,3 +118,20 @@ html, body {
     cursor: pointer;
 }
 
+.favoritado{
+    color: red;
+    cursor: pointer;
+}
+
+.favoritado:hover{
+    color:#000;
+}
+
+.curtido{
+    color: rgb(0, 98, 255);
+    cursor: pointer;
+}
+
+.curtido:hover{
+    color:#000;
+}

@@ -84,7 +84,7 @@
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('descricao') ? $errors->first('descricao') : ''}}</h6>
                             </label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="descrva brevemente a sua receita" name="descricao" style="resize: none; height:115.7px;">{{$linha->descricao}}</textarea>
+                            <textarea class="form-control" id="descricao" placeholder="descreva brevemente a sua receita" name="descricao" style="height:115.7px;">{{str_replace('<br />', "", $linha->descricao)}}</textarea>
                         </div>
                     </div>
                     <div class="container  d-flex justify-content-center">    
@@ -121,7 +121,7 @@
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('preparo') ? $errors->first('preparo') : ''}}</h6>
                             </label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Minha receita é um bolo de cocaina" name="preparo" style="resize: none; height:115.7px;">{{$linha->modo_preparo}}</textarea>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Minha receita é um bolo de cocaina" name="preparo" style="resize: none; height:115.7px;">{{str_replace('<br />', "", $linha->modo_preparo)}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -155,4 +155,8 @@
             </div>
         </form>
     </main>
+@endsection
+@section('pos-script')
+    <script type="text/javascript">
+    </script>
 @endsection

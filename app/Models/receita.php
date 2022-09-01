@@ -54,6 +54,16 @@ class receita extends Model
         return $this->hasMany(receitaIngrediente::class, 'receita_id', 'id');
     }
 
+    public function curtida()
+    {
+        return $this->hasOne(curtida::class, 'receita_id', 'id');
+    }
+
+    public function favoritada()
+    {
+        return $this->hasOne(favorito::class, 'receita_id', 'id');
+    }
+
     public function nacionalidade()
     {
         return $this->belongsTo(nacionalidade::class, 'nacionalidade_id', 'id');

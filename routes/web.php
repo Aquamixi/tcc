@@ -14,6 +14,11 @@ Route::post('cadastrar_receita', [App\Http\Controllers\ReceitaController::class,
 Route::get('editar_receitas/{id}', [App\Http\Controllers\ReceitaController::class, 'editar_receitas'])->middleware('dono_receita');
 Route::post('editar_receita/{id}', [App\Http\Controllers\ReceitaController::class, 'editar_receita'])->middleware('dono_receita');
 
+Route::post('curtir_receita', [App\Http\Controllers\ReceitaController::class, 'curtir_receita']);
+Route::post('favoritar_receita', [App\Http\Controllers\ReceitaController::class, 'favoritar_receita']);
+Route::post('descurtir_receita', [App\Http\Controllers\ReceitaController::class, 'descurtir_receita']);
+Route::post('desfavoritar_receita', [App\Http\Controllers\ReceitaController::class, 'desfavoritar_receita']);
+
 Route::get('visualizar_receitas/{id}', [App\Http\Controllers\ReceitaController::class, 'visualizar_receitas']);
 
 Route::post('definir_first_login', [App\Http\Controllers\UserController::class, 'definir_first_login']);

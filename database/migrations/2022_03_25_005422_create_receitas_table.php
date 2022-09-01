@@ -19,9 +19,6 @@ class CreateReceitasTable extends Migration
             $table->text('modo_preparo')->nullable();
             $table->string('tempo_preparo')->nullable();
             $table->integer('qtde_porcoes')->nullable();
-            $table->integer('qtde_curtidas')->nullable();
-            $table->integer('qtde_comentarios')->nullable();
-            $table->integer('qtde_compartilhamentos')->nullable();
             $table->float('avaliacao')->nullable();
             $table->date('data_postagem');
             $table->unsignedBigInteger('user_id');

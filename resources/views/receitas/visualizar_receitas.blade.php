@@ -48,9 +48,17 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <a title="Curtir" class="botaocurtir" type="radio"><i class="fa-solid fa-thumbs-up"></i></a>
-                                <a title="Favoritar" class="botaofavoritar" type="radio"><i class="fa-solid fa-heart"></i></a>
-                                <a title="Compartilhar" class="botaoshare" type="radio" id="share"><i class="fa-solid fa-share"></i></a>
+                                @if ($receita->curtida)
+                                    <a title="Descurtir" class="curtido" id="descurtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                @else
+                                    <a title="Curtir" class="botaocurtir" id="curtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                @endif
+                                @if ($receita->favoritada)
+                                    <a title="Desfavoritar" class="favoritado" id="desfavoritar" data-id="{{$receita->id}}"><i class="fa-solid fa-heart"></i></a>
+                                @else
+                                    <a title="Favoritar" class="botaofavoritar" id="favoritar" data-id="{{$receita->id}}"><i class="fa-solid fa-heart"></i></a>
+                                @endif
+                                <a title="Compartilhar" class="botaoshare" id="share"><i class="fa-solid fa-share"></i></a>
                                 <h6>Data Postagem: {{Carbon\Carbon::parse($receita->data_postagem)->format('d-m-Y')}}</h6>
                             </div>
                         </div>
@@ -61,7 +69,7 @@
                 </div>
                 <div class="card col-12  ">
                     <div class="card-body" style="height:170px;">
-                        {{$receita->descricao}}
+                        {!! $receita->descricao !!}
                     </div>
                 </div>
                 <div class="container  row mx-auto col-12">
@@ -87,7 +95,7 @@
                         </div>
                         <div class="card col-12">
                             <div class="card-body" style="height:170px;">
-                                {{$receita->modo_preparo}}
+                                {!! $receita->modo_preparo !!}
                             </div>
                         </div>
                     </div>
@@ -95,9 +103,34 @@
             </div>         
         </div>
     </main>
+
     <div class="NoCanto" id="alertaSucessoCopia" hidden>
         <div class="alert alert-success" role="alert">
             Link copiado com sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alertaSucessoCurtir" hidden>
+        <div class="alert alert-success" role="alert">
+            Receita Curtida Com Sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alertaSucessoFavoritar" hidden>
+        <div class="alert alert-success" role="alert">
+            Receita Favoritada Com Sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alertaSucessoDesCurtir" hidden>
+        <div class="alert alert-success" role="alert">
+            Receita Descurtida Com Sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alertaSucessoDesFavoritar" hidden>
+        <div class="alert alert-success" role="alert">
+            Receita Desfavoritada Com Sucesso!
         </div>
     </div>
 @endsection
@@ -114,6 +147,82 @@
                 $('#alertaSucessoCopia').remove()
             }, 5050);
             return navigator.clipboard.writeText(urlAtual);
+        });
+
+        $(document).on('click', '#curtir', function(){
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('curtir_receita') }}", 
+                data: { 
+                    id: $(this).data('id'),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoCurtir').prop('hidden', false);
+                    $('#alertaSucessoCurtir').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoCurtir').remove()
+                        window.location.reload(true);
+                    }, 5050);
+                }
+            });
+        });
+
+        $(document).on('click', '#favoritar', function(){
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('favoritar_receita') }}", 
+                data: { 
+                    id: $(this).data('id'),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoFavoritar').prop('hidden', false);
+                    $('#alertaSucessoFavoritar').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoFavoritar').remove()
+                        window.location.reload(true);
+                    }, 5050);
+                }
+            });
+        });
+
+        $(document).on('click', '#descurtir', function(){
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('descurtir_receita') }}", 
+                data: { 
+                    id: $(this).data('id'),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoDesCurtir').prop('hidden', false);
+                    $('#alertaSucessoDesCurtir').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoDesCurtir').remove()
+                        window.location.reload(true);
+                    }, 5050);
+                }
+            });
+        });
+
+        $(document).on('click', '#desfavoritar', function(){
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('desfavoritar_receita') }}", 
+                data: { 
+                    id: $(this).data('id'),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoDesFavoritar').prop('hidden', false);
+                    $('#alertaSucessoDesFavoritar').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoDesFavoritar').remove()
+                        window.location.reload(true);
+                    }, 5050);
+                }
+            });
         });
     </script>
 @endsection

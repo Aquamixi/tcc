@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\categoria;
+use App\Models\curtida;
+use App\Models\favorito;
 use App\Models\fotoReceita;
 use App\Models\nacionalidade;
 use App\Models\receita;
@@ -52,13 +54,13 @@ class ReceitaController extends Controller
 
         $linha = new receita();
         $linha->titulo_receita = $request->titulo;
-        $linha->modo_preparo = $request->preparo;
+        $linha->modo_preparo = nl2br($request->preparo);
         $linha->tempo_preparo = $request->tempo;
         $linha->qtde_porcoes = $request->qtde_porcoes;
         $linha->data_postagem = Carbon::today();
         $linha->user_id = Auth::user()->id;
         $linha->categoria_id = $request->categoria;
-        $linha->descricao = $request->descricao;
+        $linha->descricao = nl2br($request->descricao);
         if($request->mais_dezoito){
             $linha->mais_dezoito = 1;
         }
@@ -128,11 +130,14 @@ class ReceitaController extends Controller
         $categorias = categoria::get();
         $linha = receita::findOrFail($request->id);
 
+        $val_des = $linha->pluck('descricao');
+        $modo_preparo = $linha->pluck('modo_preparo');
+
         foreach($linha->ingrediente as $ingrediente){
             $completo[] = $ingrediente->ingrediente;
         }
 
-        return view('receitas.editar_receitas', compact("sabores", "categorias", "nacionalidades", "linha", 'completo'));
+        return view('receitas.editar_receitas', compact("sabores", "categorias", "nacionalidades", "linha", 'completo', "val_des", "modo_preparo"));
     }
 
     public function editar_receita(Request $request)
@@ -152,13 +157,13 @@ class ReceitaController extends Controller
 
         $linha = receita::findOrFail($request->id);
         $linha->titulo_receita = $request->titulo;
-        $linha->modo_preparo = $request->preparo;
+        $linha->modo_preparo = nl2br($request->preparo);
         $linha->tempo_preparo = $request->tempo;
         $linha->qtde_porcoes = $request->qtde_porcoes;
         $linha->data_postagem = Carbon::today();
         $linha->user_id = Auth::user()->id;
         $linha->categoria_id = $request->categoria;
-        $linha->descricao = $request->descricao;
+        $linha->descricao = nl2br($request->descricao);
         if($request->mais_dezoito){
             $linha->mais_dezoito = 1;
         }
@@ -233,5 +238,33 @@ class ReceitaController extends Controller
         $receita = receita::findOrFail($request->id);
 
         return view('receitas.visualizar_receitas', compact("sabores", "categorias", "receita"));
+    }
+
+    public function curtir_receita(Request $request)
+    {
+        $curtida = new curtida();
+        $curtida->receita_id = $request->id;
+        $curtida->user_id = Auth::user()->id;
+        $curtida->save();
+    }
+
+    public function favoritar_receita(Request $request)
+    {
+        $favorito = new favorito();
+        $favorito->receita_id = $request->id;
+        $favorito->user_id = Auth::user()->id;
+        $favorito->save();
+    }
+
+    public function descurtir_receita(Request $request)
+    {
+        $curtida = curtida::where('receita_id', $request->id)->first();
+        $curtida->delete();
+    }
+
+    public function desfavoritar_receita(Request $request)
+    {
+        $favorito = favorito::where('receita_id', $request->id)->first();
+        $favorito->delete();
     }
 }
