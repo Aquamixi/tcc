@@ -73,13 +73,16 @@ class ReceitaController extends Controller
         else{
             $linha->escondida = 0;
         }
-        $linha->nacionalidade_id = $request->nacionalidade;
+
+        $nacio = nacionalidade::where('nacionalidade', $request->nacionalidade)->first();
+        $linha->nacionalidade_id = $nacio->id;
+
         $linha->sabor_id = $request->sabor;
 
-        if($request->tempo >= 0 and $request->tempo <= 15){
+        if($request->tempo >= 0 and $request->tempo <= 30){
             $linha->velocidade_id = 1;
         }
-        elseif($request->tempo > 15 and $request->tempo <= 45){
+        elseif($request->tempo > 30 and $request->tempo <= 60){
             $linha->velocidade_id = 2;
         }
         else{
@@ -176,13 +179,16 @@ class ReceitaController extends Controller
         else{
             $linha->escondida = 0;
         }
-        $linha->nacionalidade_id = $request->nacionalidade;
+
+        $nacio = nacionalidade::where('nacionalidade', $request->nacionalidade)->first();
+        $linha->nacionalidade_id = $nacio->id;
+
         $linha->sabor_id = $request->sabor;
 
-        if($request->tempo >= 0 and $request->tempo <= 15){
+        if($request->tempo >= 0 and $request->tempo <= 30){
             $linha->velocidade_id = 1;
         }
-        elseif($request->tempo > 15 and $request->tempo <= 45){
+        elseif($request->tempo > 30 and $request->tempo <= 60){
             $linha->velocidade_id = 2;
         }
         else{

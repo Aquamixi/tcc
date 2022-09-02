@@ -57,12 +57,12 @@
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('nacionalidade') ? $errors->first('nacionalidade') : ''}}</h6>
                             </label>
-                            <select class="form-select" aria-label="Default select example" name="nacionalidade" style="height: 50px" >
-                                <option value="{{$linha->nacionalidade_id}}" selected>{{$linha->nacionalidade->nacionalidade}}</option>
+                            <input class="form-control" value="{{$linha->nacionalidade->nacionalidade}}" aria-label="Default select example" list="datalistOptions" name="nacionalidade" style="height: 50px" />
+                            <datalist id="datalistOptions">
                                 @foreach ($nacionalidades as $item)
-                                    <option value="{{$item->id}}">{{$item->nacionalidade}}</option>
+                                    <option value="{{$item->nacionalidade}}">{{$item->nacionalidade}}</option>
                                 @endforeach
-                            </select>
+                            </datalist>
                         </div>
                     </div>
                     <div class="card bg-transparent mt-3 mb-5 border-0">                   
