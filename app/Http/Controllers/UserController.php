@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\categoria;
 use App\Models\endereco;
 use App\Models\fotoUser;
+use App\Models\pai;
 use App\Models\receita;
 use App\Models\sabor;
 use App\Models\seguidor;
+use App\Models\uf;
 use App\Models\User;
 use App\Scopes\ReceitaScope;
 use Carbon\Carbon;
@@ -54,12 +56,15 @@ class UserController extends Controller
     {
         $sabores = sabor::get();
         $categorias = categoria::get();
+
+        $paises = pai::get();
+        $ufs = uf::get();
         
         $usuario = User::with('curtidas.receita', 'favoritas.receita', 'receitas.velocidade', 'endereco', 'receitas')->findOrFail($request->id);
 
         $escondidas = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->where('escondida', 1)->where('user_id', $request->id)->get();
 
-        return view('usuario.profile', compact('usuario', 'sabores', 'categorias', 'escondidas'));
+        return view('usuario.profile', compact('usuario', 'sabores', 'categorias', 'escondidas', 'ufs', 'paises'));
     }
 
     public function amigos($id)
@@ -82,110 +87,94 @@ class UserController extends Controller
 
     public function editar_usuario(Request $request)
     {
-        if(
-            $request->rua || 
-            $request->numero || 
-            $request->bairro || 
-            $request->cidade ||
-            $request->cep || 
-            $request->uf ||
-            $request->pais
-        ){
-            $request->validate([
-                'nome' => 'required',
-                'email' => 'required',
-                'senha' => 'required',
-                'uf' => 'required',
-                'pais' => 'required'
-            ]);
-
-            if(Auth::user()->endereco_id){
-                $endereco = endereco::findOrFail(Auth::user()->endereco_id);
-                if($request->rua){
-                    $endereco->rua = $request->rua;
-                }
-                if($request->numero){
-                    $endereco->numero = $request->numero;
-                }
-                if($request->bairro){
-                    $endereco->bairro = $request->bairro;
-                }
-                if($request->cidade){
-                    $endereco->cidade = $request->cidade;
-                }
-                if($request->cep){
-                    $endereco->cep = $request->cep;
-                }
-                if($request->uf){
-                    $endereco->uf_id = $request->uf;
-                }
-                if($request->pais){
-                    $endereco->pai_id = $request->pais;
-                }
-                $endereco->update();
-                $endereco_id = $endereco->id;
-            }
-            else{
-                $endereco = new endereco();
+        $request->validate([
+            'nome' => 'required',
+            'email' => 'required',
+            'senha' => 'required',
+            'uf' => 'required',
+            'pais' => 'required'
+        ]);
+        if(Auth::user()->endereco_id){
+            $endereco = endereco::findOrFail(Auth::user()->endereco_id);
+            if($request->rua){
                 $endereco->rua = $request->rua;
-                $endereco->numero = $request->numero;
-                $endereco->bairro = $request->bairro;
-                $endereco->cidade = $request->cidade;
-                $endereco->cep = $request->cep;
-                $endereco->uf_id = $request->uf;
-                $endereco->pai_id = $request->pais;
-                $endereco->save();
-                $endereco_id = $endereco->id;
             }
+            if($request->numero){
+                $endereco->numero = $request->numero;
+            }
+            if($request->bairro){
+                $endereco->bairro = $request->bairro;
+            }
+            if($request->cidade){
+                $endereco->cidade = $request->cidade;
+            }
+            if($request->cep){
+                $endereco->cep = $request->cep;
+            }
+            if($request->uf){
+                $endereco->uf_id = $request->uf;
+            }
+            if($request->pais){
+                $endereco->pai_id = $request->pais;
+            }
+            $endereco->update();
+
         }
         else{
-            $request->validate([
-                'nome' => 'required',
-                'email' => 'required',
-                'senha' => 'required'
-            ]);
-    
-            $user = User::findOrFail(Auth::user()->id);
-            if(isset($endereco_id)){
-                $user->endereco_id = $endereco_id;
-            }
-            $user->name = $request->nome;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->senha);
-            $user->updated_at = Carbon::now();
-            $user->telefone = $request->telefone;
-            $user->data_nascimento = $request->nascimento;
-            if($request->genero){
-                $user->genero = $request->genero;
-            }
-            else{
-                $user->genero = 'Indefinido';
-            }
-            $user->update();
-            $user_id = $user->id;
-    
-            if($request->imagem){
-                $last_imagem = fotoUser::where('user_id', $request->id)->first();
-                if(isset($last_imagem)){
-                    $last_imagem->delete();
-                }
-    
-                $linha_user_foto = new fotoUser();
-    
-                $request_imagem = $request->imagem;
-    
-                $ext = $request_imagem->extension();
-                
-                $nome_imagem = $request_imagem->getClientOriginalName() . uniqid() . '.' . $ext;
-                
-                $request_imagem->move(public_path('foto_usuario'), $nome_imagem);
-    
-                $linha_user_foto->user_id = $user_id;
-                $linha_user_foto->anexo = $nome_imagem;
-                $linha_user_foto->save();
-            }
-        }
+            $endereco = new endereco();
+            $endereco->rua = $request->rua;
+            $endereco->numero = $request->numero;
+            $endereco->bairro = $request->bairro;
+            $endereco->cidade = $request->cidade;
+            $endereco->cep = $request->cep;
+            $endereco->uf_id = $request->uf;
+            $endereco->pai_id = $request->pais;
+            $endereco->save();
+            $endereco_id = $endereco->id;
 
+            $user = User::findOrFail(Auth::user()->id);
+            $user->endereco_id = $endereco_id;
+            $user->update();
+        }
+        
+        $user = User::findOrFail(Auth::user()->id);
+        
+        $user->name = $request->nome;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->senha);
+        $user->updated_at = Carbon::now();
+        $user->telefone = $request->telefone;
+        $user->data_nascimento = $request->nascimento;
+        if($request->genero){
+            $user->genero = $request->genero;
+        }
+        else{
+            $user->genero = 'Indefinido';
+        }
+        $user->update();
+        $user_id = $user->id;
+
+        if($request->imagem){
+            $last_imagem = fotoUser::where('user_id', $request->id)->first();
+            if(isset($last_imagem)){
+                $last_imagem->delete();
+            }
+
+            $linha_user_foto = new fotoUser();
+
+            $request_imagem = $request->imagem;
+
+            $ext = $request_imagem->extension();
+            
+            $nome_imagem = $request_imagem->getClientOriginalName() . uniqid() . '.' . $ext;
+            
+            $request_imagem->move(public_path('foto_usuario'), $nome_imagem);
+
+            $linha_user_foto->user_id = $user_id;
+            $linha_user_foto->anexo = $nome_imagem;
+            $linha_user_foto->save();
+        }
+        
         return redirect()->route('profile', ['id' => Auth::user()->id, 'editado' => 'editado']);
     }
 }

@@ -62,21 +62,21 @@
                     @foreach ($receitas as $receita)
                         <div class="card m-2 col-5" >
                             <div class="row g-0">
-                                <div class="col-xl-4 mb-2 mt-2" style="height: 10rem; width: 10rem;">
+                                <div class="col-sm-4 mb-2 mt-2" style="height: 10rem; width: 10rem;">
                                     <img src="{{$receita->foto ? asset('foto_receitas/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start " style="height: 10rem; width: 10rem;">
                                 </div>
-                                <div class="col-xl-8" >
+                                <div class="col-sm-7" >
                                     <div class="card-body">
                                         <a class="row" href="{{url('visualizar_receitas/')}}/{{$receita->id}}" style="text-decoration: none; color: black">
-                                            <h5 class="card-title col-6">{{$receita->titulo_receita}}</h5>
+                                            <h5 class="card-title col-12">{{$receita->titulo_receita}}</h5>
                                             @if ($receita->velocidade_id == 1)
-                                                <h5 class="card-text col-6 text-end mb-1">{{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h5>
+                                                <h6 class="card-text col-6  mb-1">{{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
                                             @elseif($receita->velocidade_id == 2)
-                                                <h5 class="card-text col-6 text-end mb-1">{{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h5>
+                                                <h6 class="card-text col-6  mb-1">{{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
                                             @else
-                                                <h5 class="card-text col-6 text-end mb-1">{{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h5>
+                                                <h6 class="card-text col-6  mb-1">{{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
                                             @endif
-                                            <h5 class="card-text col-12">{!! substr($receita->descricao, 0, 180) . '...' !!}</h5>
+                                            <h6 class="card-text col-12">{!! substr($receita->descricao, 0, 180) . '...' !!}</h6>
                                         </a>
                                         <p class="text-end">Curtidas: {{$receita->curtida ? $receita->curtida->where('receita_id', $receita->id)->count() : 0}}</p>
                                     </div>

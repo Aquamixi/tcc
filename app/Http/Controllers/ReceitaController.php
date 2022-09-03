@@ -241,7 +241,13 @@ class ReceitaController extends Controller
     {
         $sabores = sabor::get();
         $categorias = categoria::get();
-        $receita = receita::findOrFail($request->id);
+        $user = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->select('user_id')->findOrFail($request->id);
+        if($user->user_id == Auth::user()->id){
+            $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
+        }
+        else{
+            $receita = receita::findOrFail($request->id);
+        }
 
         return view('receitas.visualizar_receitas', compact("sabores", "categorias", "receita"));
     }
