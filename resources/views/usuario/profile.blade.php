@@ -119,6 +119,7 @@
                                                             <h5 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock"></i></h5>
                                                             <h5 class="card-text col-12">{!! substr($item->receita->descricao, 0, 300) . '...' !!}</h5>
                                                         </a>
+                                                        <div class="text-end text-bottom"> curtidas</div>
                                                     </div>
                                                 </div>
                                             </div>
