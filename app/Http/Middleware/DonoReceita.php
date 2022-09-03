@@ -19,7 +19,7 @@ class DonoReceita
     public function handle(Request $request, Closure $next)
     {
         $receita = receita::findOrFail($request->id);
-        return $receita;
+        
         if (isset($receita)) {
             if($receita->user_id == Auth::user()->id){
                 return $next($request);
