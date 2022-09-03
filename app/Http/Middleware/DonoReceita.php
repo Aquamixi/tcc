@@ -19,8 +19,8 @@ class DonoReceita
      */
     public function handle(Request $request, Closure $next)
     {
-        $receita = receita::withoutGlobalScope(ReceitaScope::class)->findOrFail($request->id);
-
+        $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
+        
         if($receita->user_id == Auth::user()->id){
             return $next($request);
         }

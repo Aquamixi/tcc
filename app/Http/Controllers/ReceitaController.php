@@ -131,7 +131,7 @@ class ReceitaController extends Controller
 
         $sabores = sabor::get();
         $categorias = categoria::get();
-        $linha = receita::findOrFail($request->id);
+        $linha = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
 
         $val_des = $linha->pluck('descricao');
         $modo_preparo = $linha->pluck('modo_preparo');
