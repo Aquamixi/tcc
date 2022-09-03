@@ -54,29 +54,30 @@
                     @endif
                 </div>
             </div>
-            
             <div class="container-fluid card border-0 bg-transparent">
                 <div class="card-body justify-content-center col-12 mx-auto row">
                     <label class="form-label fonteMaisFamosas text-center">
                         <h2>Receitas {{isset($_GET['categoria']) ? 'Da Categoria: ' . $_GET['categoria'] : ''}} {{isset($_GET['sabor']) ? 'Sabor: ' . $_GET['sabor'] : ''}}</h2>     
-                    </label>
+                    </label>                    
                     @foreach ($receitas as $receita)
                         <div class="card m-2 col-5" >
                             <div class="row g-0">
-                                <div class="col-md-5">
-                                    <img src="{{$receita->foto ? asset('foto_receitas/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem;">
+                                <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
+                                    <img src="{{$receita->foto ? asset('foto_receitas/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start " style="height: 15rem; width: 15rem;">
                                 </div>
-                                <div class="col-md-7">
+                                <div class="col-md-8">
                                     <div class="card-body">
-                                        <a href="{{url('visualizar_receitas/')}}/{{$receita->id}}" style="text-decoration: none; color: black">
-                                            <h5 class="card-title">{{$receita->sabor->sabor}}</h5>
-                                            <p class="card-text">{{$receita->titulo_receita}}</p>
-                                            <p class="card-text">{{$receita->categoria->sub_categoria->sub_categoria}}</p>
+                                        <a class="row" href="{{url('visualizar_receitas/')}}/{{$receita->id}}" style="text-decoration: none; color: black">
+                                            <h5 class="card-title col-6">{{$receita->titulo_receita}}</h5>
+                                            <h5 class="card-text col-6 text-end mb-1">{{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock"></i></h5>
+                                            <h5 class="card-text col-12">{!! substr($receita->descricao, 0, 180) . '...' !!}</h5>
                                         </a>
+                                        <p class="text-end">Curtidas: {{$receita->curtida ? $receita->curtida->where('receita_id', $receita->id)->count() : 0}}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
                     @endforeach
                     <div class="text-center">
                         {!! $receitas->links() !!}
