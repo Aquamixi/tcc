@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
     @section('titulo', 'MyRecipes')
     @section('conteudo')
         <main role="main">
@@ -13,15 +12,15 @@
                         @endif 
                             <div class="card-body">
                                 <div class="nav flex-column nav-pills me-3 mx-auto" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                    <button class="nav-link active mt-2" id="v-pills-perfil-tab" data-bs-toggle="pill" data-bs-target="#v-pills-perfil" type="button" role="tab" aria-controls="v-pills-perfil" aria-selected="true" style="height: 3.6rem; width:10rem ;">Perfil</button>
-                                    <button class="nav-link mt-2" id="v-pills-receita-tab" data-bs-toggle="pill" data-bs-target="#v-pills-receita" type="button" role="tab" aria-controls="v-pills-receita" aria-selected="false" style="height: 3.6rem; width:10rem ;">Minhas&nbsp;Receitas</button>
-                                    <button class="nav-link mt-2" id="v-pills-curtida-tab" data-bs-toggle="pill" data-bs-target="#v-pills-curtida" type="button" role="tab" aria-controls="v-pills-curtida" aria-selected="false" style="height: 3.6rem; width:10rem ;">Receitas&nbsp;Curtidas</button>
-                                    <button class="nav-link mt-2" id="v-pills-favoritas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favoritas" type="button" role="tab" aria-controls="v-pills-favoritas" aria-selected="false" style="height: 3.6rem; width:10rem ;">Receitas&nbsp;Favoritas</button>
+                                    <button class="nav-link active mt-2 botaousuario" id="v-pills-perfil-tab" data-bs-toggle="pill" data-bs-target="#v-pills-perfil" type="button" role="tab" aria-controls="v-pills-perfil" aria-selected="true" style="height: 3.6rem; width:10rem ;">Perfil</button>
+                                    <button class="nav-link mt-2 botaousuario" id="v-pills-receita-tab" data-bs-toggle="pill" data-bs-target="#v-pills-receita" type="button" role="tab" aria-controls="v-pills-receita" aria-selected="false" style="height: 3.6rem; width:10rem ;">Minhas&nbsp;Receitas</button>
+                                    <button class="nav-link mt-2 botaousuario" id="v-pills-curtida-tab" data-bs-toggle="pill" data-bs-target="#v-pills-curtida" type="button" role="tab" aria-controls="v-pills-curtida" aria-selected="false" style="height: 3.6rem; width:10rem ;">Curtidas</button>
+                                    <button class="nav-link mt-2 botaousuario" id="v-pills-favoritas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favoritas" type="button" role="tab" aria-controls="v-pills-favoritas" aria-selected="false" style="height: 3.6rem; width:10rem ;">Favoritadas</button>
                                     @if (Auth::user()->id == $usuario->id)
-                                        <button class="nav-link mt-2" id="v-pills-escondida-tab" data-bs-toggle="pill" data-bs-target="#v-pills-escondida" type="button" role="tab" aria-controls="v-pills-escondida" aria-selected="false" style="height: 3.6rem; width:10rem ;">Escondidas</button>
-                                        <button class="nav-link mt-2" id="v-pills-detalhes-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detalhes" type="button" role="tab" aria-controls="v-pills-detalhes" aria-selected="false" style="height: 3.6rem; width:10rem ;">Detalhes&nbsp;Conta</button>
+                                        <button class="nav-link mt-2 botaousuario" id="v-pills-escondida-tab" data-bs-toggle="pill" data-bs-target="#v-pills-escondida" type="button" role="tab" aria-controls="v-pills-escondida" aria-selected="false" style="height: 3.6rem; width:10rem ;">Escondidas</button>
+                                        <button class="nav-link mt-2 botaousuario" id="v-pills-detalhes-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detalhes" type="button" role="tab" aria-controls="v-pills-detalhes" aria-selected="false" style="height: 3.6rem; width:10rem ;">Detalhes&nbsp;Conta</button>
                                     @endif
-                                    <a class="nav-link mt-2 text-center" type="button" role="tab" aria-selected="false" style="height: 3.6rem; width:10rem ;" href="{{url('amigos/' . $usuario->id)}}">Amigos</a>
+                                    <a class="nav-link mt-2 text-center botaousuario" type="button" role="tab" aria-selected="false" style="height: 3.6rem; width:10rem ;" href="{{url('amigos/' . $usuario->id)}}">Amigos</a>
                                 </div>
                             </div>
                         </div>
@@ -41,8 +40,8 @@
                                                     <h5 class="col-12">Email: {{$usuario->email}}</h5>
                                                 </div>
                                                 <div class="container mt-3 row">
-                                                    <h5 class="col-6">Entrou Em: {{Carbon\Carbon::parse($usuario->created_at)->format('d-m-Y')}}</h5>
-                                                    <h5 class=" col-6 text-end">Idade: {{$usuario->data_nascimento ? Carbon\Carbon::parse($usuario->data_nascimento)->diffInYears(Carbon\Carbon::today()) . ' Anos' : 'Não Informado'}}</h5>
+                                                    <h5 class="col-6">Entrou: {{Carbon\Carbon::parse($usuario->created_at)->format('d-m-Y')}}</h5>
+                                                    <h5 class=" col-6 text-end">Idade: {{$usuario->data_nascimento ? Carbon\Carbon::parse($usuario->data_nascimento)->diffInYears(Carbon\Carbon::today()) . ' Anos' : 'Não Informada'}}</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -221,21 +220,25 @@
                                             </div>
                                             <div class="input-group mb-3 row ">
                                                 <label class="input-group-text col-2 " for="inputuf">UF:</label>
-                                                <select class="form-select col-9" disabled id="inputuf">
-                                                    <option selected>Choose...</option>
-                                                    <option value="1">One</option>
+                                                <select class="form-select col-9" name="uf" disabled id="uf">
+                                                    <option value="{{$usuario->endereco ? $usuario->endereco->uf_id : ''}}">{{$usuario->endereco ? $usuario->endereco->uf->uf : ''}}</option>
+                                                    @foreach ($ufs as $item)
+                                                        <option value="{{$item->id}}">{{$item->uf}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="input-group mb-3 row ">
                                                 <label class="input-group-text col-2 " for="inputpais">País:</label>
-                                                <select class="form-select col-9 " disabled id="inputpais">
-                                                    <option selected>Choose...</option>
-                                                    <option value="1">One</option>
+                                                <select class="form-select col-9 " name="pais" disabled id="pais">
+                                                    <option value="{{$usuario->endereco ? $usuario->endereco->pai_id : ''}}">{{$usuario->endereco ? $usuario->endereco->pais->pais : ''}}</option>
+                                                    @foreach ($paises as $item)
+                                                        <option value="{{$item->id}}">{{$item->pais}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
-                                            <div class="input-group mb-3 row">
+                                            <div class="input-group mb-3 row" id="botao_imagem" hidden>
                                                 <span class="input-group-text col-2" id="inputGroup-sizing-default">Foto:</span>
-                                                <input type="file" class="form-control col-9" disabled aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="imagem" id="imagem">
+                                                <input type="file" class="form-control col-9" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="imagem" id="imagem">
                                             </div>
                                             <div class="container text-center ">
                                                 <button class="btn btn-primary col-2 border-0" type="button" id="editar" style="height:50px; background-color: #ff8c00; color:white">Editar</button>
@@ -277,9 +280,9 @@
                 $('#bairro').prop('readonly', false);
                 $('#cidade').prop('readonly', false);
                 $('#cep').prop('readonly', false);
-                $('#uf').prop('readonly', false);
-                $('#pais').prop('readonly', false);
-                $('#imagem').prop('readonly', false);
+                $('#uf').prop('disabled', false);
+                $('#pais').prop('disabled', false);
+                $('#botao_imagem').prop('hidden', false);
             });
 
             const urlParams = new URLSearchParams(window.location.search);

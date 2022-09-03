@@ -136,6 +136,12 @@ html, body {
     color:#000;
 }
 
+
+.botaousuario{
+    color: #000;
+    font-family: PoetsenOne;
+    padding: 0.5rem ;
+}
 .enviaComentario{
     color: rgb(0, 98, 255);
 }

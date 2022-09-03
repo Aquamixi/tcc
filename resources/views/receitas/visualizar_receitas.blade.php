@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="container mt-3 row">
                                     <div class=" col-6">
-                                        <h5>Aprovação</h5>
+                                        <h5>Aprovação:</h5>
                                         @for ($i = 0; $i < 5; $i++)
                                             @if (round($receita->avaliacao) <= $i)
                                                 <button type="radio" class="fa fa-star botaostar"id="$i"></button>
