@@ -98,17 +98,18 @@
                             </select>
                         </div>
                         <div class="mx-auto col-3 ms-1">
+                            
+                            <h5>Tempo&nbspPreparo</h5>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('tempo') ? $errors->first('tempo') : ''}}</h6>
                             </label>
-                            <div class="d-inline-flex  bd-highlight" style="height: 3.1rem"></div>
                             <input type="number" class="form-control" name="tempo" id="exampleFormControlInput1" placeholder="Tempo Em Minutos" style="height: 3.1rem ;">    
                         </div>
                         <div class="mx-auto col-3 ms-1">
+                                <h5>qtde_porcoes</h5>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('qtde_porcoes') ? $errors->first('qtde_porcoes') : ''}}</h6>
                             </label>
-                            <div class="d-inline-flex  bd-highlight" style="height: 3.1rem"></div>
                             <input type="number" class="form-control" name="qtde_porcoes" id="exampleFormControlInput1" placeholder="Quantidade Em Numeros" style="height: 3.1rem ;" >    
                         </div>
                     </div>
