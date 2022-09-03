@@ -46,8 +46,8 @@
                         </ul>
                     </div>
 
-                    <a href="{{url('criar_receitas')}}" class="btn btn-warning text-light me-4">
-                        <i class="fa-solid fa-receipt"></i>
+                    <a href="{{url('criar_receitas')}}" class="btn btn-warning text-light me-4" style="height: 38px">
+                        <h6>Criar Receita</h6>
                     </a>
 
                     {!! Form::open(['url' => url('home') . "?search", 'method' => 'GET', 'class' => 'me-5 mt-0 end-3 col-3']) !!}
