@@ -32,7 +32,6 @@ class AtualizaDataPostagem extends Command
         $today = Carbon::today()->format('Y-m-d');
 
         $receita_hoje = receita::has('foto')
-            ->orderBy('qtde_curtidas', 'desc')
             ->take(5)
             ->get();
 

@@ -22,7 +22,7 @@ class VisitanteController extends Controller
         // $today = '2022-04-21';
 
         $receita_hoje = receita::has('foto')
-        ->where('data_postagem', $today)->orderBy('qtde_curtidas', 'desc')->take(5)->get();
+        ->where('data_postagem', $today)->take(5)->get();
 
         $receitas = receita::select();
         
@@ -39,7 +39,7 @@ class VisitanteController extends Controller
         }
         $verificar = receita::first();
 
-        $receitas = $receitas->orderBy('qtde_curtidas', 'desc')->simplePaginate(10);
+        $receitas = $receitas->simplePaginate(10);
 
         return view('home', compact('receitas', 'receita_hoje', 'sabores', 'categorias', 'verificar'));
     }

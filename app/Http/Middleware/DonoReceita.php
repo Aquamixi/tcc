@@ -19,12 +19,17 @@ class DonoReceita
     public function handle(Request $request, Closure $next)
     {
         $receita = receita::findOrFail($request->id);
-
-        if($receita->user_id == Auth::user()->id){
-            return $next($request);
-        }
-        else{
+        return $receita;
+        if (isset($receita)) {
+            if($receita->user_id == Auth::user()->id){
+                return $next($request);
+            }
+            else{
+                return redirect()->route('home', ['confirm' => 'usuario_invalido']);
+            }
+        } else {
             return redirect()->route('home', ['confirm' => 'usuario_invalido']);
         }
+        
     }
 }

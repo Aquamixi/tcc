@@ -37,7 +37,7 @@ class HomeController extends Controller
         // $today = '2022-04-21';
 
         $receita_hoje = receita::has('foto')
-        ->where('data_postagem', $today)->orderBy('qtde_curtidas', 'desc')->take(5)->get();
+        ->where('data_postagem', $today)->take(5)->get();
 
         $first_login = Auth::user()->first_login;
 
@@ -66,12 +66,12 @@ class HomeController extends Controller
 
             $receitas->pesquisa_avancada($val = $request->search);
 
-            $receitas = $receitas->orderBy('qtde_curtidas', 'desc')->get();
+            $receitas = $receitas->get();
 
             return view('pesquisa.pesquisa', compact('array_seguindo', 'usuarios', 'first_login', 'receitas', 'sabores', 'categorias'));
         }
         $verificar = receita::first();
-        $receitas = $receitas->orderBy('qtde_curtidas', 'desc')->simplePaginate(10);
+        $receitas = $receitas->simplePaginate(10);
 
         return view('home', compact('receitas', 'first_login', 'receita_hoje', 'sabores', 'categorias', 'verificar'));
     }
