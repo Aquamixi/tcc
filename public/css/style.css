@@ -135,3 +135,9 @@ html, body {
 .curtido:hover{
     color:#000;
 }
+
+.botaousuario{
+    color: #000;
+    font-family: PoetsenOne;
+    padding: 0.5rem ;
+}
