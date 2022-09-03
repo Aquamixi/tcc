@@ -15,4 +15,9 @@ class curtida extends Model
         'user_id',
         'receita_id'
     ];
+    
+    public function receita()
+    {
+        return $this->hasOne(receita::class, 'id', 'receita_id');
+    }
 }
