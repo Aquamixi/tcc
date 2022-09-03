@@ -65,7 +65,13 @@
                                                         <div class="card-body">
                                                             <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->id}}" style="text-decoration: none; color: black">
                                                                 <h5 class="card-title col-6">{{$item->titulo_receita}}</h5>
-                                                                <h5 class="card-text col-6 text-end mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock"></i></h5>
+                                                                @if ($item->velocidade_id == 1)
+                                                                    <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
+                                                                @elseif($item->velocidade_id == 2)
+                                                                    <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
+                                                                @else
+                                                                    <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
+                                                                @endif
                                                                 <h5 class="card-text col-12">{!! substr($item->descricao, 0, 180) . '...' !!}</h5>
                                                             </a>
                                                             <p class="text-end">Curtidas: {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}</p>
@@ -94,7 +100,13 @@
                                                     <div class="card-body">
                                                         <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->receita_id}}" style="text-decoration: none; color: black">
                                                             <h5 class="card-title col-6">{{$item->receita->titulo_receita}}</h5>
-                                                            <h5 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock"></i></h5>
+                                                            @if ($item->velocidade_id == 1)
+                                                                <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
+                                                            @elseif($item->velocidade_id == 2)
+                                                                <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
+                                                            @else
+                                                                <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
+                                                            @endif
                                                             <h5 class="card-text col-12">{!! substr($item->receita->descricao, 0, 180) . '...' !!}</h5>
                                                         </a>
                                                         <p class="text-end">Curtidas: {{$item->where('receita_id', $item->receita_id)->count()}}</p>
@@ -123,7 +135,13 @@
                                                     <div class="card-body">
                                                         <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->receita_id}}" style="text-decoration: none; color: black">
                                                             <h5 class="card-title col-6">{{$item->receita->titulo_receita}}</h5>
-                                                            <h5 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock"></i></h5>
+                                                            @if ($item->velocidade_id == 1)
+                                                                <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
+                                                            @elseif($item->velocidade_id == 2)
+                                                                <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
+                                                            @else
+                                                                <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
+                                                            @endif
                                                             <h5 class="card-text col-12">{!! substr($item->receita->descricao, 0, 180) . '...' !!}</h5>
                                                         </a>
                                                         <p class="text-end">Curtidas: {{$item->receita->curtida ? $item->receita->curtida->where('receita_id', $item->receita_id)->count() : 0}}</p>
@@ -152,7 +170,13 @@
                                                         <div class="card-body">
                                                             <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->id}}" style="text-decoration: none; color: black">
                                                                 <h5 class="card-title col-6">{{$item->titulo_receita}}</h5>
-                                                                <h5 class="card-text col-6 text-end mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock"></i></h5>
+                                                                @if ($item->velocidade_id == 1)
+                                                                    <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
+                                                                @elseif($item->velocidade_id == 2)
+                                                                    <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
+                                                                @else
+                                                                    <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
+                                                                @endif
                                                                 <h5 class="card-text col-12">{!! substr($item->descricao, 0, 180) . '...' !!}</h5>
                                                             </a>
                                                             <p class="text-end">Curtidas: {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}</p>
