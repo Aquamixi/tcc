@@ -12,17 +12,10 @@
                         @endif 
                             <div class="card-body">
                                 <div class="nav flex-column nav-pills me-3 mx-auto" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-<<<<<<< HEAD
                                     <button class="nav-link active mt-2 botaousuario" id="v-pills-perfil-tab" data-bs-toggle="pill" data-bs-target="#v-pills-perfil" type="button" role="tab" aria-controls="v-pills-perfil" aria-selected="true" style="height: 3.6rem; width:10rem ;">Perfil</button>
                                     <button class="nav-link mt-2 botaousuario" id="v-pills-receita-tab" data-bs-toggle="pill" data-bs-target="#v-pills-receita" type="button" role="tab" aria-controls="v-pills-receita" aria-selected="false" style="height: 3.6rem; width:10rem ;">Minhas&nbsp;Receitas</button>
-                                    <button class="nav-link mt-2 botaousuario" id="v-pills-curtida-tab" data-bs-toggle="pill" data-bs-target="#v-pills-curtida" type="button" role="tab" aria-controls="v-pills-curtida" aria-selected="false" style="height: 3.6rem; width:10rem ;">Receitas&nbsp;Curtidas</button>
-                                    <button class="nav-link mt-2 botaousuario" id="v-pills-favoritas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favoritas" type="button" role="tab" aria-controls="v-pills-favoritas" aria-selected="false" style="height: 3.6rem; width:10rem ;">Receitas&nbsp;Favoritas</button>
-=======
-                                    <button class="nav-link active mt-2" id="v-pills-perfil-tab" data-bs-toggle="pill" data-bs-target="#v-pills-perfil" type="button" role="tab" aria-controls="v-pills-perfil" aria-selected="true" style="height: 3.6rem; width:10rem ;">Perfil</button>
-                                    <button class="nav-link mt-2" id="v-pills-receita-tab" data-bs-toggle="pill" data-bs-target="#v-pills-receita" type="button" role="tab" aria-controls="v-pills-receita" aria-selected="false" style="height: 3.6rem; width:10rem ;">Minhas&nbsp;Receitas</button>
-                                    <button class="nav-link mt-2" id="v-pills-curtida-tab" data-bs-toggle="pill" data-bs-target="#v-pills-curtida" type="button" role="tab" aria-controls="v-pills-curtida" aria-selected="false" style="height: 3.6rem; width:10rem ;">Curtidas</button>
-                                    <button class="nav-link mt-2" id="v-pills-favoritas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favoritas" type="button" role="tab" aria-controls="v-pills-favoritas" aria-selected="false" style="height: 3.6rem; width:10rem ;">Favoritadas</button>
->>>>>>> 7e429e67b750c92624c1886cd3bb30e4e82bad13
+                                    <button class="nav-link mt-2 botaousuario" id="v-pills-curtida-tab" data-bs-toggle="pill" data-bs-target="#v-pills-curtida" type="button" role="tab" aria-controls="v-pills-curtida" aria-selected="false" style="height: 3.6rem; width:10rem ;">Curtidas</button>
+                                    <button class="nav-link mt-2 botaousuario" id="v-pills-favoritas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favoritas" type="button" role="tab" aria-controls="v-pills-favoritas" aria-selected="false" style="height: 3.6rem; width:10rem ;">Favoritadas</button>
                                     @if (Auth::user()->id == $usuario->id)
                                         <button class="nav-link mt-2 botaousuario" id="v-pills-escondida-tab" data-bs-toggle="pill" data-bs-target="#v-pills-escondida" type="button" role="tab" aria-controls="v-pills-escondida" aria-selected="false" style="height: 3.6rem; width:10rem ;">Escondidas</button>
                                         <button class="nav-link mt-2 botaousuario" id="v-pills-detalhes-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detalhes" type="button" role="tab" aria-controls="v-pills-detalhes" aria-selected="false" style="height: 3.6rem; width:10rem ;">Detalhes&nbsp;Conta</button>
@@ -76,6 +69,13 @@
                                                                 <h5 class="card-text col-12">{!! substr($item->descricao, 0, 180) . '...' !!}</h5>
                                                             </a>
                                                             <p class="text-end">Curtidas: {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}</p>
+                                                            @if (Auth::user()->id == $usuario->id)
+                                                                <div class="text-end">
+                                                                    <a href="{{url('editar_receitas/')}}/{{$item->id}}" class="btn btn-warning text-light text-center " style="height: 38px">
+                                                                        <h6>editar receita</h6>
+                                                                    </a>
+                                                                </div>  
+                                                            @endif 
                                                         </div>
                                                     </div>
                                                 </div>
