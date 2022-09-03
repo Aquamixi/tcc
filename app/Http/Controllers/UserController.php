@@ -57,7 +57,7 @@ class UserController extends Controller
         
         $usuario = User::with('curtidas.receita', 'favoritas.receita', 'receitas.velocidade', 'endereco', 'receitas')->findOrFail($request->id);
 
-        $escondidas = receita::withoutGlobalScope(ReceitaScope::class)->where('escondida', 1)->where('user_id', $request->id)->get();
+        $escondidas = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->where('escondida', 1)->where('user_id', $request->id)->get();
 
         return view('usuario.profile', compact('usuario', 'sabores', 'categorias', 'escondidas'));
     }
