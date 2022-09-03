@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\categoria;
 use App\Models\endereco;
 use App\Models\fotoUser;
+use App\Models\pai;
 use App\Models\receita;
 use App\Models\sabor;
 use App\Models\seguidor;
+use App\Models\uf;
 use App\Models\User;
 use App\Scopes\ReceitaScope;
 use Carbon\Carbon;
@@ -54,12 +56,15 @@ class UserController extends Controller
     {
         $sabores = sabor::get();
         $categorias = categoria::get();
+
+        $paises = pai::get();
+        $ufs = uf::get();
         
         $usuario = User::with('curtidas.receita', 'favoritas.receita', 'receitas.velocidade', 'endereco', 'receitas')->findOrFail($request->id);
 
         $escondidas = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->where('escondida', 1)->where('user_id', $request->id)->get();
 
-        return view('usuario.profile', compact('usuario', 'sabores', 'categorias', 'escondidas'));
+        return view('usuario.profile', compact('usuario', 'sabores', 'categorias', 'escondidas', 'ufs', 'paises'));
     }
 
     public function amigos($id)

@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
     @section('titulo', 'MyRecipes')
     @section('conteudo')
         <main role="main">
@@ -216,21 +215,25 @@
                                             </div>
                                             <div class="input-group mb-3 row ">
                                                 <label class="input-group-text col-2 " for="inputuf">UF:</label>
-                                                <select class="form-select col-9" disabled id="inputuf">
-                                                    <option selected>Choose...</option>
-                                                    <option value="1">One</option>
+                                                <select class="form-select col-9" name="uf" disabled id="uf">
+                                                    <option value="{{$usuario->endereco ? $usuario->endereco->uf_id : ''}}">{{$usuario->endereco ? $usuario->endereco->uf->uf : ''}}</option>
+                                                    @foreach ($ufs as $item)
+                                                        <option value="{{$item->id}}">{{$item->uf}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="input-group mb-3 row ">
                                                 <label class="input-group-text col-2 " for="inputpais">País:</label>
-                                                <select class="form-select col-9 " disabled id="inputpais">
-                                                    <option selected>Choose...</option>
-                                                    <option value="1">One</option>
+                                                <select class="form-select col-9 " name="pais" disabled id="pais">
+                                                    <option value="{{$usuario->endereco ? $usuario->endereco->pai_id : ''}}">{{$usuario->endereco ? $usuario->endereco->pais->pais : ''}}</option>
+                                                    @foreach ($paises as $item)
+                                                        <option value="{{$item->id}}">{{$item->pais}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
-                                            <div class="input-group mb-3 row">
+                                            <div class="input-group mb-3 row" id="botao_imagem" hidden>
                                                 <span class="input-group-text col-2" id="inputGroup-sizing-default">Foto:</span>
-                                                <input type="file" class="form-control col-9" disabled aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="imagem" id="imagem">
+                                                <input type="file" class="form-control col-9" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="imagem" id="imagem">
                                             </div>
                                             <div class="container text-center ">
                                                 <button class="btn btn-primary col-2 border-0" type="button" id="editar" style="height:50px; background-color: #ff8c00; color:white">Editar</button>
@@ -272,9 +275,9 @@
                 $('#bairro').prop('readonly', false);
                 $('#cidade').prop('readonly', false);
                 $('#cep').prop('readonly', false);
-                $('#uf').prop('readonly', false);
-                $('#pais').prop('readonly', false);
-                $('#imagem').prop('readonly', false);
+                $('#uf').prop('disabled', false);
+                $('#pais').prop('disabled', false);
+                $('#botao_imagem').prop('hidden', false);
             });
 
             const urlParams = new URLSearchParams(window.location.search);
