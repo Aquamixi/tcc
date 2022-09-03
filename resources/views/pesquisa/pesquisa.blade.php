@@ -24,9 +24,19 @@
                             <div class="card me-3 mb-3" style="width: 18rem;">
                                 <img class="pt-2" src="{{$receita->foto ? asset('foto_receitas' . '/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="card-img-top">
                                 <div class="card-body">
-                                    <h6 class="fs-5 card-title ps-0 ">
-                                        <a href="{{url('visualizar_receitas')}}/{{$receita->id}}" style="text-decoration: none; color: black">{{$receita->titulo_receita}}</a>
-                                    </h6>
+                                    <div class="row">
+                                        <h6 class="fs-5 card-title ps-0 col-6 ">
+                                            <a href="{{url('visualizar_receitas')}}/{{$receita->id}}" style="text-decoration: none; color: black">{{$receita->titulo_receita}}</a>
+                                        </h6>
+                                        @if ($receita->velocidade_id == 1)
+                                            <h6 class="card-text col-6 mb-1 text-end"><i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
+                                        @elseif($receita->velocidade_id == 2)
+                                            <h6 class="card-text col-6 mb-1 text-end"><i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
+                                        @else
+                                            <h6 class="card-text col-6 mb-1 text-end"><i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
+                                        @endif
+                                    </div>
+                                    <h6 class="card-text col-12">{!! substr($receita->descricao, 0, 50) . '...' !!}</h6>
                                     
                                 </div>
                             </div>
