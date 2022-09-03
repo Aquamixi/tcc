@@ -111,7 +111,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title fonteMaisFamosas">Comentario</h3>
+                    <h3 class="modal-title fonteMaisFamosas">Comentar</h3>
                 </div>
                 <div class="modal-body">
                     <label class="form-label faltadados">
@@ -120,7 +120,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" id="enviaComentario" class="enviaComentario">Enviar</button>
+                    <button type="button" id="enviaComentario" class="btn btn-primary col-2 border-0" type="submit" value="Enviar" style="height:40px; background-color: #ff8c00; color:white">Enviar</button>
                 </div>
             </div>
         
