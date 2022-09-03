@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\categoria;
 use App\Models\endereco;
 use App\Models\fotoUser;
+use App\Models\receita;
 use App\Models\sabor;
 use App\Models\seguidor;
 use App\Models\User;
+use App\Scopes\ReceitaScope;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,7 +57,9 @@ class UserController extends Controller
         
         $usuario = User::with('curtidas.receita', 'favoritas.receita', 'receitas.velocidade', 'endereco', 'receitas')->findOrFail($request->id);
 
-        return view('usuario.profile', compact('usuario', 'sabores', 'categorias'));
+        $escondidas = receita::withoutGlobalScope(ReceitaScope::class)->where('escondida', 1)->where('user_id', $request->id)->get();
+
+        return view('usuario.profile', compact('usuario', 'sabores', 'categorias', 'escondidas'));
     }
 
     public function amigos($id)

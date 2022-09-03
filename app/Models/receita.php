@@ -28,7 +28,8 @@ class receita extends Model
         'user_id',
         'sabor_id',
         'categoria_id',
-        'velocidade_id'
+        'velocidade_id',
+        'escondida'
     ];
 
     public function usuario()
