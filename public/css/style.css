@@ -135,3 +135,7 @@ html, body {
 .curtido:hover{
     color:#000;
 }
+
+.enviaComentario{
+    color: rgb(0, 98, 255);
+}

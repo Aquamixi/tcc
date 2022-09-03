@@ -48,6 +48,7 @@
                                 </div>
                             </div>
                             <div class="text-end">
+                                <a title="comentar" href="#" class="botaocurtir" id="comentar"><i class="fa-solid fa-comment"></i></a>
                                 @if ($receita->curtida)
                                     <a title="Descurtir" class="curtido" id="descurtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
                                 @else
@@ -103,6 +104,28 @@
             </div>         
         </div>
     </main>
+
+    <div class="modal fade" id="modalComentario" role="dialog">
+        <div class="modal-dialog">
+        
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title fonteMaisFamosas">Comentario</h3>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label faltadados">
+                    </label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Escreva aqui o seu comentario" name="comentario" style="resize: none; height:115.7px;"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" id="enviaComentario" class="enviaComentario">Enviar</button>
+                </div>
+            </div>
+        
+        </div>
+    </div>
 
     <div class="NoCanto" id="alertaSucessoCopia" hidden>
         <div class="alert alert-success" role="alert">
@@ -223,6 +246,10 @@
                     }, 5050);
                 }
             });
+        });
+
+        $(document).on('click', '#comentar', function(){
+            $("#modalComentario").modal('show');
         });
     </script>
 @endsection
