@@ -63,4 +63,11 @@ class User extends Authenticatable
         return $this->belongsTo(endereco::class, 'endereco_id', 'id');
     }
 
+    public function scopeVerifica_dono($query, $val)
+    {
+        if($val == Auth::user()->id){
+            $query->withoutGlobalScope(ReceitaScope::class);
+        }
+    }
+
 }

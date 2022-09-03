@@ -21,16 +21,11 @@ class DonoReceita
     {
         $receita = receita::withoutGlobalScope(ReceitaScope::class)->findOrFail($request->id);
 
-        if (isset($receita)) {
-            if($receita->user_id == Auth::user()->id){
-                return $next($request);
-            }
-            else{
-                return redirect()->route('home', ['confirm' => 'usuario_invalido']);
-            }
-        } else {
-            return redirect()->route('home', ['confirm' => 'usuario_invalido']);
+        if($receita->user_id == Auth::user()->id){
+            return $next($request);
         }
-        
+        else{
+            return redirect()->route('home', ['confirm' => 'usuario_invalido']);
+        }        
     }
 }
