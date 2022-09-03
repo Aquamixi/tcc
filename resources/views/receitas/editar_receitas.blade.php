@@ -80,11 +80,11 @@
                 <div class="container col-6">
                     <div class="card bg-transparent mb-5 border-0">                   
                         <div class="card-body height:114px ">
-                            <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">descrição</h3></label>
+                            <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">Descrição</h3></label>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('descricao') ? $errors->first('descricao') : ''}}</h6>
                             </label>
-                            <textarea class="form-control" id="descricao" placeholder="descreva brevemente a sua receita" name="descricao" style="height:115.7px;">{{str_replace('<br />', "", $linha->descricao)}}</textarea>
+                            <textarea class="form-control" id="descricao" placeholder="Descreva brevemente a sua receita" name="descricao" style="height:115.7px;">{{str_replace('<br />', "", $linha->descricao)}}</textarea>
                         </div>
                     </div>
                     <div class="container  d-flex justify-content-center">    
@@ -108,11 +108,11 @@
                             <input type="number" class="form-control" name="tempo" value="{{$linha->tempo_preparo}}" id="exampleFormControlInput1" placeholder="Tempo Em Minutos" style="height: 3.1rem ;">    
                         </div>
                         <div class="mx-auto col-3 ms-1">
-                            <h5>qtde_porcoes</h5>
+                            <h5>Porções</h5>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('qtde_porcoes') ? $errors->first('qtde_porcoes') : ''}}</h6>
                             </label>
-                            <input type="number" class="form-control" name="qtde_porcoes" value="{{$linha->qtde_porcoes}}" id="exampleFormControlInput1" placeholder="Quantidade Em Numeros" style="height: 3.1rem ;" >    
+                            <input type="number" class="form-control" name="qtde_porcoes" value="{{$linha->qtde_porcoes}}" id="exampleFormControlInput1" placeholder="Quantidade Em Números" style="height: 3.1rem ;" >    
                         </div>
                     </div>
                     <div class="card bg-transparent mt-3 mb-5 border-0">                   
