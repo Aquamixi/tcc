@@ -15,8 +15,8 @@
                                 <div class="nav flex-column nav-pills me-3 mx-auto" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <button class="nav-link active mt-2" id="v-pills-perfil-tab" data-bs-toggle="pill" data-bs-target="#v-pills-perfil" type="button" role="tab" aria-controls="v-pills-perfil" aria-selected="true" style="height: 3.6rem; width:10rem ;">Perfil</button>
                                     <button class="nav-link mt-2" id="v-pills-receita-tab" data-bs-toggle="pill" data-bs-target="#v-pills-receita" type="button" role="tab" aria-controls="v-pills-receita" aria-selected="false" style="height: 3.6rem; width:10rem ;">Minhas&nbsp;Receitas</button>
-                                    <button class="nav-link mt-2" id="v-pills-curtida-tab" data-bs-toggle="pill" data-bs-target="#v-pills-curtida" type="button" role="tab" aria-controls="v-pills-curtida" aria-selected="false" style="height: 3.6rem; width:10rem ;">Receitas&nbsp;Curtidas</button>
-                                    <button class="nav-link mt-2" id="v-pills-favoritas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favoritas" type="button" role="tab" aria-controls="v-pills-favoritas" aria-selected="false" style="height: 3.6rem; width:10rem ;">Receitas&nbsp;Favoritas</button>
+                                    <button class="nav-link mt-2" id="v-pills-curtida-tab" data-bs-toggle="pill" data-bs-target="#v-pills-curtida" type="button" role="tab" aria-controls="v-pills-curtida" aria-selected="false" style="height: 3.6rem; width:10rem ;">Curtidas</button>
+                                    <button class="nav-link mt-2" id="v-pills-favoritas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favoritas" type="button" role="tab" aria-controls="v-pills-favoritas" aria-selected="false" style="height: 3.6rem; width:10rem ;">Favoritadas</button>
                                     @if (Auth::user()->id == $usuario->id)
                                         <button class="nav-link mt-2" id="v-pills-escondida-tab" data-bs-toggle="pill" data-bs-target="#v-pills-escondida" type="button" role="tab" aria-controls="v-pills-escondida" aria-selected="false" style="height: 3.6rem; width:10rem ;">Escondidas</button>
                                         <button class="nav-link mt-2" id="v-pills-detalhes-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detalhes" type="button" role="tab" aria-controls="v-pills-detalhes" aria-selected="false" style="height: 3.6rem; width:10rem ;">Detalhes&nbsp;Conta</button>
@@ -41,8 +41,8 @@
                                                     <h5 class="col-12">Email: {{$usuario->email}}</h5>
                                                 </div>
                                                 <div class="container mt-3 row">
-                                                    <h5 class="col-6">Entrou Em: {{Carbon\Carbon::parse($usuario->created_at)->format('d-m-Y')}}</h5>
-                                                    <h5 class=" col-6 text-end">Idade: {{$usuario->data_nascimento ? Carbon\Carbon::parse($usuario->data_nascimento)->diffInYears(Carbon\Carbon::today()) . ' Anos' : 'Não Informado'}}</h5>
+                                                    <h5 class="col-6">Entrou: {{Carbon\Carbon::parse($usuario->created_at)->format('d-m-Y')}}</h5>
+                                                    <h5 class=" col-6 text-end">Idade: {{$usuario->data_nascimento ? Carbon\Carbon::parse($usuario->data_nascimento)->diffInYears(Carbon\Carbon::today()) . ' Anos' : 'Não Informada'}}</h5>
                                                 </div>
                                             </div>
                                         </div>

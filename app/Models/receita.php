@@ -29,6 +29,7 @@ class receita extends Model
         'sabor_id',
         'categoria_id',
         'velocidade_id',
+        'mais_dezoito',
         'escondida'
     ];
 
