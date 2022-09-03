@@ -50,7 +50,7 @@ class User extends Authenticatable
     
     public function curtidas()
     {
-        return $this->hasMany(curtida::class, 'user_id', 'id');
+        return $this->belongsTo(curtida::class, 'id', 'user_id',);
     }
     
     public function receitas()
