@@ -214,17 +214,23 @@
                                                 <span class="input-group-text col-2" id="inputGroup-sizing-default">CEP:</span>
                                                 <input type="text" value="{{$usuario->endereco ? $usuario->endereco->cep : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="cep" id="cep">
                                             </div>
-                                            <div class="input-group mb-3 row">
-                                                <span class="input-group-text col-2" id="inputGroup-sizing-default">UF:</span>
-                                                <input type="text" value="{{$usuario->endereco ? $usuario->endereco->uf->uf : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="uf" id="uf">
+                                            <div class="input-group mb-3 row ">
+                                                <label class="input-group-text col-2 " for="inputuf">UF:</label>
+                                                <select class="form-select col-9" disabled id="inputuf">
+                                                    <option selected>Choose...</option>
+                                                    <option value="1">One</option>
+                                                </select>
                                             </div>
-                                            <div class="input-group mb-3 row">
-                                                <span class="input-group-text col-2" id="inputGroup-sizing-default">País:</span>
-                                                <input type="text" value="{{$usuario->endereco ? $usuario->endereco->pais->pais : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="pais" id="pais">
+                                            <div class="input-group mb-3 row ">
+                                                <label class="input-group-text col-2 " for="inputpais">País:</label>
+                                                <select class="form-select col-9 " disabled id="inputpais">
+                                                    <option selected>Choose...</option>
+                                                    <option value="1">One</option>
+                                                </select>
                                             </div>
                                             <div class="input-group mb-3 row">
                                                 <span class="input-group-text col-2" id="inputGroup-sizing-default">Foto:</span>
-                                                <input type="file" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="imagem" id="imagem">
+                                                <input type="file" class="form-control col-9" disabled aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="imagem" id="imagem">
                                             </div>
                                             <div class="container text-center ">
                                                 <button class="btn btn-primary col-2 border-0" type="button" id="editar" style="height:50px; background-color: #ff8c00; color:white">Editar</button>

@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container-fluid row mx-0">
+            <div class="container-fluid  mx-0">
                 <div class="container col-6">
                     <div class="card bg-transparent  mb-5 border-0">
                         <div class="card-body">
