@@ -53,7 +53,7 @@ class UserController extends Controller
         $sabores = sabor::get();
         $categorias = categoria::get();
         
-        $usuario = User::verifica_dono($val = $request->id)->with('curtidas.receita', 'favoritas.receita', 'receitas.velocidade', 'endereco', 'receitas')->findOrFail($request->id);
+        $usuario = User::with('curtidas.receita', 'favoritas.receita', 'receitas.velocidade', 'endereco', 'receitas')->findOrFail($request->id);
 
         return view('usuario.profile', compact('usuario', 'sabores', 'categorias'));
     }
