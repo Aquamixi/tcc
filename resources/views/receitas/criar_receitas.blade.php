@@ -126,11 +126,11 @@
                     <div class="text-center mx-0 ">
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" name="mais_dezoito" type="checkbox" value="" id="firstCheckbox">
+                                <input class="form-check-input me-1" name="mais_dezoito" type="checkbox" id="firstCheckbox">
                                 <label class="form-check-label" for="firstCheckbox">Receita +18</label>
                             </li>
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" name="escondida" type="checkbox" value="" id="secondCheckbox">
+                                <input class="form-check-input me-1" name="escondida" type="checkbox" id="secondCheckbox">
                                 <label class="form-check-label" for="secondCheckbox">Escondida</label>
                             </li>
                         </ul>
