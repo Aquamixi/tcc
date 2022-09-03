@@ -139,9 +139,9 @@
                             
                             <li class="list-group-item ">
                                 @if ($linha->escondida)
-                                    <input class="form-check-input me-1" name="escondida" type="checkbox" value="" id="secondCheckbox" checked>
+                                    <input class="form-check-input me-1" name="escondida" type="checkbox" id="secondCheckbox" checked>
                                 @else
-                                    <input class="form-check-input me-1" name="escondida" type="checkbox" value="" id="secondCheckbox">
+                                    <input class="form-check-input me-1" name="escondida" type="checkbox" id="secondCheckbox">
                                 @endif
 
                                 <label class="form-check-label" for="secondCheckbox">Escondida</label>

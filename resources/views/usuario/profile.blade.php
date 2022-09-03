@@ -6,15 +6,22 @@
             <div class="container p-2">
                 <div class="d-flex  align-items-start">
                     <div class="container row">
-                        <div class="card col-3" style="width:13.5rem; height:23rem ">   
+                        @if (Auth::user()->id == $usuario->id)
+                            <div class="card col-3" style="width:13.5rem; max-height: 30rem ">
+                        @else
+                            <div class="card col-3" style="width:13.5rem; max-height: 21rem ">         
+                        @endif 
                             <div class="card-body">
                                 <div class="nav flex-column nav-pills me-3 mx-auto" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <button class="nav-link active mt-2" id="v-pills-perfil-tab" data-bs-toggle="pill" data-bs-target="#v-pills-perfil" type="button" role="tab" aria-controls="v-pills-perfil" aria-selected="true" style="height: 3.6rem; width:10rem ;">Perfil</button>
                                     <button class="nav-link mt-2" id="v-pills-receita-tab" data-bs-toggle="pill" data-bs-target="#v-pills-receita" type="button" role="tab" aria-controls="v-pills-receita" aria-selected="false" style="height: 3.6rem; width:10rem ;">Minhas&nbsp;Receitas</button>
                                     <button class="nav-link mt-2" id="v-pills-curtida-tab" data-bs-toggle="pill" data-bs-target="#v-pills-curtida" type="button" role="tab" aria-controls="v-pills-curtida" aria-selected="false" style="height: 3.6rem; width:10rem ;">Receitas&nbsp;Curtidas</button>
                                     <button class="nav-link mt-2" id="v-pills-favoritas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favoritas" type="button" role="tab" aria-controls="v-pills-favoritas" aria-selected="false" style="height: 3.6rem; width:10rem ;">Receitas&nbsp;Favoritas</button>
-                                    <button class="nav-link mt-2" id="v-pills-detalhes-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detalhes" type="button" role="tab" aria-controls="v-pills-detalhes" aria-selected="false" style="height: 3.6rem; width:10rem ;">Detalhes&nbsp;Conta</button>
-                                    <a href="{{url('amigos/' . $usuario->id)}}">Amigos</a>
+                                    @if (Auth::user()->id == $usuario->id)
+                                        <button class="nav-link mt-2" id="v-pills-escondida-tab" data-bs-toggle="pill" data-bs-target="#v-pills-escondida" type="button" role="tab" aria-controls="v-pills-escondida" aria-selected="false" style="height: 3.6rem; width:10rem ;">Escondidas</button>
+                                        <button class="nav-link mt-2" id="v-pills-detalhes-tab" data-bs-toggle="pill" data-bs-target="#v-pills-detalhes" type="button" role="tab" aria-controls="v-pills-detalhes" aria-selected="false" style="height: 3.6rem; width:10rem ;">Detalhes&nbsp;Conta</button>
+                                    @endif
+                                    <a class="nav-link mt-2 text-center" type="button" role="tab" aria-selected="false" style="height: 3.6rem; width:10rem ;" href="{{url('amigos/' . $usuario->id)}}">Amigos</a>
                                 </div>
                             </div>
                         </div>
@@ -23,20 +30,19 @@
                                 <div class="card ">
                                     <div class="row g-0 m-4">
                                         <div class="col-md-4 ">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSU6xHSdzHFBr_BfjyYBYkcCf4_o_KnP5QiQ&usqp=CAU" class="img-fluid rounded-start" height="500px">
+                                        <img src="{{$usuario->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" class="img-fluid rounded-start" height="500px">
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
                                                 <div class="container mt-3 row">
-                                                    <h5 class=" col-6 ">nome</h5>
-                                                    <h5 class=" col-6 text-end">idade</h5>
+                                                    <h5 class=" col-12 ">Nome: {{$usuario->name}}</h5>
                                                 </div>
                                                 <div class="container mt-3 row">
-                                                    <h5 class="col-6">email</h5>
+                                                    <h5 class="col-12">Email: {{$usuario->email}}</h5>
                                                 </div>
                                                 <div class="container mt-3 row">
-                                                    <h5 class="col-6">Entrou Em</h5>
-                                                    <h5 class=" col-6 text-end">idade</h5>
+                                                    <h5 class="col-6">Entrou Em: {{Carbon\Carbon::parse($usuario->created_at)->format('d-m-Y')}}</h5>
+                                                    <h5 class=" col-6 text-end">Idade: {{$usuario->data_nascimento ? Carbon\Carbon::parse($usuario->data_nascimento)->diffInYears(Carbon\Carbon::today()) . ' Anos' : 'Não Informado'}}</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -53,16 +59,17 @@
                                         @foreach ($usuario->receitas as $item)
                                             <div class="card m-2 " >
                                                 <div class="row g-0">
-                                                    <div class="col-md-4 " style="height: 15rem; width: 15rem;">
-                                                        <img src="{{$item->foto ? asset('foto_receitas/' . $item->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem; width: 15rem;">
+                                                    <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
+                                                        <img src="{{$item->foto ? asset('foto_receitas/' . $item->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start " style="height: 15rem; width: 15rem;">
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="card-body">
                                                             <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->id}}" style="text-decoration: none; color: black">
                                                                 <h5 class="card-title col-6">{{$item->titulo_receita}}</h5>
                                                                 <h5 class="card-text col-6 text-end mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock"></i></h5>
-                                                                <h5 class="card-text col-12">{!! substr($item->descricao, 0, 300) . '...' !!}</h5>
+                                                                <h5 class="card-text col-12">{!! substr($item->descricao, 0, 180) . '...' !!}</h5>
                                                             </a>
+                                                            <p class="text-end">Curtidas: {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -81,7 +88,7 @@
                                         @foreach ($usuario->curtidas as $item)
                                         <div class="card m-2 " >
                                             <div class="row g-0">
-                                                <div class="col-md-4 " style="height: 15rem; width: 15rem;">
+                                                <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
                                                     <img src="{{$item->receita->foto ? asset('foto_receitas/' . $item->receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem; width: 15rem;">
                                                 </div>
                                                 <div class="col-md-8">
@@ -89,8 +96,9 @@
                                                         <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->receita_id}}" style="text-decoration: none; color: black">
                                                             <h5 class="card-title col-6">{{$item->receita->titulo_receita}}</h5>
                                                             <h5 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock"></i></h5>
-                                                            <h5 class="card-text col-12">{!! substr($item->receita->descricao, 0, 300) . '...' !!}</h5>
+                                                            <h5 class="card-text col-12">{!! substr($item->receita->descricao, 0, 180) . '...' !!}</h5>
                                                         </a>
+                                                        <p class="text-end">Curtidas: {{$item->where('receita_id', $item->receita_id)->count()}}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -109,7 +117,7 @@
                                         @foreach ($usuario->favoritas as $item)
                                         <div class="card m-2 " >
                                             <div class="row g-0">
-                                                <div class="col-md-4 " style="height: 15rem; width: 15rem;">
+                                                <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
                                                     <img src="{{$item->receita->foto ? asset('foto_receitas/' . $item->receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem; width: 15rem;">
                                                 </div>
                                                 <div class="col-md-8">
@@ -117,19 +125,46 @@
                                                         <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->receita_id}}" style="text-decoration: none; color: black">
                                                             <h5 class="card-title col-6">{{$item->receita->titulo_receita}}</h5>
                                                             <h5 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock"></i></h5>
-                                                            <h5 class="card-text col-12">{!! substr($item->receita->descricao, 0, 300) . '...' !!}</h5>
+                                                            <h5 class="card-text col-12">{!! substr($item->receita->descricao, 0, 180) . '...' !!}</h5>
                                                         </a>
-                                                        <div class="text-end text-bottom"> curtidas</div>
+                                                        <p class="text-end">Curtidas: {{$item->receita->curtida ? $item->receita->curtida->where('receita_id', $item->receita_id)->count() : 0}}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>                            
+                            <div class="tab-pane fade" id="v-pills-escondida" role="tabpanel" aria-labelledby="v-pills-escondida-tab">
+                                <div class="row col">
+                                    @if (count($escondidas) == 0)
+                                        <div class="card text-center ms-3">
+                                            <p class="pt-3 pb-1">Você Não Tem Receitas Escondidas</p>
+                                        </div>
+                                    @else
+                                        @foreach ($escondidas as $item)
+                                            <div class="card m-2 " >
+                                                <div class="row g-0">
+                                                    <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
+                                                        <img src="{{$item->foto ? asset('foto_receitas/' . $item->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start " style="height: 15rem; width: 15rem;">
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
+                                                            <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->id}}" style="text-decoration: none; color: black">
+                                                                <h5 class="card-title col-6">{{$item->titulo_receita}}</h5>
+                                                                <h5 class="card-text col-6 text-end mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock"></i></h5>
+                                                                <h5 class="card-text col-12">{!! substr($item->descricao, 0, 180) . '...' !!}</h5>
+                                                            </a>
+                                                            <p class="text-end">Curtidas: {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         @endforeach
                                     @endif
                                 </div>
-                            </div>
-                            
+                            </div>                           
                             <div class="tab-pane fade" id="v-pills-detalhes" role="tabpanel" aria-labelledby="v-pills-detalhes-tab">
                                 <div class="card ps-4">
                                     <form method="POST" action="{{ url('editar_usuario') }}" enctype="multipart/form-data">
