@@ -75,6 +75,13 @@
                                                                 <h5 class="card-text col-12">{!! substr($item->descricao, 0, 180) . '...' !!}</h5>
                                                             </a>
                                                             <p class="text-end">Curtidas: {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}</p>
+                                                            @if (Auth::user()->id == $usuario->id)
+                                                                <div class="text-end">
+                                                                    <a href="{{url('editar_receitas/')}}/{{$item->id}}" class="btn btn-warning text-light text-center " style="height: 38px">
+                                                                        <h6>editar receita</h6>
+                                                                    </a>
+                                                                </div>  
+                                                            @endif 
                                                         </div>
                                                     </div>
                                                 </div>
