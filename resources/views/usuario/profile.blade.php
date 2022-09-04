@@ -50,12 +50,12 @@
                             </div>
                             <div class="tab-pane fade" id="v-pills-receita" role="tabpanel" aria-labelledby="v-pills-receita-tab">
                                 <div class="row col">
-                                    @if (count($usuario->receitas) == 0)
+                                    @if (count($receitas) == 0)
                                         <div class="card text-center ms-3">
                                             <p class="pt-3 pb-1">Este Usuário Não Possui Receitas Cadastradas</p>
                                         </div>
                                     @else
-                                        @foreach ($usuario->receitas as $item)
+                                        @foreach ($receitas as $item)
                                             <div class="card m-2 " >
                                                 <div class="row g-0">
                                                     <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
@@ -86,12 +86,12 @@
                             </div>
                             <div class="tab-pane fade" id="v-pills-curtida" role="tabpanel" aria-labelledby="v-pills-curtida-tab">
                                 <div class="row col">
-                                    @if (count($usuario->curtidas) == 0)
+                                    @if (count($curtidas) == 0)
                                         <div class="card text-center ms-3">
                                             <p class="pt-3 pb-1">Este Usuário Não Curtiu Receitas</p>
                                         </div>
                                     @else
-                                        @foreach ($usuario->curtidas as $item)
+                                        @foreach ($curtidas as $item)
                                         <div class="card m-2 " >
                                             <div class="row g-0">
                                                 <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
@@ -115,12 +115,12 @@
                             </div>
                             <div class="tab-pane fade" id="v-pills-favoritas" role="tabpanel" aria-labelledby="v-pills-favoritas-tab">
                                 <div class="row col">
-                                    @if (count($usuario->favoritas) == 0)
+                                    @if (count($favoritas) == 0)
                                         <div class="card text-center ms-3">
                                             <p class="pt-3 pb-1">Este Usuário Não Tem Receitas Favoritas</p>
                                         </div>
                                     @else
-                                        @foreach ($usuario->favoritas as $item)
+                                        @foreach ($favoritas as $item)
                                         <div class="card m-2 " >
                                             <div class="row g-0">
                                                 <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">

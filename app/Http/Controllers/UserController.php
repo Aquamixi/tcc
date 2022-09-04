@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\categoria;
+use App\Models\curtida;
 use App\Models\endereco;
+use App\Models\favorito;
 use App\Models\fotoUser;
 use App\Models\pai;
 use App\Models\receita;
@@ -60,11 +62,23 @@ class UserController extends Controller
         $paises = pai::get();
         $ufs = uf::get();
         
-        $usuario = User::with('curtidas.receita', 'favoritas.receita', 'receitas.velocidade', 'endereco', 'receitas')->findOrFail($request->id);
+        $usuario = User::findOrFail($request->id);
+        
+        $receitas = receita::where('user_id', $request->id)->get();
 
-        $escondidas = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->where('escondida', 1)->where('user_id', $request->id)->get();
+        $curtidas = curtida::whereHas('receita', function($query){
+            $query->withoutGlobalScope(\App\Scopes\ReceitaScope::class);
+        })->where('user_id', $request->id)->get();
 
-        return view('usuario.profile', compact('usuario', 'sabores', 'categorias', 'escondidas', 'ufs', 'paises'));
+        $favoritas = favorito::whereHas('receita', function($query){
+            $query->withoutGlobalScope(\App\Scopes\ReceitaScope::class);
+        })->where('user_id', $request->id)->get();
+
+        $escondidas = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)
+        ->where('escondida', 1)
+        ->where('user_id', $request->id)->get();
+
+        return view('usuario.profile', compact('usuario', 'sabores', 'categorias', 'receitas', 'ufs', 'paises', 'curtidas', 'favoritas', 'escondidas'));
     }
 
     public function amigos($id)
