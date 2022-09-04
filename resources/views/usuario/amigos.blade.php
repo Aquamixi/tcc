@@ -62,7 +62,7 @@
             <div class="tab-pane fade bg-transparent" id="seguidores" role="tabpanel" aria-labelledby="seguidores-tab">
                 <div class="card-body justify-content-center mx-0 row">
                     @if (count($seguidores) == 0)
-                        <p>Sem seguidores</p>
+                        <p>Sem Seguidores</p>
                     @else
                         <table class="table">
                             <thead>
