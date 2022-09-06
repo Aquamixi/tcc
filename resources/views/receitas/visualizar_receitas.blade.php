@@ -11,10 +11,12 @@
                 </div>
             </div>
             <div class="container row">
-                <div class="card col-12 " style=" ">
+                <div class="card col-12">
                     <div class="row m-1 mb-2">
                         <div class="text-center">
-                            <h4>Criador: {{$receita->usuario->name}}</h4>
+                            <a href="{{url('profile') . '/' . $receita->user_id}}" style="text-decoration: none; color:black">
+                                <h4>Criador: {{$receita->usuario->name}}</h4>
+                            </a>
                         </div>
                         <div class="col-md-4">
                             <img src="{{$receita->foto ? asset('foto_receitas/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start " style=" width: 400px; height: 230px;">
@@ -48,13 +50,13 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <a title="comentar" href="#" class="botaocurtir" id="comentar"><i class="fa-solid fa-comment"></i></a>
-                                @if ($receita->curtida)
+                                <a title="comentar" href="#" class="comentar" id="comentar"><i class="fa-solid fa-comment"></i></a>
+                                @if (count($receita->curtida_user) > 0)
                                     <a title="Descurtir" class="curtido" id="descurtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
                                 @else
                                     <a title="Curtir" class="botaocurtir" id="curtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
                                 @endif
-                                @if ($receita->favoritada)
+                                @if (count($receita->favoritada_user) > 0)
                                     <a title="Desfavoritar" class="favoritado" id="desfavoritar" data-id="{{$receita->id}}"><i class="fa-solid fa-heart"></i></a>
                                 @else
                                     <a title="Favoritar" class="botaofavoritar" id="favoritar" data-id="{{$receita->id}}"><i class="fa-solid fa-heart"></i></a>

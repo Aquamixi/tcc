@@ -136,6 +136,13 @@ html, body {
     color:#000;
 }
 
+.comentar{
+    color:rgb(0, 0, 0);
+}
+
+.comentar:hover{
+    color:rgb(24, 194, 69);
+}
 
 .botaousuario{
     color: #000;

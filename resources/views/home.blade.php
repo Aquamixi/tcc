@@ -13,6 +13,15 @@
                     <p>Inscreva-se e cadastre uma!</p>
                 </h3>
             </div>
+        @elseif(count($receitas) == 0)
+            <div class="container pt-5 ">
+                <h1 class="fonteMaisFamosas text-center">
+                    Não foi possível encontrar receitas para essa pesquisa!
+                </h1>
+                <h3 class="fonteMaisFamosas text-center">
+                    <p>Tente uma nova!</p>
+                </h3>
+            </div>
         @else
             <div class="container-fluid pt-3">
                 <div class="container">
@@ -85,7 +94,7 @@
                         </div>
                         
                     @endforeach
-                    <div class="text-center m-2">
+                    <div class="text-center m-2 pb-2">
                         {!! $receitas->links() !!}
                     </div>
                 </div>

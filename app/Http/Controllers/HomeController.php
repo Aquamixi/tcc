@@ -70,6 +70,15 @@ class HomeController extends Controller
 
             return view('pesquisa.pesquisa', compact('array_seguindo', 'usuarios', 'first_login', 'receitas', 'sabores', 'categorias'));
         }
+
+        if($request->seguindo){
+            $receitas->whereHas('usuario', function($query){
+                $query->whereHas('seguidor', function($q){
+                    $q->where('seguidor_id', Auth::user()->id)->where('status', 'Seguindo');
+                });
+            });
+        }
+
         $verificar = receita::first();
         $receitas = $receitas->simplePaginate(10);
 

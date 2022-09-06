@@ -26,18 +26,20 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <h6 class="fs-5 card-title ps-0 col-6 ">
-                                            <a href="{{url('visualizar_receitas')}}/{{$receita->id}}" style="text-decoration: none; color: black">{{$receita->titulo_receita}}</a>
+                                            <a href="{{url('visualizar_receitas')}}/{{$receita->id}}" style="text-decoration: none; color: black">{{substr($receita->titulo_receita, 0, 8) . '...'}}</a>
                                         </h6>
                                         @if ($receita->velocidade_id == 1)
-                                            <h6 class="card-text col-6 mb-1 text-end"><i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
+                                            <h6 class="card-text col-6 mb-1 text-end"> {{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
                                         @elseif($receita->velocidade_id == 2)
-                                            <h6 class="card-text col-6 mb-1 text-end"><i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
+                                            <h6 class="card-text col-6 mb-1 text-end"> {{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
                                         @else
-                                            <h6 class="card-text col-6 mb-1 text-end"><i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
+                                            <h6 class="card-text col-6 mb-1 text-end"> {{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
                                         @endif
                                     </div>
-                                    <h6 class="card-text col-12">{!! substr($receita->descricao, 0, 50) . '...' !!}</h6>
-                                    
+                                    <hr>
+                                    <div class="row">
+                                        <h6 class="card-text ps-0 col-12">{!! substr($receita->descricao, 0, 50) . '...' !!}</h6>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
@@ -55,7 +57,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <h6 class="fs-5 card-title ps-0 col-10">
-                                            <a href="{{url('profile')}}/{{$usuario->id}}" style="text-decoration: none; color: black">{{$usuario->name}}</a>
+                                            <a href="{{url('profile')}}/{{$usuario->id}}" style="text-decoration: none; color: black">{{substr($usuario->name, 0, 8) . '...'}}</a>
                                         </h6>
                                         <div class="col-2 text-right">
                                             @unless ($usuario->id == Auth::user()->id)

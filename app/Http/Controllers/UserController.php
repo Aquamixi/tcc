@@ -45,7 +45,6 @@ class UserController extends Controller
         $novo_seguidor->usuario_id = $request->id;
         $novo_seguidor->status = 'Seguindo';
         $novo_seguidor->save();
-        
     }
 
     public function deixar_seguir(Request $request)
@@ -66,13 +65,20 @@ class UserController extends Controller
         
         $receitas = receita::where('user_id', $request->id)->get();
 
-        $curtidas = curtida::whereHas('receita', function($query){
-            $query->withoutGlobalScope(\App\Scopes\ReceitaScope::class);
-        })->where('user_id', $request->id)->get();
+        if(Auth::user()->id == $request->id){
+            $curtidas = curtida::whereHas('receita', function($query){
+                $query->withoutGlobalScope(\App\Scopes\ReceitaScope::class);
+            })->where('user_id', $request->id)->get();
 
-        $favoritas = favorito::whereHas('receita', function($query){
-            $query->withoutGlobalScope(\App\Scopes\ReceitaScope::class);
-        })->where('user_id', $request->id)->get();
+            $favoritas = favorito::whereHas('receita', function($query){
+                $query->withoutGlobalScope(\App\Scopes\ReceitaScope::class);
+            })->where('user_id', $request->id)->get();
+        }
+        else{
+            $curtidas = curtida::where('user_id', $request->id)->get();
+
+            $favoritas = favorito::where('user_id', $request->id)->get();
+        }
 
         $escondidas = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)
         ->where('escondida', 1)
@@ -132,7 +138,6 @@ class UserController extends Controller
                 $endereco->pai_id = $request->pais;
             }
             $endereco->update();
-
         }
         else{
             $endereco = new endereco();
@@ -169,7 +174,7 @@ class UserController extends Controller
         $user_id = $user->id;
 
         if($request->imagem){
-            $last_imagem = fotoUser::where('user_id', $request->id)->first();
+            $last_imagem = fotoUser::where('user_id', Auth::user()->id)->first();
             if(isset($last_imagem)){
                 $last_imagem->delete();
             }

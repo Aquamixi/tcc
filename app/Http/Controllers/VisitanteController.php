@@ -37,6 +37,7 @@ class VisitanteController extends Controller
                 $q->where('categoria', $request->categoria);
             });
         }
+
         $verificar = receita::first();
 
         $receitas = $receitas->simplePaginate(10);

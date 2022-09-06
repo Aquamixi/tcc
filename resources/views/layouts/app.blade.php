@@ -3,6 +3,7 @@
     <head>
         <title>@yield('titulo')</title>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=0.5">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/873886f170.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -43,10 +44,15 @@
                                     @endforeach
                                 </ul>
                             </li>
+                            @auth
+                                <a class="nav-link ms-4 toggle" href="{{url('/home')}}?seguindo=quem_sigo" role="button" aria-expanded="false">
+                                    Quem Sigo
+                                </a>
+                            @endauth
                         </ul>
                     </div>
 
-                    <a href="{{url('criar_receitas')}}" class="btn btn-warning text-light me-4" style="height: 38px">
+                    <a href="{{url('criar_receitas')}}" class="btn btn-warning text-light me-4" style="height: 36px">
                         <h6>Criar Receita</h6>
                     </a>
 
