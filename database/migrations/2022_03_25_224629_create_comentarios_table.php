@@ -17,7 +17,6 @@ class CreateComentariosTable extends Migration
             $table->id();
             $table->text('comentario')->nullable();
             $table->date('data_comentario');
-            $table->boolean('curtida');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('receita_id');
         });

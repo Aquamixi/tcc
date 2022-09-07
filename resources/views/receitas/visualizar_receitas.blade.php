@@ -36,30 +36,34 @@
                                 <div class="container mt-3">
                                     <h5 class="col-6">Categoria: {{$receita->categoria->categoria}}</h5>
                                 </div>
-                                <div class="container mt-3 row">
-                                    <div class=" col-6">
-                                        <h5>Aprovação:</h5>
-                                        @for ($i = 0; $i < 5; $i++)
-                                            @if (round($receita->avaliacao) <= $i)
-                                                <button type="radio" class="fa fa-star botaostar"id="$i"></button>
-                                            @else
-                                                <button type="radio" class="fa fa-star checked botaostar" id="$i"></button>
-                                            @endif
-                                        @endfor
+                                <div class="container mt-3">
+                                    <div class="col-6">
+                                        <h5 class="mb-1">Avaliação:</h5>
+                                        <h3>
+                                            @for ($i = 0; $i < 5; $i++)
+                                                @if (round($receita->avaliacao) <= $i)
+                                                    <button type="radio" class="fa fa-star botaostar" id="{{$i}}"></button>
+                                                @else
+                                                    <button type="radio" class="fa fa-star checked botaostar" id="{{$i}}"></button>
+                                                @endif
+                                            @endfor
+                                        </h3>
                                     </div>
                                 </div>
                             </div>
                             <div class="text-end">
-                                <a title="comentar" href="#" class="comentar" id="comentar"><i class="fa-solid fa-comment"></i></a>
-                                @if (count($receita->curtida_user) > 0)
-                                    <a title="Descurtir" class="curtido" id="descurtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
-                                @else
-                                    <a title="Curtir" class="botaocurtir" id="curtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
-                                @endif
-                                @if (count($receita->favoritada_user) > 0)
-                                    <a title="Desfavoritar" class="favoritado" id="desfavoritar" data-id="{{$receita->id}}"><i class="fa-solid fa-heart"></i></a>
-                                @else
-                                    <a title="Favoritar" class="botaofavoritar" id="favoritar" data-id="{{$receita->id}}"><i class="fa-solid fa-heart"></i></a>
+                                @if ($receita->escondida == 0)
+                                    <a title="comentar" href="#" class="comentar" id="comentar"><i class="fa-solid fa-comment"></i></a>
+                                    @if (count($receita->curtida_user) > 0)
+                                        <a title="Descurtir" class="curtido" id="descurtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                    @else
+                                        <a title="Curtir" class="botaocurtir" id="curtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                    @endif
+                                    @if (count($receita->favoritada_user) > 0)
+                                        <a title="Desfavoritar" class="favoritado" id="desfavoritar" data-id="{{$receita->id}}"><i class="fa-solid fa-heart"></i></a>
+                                    @else
+                                        <a title="Favoritar" class="botaofavoritar" id="favoritar" data-id="{{$receita->id}}"><i class="fa-solid fa-heart"></i></a>
+                                    @endif
                                 @endif
                                 <a title="Compartilhar" class="botaoshare" id="share"><i class="fa-solid fa-share"></i></a>
                                 <h6>Data Postagem: {{Carbon\Carbon::parse($receita->data_postagem)->format('d-m-Y')}}</h6>
@@ -109,23 +113,22 @@
 
     <div class="modal fade" id="modalComentario" role="dialog">
         <div class="modal-dialog">
-        
-            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title fonteMaisFamosas">Comentar</h3>
                 </div>
-                <div class="modal-body">
-                    <label class="form-label faltadados">
-                    </label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Escreva aqui o seu comentario" name="comentario" style="resize: none; height:115.7px;"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" id="enviaComentario" class="btn btn-primary col-2 border-0" type="submit" value="Enviar" style="height:40px; background-color: #ff8c00; color:white">Enviar</button>
-                </div>
+                <form action="{{url('comentar_receita')}}" method="post">
+                    @csrf
+                    <input value="{{$receita->id}}" name="id" hidden>
+                    <div class="modal-body">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Escreva aqui o seu comentario" name="comentario" style="resize: none; height:115.7px;">{{old('comentario') ? old('comentario') : ''}}</textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
+                        <input id="enviaComentario" class="btn btn-primary col-2 border-0" type="submit" value="Enviar" data-bs-dismiss="modal" style="height:40px; background-color: #ff8c00; color:white"/>
+                    </div>
+                </form>
             </div>
-        
         </div>
     </div>
 

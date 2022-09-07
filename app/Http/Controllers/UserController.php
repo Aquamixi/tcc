@@ -55,6 +55,13 @@ class UserController extends Controller
 
     public function profile(Request $request)
     {
+        $seguindo = seguidor::where('seguidor_id', Auth::user()->id)->with('usuario')->get();
+            
+        $array_seguindo = [];
+        foreach($seguindo as $s){
+            $array_seguindo[] = $s->usuario_id;
+        }
+
         $sabores = sabor::get();
         $categorias = categoria::get();
 
@@ -65,26 +72,15 @@ class UserController extends Controller
         
         $receitas = receita::where('user_id', $request->id)->get();
 
-        if(Auth::user()->id == $request->id){
-            $curtidas = curtida::whereHas('receita', function($query){
-                $query->withoutGlobalScope(\App\Scopes\ReceitaScope::class);
-            })->where('user_id', $request->id)->get();
+        $curtidas = curtida::where('user_id', $request->id)->get();
 
-            $favoritas = favorito::whereHas('receita', function($query){
-                $query->withoutGlobalScope(\App\Scopes\ReceitaScope::class);
-            })->where('user_id', $request->id)->get();
-        }
-        else{
-            $curtidas = curtida::where('user_id', $request->id)->get();
-
-            $favoritas = favorito::where('user_id', $request->id)->get();
-        }
-
+        $favoritas = favorito::where('user_id', $request->id)->get();
+    
         $escondidas = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)
         ->where('escondida', 1)
         ->where('user_id', $request->id)->get();
 
-        return view('usuario.profile', compact('usuario', 'sabores', 'categorias', 'receitas', 'ufs', 'paises', 'curtidas', 'favoritas', 'escondidas'));
+        return view('usuario.profile', compact('usuario', 'sabores', 'categorias', 'receitas', 'ufs', 'paises', 'curtidas', 'favoritas', 'escondidas', 'array_seguindo'));
     }
 
     public function amigos($id)

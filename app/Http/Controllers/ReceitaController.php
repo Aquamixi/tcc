@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\categoria;
+use App\Models\comentario;
 use App\Models\curtida;
 use App\Models\favorito;
 use App\Models\fotoReceita;
 use App\Models\nacionalidade;
 use App\Models\receita;
 use App\Models\receitaIngrediente;
+use App\Models\resposta;
 use App\Models\sabor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -241,10 +243,18 @@ class ReceitaController extends Controller
     {
         $sabores = sabor::get();
         $categorias = categoria::get();
-        $user = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->select('user_id')->findOrFail($request->id);
         
         $receita = receita::findOrFail($request->id);
+
+        return view('receitas.visualizar_receitas', compact("sabores", "categorias", "receita"));
+    }
+
+    public function visualizar_receita_escondida(Request $request)
+    {
+        $sabores = sabor::get();
+        $categorias = categoria::get();
         
+        $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
 
         return view('receitas.visualizar_receitas', compact("sabores", "categorias", "receita"));
     }
@@ -275,5 +285,48 @@ class ReceitaController extends Controller
     {
         $favorito = favorito::where('receita_id', $request->id)->first();
         $favorito->delete();
+    }
+
+    public function comentar_receita(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'comentario' => 'required'
+        ]);
+
+        $linha = new comentario();
+        $linha->data_comentario = Carbon::today();
+        $linha->user_id = Auth::user()->id;
+        $linha->receita_id = $request->id;
+        $linha->comentario = nl2br($request->comentario);
+        $linha->save();
+
+        return redirect()->route('visualizar_receitas', ['id' => $request->id]);
+    }
+
+    public function editar_comentario(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'comentario' => 'required'
+        ]);
+
+        $linha = comentario::findOrFail($request->id);
+        $linha->comentario = nl2br($request->comentario);
+        $linha->update();
+
+        return redirect()->route('visualizar_receitas', ['id' => $request->id]);
+    }
+
+    public function deletar_comentario(Request $request)
+    {
+        $linha = comentario::findOrFail($request->id);
+        $respostas = resposta::where('comentario_id', $request->id)->get();
+        foreach($respostas as $resposta){
+            $resposta->delete();
+        }
+        $linha->delete();
+
+        return redirect()->route('visualizar_receitas', ['id' => $request->id]);
     }
 }

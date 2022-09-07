@@ -49,6 +49,19 @@
                                                         <h5 class=" col-6 text-end">Idade: {{$usuario->data_nascimento ? Carbon\Carbon::parse($usuario->data_nascimento)->diffInYears(Carbon\Carbon::today()) . ' Anos' : 'Não Informada'}}</h5>
                                                     </div>
                                                 </div>
+                                                <div class="text-end">
+                                                    @unless (Auth::user()->id == $usuario->id)
+                                                        @if(in_array($usuario->id, $array_seguindo))
+                                                            <a data-usuario="{{$usuario->id}}" class="deixar_seguir" title="Deixar de Seguir">
+                                                                <i class="fa-solid fa-user-check"></i>
+                                                            </a>
+                                                        @else
+                                                            <a data-usuario="{{$usuario->id}}" class="seguir" title="Seguir">
+                                                                <i class="fa-solid fa-user-plus"></i>
+                                                            </a>
+                                                        @endif
+                                                    @endunless
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -181,7 +194,7 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="card-body">
-                                                            <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->id}}" style="text-decoration: none; color: black">
+                                                            <a class="row" href="{{url('visualizar_receita_escondida/')}}/{{$item->id}}" style="text-decoration: none; color: black">
                                                                 <h5 class="card-title col-6">{{$item->titulo_receita}}</h5>
                                                                 @if ($item->velocidade_id == 1)
                                                                     <h6 class="card-text col-6 text-end mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
@@ -228,7 +241,7 @@
                                                 </div>
                                                 <div class="input-group mb-3 row">
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Telefone:</span>
-                                                    <input type="text" value="{{$usuario->telefone ? $usuario->telefone : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="telefone" id="telefone">
+                                                    <input type="text" value="{{$usuario->telefone ? $usuario->telefone : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="DDD com 0 e 9 adicional" name="telefone" id="telefone">
                                                 </div>
                                                 <div class="input-group mb-3 row">
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Data Nascimento:</span>
@@ -303,13 +316,24 @@
             </div>
         </div>
 
+        <div class="NoCanto" id="alerta_sucesso_seguir" hidden>
+            <div class="alert alert-success" role="alert">
+                Você começou a segui-lo(a)!
+            </div>
+        </div>
+
+        <div class="NoCanto" id="alerta_sucesso_deixar_seguir" hidden>
+            <div class="alert alert-success" role="alert">
+                Você deixou de segui-lo(a)!
+            </div>
+        </div>
+
     @endsection
     @section('pos-script')
         <script type="text/javascript">
             $(document).on('click', '#editar', function(){
                 $('#editar').prop('hidden', true);
                 $('#salvar').prop('hidden', false);
-
                 $('#nome').prop('readonly', false);
                 $('#email').prop('readonly', false);
                 $('#senha').prop('readonly', false);
@@ -337,7 +361,52 @@
                 setTimeout(() => {
                     $('#alerta_sucesso_editar').remove()
                 }, 5050);
-
             }
+
+            $("input[name='telefone']").keyup(function() {
+                $(this).val($(this).val().replace(/^(\d{3})(\d{1})(\d{4})(\d{4})$/, "($1) $2 $3-$4"));
+            });
+
+            $(document).on('click', '.seguir', function(){
+                $.ajax({
+                    type: 'POST', 
+                    url: "{{ url('seguir') }}", 
+                    data: { 
+                        id: $(this).data('usuario'),
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function(){
+                        $('#alerta_sucesso_seguir').prop('hidden', false);
+
+                        $('#alerta_sucesso_seguir').fadeOut(5000);
+
+                        setTimeout(() => {
+                            $('#alerta_sucesso_seguir').remove()
+                            window.location.reload(true);
+                        }, 5050);
+                    }
+                });
+            });
+
+            $(document).on('click', '.deixar_seguir', function(){
+                $.ajax({
+                    type: 'POST', 
+                    url: "{{ url('deixar_seguir') }}", 
+                    data: { 
+                        id: $(this).data('usuario'),
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function(){
+                        $('#alerta_sucesso_deixar_seguir').prop('hidden', false);
+
+                        $('#alerta_sucesso_deixar_seguir').fadeOut(5000);
+
+                        setTimeout(() => {
+                            $('#alerta_sucesso_deixar_seguir').remove()
+                            window.location.reload(true);
+                        }, 5050);
+                    }
+                });
+            });
         </script>
     @endsection
