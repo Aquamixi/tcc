@@ -329,4 +329,12 @@ class ReceitaController extends Controller
 
         return redirect()->route('visualizar_receitas', ['id' => $request->id]);
     }
+
+    public function compartilhar_receita_escondida(Request $request)
+    {
+        $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
+        $receita->token_acesso = $request->token;
+        $receita->data_token_validade = Carbon::tomorrow();
+        $receita->update();
+    }
 }

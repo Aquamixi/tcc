@@ -42,18 +42,6 @@ class HomeController extends Controller
         $first_login = Auth::user()->first_login;
 
         $receitas = receita::select();
-        
-        if($request->sabor){
-            $receitas->whereHas('sabor', function($q) use ($request){
-                $q->where('sabor', $request->sabor);
-            });
-        }
-
-        if($request->categoria){
-            $receitas->whereHas('categoria', function($q) use ($request){
-                $q->where('categoria', $request->categoria);
-            });
-        }
 
         if($request->search){
             $usuarios = User::where('name', 'LIKE', '%' . $request->search . '%')->get();

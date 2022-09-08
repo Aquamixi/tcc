@@ -31,7 +31,9 @@ class receita extends Model
         'categoria_id',
         'velocidade_id',
         'mais_dezoito',
-        'escondida'
+        'escondida',
+        'token_acesso',
+        'data_token_validade'
     ];
 
     public function usuario()

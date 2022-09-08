@@ -19,6 +19,8 @@ class UpdateReceitasTable extends Migration
             $table->unsignedBigInteger('nacionalidade_id');
             $table->text('descricao');
             $table->foreign('nacionalidade_id')->references('id')->on('nacionalidades');
+            $table->string('token_acesso')->nullable();
+            $table->datetime('data_token_validade')->nullable();
         });
     }
 

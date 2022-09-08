@@ -64,8 +64,11 @@
                                     @else
                                         <a title="Favoritar" class="botaofavoritar" id="favoritar" data-id="{{$receita->id}}"><i class="fa-solid fa-heart"></i></a>
                                     @endif
+                                    <a title="Compartilhar" class="botaoshare" id="share"><i class="fa-solid fa-share"></i></a>
                                 @endif
-                                <a title="Compartilhar" class="botaoshare" id="share"><i class="fa-solid fa-share"></i></a>
+                                @if (Auth::user()->id == $receita->user_id)
+                                    <a title="Compartilhar" class="botaoshare" id="share_escondida" data-id="{{$receita->id}}"><i class="fa-solid fa-share"></i></a>
+                                @endif
                                 <h6>Data Postagem: {{Carbon\Carbon::parse($receita->data_postagem)->format('d-m-Y')}}</h6>
                             </div>
                         </div>
@@ -252,9 +255,47 @@
                 }
             });
         });
-
+        
         $(document).on('click', '#comentar', function(){
             $("#modalComentario").modal('show');
         });
+        
+        $(document).on('click', '#share_escondida', function(){
+            var random_token = Math.random().toString(16).substr(2);
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('compartilhar_receita_escondida') }}", 
+                data: { 
+                    id: $(this).data('id'),
+                    token: random_token,
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoCopia').prop('hidden', false);
+                    $('#alertaSucessoCopia').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoCopia').remove()
+                    }, 5050);
+                    return navigator.clipboard.writeText(`${urlAtual}/${random_token}`);
+                }
+            });
+        });
+
+        function alerta(){
+            alert('A página não pode ser salva.');
+            return false;
+        }
+
+        function verificaBotao(oEvent){
+            var oEvent = oEvent ? oEvent : window.event;
+            var tecla = (oEvent.keyCode) ? oEvent.keyCode : oEvent.which;
+            if(tecla == 17 || tecla == 44|| tecla == 106){
+                alerta();
+            }
+        }
+        document.onkeypress = verificaBotao;
+        document.onkeydown = verificaBotao;
+        document.oncontextmenu = alerta;
+
     </script>
 @endsection
