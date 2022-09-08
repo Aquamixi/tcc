@@ -19,7 +19,7 @@
                             </a>
                         </div>
                         <div class="col-md-4">
-                            <img src="{{$receita->foto ? asset('foto_receitas/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start " style=" width: 400px; height: 230px;">
+                            <img src="{{$receita->foto ? asset('foto_receitas/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style=" width: 400px; height: 230px;">
                         </div>
                         <div class="col-md-8 ms-0">
                             <div class="card-body">
@@ -38,13 +38,13 @@
                                 </div>
                                 <div class="container mt-3">
                                     <div class="col-6">
-                                        <h5 class="mb-1">Avaliação:</h5>
+                                        <h5 class="mb-1">Avaliação: {{$receita->avaliacao}}</h5>
                                         <h3>
-                                            @for ($i = 0; $i < 5; $i++)
-                                                @if (round($receita->avaliacao) <= $i)
-                                                    <button type="radio" class="fa fa-star botaostar" id="{{$i}}"></button>
+                                            @for ($i = 1; $i < 6; $i++)
+                                                @if (round($receita->avaliacao) >= $i)
+                                                    <button type="radio" data-id="{{$receita->id}}" class="fa fa-star checked botaostar" id="{{$i}}"></button>
                                                 @else
-                                                    <button type="radio" class="fa fa-star checked botaostar" id="{{$i}}"></button>
+                                                    <button type="radio" data-id="{{$receita->id}}" class="fa fa-star botaostar" id="{{$i}}"></button>
                                                 @endif
                                             @endfor
                                         </h3>
@@ -52,8 +52,8 @@
                                 </div>
                             </div>
                             <div class="text-end">
+                                <a title="comentar" href="#" class="comentar" id="comentar"><i class="fa-solid fa-comment"></i></a>
                                 @if ($receita->escondida == 0)
-                                    <a title="comentar" href="#" class="comentar" id="comentar"><i class="fa-solid fa-comment"></i></a>
                                     @if (count($receita->curtida_user) > 0)
                                         <a title="Descurtir" class="curtido" id="descurtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
                                     @else
@@ -77,29 +77,29 @@
                 <div>
                     <h5 class="fonteMaisFamosas mt-3">Descrição</h5>
                 </div>
-                <div class="card col-12  ">
+                <div class="card col-12">
                     <div class="card-body" style="height:170px;">
                         {!! $receita->descricao !!}
                     </div>
                 </div>
                 <div class="container  row mx-auto col-12">
-                    <div class="container col-6 ">
+                    <div class="container col-6">
                         <div>
                             <h5 class="fonteMaisFamosas mt-3">Ingredientes</h5>
                         </div>
-                        <div class="card col-12  ">
+                        <div class="card col-12">
                             <div class="card-body" style="height:170px;">
-                                    @foreach ($receita->ingrediente as $item)
-                                        @if ($loop->last)
-                                            {{$item->ingrediente}}
-                                        @else
-                                            {{$item->ingrediente}},
-                                        @endif
-                                    @endforeach
+                                @foreach ($receita->ingrediente as $item)
+                                    @if ($loop->last)
+                                        {{$item->ingrediente}}
+                                    @else
+                                        {{$item->ingrediente}},
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                     </div>
-                    <div class="container col-6 mb-2 ">
+                    <div class="container col-6 mb-2">
                         <div>
                             <h5 class="fonteMaisFamosas mt-3">Modo De Preparo</h5>
                         </div>
@@ -162,6 +162,12 @@
     <div class="NoCanto" id="alertaSucessoDesFavoritar" hidden>
         <div class="alert alert-success" role="alert">
             Receita Desfavoritada Com Sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alertaSucessoAvaliar" hidden>
+        <div class="alert alert-success" role="alert">
+            Receita Avaliada Com Sucesso!
         </div>
     </div>
 @endsection
@@ -278,6 +284,30 @@
                     }, 5050);
                     return navigator.clipboard.writeText(`${urlAtual}/${random_token}`);
                 }
+            });
+        });
+
+        let ids = [1, 2, 3, 4, 5, 6];
+
+        $(ids).each(function(id){
+            $(document).on('click', `#${id}`, function(){
+                $.ajax({
+                    type: 'POST', 
+                    url: "{{ url('avaliar_receita') }}", 
+                    data: { 
+                        id: $(this).data('id'),
+                        value: id,
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function(){
+                        $('#alertaSucessoAvaliar').prop('hidden', false);
+                        $('#alertaSucessoAvaliar').fadeOut(5000);
+                        setTimeout(() => {
+                            $('#alertaSucessoAvaliar').remove()
+                            window.location.reload(true);
+                        }, 5050);
+                    }
+                });
             });
         });
 

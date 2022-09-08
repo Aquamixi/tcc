@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\avaliacao;
 use App\Models\categoria;
 use App\Models\comentario;
 use App\Models\curtida;
@@ -335,6 +336,34 @@ class ReceitaController extends Controller
         $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
         $receita->token_acesso = $request->token;
         $receita->data_token_validade = Carbon::tomorrow();
+        $receita->update();
+    }
+
+    public function avaliar_receita(Request $request)
+    {
+        $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
+
+        $last_avaliacao = avaliacao::where('receita_id', $receita->id)
+        ->where('user_id', Auth::user()->id)
+        ->first();
+
+        if(isset($last_avaliacao->qtde)){
+            $avaliacao = avaliacao::findOrFail($last_avaliacao->id);
+            $avaliacao->qtde = $request->value;
+            $avaliacao->save();
+        }
+        else{
+            $avaliacao = new avaliacao();
+            $avaliacao->user_id = Auth::user()->id;
+            $avaliacao->receita_id = $receita->id;
+            $avaliacao->qtde = $request->value;
+            $avaliacao->save();
+        }
+
+        $avaliacaos = avaliacao::where('receita_id', $receita->id)->get();
+        $total = $avaliacaos->sum('qtde') / $avaliacaos->count();
+
+        $receita->avaliacao = $total;
         $receita->update();
     }
 }

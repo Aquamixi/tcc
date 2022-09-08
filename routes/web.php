@@ -25,6 +25,7 @@ Route::post('comentar_receita', [App\Http\Controllers\ReceitaController::class, 
 Route::post('editar_comentario', [App\Http\Controllers\ReceitaController::class, 'editar_comentario']);
 Route::post('deletar_comentario', [App\Http\Controllers\ReceitaController::class, 'deletar_comentario']);
 Route::post('compartilhar_receita_escondida', [App\Http\Controllers\ReceitaController::class, 'compartilhar_receita_escondida']);
+Route::post('avaliar_receita', [App\Http\Controllers\ReceitaController::class, 'avaliar_receita']);
 
 Route::post('definir_first_login', [App\Http\Controllers\UserController::class, 'definir_first_login']);
 

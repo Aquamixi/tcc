@@ -34,10 +34,10 @@ class HomeController extends Controller
         $sabores = sabor::get();
         $categorias = categoria::get();
 
-        // $today = '2022-04-21';
-
         $receita_hoje = receita::has('foto')
-        ->where('data_postagem', $today)->take(5)->get();
+        ->where('data_postagem', $today)->orderByDesc('avaliacao')
+        ->take(5)
+        ->get();
 
         $first_login = Auth::user()->first_login;
 

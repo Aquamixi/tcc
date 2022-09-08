@@ -2,7 +2,7 @@
 @section('titulo', 'MyRecipes')
 @section('conteudo')
     <main role="main">
-        <ul class="nav nav-tabs " id="myTab" role="tablist">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active text-light bg-transparent" id="seguindo-tab" data-bs-toggle="tab" data-bs-target="#seguindo" type="button" role="tab" aria-controls="seguindo" aria-selected="true">
                     Seguindo

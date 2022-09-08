@@ -2,7 +2,7 @@
 @section('titulo', 'MyRecipes')
 @section('conteudo')
     <main role="main">
-        <ul class="nav nav-tabs " id="myTab" role="tablist">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active text-light bg-transparent" id="receita-tab" data-bs-toggle="tab" data-bs-target="#receitas" type="button" role="tab" aria-controls="receitas" aria-selected="true">
                     Receitas
@@ -25,7 +25,7 @@
                                 <img class="pt-2" src="{{$receita->foto ? asset('foto_receitas' . '/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="card-img-top">
                                 <div class="card-body">
                                     <div class="row">
-                                        <h6 class="fs-5 card-title ps-0 col-6 ">
+                                        <h6 class="fs-5 card-title ps-0 col-6">
                                             <a href="{{url('visualizar_receitas')}}/{{$receita->id}}" style="text-decoration: none; color: black">{{substr($receita->titulo_receita, 0, 8) . '...'}}</a>
                                         </h6>
                                         @if ($receita->velocidade_id == 1)
@@ -52,7 +52,7 @@
                         <p>Sem resulatdos para a pesquisa</p>
                     @else
                         @foreach ($usuarios as $usuario)
-                            <div class="card me-3 mb-3 " style="width: 18rem;">
+                            <div class="card me-3 mb-3" style="width: 18rem;">
                                 <img class="pt-2" src="{{$usuario->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" class="card-img-top">
                                 <div class="card-body">
                                     <div class="row">

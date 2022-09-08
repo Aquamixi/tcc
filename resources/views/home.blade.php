@@ -5,7 +5,7 @@
 @section('conteudo')
     <main role="main" class="fundobom">
         @if(empty($verificar))
-            <div class="container pt-5 ">
+            <div class="container pt-5">
                 <h1 class="fonteMaisFamosas text-center">
                     Ainda não possuímos receitas cadastradas!
                 </h1>
@@ -14,7 +14,7 @@
                 </h3>
             </div>
         @elseif(count($receitas) == 0)
-            <div class="container pt-5 ">
+            <div class="container pt-5">
                 <h1 class="fonteMaisFamosas text-center">
                     Não foi possível encontrar receitas para essa pesquisa!
                 </h1>
@@ -72,7 +72,7 @@
                         <div class="card m-2 col-5" >
                             <div class="row g-0">
                                 <div class="col-sm-4 mb-2 mt-2" style="height: 10rem; width: 10rem;">
-                                    <img src="{{$receita->foto ? asset('foto_receitas/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start " style="height: 10rem; width: 10rem;">
+                                    <img src="{{$receita->foto ? asset('foto_receitas/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 10rem; width: 10rem;">
                                 </div>
                                 <div class="col-sm-7" >
                                     <div class="card-body">
@@ -102,10 +102,8 @@
         @endif
     </main>
 
-    <div class="modal fade" id="avisoModal" role="dialog">
+    <div class="modal fade" id="avisoModal" data-bs-backdrop="static" role="dialog">
         <div class="modal-dialog">
-        
-            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Aviso</h4>
@@ -117,7 +115,6 @@
                     <button type="button" id="fechaAviso" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
-    
         </div>
     </div>
 

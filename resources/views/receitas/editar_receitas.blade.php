@@ -9,8 +9,8 @@
             <input type="text" name="id" hidden value="{{$linha->id}}">
             <div class="container-fluid row mx-0">
                 <div class="container col-6">
-                    <div class="card bg-transparent border-0 ">
-                        <div class="card-body ">
+                    <div class="card bg-transparent border-0">
+                        <div class="card-body">
                             <div class="text-center"> 
                                 <label class="form-label fonteMaisFamosas">
                                     <h2>Titulo Da Receita</h2>     
@@ -30,7 +30,7 @@
                         <div class="card-body">
                             <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">Adicione a foto da sua receita</h3></label>
                             <div class="card">
-                                <div class="card-body " style="height:114px;" >
+                                <div class="card-body" style="height:114px;" >
                                     <div class="mb-3">
                                         <label for="formFileLg" class="form-label">Large file input example</label>
                                         <input class=" form-control position-absolute bottom-0 start-0 form-control form-control-lg" id="formFileLg" name="imagem" style="height: 114px" type="file">
@@ -66,8 +66,8 @@
                         </div>
                     </div>
                     <div class="card bg-transparent mt-3 mb-5 border-0">                   
-                        <div class="card-body height:114px ">
-                            <label for="exampleFormControlTextarea1"  class="form-label ">
+                        <div class="card-body height:114px">
+                            <label for="exampleFormControlTextarea1"  class="form-label">
                                 <h3 class="fonteMaisFamosas">Ingredientes</h3>
                             </label>
                             <label class="form-label faltadados">
@@ -79,7 +79,7 @@
                 </div>
                 <div class="container col-6">
                     <div class="card bg-transparent mb-5 border-0">                   
-                        <div class="card-body height:114px ">
+                        <div class="card-body height:114px">
                             <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">Descrição</h3></label>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('descricao') ? $errors->first('descricao') : ''}}</h6>
@@ -116,7 +116,7 @@
                         </div>
                     </div>
                     <div class="card bg-transparent mt-3 mb-5 border-0">                   
-                        <div class="card-body height:114px ">
+                        <div class="card-body height:114px">
                             <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">Modo De Preparo</h3></label>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('preparo') ? $errors->first('preparo') : ''}}</h6>
@@ -125,8 +125,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-center mx-auto col-2 mb-1 ">
-                    <div class="text-center mx-0 ">
+                <div class="text-center mx-auto col-2 mb-1">
+                    <div class="text-center mx-0">
                         <ul class="list-group">
                             <li class="list-group-item">
                                 @if ($linha->mais_dezoito)
@@ -137,7 +137,7 @@
                                 <label class="form-check-label" for="firstCheckbox">Receita +18</label>
                             </li>
                             
-                            <li class="list-group-item ">
+                            <li class="list-group-item">
                                 @if ($linha->escondida)
                                     <input class="form-check-input me-1" name="escondida" type="checkbox" id="secondCheckbox" checked>
                                 @else
