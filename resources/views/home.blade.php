@@ -16,7 +16,7 @@
         @elseif(count($receitas) == 0)
             <div class="container pt-5">
                 <h1 class="fonteMaisFamosas text-center">
-                    Não foi possível encontrar receitas para essa pesquisa!
+                    Não foi possível encontrar receitas para esta pesquisa!
                 </h1>
                 <h3 class="fonteMaisFamosas text-center">
                     <p>Tente uma nova!</p>

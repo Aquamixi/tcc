@@ -117,29 +117,29 @@
                                         </div>
                                     @else
                                         @foreach ($curtidas as $item)
-                                        <div class="card mb-3">
-                                            <div class="row g-0">
-                                                <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
-                                                    <img src="{{$item->receita->foto ? asset('foto_receitas/' . $item->receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem; width: 15rem;">
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="card-body">
-                                                        <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->receita_id}}" style="text-decoration: none; color: black">
-                                                            <h5 class="card-title col-6">{{$item->receita->titulo_receita}}</h5>
-                                                            @if ($item->receita->velocidade_id == 1)
-                                                                <h6 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
-                                                            @elseif($item->receita->velocidade_id == 2)
-                                                                <h6 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
-                                                            @else
-                                                                <h6 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
-                                                            @endif
-                                                            <h5 class="card-text col-12">{!! substr($item->receita->descricao, 0, 180) . '...' !!}</h5>
-                                                        </a>
-                                                        <p class="text-end">Curtidas: {{$item->where('receita_id', $item->receita_id)->count()}}</p>
+                                            <div class="card mb-3">
+                                                <div class="row g-0">
+                                                    <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
+                                                        <img src="{{$item->receita->foto ? asset('foto_receitas/' . $item->receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem; width: 15rem;">
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
+                                                            <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->receita_id}}" style="text-decoration: none; color: black">
+                                                                <h5 class="card-title col-6">{{$item->receita->titulo_receita}}</h5>
+                                                                @if ($item->receita->velocidade_id == 1)
+                                                                    <h6 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
+                                                                @elseif($item->receita->velocidade_id == 2)
+                                                                    <h6 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
+                                                                @else
+                                                                    <h6 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
+                                                                @endif
+                                                                <h5 class="card-text col-12">{!! substr($item->receita->descricao, 0, 180) . '...' !!}</h5>
+                                                            </a>
+                                                            <p class="text-end">Curtidas: {{$item->where('receita_id', $item->receita_id)->count()}}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         @endforeach
                                     @endif
                                 </div>

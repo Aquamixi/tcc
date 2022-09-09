@@ -18,7 +18,14 @@
             <div class="tab-pane fade show active bg-transparent" id="receitas" role="tabpanel" aria-labelledby="receitas-tab">
                 <div class="card-body justify-content-center mx-0 row">
                     @if (count($receitas) == 0)
-                        <p>Sem resulatdos para a pesquisa</p>
+                        <div class="container pt-5">
+                            <h1 class="fonteMaisFamosas text-center">
+                                Não foi possível encontrar receitas para esta pesquisa!
+                            </h1>
+                            <h3 class="fonteMaisFamosas text-center">
+                                <p>Tente uma nova!</p>
+                            </h3>
+                        </div>
                     @else
                         @foreach ($receitas as $receita)
                             <div class="card me-3 mb-3" style="width: 18rem;">
@@ -49,7 +56,14 @@
             <div class="tab-pane fade bg-transparent" id="usuarios" role="tabpanel" aria-labelledby="usuarios-tab">
                 <div class="card-body justify-content-center mx-0 row">
                     @if (count($usuarios) == 0)
-                        <p>Sem resulatdos para a pesquisa</p>
+                        <div class="container pt-5">
+                            <h1 class="fonteMaisFamosas text-center">
+                                Não foi possível encontrar usuários para esta pesquisa!
+                            </h1>
+                            <h3 class="fonteMaisFamosas text-center">
+                                <p>Tente uma nova!</p>
+                            </h3>
+                        </div>
                     @else
                         @foreach ($usuarios as $usuario)
                             <div class="card me-3 mb-3" style="width: 18rem;">
