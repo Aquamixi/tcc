@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="container mt-3">
                                     <div class="col-6">
-                                        <h5 class="mb-1">Avaliação: {{$receita->avaliacao}}</h5>
+                                        <h5 class="mb-1">Avaliação:</h5>
                                         <h3>
                                             @for ($i = 1; $i < 6; $i++)
                                                 @if (round($receita->avaliacao) >= $i)
@@ -309,6 +309,59 @@
                     }
                 });
             });
+        });
+
+        $(document).on('mouseover', '#5', function(){
+            $('#5').addClass( "checkedfor" );
+            $('#4').addClass( "checkedfor" );
+            $('#3').addClass( "checkedfor" );
+            $('#2').addClass( "checkedfor" );
+            $('#1').addClass( "checkedfor" );
+        });
+            
+        $(document).on('mouseover', '#4', function(){
+            $('#4').addClass( "checkedfor" );
+            $('#3').addClass( "checkedfor" );
+            $('#2').addClass( "checkedfor" );
+            $('#1').addClass( "checkedfor" );   
+        });                 
+            
+        $(document).on('mouseover', '#3', function(){
+            $('#3').addClass( "checkedfor" );
+            $('#2').addClass( "checkedfor" );
+            $('#1').addClass( "checkedfor" );    
+        });                
+            
+        $(document).on('mouseover', '#2', function(){
+            $('#2').addClass( "checkedfor" );
+            $('#1').addClass( "checkedfor" );   
+        });
+
+        $(document).on('mouseout', '#5', function(){
+            console.log('oi');
+            $('#5').removeClass( "checkedfor" );
+            $('#4').removeClass( "checkedfor" );
+            $('#3').removeClass( "checkedfor" );
+            $('#2').removeClass( "checkedfor" );
+            $('#1').removeClass( "checkedfor" );
+        });
+            
+        $(document).on('mouseout', '#4', function(){
+            $('#4').removeClass( "checkedfor" );
+            $('#3').removeClass( "checkedfor" );
+            $('#2').removeClass( "checkedfor" );
+            $('#1').removeClass( "checkedfor" );   
+        });                 
+            
+        $(document).on('mouseout', '#3', function(){
+            $('#3').removeClass( "checkedfor" );
+            $('#2').removeClass( "checkedfor" );
+            $('#1').removeClass( "checkedfor" );    
+        });                
+            
+        $(document).on('mouseout', '#2', function(){
+            $('#2').removeClass( "checkedfor" );
+            $('#1').removeClass( "checkedfor" );   
         });
 
         function alerta(){

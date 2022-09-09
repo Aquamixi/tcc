@@ -69,6 +69,10 @@ html, body {
     color: #ffc400;
 }
 
+.checkedfor{
+    color: #ffc400;
+}
+
 .ajusta_imagem{
     object-fit: fill;
 }
