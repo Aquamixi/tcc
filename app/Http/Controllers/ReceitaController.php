@@ -161,7 +161,7 @@ class ReceitaController extends Controller
             'sabor' => 'required'
         ]);
 
-        $linha = receita::findOrFail($request->id);
+        $linha = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
         $linha->titulo_receita = $request->titulo;
         $linha->modo_preparo = nl2br($request->preparo);
         $linha->tempo_preparo = $request->tempo;
@@ -365,5 +365,41 @@ class ReceitaController extends Controller
 
         $receita->avaliacao = $total;
         $receita->update();
+    }
+
+    public static function excluir_receita(Request $request)
+    {
+        $curtidas = curtida::where('receita_id', $request->id)->get();
+        foreach($curtidas as $curtida){
+            $curtida->delete();
+        }
+
+        $favoritas = favorito::where('receita_id', $request->id)->get();
+        foreach($favoritas as $favorita){
+            $favorita->delete();
+        }
+
+        $comentarios = comentario::where('receita_id', $request->id)->get();
+        foreach($comentarios as $comentario){
+            $comentario->delete();
+        }
+
+        $avaliacaos = avaliacao::where('receita_id', $request->id)->get();
+        foreach($avaliacaos as $avaliacao){
+            $avaliacao->delete();
+        }
+
+        $ingredientes = receitaIngrediente::where('receita_id', $request->id)->get();
+        foreach($ingredientes as $ingrediente){
+            $ingrediente->delete();
+        }
+
+        $foto = fotoReceita::where('receita_id', $request->id)->get();
+        foreach($foto as $f){
+            $f->delete();
+        }
+
+        $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
+        $receita->delete();
     }
 }

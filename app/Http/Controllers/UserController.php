@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\avaliacao;
 use App\Models\categoria;
+use App\Models\comentario;
 use App\Models\curtida;
 use App\Models\endereco;
 use App\Models\favorito;
@@ -13,6 +15,7 @@ use App\Models\sabor;
 use App\Models\seguidor;
 use App\Models\uf;
 use App\Models\User;
+use App\Models\UserMac;
 use App\Scopes\ReceitaScope;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -191,5 +194,62 @@ class UserController extends Controller
         }
         
         return redirect()->route('profile', ['id' => Auth::user()->id, 'editado' => 'editado']);
+    }
+
+    public function excluir_usuario(Request $request)
+    {
+        $receitas = receita::where('user_id', $request->id)->get();
+        foreach($receitas as $receita){
+            $array = [
+                'id' => $receita->id
+            ];
+
+            $id_receita = new \Illuminate\Http\Request($array);
+
+            ReceitaController::excluir_receita($id_receita);
+        }
+        
+        $curtidas = curtida::where('user_id', $request->id)->get();
+        foreach($curtidas as $curtida){
+            $curtida->delete();
+        }
+
+        $favoritas = favorito::where('user_id', $request->id)->get();
+        foreach($favoritas as $favorita){
+            $favorita->delete();
+        }
+
+        $comentarios = comentario::where('user_id', $request->id)->get();
+        foreach($comentarios as $comentario){
+            $comentario->delete();
+        }
+
+        $avaliacaos = avaliacao::where('user_id', $request->id)->get();
+        foreach($avaliacaos as $avaliacao){
+            $avaliacao->delete();
+        }
+
+        $foto = fotoUser::where('user_id', $request->id)->get();
+        foreach($foto as $f){
+            $f->delete();
+        }
+
+        $seguindo = seguidor::where('seguidor_id', $request->id)->get();
+        foreach($seguindo as $s){
+            $s->delete();
+        }
+
+        $seguidores = seguidor::where('usuario_id', $request->id)->get();
+        foreach($seguidores as $s){
+            $s->delete();
+        }
+
+        $macs = UserMac::where('usuario_id', $request->id)->get();
+        foreach($macs as $mac){
+            $mac->delete();
+        }
+
+        $usuario = User::findOrFail($request->id);
+        $usuario->delete();
     }
 }

@@ -26,10 +26,12 @@ Route::post('editar_comentario', [App\Http\Controllers\ReceitaController::class,
 Route::post('deletar_comentario', [App\Http\Controllers\ReceitaController::class, 'deletar_comentario']);
 Route::post('compartilhar_receita_escondida', [App\Http\Controllers\ReceitaController::class, 'compartilhar_receita_escondida']);
 Route::post('avaliar_receita', [App\Http\Controllers\ReceitaController::class, 'avaliar_receita']);
+Route::post('excluir_receita', [App\Http\Controllers\ReceitaController::class, 'excluir_receita']);
 
 Route::post('definir_first_login', [App\Http\Controllers\UserController::class, 'definir_first_login']);
 
 Route::post('editar_usuario', [App\Http\Controllers\UserController::class, 'editar_usuario'])->name('editar_usuario');
+Route::post('excluir_usuario', [App\Http\Controllers\UserController::class, 'excluir_usuario']);
 
 Route::post('seguir', [App\Http\Controllers\UserController::class, 'seguir']);
 Route::post('deixar_seguir', [App\Http\Controllers\UserController::class, 'deixar_seguir']);

@@ -2,7 +2,7 @@
     @section('titulo', 'MyRecipes')
     @section('conteudo')
         <main role="main">
-            <div class="container pt-3">
+            <div class="container pt-3 pb-3">
                 <div class="d-flex align-items-start">
                     <div class="container row">
                         @if (Auth::user()->id == $usuario->id)
@@ -39,7 +39,7 @@
                                             <div class="col-md-8">
                                                 <div class="card-body">
                                                     <div class="container mt-3 row">
-                                                        <h5 class=" col-12">Nome: {{$usuario->name}}</h5>
+                                                        <h5 class=" col-12">Nome: {{$usuario->name}} {{$usuario->id}}</h5>
                                                     </div>
                                                     <div class="container mt-3 row">
                                                         <h5 class="col-12">Email: {{$usuario->email}}</h5>
@@ -99,6 +99,9 @@
                                                                     <a href="{{url('editar_receitas/')}}/{{$item->id}}" class="btn btn-warning text-light text-center" style="height: 36px">
                                                                         <h6>editar receita</h6>
                                                                     </a>
+                                                                    <button data-id="{{$item->id}}" class="btn btn-danger deletar_receita text-light text-center">
+                                                                        <i class="fa-solid fa-trash"></i>
+                                                                    </button>
                                                                 </div>  
                                                             @endif 
                                                         </div>
@@ -211,6 +214,9 @@
                                                                     <a href="{{url('editar_receitas/')}}/{{$item->id}}" class="btn btn-warning text-light text-center" style="height: 36px">
                                                                         <h6>editar receita</h6>
                                                                     </a>
+                                                                    <button data-id="{{$item->id}}" class="btn btn-danger deletar_receita text-light text-center">
+                                                                        <i class="fa-solid fa-trash"></i>
+                                                                    </button>
                                                                 </div>  
                                                             @endif 
                                                         </div>
@@ -301,6 +307,13 @@
                                                 </div>
                                             </div>
                                         </form>
+                                        <div class="container text-end">
+                                            @if (Auth::user()->id == $usuario->id)
+                                                <button class="btn btn-danger deletar_user text-light text-center">
+                                                    Deletar Conta
+                                                </button>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -328,6 +341,39 @@
             </div>
         </div>
 
+        <div class="NoCanto" id="alerta_sucesso_deletar_receita" hidden>
+            <div class="alert alert-success" role="alert">
+                Receita Deletada Com Sucesso!
+            </div>
+        </div>
+
+        <div class="NoCanto" id="alerta_sucesso_deletar_user" hidden>
+            <div class="alert alert-success" role="alert">
+                Triste Em Lhe Ver Partir, Até Breve!
+            </div>
+        </div>
+
+        <div class="modal fade" id="avisoModal" data-bs-backdrop="static" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Aviso</h4>
+                    </div>
+                    <div class="modal-body">
+                        Ao Clicar Em Deletar, Sua Conta E Suas Receitas Serão Todas Deletadas!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
+                        @if (Auth::user()->id == $usuario->id)
+                            <button data-id="{{$usuario->id}}" class="btn btn-danger deletar text-light text-center">
+                                Deletar
+                            </button>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
     @endsection
     @section('pos-script')
         <script type="text/javascript">
@@ -348,6 +394,7 @@
                 $('#uf').prop('disabled', false);
                 $('#pais').prop('disabled', false);
                 $('#botao_imagem').prop('hidden', false);
+                $('.deletar_user').prop('hidden', true);
             });
 
             const urlParams = new URLSearchParams(window.location.search);
@@ -404,6 +451,53 @@
                         setTimeout(() => {
                             $('#alerta_sucesso_deixar_seguir').remove()
                             window.location.reload(true);
+                        }, 5050);
+                    }
+                });
+            });
+            
+            $(document).on('click', '.deletar_receita', function(){
+                $.ajax({
+                    type: 'POST', 
+                    url: "{{url('excluir_receita')}}", 
+                    data: { 
+                        id: $(this).data('id'),
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function(){
+                        $('#alerta_sucesso_deletar_receita').prop('hidden', false);
+
+                        $('#alerta_sucesso_deletar_receita').fadeOut(5000);
+
+                        setTimeout(() => {
+                            $('#alerta_sucesso_deletar_receita').remove()
+                            window.location.reload(true);
+                        }, 5050);
+                    }
+                });
+            });
+
+            $(document).on('click', '.deletar_user', function(){
+                $("#avisoModal").modal('show');
+            });
+
+            $(document).on('click', '.deletar', function(){
+                $("#avisoModal").modal('hide');
+                $.ajax({
+                    type: 'POST', 
+                    url: "{{url('excluir_usuario')}}", 
+                    data: { 
+                        id: $(this).data('id'),
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function(){
+                        $('#alerta_sucesso_deletar_user').prop('hidden', false);
+
+                        $('#alerta_sucesso_deletar_user').fadeOut(5000);
+
+                        setTimeout(() => {
+                            $('#alerta_sucesso_deletar_user').remove()
+                            window.location.href = "{{url('/')}}";
                         }, 5050);
                     }
                 });

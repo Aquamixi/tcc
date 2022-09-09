@@ -21,7 +21,7 @@
             <nav class="navbar navbar-expand navbar-light bg-white">
                 <div class="container-fluid">
                     <div class="col-md-2">
-                        <a class="fonteMyrecipes" href="{{url('home')}}">
+                        <a class="fonteMyrecipes" href="{{url('/')}}">
                             <h2>My Recipes</h2>
                         </a>
                     </div>
