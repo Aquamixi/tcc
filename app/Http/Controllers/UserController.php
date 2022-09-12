@@ -113,6 +113,7 @@ class UserController extends Controller
             'uf' => 'required',
             'pais' => 'required'
         ]);
+        
         if(Auth::user()->endereco_id){
             $endereco = endereco::findOrFail(Auth::user()->endereco_id);
             if($request->rua){

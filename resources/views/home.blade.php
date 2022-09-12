@@ -66,7 +66,7 @@
             <div class="container  border-0 bg-transparent">
                 <div class=" justify-content-center col-12 mx-auto row">
                     <label class="form-label fonteMaisFamosas text-center">
-                        <h2>Receita {{isset($_GET['categoria']) ? 'Da Categoria: ' . $_GET['categoria'] : ''}} {{isset($_GET['sabor']) ? 'Sabor: ' . $_GET['sabor'] : ''}}</h2>     
+                        <h2>Receitas {{isset($_GET['categoria']) ? 'Da Categoria: ' . $_GET['categoria'] : ''}} {{isset($_GET['sabor']) ? 'Sabor: ' . $_GET['sabor'] : ''}}</h2>     
                     </label>                    
                     @foreach ($receitas as $receita)
                         <div class="card m-2 col-5" >

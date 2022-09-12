@@ -249,7 +249,9 @@
                                                     <label class="form-label faltadados">
                                                         <h6>{{$errors->has('nome') ? $errors->first('nome') : ''}}</h6>
                                                     </label>
-                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">Nome:</span>
+                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">
+                                                        Nome:
+                                                    </span>
                                                     <input type="text" value="{{$usuario->name}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nome" id="nome">
                                                 </div>
                                                 <div class="input-group mb-3 row">
@@ -267,34 +269,42 @@
                                                     <input type="password" value="********" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="senha" id="senha">
                                                 </div>
                                                 <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Telefone:</span>
                                                     <input type="text" value="{{$usuario->telefone ? $usuario->telefone : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="DDD com 0 e 9 adicional" name="telefone" id="telefone">
                                                 </div>
                                                 <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Data Nascimento:</span>
                                                     <input type="date" value="{{$usuario->data_nascimento ? $usuario->data_nascimento : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nascimento" id="nascimento">
                                                 </div>
                                                 <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Gênero:</span>
                                                     <input type="text" value="{{$usuario->genero}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="genero" id="genero">
                                                 </div>
                                                 <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Rua:</span>
                                                     <input type="text" value="{{$usuario->endereco ? $usuario->endereco->rua : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="rua" id="rua">
                                                 </div>
                                                 <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Número:</span>
                                                     <input type="text" value="{{$usuario->endereco ? $usuario->endereco->numero : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="numero" id="numero">
                                                 </div>
                                                 <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Bairro:</span>
                                                     <input type="text" value="{{$usuario->endereco ? $usuario->endereco->bairro : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="bairro" id="bairro">
                                                 </div>
                                                 <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Cidade:</span>
                                                     <input type="text" value="{{$usuario->endereco ? $usuario->endereco->cidade : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="cidade" id="cidade">
                                                 </div>
                                                 <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">CEP:</span>
                                                     <input type="text" value="{{$usuario->endereco ? $usuario->endereco->cep : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="cep" id="cep">
                                                 </div>
@@ -323,6 +333,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="input-group mb-3 row" id="botao_imagem" hidden>
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Foto:</span>
                                                     <input type="file" class="form-control col-9" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="imagem" id="imagem">
                                                 </div>
