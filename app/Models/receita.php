@@ -85,6 +85,11 @@ class receita extends Model
         return $this->belongsTo(nacionalidade::class, 'nacionalidade_id', 'id');
     }
 
+    public function avaliacaos()
+    {
+        return $this->hasMany(avaliacao::class, 'receita_id', 'id');
+    }
+
     public function velocidade(){
         return $this->belongsTo(velocidade::class, 'velocidade_id', 'id');
     }

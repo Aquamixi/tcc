@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="container mt-3 row">
                                     <div class="col-6">
-                                        <h5 class="mb-1">Avaliação:</h5>
+                                        <h5 class="mb-1">Avaliação: {{number_format((float)$receita->avaliacao, 1, '.', '')}} ({{$receita->avaliacaos->count()}})</h5>
                                         <h3>
                                             @for ($i = 1; $i < 6; $i++)
                                                 @if (round($receita->avaliacao) >= $i)
