@@ -24,19 +24,14 @@
                         <div class="col-md-8 ms-0">
                             <div class="card-body">
                                 <div class="container mt-3 row">
-                                    <h5 class=" col-6">Velocidade: {{$receita->velocidade->velocidade}}</h5>
-                                    <h5 class=" col-6 text-end">Quantidade Porções: {{$receita->qtde_porcoes}}</h5>
+                                    <h5 class="col-6">Velocidade: {{$receita->velocidade->velocidade}}</h5>
+                                    <h5 class="col-6 text-end">Quantidade Porções: {{$receita->qtde_porcoes}}</h5>
                                 </div>
-                                <div class="container mt-3">
+                                <div class="container mt-3 row">
                                     <h5 class="col-6">Nacionalidade: {{$receita->nacionalidade->nacionalidade}}</h5>
+                                    <h5 class="col-6 text-end">Sabor: {{$receita->sabor->sabor}}</h5>
                                 </div>
-                                <div class="container mt-3">
-                                    <h5 class="col-6">Sabor: {{$receita->sabor->sabor}}</h5>
-                                </div>
-                                <div class="container mt-3">
-                                    <h5 class="col-6">Categoria: {{$receita->categoria->categoria}}</h5>
-                                </div>
-                                <div class="container mt-3">
+                                <div class="container mt-3 row">
                                     <div class="col-6">
                                         <h5 class="mb-1">Avaliação:</h5>
                                         <h3>
@@ -49,6 +44,7 @@
                                             @endfor
                                         </h3>
                                     </div>
+                                    <h5 class="col-6 text-end">Categoria: {{$receita->categoria->categoria}}</h5>
                                 </div>
                             </div>
                             <div class="text-end">
