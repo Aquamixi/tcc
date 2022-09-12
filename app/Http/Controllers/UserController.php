@@ -16,6 +16,7 @@ use App\Models\seguidor;
 use App\Models\uf;
 use App\Models\User;
 use App\Models\UserMac;
+use App\Models\visualizacao;
 use App\Scopes\ReceitaScope;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -201,9 +202,7 @@ class UserController extends Controller
     {
         $receitas = receita::where('user_id', $request->id)->get();
         foreach($receitas as $receita){
-            $array = [
-                'id' => $receita->id
-            ];
+            $array = array($receita->id);
 
             $id_receita = new \Illuminate\Http\Request($array);
 
@@ -248,6 +247,11 @@ class UserController extends Controller
         $macs = UserMac::where('usuario_id', $request->id)->get();
         foreach($macs as $mac){
             $mac->delete();
+        }
+
+        $views = visualizacao::where('user_id', $request->id)->get();
+        foreach($views as $view){
+            $view->delete();
         }
 
         $usuario = User::findOrFail($request->id);

@@ -14,6 +14,7 @@ use App\Models\receita;
 use App\Models\receitaIngrediente;
 use App\Models\resposta;
 use App\Models\sabor;
+use App\Models\visualizacao;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -397,6 +398,11 @@ class ReceitaController extends Controller
         $foto = fotoReceita::where('receita_id', $request->id)->get();
         foreach($foto as $f){
             $f->delete();
+        }
+
+        $views = visualizacao::where('receita_id', $request->id)->get();
+        foreach($views as $view){
+            $view->delete();
         }
 
         $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);

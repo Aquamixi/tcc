@@ -2,6 +2,8 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use App\Models\categoria;
+use App\Models\sabor;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -16,7 +18,10 @@ trait SendsPasswordResetEmails
      */
     public function showLinkRequestForm()
     {
-        return view('auth.passwords.email');
+        $sabores = sabor::get();
+        $categorias = categoria::get();
+        
+        return view('auth.passwords.email', compact('sabores', 'categorias'));
     }
 
     /**

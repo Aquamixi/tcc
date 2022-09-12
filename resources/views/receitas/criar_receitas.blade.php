@@ -40,7 +40,7 @@
                     </div>
                     <div class="container d-flex justify-content-center">               
                         <div class="mx-auto col-6 me-1">
-                            <h5 class="fonteMaisFamosas">Sabor</h5>
+                            <h3 class="fonteMaisFamosas">Sabor</h3>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('sabor') ? $errors->first('sabor') : ''}}</h6>
                             </label>
@@ -55,7 +55,7 @@
                             </select>
                         </div>
                         <div class="mx-auto col-6 ms-1">
-                            <h5 class="fonteMaisFamosas">Nacionalidade</h5>
+                            <h3 class="fonteMaisFamosas">Nacionalidade</h3>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('nacionalidade') ? $errors->first('nacionalidade') : ''}}</h6>
                             </label>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="container d-flex mt-2 justify-content-center">    
                         <div class="col-12">
-                            <h5 class="fonteMaisFamosas">Categoria</h5>
+                            <h3 class="fonteMaisFamosas">Categoria</h3>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('categoria') ? $errors->first('categoria') : ''}}</h6>
                             </label>
@@ -108,14 +108,14 @@
                     </div>
                     <div class="container mt-4 d-flex justify-content-center">
                         <div class="mx-auto col-6 ms-1">
-                            <h5 class="fonteMaisFamosas">Tempo&nbsp;Preparo</h5>
+                            <h3 class="fonteMaisFamosas">Tempo&nbsp;Preparo</h3>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('tempo') ? $errors->first('tempo') : ''}}</h6>
                             </label>
                             <input type="number" class="form-control" name="tempo" value="{{old('tempo')}}" id="exampleFormControlInput1" placeholder="Tempo Em Minutos" style="height: 3.1rem ;">    
                         </div>
                         <div class="mx-auto col-6 ms-1">
-                            <h5 class="fonteMaisFamosas">Porções</h5>
+                            <h3 class="fonteMaisFamosas">Porções</h3>
                             <label class="form-label faltadados">
                                 <h6>{{$errors->has('qtde_porcoes') ? $errors->first('qtde_porcoes') : ''}}</h6>
                             </label>

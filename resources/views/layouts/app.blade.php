@@ -60,8 +60,27 @@
                         <h6>Criar Receita</h6>
                     </a>
 
-                    {!! Form::open(['url' => url('home') . "?search", 'method' => 'GET', 'class' => 'me-5 mt-0 end-3 col-3', 'autocomplete' => "off"]) !!}
-                        {!! Form::text('search', null, ['class' => 'form-control 01', 'id' => 'popover', 'aria-label' => 'Pesquisa', 'placeholder' => 'Pesquisar', 'data-bs-container' => "body", 'data-bs-toggle' => "popover", 'title' => "Dica:", 'data-bs-placement' => "bottom", 'data-bs-content' => "Pesquise por títulos, nacionalidades, velocidades, categorias, sabores ou ingredientes separados por vírgulas"]) !!}
+                    {!! Form::open(
+                        [
+                            'url' => url('home') . "?search", 'method' => 'GET', 'class' => 'me-5 mt-0 end-3 col-3', 
+                            'autocomplete' => "off"
+                        ]
+                    ) !!}
+                        {!! Form::text(
+                            'search',
+                            null, 
+                            [
+                                'class' => 'form-control 01', 
+                                'id' => 'popover', 
+                                'aria-label' => 'Pesquisa', 
+                                'placeholder' => 'Pesquisar', 
+                                'data-bs-container' => "body", 
+                                'data-bs-toggle' => "popover", 
+                                'title' => "Dica:", 
+                                'data-bs-placement' => "bottom", 
+                                'data-bs-content' => "Pesquise por títulos, nacionalidades, velocidades, categorias, sabores ou ingredientes separados por vírgulas"
+                            ]
+                        ) !!}
                     {!! Form::close() !!}
 
                     @auth
