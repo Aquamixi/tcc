@@ -87,7 +87,10 @@
                                             @endif
                                             <h6 class="card-text col-12">{!! substr($receita->descricao, 0, 180) . '...' !!}</h6>
                                         </a>
-                                        <p class="text-end">Curtidas: {{$receita->curtida ? $receita->curtida->where('receita_id', $receita->id)->count() : 0}}</p>
+                                        <div class="text-end">
+                                            <i class="fa-regular fa-eye"></i> {{$receita->visualizacoes ? $receita->visualizacoes->where('receita_id', $receita->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                            <i class="fa-solid fa-thumbs-up"></i> {{$receita->curtida ? $receita->curtida->where('receita_id', $receita->id)->count() : 0}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

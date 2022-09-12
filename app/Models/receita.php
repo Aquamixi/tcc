@@ -61,6 +61,10 @@ class receita extends Model
         return $this->hasMany(curtida::class, 'receita_id', 'id');
     }
 
+    public function visualizacoes()
+    {
+        return $this->hasMany(visualizacao::class, 'receita_id', 'id');
+    }
     public function favoritada()
     {
         return $this->hasMany(favorito::class, 'receita_id', 'id');

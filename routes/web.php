@@ -14,8 +14,8 @@ Route::post('cadastrar_receita', [App\Http\Controllers\ReceitaController::class,
 Route::get('editar_receitas/{id}', [App\Http\Controllers\ReceitaController::class, 'editar_receitas'])->middleware('dono_receita');
 Route::post('editar_receita/{id}', [App\Http\Controllers\ReceitaController::class, 'editar_receita'])->middleware('dono_receita');
 
-Route::get('visualizar_receitas/{id}', [App\Http\Controllers\ReceitaController::class, 'visualizar_receitas'])->name('visualizar_receitas');
-Route::get('visualizar_receita_escondida/{id}/{token?}', [App\Http\Controllers\ReceitaController::class, 'visualizar_receita_escondida'])->middleware('verifica_token')->name('visualizar_receita_escondida');
+Route::get('visualizar_receitas/{id}', [App\Http\Controllers\ReceitaController::class, 'visualizar_receitas'])->middleware('visualizacao_receita')->name('visualizar_receitas');
+Route::get('visualizar_receita_escondida/{id}/{token?}', [App\Http\Controllers\ReceitaController::class, 'visualizar_receita_escondida'])->middleware('verifica_token', 'visualizacao_receita')->name('visualizar_receita_escondida');
 
 Route::post('curtir_receita', [App\Http\Controllers\ReceitaController::class, 'curtir_receita']);
 Route::post('favoritar_receita', [App\Http\Controllers\ReceitaController::class, 'favoritar_receita']);

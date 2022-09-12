@@ -36,6 +36,7 @@ return array(
     'App\\Mail\\MensagemEmail' => $baseDir . '/app/Mail/MensagemEmail.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\UserMac' => $baseDir . '/app/Models/UserMac.php',
+    'App\\Models\\avaliacao' => $baseDir . '/app/Models/avaliacao.php',
     'App\\Models\\categoria' => $baseDir . '/app/Models/categoria.php',
     'App\\Models\\comentario' => $baseDir . '/app/Models/comentario.php',
     'App\\Models\\curtida' => $baseDir . '/app/Models/curtida.php',

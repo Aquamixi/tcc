@@ -557,6 +557,7 @@ class ComposerStaticInited72676c06d2bb8ae7ef136cda579ae8
         'App\\Mail\\MensagemEmail' => __DIR__ . '/../..' . '/app/Mail/MensagemEmail.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\UserMac' => __DIR__ . '/../..' . '/app/Models/UserMac.php',
+        'App\\Models\\avaliacao' => __DIR__ . '/../..' . '/app/Models/avaliacao.php',
         'App\\Models\\categoria' => __DIR__ . '/../..' . '/app/Models/categoria.php',
         'App\\Models\\comentario' => __DIR__ . '/../..' . '/app/Models/comentario.php',
         'App\\Models\\curtida' => __DIR__ . '/../..' . '/app/Models/curtida.php',
