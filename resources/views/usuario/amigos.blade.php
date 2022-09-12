@@ -18,7 +18,11 @@
             <div class="tab-pane fade show active bg-transparent" id="seguindo" role="tabpanel" aria-labelledby="seguindo-tab">
                 <div class="card-body justify-content-center mx-0 row">
                     @if (count($seguindo) == 0)
-                        <p>Este Usuário Ainda Não Segue Ninguém</p>
+                        <div class="container pt-5">
+                            <h1 class="fonteMaisFamosas text-center">
+                                Este usuário ainda não seguiu ninguém!
+                            </h1>
+                        </div>
                     @else
                         <table class="table">
                             <thead>
@@ -62,7 +66,11 @@
             <div class="tab-pane fade bg-transparent" id="seguidores" role="tabpanel" aria-labelledby="seguidores-tab">
                 <div class="card-body justify-content-center mx-0 row">
                     @if (count($seguidores) == 0)
-                        <p>Sem Seguidores</p>
+                        <div class="container pt-5">
+                            <h1 class="fonteMaisFamosas text-center">
+                                Este usuário ainda não possui seguidores!
+                            </h1>
+                        </div>
                     @else
                         <table class="table">
                             <thead>

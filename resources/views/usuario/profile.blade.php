@@ -12,7 +12,7 @@
                         @endif 
                             <div class="card-body">
                                 <div class="nav flex-column nav-pills me-3 mx-auto" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                    <button class="nav-link active mt-2 botaousuario" id="v-pills-perfil-tab" data-bs-toggle="pill" data-bs-target="#v-pills-perfil" type="button" role="tab" aria-controls="v-pills-perfil" aria-selected="true" style="height: 3.6rem; width:10rem ;">Perfil</button>
+                                    <button class="nav-link active botaousuario" id="v-pills-perfil-tab" data-bs-toggle="pill" data-bs-target="#v-pills-perfil" type="button" role="tab" aria-controls="v-pills-perfil" aria-selected="true" style="height: 3.6rem; width:10rem ;">Perfil</button>
                                     @if (Auth::user()->id == $usuario->id)
                                         <button class="nav-link mt-2 botaousuario" id="v-pills-receita-tab" data-bs-toggle="pill" data-bs-target="#v-pills-receita" type="button" role="tab" aria-controls="v-pills-receita" aria-selected="false" style="height: 3.6rem; width:10rem ;">Minhas&nbsp;Receitas</button>
                                     @else
@@ -39,7 +39,7 @@
                                             <div class="col-md-8">
                                                 <div class="card-body">
                                                     <div class="container mt-3 row">
-                                                        <h5 class=" col-12">Nome: {{$usuario->name}} {{$usuario->id}}</h5>
+                                                        <h5 class=" col-12">Nome: {{$usuario->name}}</h5>
                                                     </div>
                                                     <div class="container mt-3 row">
                                                         <h5 class="col-12">Email: {{$usuario->email}}</h5>
@@ -93,7 +93,10 @@
                                                                 @endif
                                                                 <h5 class="card-text col-12">{!! substr($item->descricao, 0, 180) . '...' !!}</h5>
                                                             </a>
-                                                            <p class="text-end">Curtidas: {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}</p>
+                                                            <div class="text-end">
+                                                                <i class="fa-regular fa-eye"></i> {{$item->visualizacoes ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                                                <i class="fa-solid fa-thumbs-up"></i> {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}
+                                                            </div>
                                                             @if (Auth::user()->id == $item->user_id)
                                                                 <div class="text-end">
                                                                     <a href="{{url('editar_receitas/')}}/{{$item->id}}" class="btn btn-warning text-light text-center" style="height: 36px">
@@ -138,7 +141,10 @@
                                                                 @endif
                                                                 <h5 class="card-text col-12">{!! substr($item->receita->descricao, 0, 180) . '...' !!}</h5>
                                                             </a>
-                                                            <p class="text-end">Curtidas: {{$item->where('receita_id', $item->receita_id)->count()}}</p>
+                                                            <div class="text-end">
+                                                                <i class="fa-regular fa-eye"></i> {{$item->visualizacoes ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                                                <i class="fa-solid fa-thumbs-up"></i> {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -173,7 +179,10 @@
                                                             @endif
                                                             <h5 class="card-text col-12">{!! substr($item->receita->descricao, 0, 180) . '...' !!}</h5>
                                                         </a>
-                                                        <p class="text-end">Curtidas: {{$item->receita->curtida ? $item->receita->curtida->where('receita_id', $item->receita_id)->count() : 0}}</p>
+                                                        <div class="text-end">
+                                                            <i class="fa-regular fa-eye"></i> {{$item->visualizacoes ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                                            <i class="fa-solid fa-thumbs-up"></i> {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -208,7 +217,10 @@
                                                                 @endif
                                                                 <h5 class="card-text col-12">{!! substr($item->descricao, 0, 180) . '...' !!}</h5>
                                                             </a>
-                                                            <p class="text-end">Curtidas: {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}</p>
+                                                            <div class="text-end">
+                                                                <i class="fa-regular fa-eye"></i> {{$item->visualizacoes ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                                                <i class="fa-solid fa-thumbs-up"></i> {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}
+                                                            </div>
                                                             @if (Auth::user()->id == $item->user_id)
                                                                 <div class="text-end">
                                                                     <a href="{{url('editar_receitas/')}}/{{$item->id}}" class="btn btn-warning text-light text-center" style="height: 36px">
@@ -234,14 +246,23 @@
                                             @csrf
                                             <div class="card-body mt-3">
                                                 <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados">
+                                                        <h6>{{$errors->has('nome') ? $errors->first('nome') : ''}}</h6>
+                                                    </label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Nome:</span>
                                                     <input type="text" value="{{$usuario->name}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nome" id="nome">
                                                 </div>
                                                 <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados">
+                                                        <h6>{{$errors->has('email') ? $errors->first('email') : ''}}</h6>
+                                                    </label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">E-mail:</span>
                                                     <input type="text" value="{{$usuario->email}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="email" id="email">
                                                 </div>
                                                 <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados">
+                                                        <h6>{{$errors->has('senha') ? $errors->first('senha') : ''}}</h6>
+                                                    </label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Senha:</span>
                                                     <input type="password" value="********" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="senha" id="senha">
                                                 </div>
@@ -278,6 +299,9 @@
                                                     <input type="text" value="{{$usuario->endereco ? $usuario->endereco->cep : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="cep" id="cep">
                                                 </div>
                                                 <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados">
+                                                        <h6>{{$errors->has('uf') ? $errors->first('uf') : ''}}</h6>
+                                                    </label>
                                                     <label class="input-group-text col-2" for="inputuf">UF:</label>
                                                     <select class="form-select col-9" name="uf" disabled id="uf">
                                                         <option value="{{$usuario->endereco ? $usuario->endereco->uf_id : ''}}">{{$usuario->endereco ? $usuario->endereco->uf->uf : ''}}</option>
@@ -287,6 +311,9 @@
                                                     </select>
                                                 </div>
                                                 <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados">
+                                                        <h6>{{$errors->has('pais') ? $errors->first('pais') : ''}}</h6>
+                                                    </label>
                                                     <label class="input-group-text col-2" for="inputpais">País:</label>
                                                     <select class="form-select col-9" name="pais" disabled id="pais">
                                                         <option value="{{$usuario->endereco ? $usuario->endereco->pai_id : ''}}">{{$usuario->endereco ? $usuario->endereco->pais->pais : ''}}</option>
