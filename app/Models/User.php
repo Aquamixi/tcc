@@ -25,7 +25,8 @@ class User extends Authenticatable
         'telefone',
         'data_nascimento',
         'first_login',
-        'genero'
+        'genero',
+        'rank'
     ];
 
     public function sendPasswordResetNotification($token)
