@@ -173,13 +173,23 @@
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
     <script type="text/javascript">
         let urlAtual = window.location.href;
+
         $(document).on('click', '#share', function(){
-            $('#alertaSucessoCopia').prop('hidden', false);
-            $('#alertaSucessoCopia').fadeOut(5000);
-            setTimeout(() => {
-                $('#alertaSucessoCopia').remove()
-            }, 5050);
-            return navigator.clipboard.writeText(urlAtual);
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('compartilhar_receita') }}", 
+                data: { 
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoCopia').prop('hidden', false);
+                    $('#alertaSucessoCopia').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoCopia').remove()
+                    }, 5050);
+                    return navigator.clipboard.writeText(urlAtual);
+                }
+            });
         });
 
         $(document).on('click', '#curtir', function(){
@@ -359,22 +369,6 @@
             $('#2').removeClass( "checkedfor" );
             $('#1').removeClass( "checkedfor" );   
         });
-
-        function alerta(){
-            alert('A página não pode ser salva.');
-            return false;
-        }
-
-        function verificaBotao(oEvent){
-            var oEvent = oEvent ? oEvent : window.event;
-            var tecla = (oEvent.keyCode) ? oEvent.keyCode : oEvent.which;
-            if(tecla == 17 || tecla == 44|| tecla == 106){
-                alerta();
-            }
-        }
-        document.onkeypress = verificaBotao;
-        document.onkeydown = verificaBotao;
-        document.oncontextmenu = alerta;
 
     </script>
 @endsection

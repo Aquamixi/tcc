@@ -16,6 +16,7 @@ use App\Models\seguidor;
 use App\Models\uf;
 use App\Models\User;
 use App\Models\UserMac;
+use App\Models\userMissoe;
 use App\Models\visualizacao;
 use App\Scopes\ReceitaScope;
 use Carbon\Carbon;
@@ -49,6 +50,14 @@ class UserController extends Controller
         $novo_seguidor->usuario_id = $request->id;
         $novo_seguidor->status = 'Seguindo';
         $novo_seguidor->save();
+
+        $missao_dois = userMissoe::where('user_id', Auth::user()->id)->where('missao', 2)->first();
+        if(!isset($missao_dois->id)){
+            $segunda_completa = new userMissoe();
+            $segunda_completa->user_id = Auth::user()->id;
+            $segunda_completa->missao = 2;
+            $segunda_completa->save();
+        }
     }
 
     public function deixar_seguir(Request $request)
@@ -193,6 +202,22 @@ class UserController extends Controller
             $linha_user_foto->user_id = $user_id;
             $linha_user_foto->anexo = $nome_imagem;
             $linha_user_foto->save();
+        }
+
+        $missao_um = userMissoe::where('user_id', Auth::user()->id)->where('missao', 1)->first();
+        $missao_dois = userMissoe::where('user_id', Auth::user()->id)->where('missao', 2)->first();
+        $missao_tres = userMissoe::where('user_id', Auth::user()->id)->where('missao', 3)->first();
+        $missao_quatro = userMissoe::where('user_id', Auth::user()->id)->where('missao', 4)->first();
+        $missao_cinco = userMissoe::where('user_id', Auth::user()->id)->where('missao', 5)->first();
+        if(!isset($missao_cinco->id) and isset($missao_um->id) and isset($missao_dois->id) and isset($missao_tres->id) and isset($missao_quatro->id)){
+            $quinta_completa = new userMissoe();
+            $quinta_completa->user_id = Auth::user()->id;
+            $quinta_completa->missao = 5;
+            $quinta_completa->save();
+
+            $aprendiz = User::findOrFail(Auth::user()->id);
+            $aprendiz->rank = 'Aprendiz';
+            $aprendiz->update();
         }
         
         return redirect()->route('profile', ['id' => Auth::user()->id, 'editado' => 'editado']);

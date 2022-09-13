@@ -189,14 +189,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Missões</h4>
                 </div>
-                <div class="modal-body">
-                    <div class="text-center">
-                        <p>1ª Visualizar sua primeira receita.</p>
-                        <p>2ª Seguir um usuário.</p>
-                        <p>3ª Criar sua primeira receita.</p>
-                        <p>4ª Compartilhar sua primeira receita.</p>
-                        <p>5ª Finalizar cadastro do seu perfil.</p>
-                    </div>
+                <div class="modal-body corpo_missoes">
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
@@ -217,7 +210,30 @@
 
         $(document).on('click', '#missoes', function(){
             $("#missoesModal").modal('show');
+            $.ajax({
+                type: 'GET', 
+                url: "{{ url('visualizar_missoes') }}", 
+                success: function(data){
+                    $('.corpo_missoes').html(data);
+                }
+            });
         });
+
+        function alerta(){
+            alert('A página não pode ser salva.');
+            return false;
+        }
+
+        function verificaBotao(oEvent){
+            var oEvent = oEvent ? oEvent : window.event;
+            var tecla = (oEvent.keyCode) ? oEvent.keyCode : oEvent.which;
+            if(tecla == 17 || tecla == 44|| tecla == 106){
+                alerta();
+            }
+        }
+        document.onkeypress = verificaBotao;
+        document.onkeydown = verificaBotao;
+        document.oncontextmenu = alerta;
     </script>
     @yield('pos-script')
 </html>

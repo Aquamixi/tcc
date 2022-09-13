@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\userMissoe;
 use App\Models\visualizacao;
 use Closure;
 use Illuminate\Http\Request;
@@ -18,6 +19,14 @@ class VisualizacaoReceita
      */
     public function handle(Request $request, Closure $next)
     {
+        $missao_um = userMissoe::where('user_id', Auth::user()->id)->where('missao', 1)->first();
+        if(!isset($missao_um->id)){
+            $primeira_completa = new userMissoe();
+            $primeira_completa->user_id = Auth::user()->id;
+            $primeira_completa->missao = 1;
+            $primeira_completa->save();
+        }
+
         $views = visualizacao::where('receita_id', $request->id)
         ->where('user_id', Auth::user()->id)
         ->first();

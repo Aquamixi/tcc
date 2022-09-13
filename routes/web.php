@@ -8,6 +8,8 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\VisitanteController::class, 'home']);
 Route::get('home', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
 
+Route::get('visualizar_missoes', [App\Http\Controllers\HomeController::class, 'visualizar_missoes']);
+
 Route::get('criar_receitas', [App\Http\Controllers\ReceitaController::class, 'tela_receitas'])->name('tela_receitas');
 Route::post('cadastrar_receita', [App\Http\Controllers\ReceitaController::class, 'cadastrar_receita'])->name('cadastrar_receita');
 
@@ -24,6 +26,7 @@ Route::post('desfavoritar_receita', [App\Http\Controllers\ReceitaController::cla
 Route::post('comentar_receita', [App\Http\Controllers\ReceitaController::class, 'comentar_receita']);
 Route::post('editar_comentario', [App\Http\Controllers\ReceitaController::class, 'editar_comentario']);
 Route::post('deletar_comentario', [App\Http\Controllers\ReceitaController::class, 'deletar_comentario']);
+Route::post('compartilhar_receita', [App\Http\Controllers\ReceitaController::class, 'compartilhar_receita']);
 Route::post('compartilhar_receita_escondida', [App\Http\Controllers\ReceitaController::class, 'compartilhar_receita_escondida']);
 Route::post('avaliar_receita', [App\Http\Controllers\ReceitaController::class, 'avaliar_receita']);
 Route::post('excluir_receita', [App\Http\Controllers\ReceitaController::class, 'excluir_receita']);

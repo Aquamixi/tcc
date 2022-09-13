@@ -14,6 +14,7 @@ use App\Models\receita;
 use App\Models\receitaIngrediente;
 use App\Models\resposta;
 use App\Models\sabor;
+use App\Models\userMissoe;
 use App\Models\visualizacao;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -121,6 +122,14 @@ class ReceitaController extends Controller
             $linha_receita_foto->anexo = $nome_imagem;
             $linha_receita_foto->save();
 
+        }
+        
+        $missao_tres = userMissoe::where('user_id', Auth::user()->id)->where('missao', 3)->first();
+        if(!isset($missao_tres->id)){
+            $terceira_completa = new userMissoe();
+            $terceira_completa->user_id = Auth::user()->id;
+            $terceira_completa->missao = 3;
+            $terceira_completa->save();
         }
 
         return redirect()->route('home', ['confirm' => 'receita_cadastrada']);
@@ -332,12 +341,31 @@ class ReceitaController extends Controller
         return redirect()->route('visualizar_receitas', ['id' => $request->id]);
     }
 
+    public function compartilhar_receita()
+    {
+        $missao_quatro = userMissoe::where('user_id', Auth::user()->id)->where('missao', 4)->first();
+        if(!isset($missao_quatro->id)){
+            $quarta_completa = new userMissoe();
+            $quarta_completa->user_id = Auth::user()->id;
+            $quarta_completa->missao = 4;
+            $quarta_completa->save();
+        }
+    }
+
     public function compartilhar_receita_escondida(Request $request)
     {
         $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
         $receita->token_acesso = $request->token;
         $receita->data_token_validade = Carbon::tomorrow();
         $receita->update();
+
+        $missao_quatro = userMissoe::where('user_id', Auth::user()->id)->where('missao', 4)->first();
+        if(!isset($missao_quatro->id)){
+            $quarta_completa = new userMissoe();
+            $quarta_completa->user_id = Auth::user()->id;
+            $quarta_completa->missao = 4;
+            $quarta_completa->save();
+        }
     }
 
     public function avaliar_receita(Request $request)
