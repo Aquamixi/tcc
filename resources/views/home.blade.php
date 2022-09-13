@@ -97,7 +97,7 @@
                         </div>
                         
                     @endforeach
-                    <div class="text-center m-2 pb-2">
+                    <div class="text-center m-3 pb-3">
                         {!! $receitas->links() !!}
                     </div>
                 </div>

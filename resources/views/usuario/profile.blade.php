@@ -398,7 +398,7 @@
                         <h4 class="modal-title">Aviso</h4>
                     </div>
                     <div class="modal-body">
-                        Ao Clicar Em Deletar, Sua Conta E Suas Receitas Serão Todas Deletadas!
+                        Ao clicar em deletar, sua conta e suas receitas serão todas deletadas!
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>

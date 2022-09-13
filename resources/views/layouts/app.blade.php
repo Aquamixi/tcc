@@ -56,7 +56,16 @@
                         </ul>
                     </div>
 
-                    <a href="{{url('criar_receitas')}}" class="btn btn-warning text-light me-4" style="height: 36px">
+                    @if (Auth::check() and Auth::user()->rank == 'incompleto')
+                        <button id="missoes" class="btn btn-md btn-primary position-relative">
+                            Missões
+                            <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger rounded-circle">
+                                <span class="visually-hidden"></span>
+                            </span>
+                        </button>
+                    @endif
+
+                    <a href="{{url('criar_receitas')}}" class="btn btn-warning text-light ms-4 me-4" style="height: 36px">
                         <h6>Criar Receita</h6>
                     </a>
 
@@ -174,6 +183,28 @@
         </div>
     </div>
 
+    <div class="modal fade" id="missoesModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Missões</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <p>1ª Visualizar sua primeira receita.</p>
+                        <p>2ª Seguir um usuário.</p>
+                        <p>3ª Criar sua primeira receita.</p>
+                        <p>4ª Compartilhar sua primeira receita.</p>
+                        <p>5ª Finalizar cadastro do seu perfil.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).on('click', '#historia', function(){
@@ -182,6 +213,10 @@
 
         var popover = new bootstrap.Popover(document.querySelector('#popover'), {
             container: 'body'
+        });
+
+        $(document).on('click', '#missoes', function(){
+            $("#missoesModal").modal('show');
         });
     </script>
     @yield('pos-script')
