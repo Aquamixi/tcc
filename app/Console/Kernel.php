@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('remove:tokensexpirados')->dailyAt('00:00');
+        $schedule->command('atualiza:ranks')->dailyAt('12:00');
     }
 
     /**

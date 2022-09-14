@@ -86,6 +86,7 @@
                                                 @endif
                                             @endunless
                                         </div>
+                                        Rank: {{$usuario->rank}}
                                     </div>
                                 </div>
                             </div>

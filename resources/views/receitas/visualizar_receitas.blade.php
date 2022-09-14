@@ -28,7 +28,7 @@
                                     <h5 class="col-6 text-end">Quantidade Porções: {{$receita->qtde_porcoes}}</h5>
                                 </div>
                                 <div class="container mt-3 row">
-                                    <h5 class="col-6">Nacionalidade: {{$receita->nacionalidade->nacionalidade}}</h5>
+                                    <h5 class="col-6">Região: {{$receita->nacionalidade->nacionalidade}}</h5>
                                     <h5 class="col-6 text-end">Sabor: {{$receita->sabor->sabor}}</h5>
                                 </div>
                                 <div class="container mt-3 row">

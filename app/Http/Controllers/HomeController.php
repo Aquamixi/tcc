@@ -65,7 +65,7 @@ class HomeController extends Controller
                 $query->whereHas('seguidor', function($q){
                     $q->where('seguidor_id', Auth::user()->id)->where('status', 'Seguindo');
                 });
-            });
+            })->orderByDesc('data_postagem');
         }
 
         $verificar = receita::first();

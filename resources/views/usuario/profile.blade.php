@@ -41,9 +41,11 @@
                                                     <div class="container mt-3 row">
                                                         <h5 class=" col-12">Nome: {{$usuario->name}}</h5>
                                                     </div>
-                                                    <div class="container mt-3 row">
-                                                        <h5 class=" col-12">Rank: {{$usuario->rank}}</h5>
-                                                    </div>
+                                                    @if (Auth::user()->rank != 'incompleto')
+                                                        <div class="container mt-3 row">
+                                                            <h5 class=" col-12">Rank: {{$usuario->rank}}</h5>
+                                                        </div>
+                                                    @endif
                                                     <div class="container mt-3 row">
                                                         <h5 class="col-12">Email: {{$usuario->email}}</h5>
                                                     </div>
