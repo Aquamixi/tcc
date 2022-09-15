@@ -219,21 +219,6 @@
             });
         });
 
-        function alerta(){
-            alert('A página não pode ser salva.');
-            return false;
-        }
-
-        function verificaBotao(oEvent){
-            var oEvent = oEvent ? oEvent : window.event;
-            var tecla = (oEvent.keyCode) ? oEvent.keyCode : oEvent.which;
-            if(tecla == 17 || tecla == 44|| tecla == 106){
-                alerta();
-            }
-        }
-        document.onkeypress = verificaBotao;
-        document.onkeydown = verificaBotao;
-        document.oncontextmenu = alerta;
     </script>
     @yield('pos-script')
 </html>
