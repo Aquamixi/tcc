@@ -528,6 +528,7 @@ class ComposerStaticInited72676c06d2bb8ae7ef136cda579ae8
 
     public static $classMap = array (
         'App\\Console\\Commands\\AtualizaDataPostagem' => __DIR__ . '/../..' . '/app/Console/Commands/AtualizaDataPostagem.php',
+        'App\\Console\\Commands\\AtualizaRanks' => __DIR__ . '/../..' . '/app/Console/Commands/AtualizaRanks.php',
         'App\\Console\\Commands\\RemoveTokensExpirados' => __DIR__ . '/../..' . '/app/Console/Commands/RemoveTokensExpirados.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
@@ -562,6 +563,8 @@ class ComposerStaticInited72676c06d2bb8ae7ef136cda579ae8
         'App\\Models\\categoria' => __DIR__ . '/../..' . '/app/Models/categoria.php',
         'App\\Models\\comentario' => __DIR__ . '/../..' . '/app/Models/comentario.php',
         'App\\Models\\curtida' => __DIR__ . '/../..' . '/app/Models/curtida.php',
+        'App\\Models\\curtidaComentario' => __DIR__ . '/../..' . '/app/Models/curtidaComentario.php',
+        'App\\Models\\curtidaResposta' => __DIR__ . '/../..' . '/app/Models/curtidaResposta.php',
         'App\\Models\\endereco' => __DIR__ . '/../..' . '/app/Models/endereco.php',
         'App\\Models\\favorito' => __DIR__ . '/../..' . '/app/Models/favorito.php',
         'App\\Models\\fotoReceita' => __DIR__ . '/../..' . '/app/Models/fotoReceita.php',
@@ -576,6 +579,7 @@ class ComposerStaticInited72676c06d2bb8ae7ef136cda579ae8
         'App\\Models\\seguidor' => __DIR__ . '/../..' . '/app/Models/seguidor.php',
         'App\\Models\\subCategoria' => __DIR__ . '/../..' . '/app/Models/subCategoria.php',
         'App\\Models\\uf' => __DIR__ . '/../..' . '/app/Models/uf.php',
+        'App\\Models\\userMissoe' => __DIR__ . '/../..' . '/app/Models/userMissoe.php',
         'App\\Models\\velocidade' => __DIR__ . '/../..' . '/app/Models/velocidade.php',
         'App\\Models\\visualizacao' => __DIR__ . '/../..' . '/app/Models/visualizacao.php',
         'App\\Notifications\\RedefinirSenhaNotification' => __DIR__ . '/../..' . '/app/Notifications/RedefinirSenhaNotification.php',

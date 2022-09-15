@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_missoes', function (Blueprint $table) {
+        Schema::create('curtida_respostas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->integer('missao');
+            $table->unsignedBigInteger('resposta_id');
         });
 
-        Schema::table('user_missoes', function (Blueprint $table) {
+        Schema::table('curtida_respostas', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('resposta_id')->references('id')->on('respostas');
         });
     }
 
@@ -31,10 +32,11 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('user_missoes', function (Blueprint $table) {
-            $table->dropForeign('user_missoes_user_id_foreign');
+        Schema::table('curtida_respostas', function (Blueprint $table) {
+            $table->dropForeign('curtida_respostas_user_id_foreign');
+            $table->dropForeign('curtida_respostas_resposta_id_foreign');
         });
 
-        Schema::dropIfExists('user_missoes');
+        Schema::dropIfExists('curtida_respostas');
     }
 };

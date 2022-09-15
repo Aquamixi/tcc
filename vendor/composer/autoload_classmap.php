@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Console\\Commands\\AtualizaDataPostagem' => $baseDir . '/app/Console/Commands/AtualizaDataPostagem.php',
+    'App\\Console\\Commands\\AtualizaRanks' => $baseDir . '/app/Console/Commands/AtualizaRanks.php',
     'App\\Console\\Commands\\RemoveTokensExpirados' => $baseDir . '/app/Console/Commands/RemoveTokensExpirados.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
@@ -41,6 +42,8 @@ return array(
     'App\\Models\\categoria' => $baseDir . '/app/Models/categoria.php',
     'App\\Models\\comentario' => $baseDir . '/app/Models/comentario.php',
     'App\\Models\\curtida' => $baseDir . '/app/Models/curtida.php',
+    'App\\Models\\curtidaComentario' => $baseDir . '/app/Models/curtidaComentario.php',
+    'App\\Models\\curtidaResposta' => $baseDir . '/app/Models/curtidaResposta.php',
     'App\\Models\\endereco' => $baseDir . '/app/Models/endereco.php',
     'App\\Models\\favorito' => $baseDir . '/app/Models/favorito.php',
     'App\\Models\\fotoReceita' => $baseDir . '/app/Models/fotoReceita.php',
@@ -55,6 +58,7 @@ return array(
     'App\\Models\\seguidor' => $baseDir . '/app/Models/seguidor.php',
     'App\\Models\\subCategoria' => $baseDir . '/app/Models/subCategoria.php',
     'App\\Models\\uf' => $baseDir . '/app/Models/uf.php',
+    'App\\Models\\userMissoe' => $baseDir . '/app/Models/userMissoe.php',
     'App\\Models\\velocidade' => $baseDir . '/app/Models/velocidade.php',
     'App\\Models\\visualizacao' => $baseDir . '/app/Models/visualizacao.php',
     'App\\Notifications\\RedefinirSenhaNotification' => $baseDir . '/app/Notifications/RedefinirSenhaNotification.php',
