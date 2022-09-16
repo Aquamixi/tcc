@@ -170,7 +170,9 @@ class UserController extends Controller
         
         $user->name = $request->nome;
         $user->email = $request->email;
-        $user->password = Hash::make($request->senha);
+        if ($request->senha) {
+            $user->password = Hash::make($request->senha);
+        }
         $user->updated_at = Carbon::now();
         $user->telefone = $request->telefone;
         $user->data_nascimento = $request->nascimento;

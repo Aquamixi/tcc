@@ -271,7 +271,7 @@
                                                         <h6>{{$errors->has('senha') ? $errors->first('senha') : ''}}</h6>
                                                     </label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Senha:</span>
-                                                    <input type="password" value="********" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="senha" id="senha">
+                                                    <input type="password" placeholder="Nào é necessário preencher este campo se quiser manter a mesma senha" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="senha" id="senha">
                                                 </div>
                                                 <div class="input-group mb-3 row">
                                                     <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>

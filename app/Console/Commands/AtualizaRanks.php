@@ -49,7 +49,7 @@ class AtualizaRanks extends Command
                 $usuario->rank = 'Cheff';
                 $usuario->update();
             }
-            elseif($qtde_receitas > 40 and $qtde_receitas <= 70){
+            elseif($qtde_receitas > 40){
                 $usuario->rank = 'Mestre Cuca';
                 $usuario->update();
             }
