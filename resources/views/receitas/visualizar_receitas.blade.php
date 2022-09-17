@@ -62,7 +62,7 @@
                                     @endif
                                     <a title="Compartilhar" class="botaoshare" id="share"><i class="fa-solid fa-share"></i></a>
                                 @endif
-                                @if (Auth::user()->id == $receita->user_id)
+                                @if (Auth::user()->id == $receita->user_id and $receita->escondida == 1)
                                     <a title="Compartilhar" class="botaoshare" id="share_escondida" data-id="{{$receita->id}}"><i class="fa-solid fa-share"></i></a>
                                 @endif
                                 <h6>Data Postagem: {{Carbon\Carbon::parse($receita->data_postagem)->format('d-m-Y')}}</h6>
@@ -78,34 +78,86 @@
                         {!! $receita->descricao !!}
                     </div>
                 </div>
-                <div class="container  row mx-auto col-12">
-                    <div class="container col-6">
-                        <div>
-                            <h5 class="fonteMaisFamosas mt-3">Ingredientes</h5>
+                    <div class="">
+                        <h5 class="fonteMaisFamosas mt-3">Ingredientes</h5>
+                    </div>
+                    <div class="card  col-12">
+                        <div class="card-body " style="height:170px;">
+                            @foreach ($receita->ingrediente as $item)
+                                @if ($loop->last)
+                                    {{$item->ingrediente}}
+                                @else
+                                    {{$item->ingrediente}},
+                                @endif
+                            @endforeach
                         </div>
-                        <div class="card col-12">
-                            <div class="card-body" style="height:170px;">
-                                @foreach ($receita->ingrediente as $item)
-                                    @if ($loop->last)
-                                        {{$item->ingrediente}}
-                                    @else
-                                        {{$item->ingrediente}},
-                                    @endif
-                                @endforeach
+                    </div>
+                    <div class="">
+                        <h5 class="fonteMaisFamosas mt-3">Modo De Preparo</h5>
+                    </div>
+                    <div class="card col-12 mb-3" >
+                        <div class="card-body" style="height:170px;">
+                            {!! $receita->modo_preparo !!}
+                        </div>
+                    </div>
+                    <div class="">
+                        <h5 class="fonteMaisFamosas mt-3">Comentarios</h5>
+                    </div>
+                    <div class="card col-12 mb-3">
+                        <div class="card-header row">
+                            <h5 class="col-6">nome:aaaaaaaa</h5>                          
+                            <h6 class="col-5 text-end ">10/01/14</h6>                           
+                            <h5 class="col-1 text-end ">
+                                <div class=" dropend">
+                                    <button type="button" class="  border-0 bg-transparent dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" >
+                                        <li ><button class="btn bg-transparent" type="submit"><i class="fa-solid fa-trash"></i> Excluir</button></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><button class="btn bg-transparent" type="submit"><i class="fa-solid fa-pen"></i>Editar</button></li>
+                                    </ul>
+                                </div>
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <h5>comentario aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h5>
+                        </div>
+                        <div class="card-footer row">
+                            <h5 class="col-10">
+                                <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                    Respostas:15
+                                </button>
+                            </h5>
+                            <h5 class="col-1 text-end mt-2">
+                                @if (count($receita->curtida_user) > 0)
+                                    <a title="Descurtir" class="curtido" id="descurtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                @else
+                                    <a title="Curtir" class="botaocurtir" id="curtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                @endif
+                            </h5>
+                            <h5 class="col-1 text-end mt-2">
+                                <a title="Compartilhar" class="botaoshare" id="share"><i class="fa-solid fa-comments"></i></a>
+                            </h5>
+                            <div class="collapse" id="collapseExample">
+                                <div class="card">                                    
+                                    <div class="row card-header mx-0">
+                                        <h6 class="col-11 ">nome aaaa</h6>
+                                        <h6 class="col-1 text-end">
+                                            @if (count($receita->curtida_user) > 0)
+                                            <a title="Descurtir" class="curtido" id="descurtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                            @else
+                                            <a title="Curtir" class="botaocurtir" id="curtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                            @endif
+                                        </h6>                                        
+                                    </div>   
+                                    <div class="card-body">
+                                        aaaaaaaaaaaaaaaaaaaaaaaaaaaa    
+                                    </div>                                
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="container col-6 mb-2">
-                        <div>
-                            <h5 class="fonteMaisFamosas mt-3">Modo De Preparo</h5>
-                        </div>
-                        <div class="card col-12">
-                            <div class="card-body" style="height:170px;">
-                                {!! $receita->modo_preparo !!}
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>         
         </div>
     </main>

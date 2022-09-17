@@ -27,16 +27,14 @@
             <div class="container-fluid  mx-0">
                 <div class="container col-6">
                     <div class="card bg-transparent mb-2 border-0">
-                        <div class="card-body">
-                            <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">Adicione a foto da sua receita</h3></label>
-                            <div class="card">
-                                <div class="card-body" style="height:114px;" >
-                                    <div class="mb-3">
-                                        <label for="formFileLg" class="form-label">Large file input example</label>
-                                        <input class=" form-control position-absolute bottom-0 start-0 form-control form-control-lg" id="formFileLg" name="imagem" style="height: 114px" type="file">
-                                    </div>
-                                </div> 
-                            </div>
+                        <div class="card-body">                      
+                            <center>"
+                                <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">Adicione&nbsp;a&nbsp;foto&nbsp;da&nbsp;sua&nbsp;receita</h3></label>
+                                <label class="picture" for="picture__input" tabIndex="0">
+                                    <span class="picture__image"></span>
+                                </label>                              
+                                <input type="file" name="imagem" id="picture__input" >
+                            </center>"
                         </div>
                     </div>
                     <div class="container d-flex justify-content-center">               
@@ -167,5 +165,33 @@
 @endsection
 @section('pos-script')
     <script type="text/javascript">
+        const inputFile = document.querySelector("#picture__input");
+        const pictureImage = document.querySelector(".picture__image");
+        const pictureImageTxt = "<img height='150px' src='{{asset("foto_receitas") . "/" . $linha->foto->anexo}}'>" ;
+        pictureImage.innerHTML = pictureImageTxt;
+
+        inputFile.addEventListener("change", function (e) {
+        const inputTarget = e.target;
+        const file = inputTarget.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.addEventListener("load", function (e) {
+            const readerTarget = e.target;
+
+            const img = document.createElement("img");
+            img.src = readerTarget.result;
+            img.classList.add("picture__img");
+
+            pictureImage.innerHTML = "";
+            pictureImage.appendChild(img);
+            });
+
+            reader.readAsDataURL(file);
+        } else {
+            pictureImage.innerHTML = pictureImageTxt;
+        }
+        });
     </script>
 @endsection
