@@ -32,20 +32,28 @@
                                 <img class="pt-2" src="{{$receita->foto ? asset('foto_receitas' . '/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="card-img-top">
                                 <div class="card-body">
                                     <div class="row">
-                                        <h6 class="fs-5 card-title ps-0 col-6">
-                                            <a href="{{url('visualizar_receitas')}}/{{$receita->id}}" style="text-decoration: none; color: black">{{substr($receita->titulo_receita, 0, 8) . '...'}}</a>
+                                        <h6 class="fs-5 card-title ps-0 col-6 fonteTituloReceitas">
+                                            @if (strlen($receita->titulo_receita) < 8)
+                                                <a href="{{url('visualizar_receitas')}}/{{$receita->id}}" style="text-decoration: none; color: black">{{substr($receita->titulo_receita, 0, 8)}}</a>
+                                            @else
+                                                <a href="{{url('visualizar_receitas')}}/{{$receita->id}}" style="text-decoration: none; color: black">{{substr($receita->titulo_receita, 0, 8) . '...'}}</a>
+                                            @endif
                                         </h6>
                                         @if ($receita->velocidade_id == 1)
-                                            <h6 class="card-text col-6 mb-1 text-end"> {{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
+                                            <h6 class="card-text col-6 mb-1 text-end fonteVelocidadeReceitas"> {{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
                                         @elseif($receita->velocidade_id == 2)
-                                            <h6 class="card-text col-6 mb-1 text-end"> {{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
+                                            <h6 class="card-text col-6 mb-1 text-end fonteVelocidadeReceitas"> {{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
                                         @else
-                                            <h6 class="card-text col-6 mb-1 text-end"> {{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
+                                            <h6 class="card-text col-6 mb-1 text-end fonteVelocidadeReceitas"> {{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
                                         @endif
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <h6 class="card-text ps-0 col-12">{!! substr($receita->descricao, 0, 50) . '...' !!}</h6>
+                                        @if (strlen($receita->descricao) < 180)
+                                            <h6 class="card-text ps-0 col-12 fonteDescricaoReceitas">{!! substr($receita->descricao, 0, 50)!!}</h6>
+                                        @else
+                                            <h6 class="card-text ps-0 col-12 fonteDescricaoReceitas">{!! substr($receita->descricao, 0, 50) . '...' !!}</h6>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

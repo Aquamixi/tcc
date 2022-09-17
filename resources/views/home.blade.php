@@ -77,15 +77,20 @@
                                 <div class="col-sm-7" >
                                     <div class="card-body">
                                         <a class="row" href="{{url('visualizar_receitas/')}}/{{$receita->id}}" style="text-decoration: none; color: black">
-                                            <h5 class="card-title col-12">{{$receita->titulo_receita}}</h5>
+                                            <h5 class="card-title col-12 fonteTituloReceitas">{{$receita->titulo_receita}}</h5>
                                             @if ($receita->velocidade_id == 1)
-                                                <h6 class="card-text col-6  mb-1">{{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
+                                                <h6 class="card-text col-6  mb-1 fonteVelocidadeReceitas">{{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
                                             @elseif($receita->velocidade_id == 2)
-                                                <h6 class="card-text col-6  mb-1">{{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
+                                                <h6 class="card-text col-6  mb-1 fonteVelocidadeReceitas">{{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
                                             @else
-                                                <h6 class="card-text col-6  mb-1">{{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
+                                                <h6 class="card-text col-6  mb-1 fonteVelocidadeReceitas">{{$receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
                                             @endif
-                                            <h6 class="card-text col-12">{!! substr($receita->descricao, 0, 180) . '...' !!}</h6>
+
+                                            @if (strlen($receita->descricao) < 180)
+                                                <h6 class="card-text col-12 fonteDescricaoReceitas">{!! substr($receita->descricao, 0, 50)!!}</h6>
+                                            @else
+                                                <h6 class="card-text col-12 fonteDescricaoReceitas">{!! substr($receita->descricao, 0, 50) . '...' !!}</h6>
+                                            @endif
                                         </a>
                                         <div class="text-end">
                                             <i class="fa-regular fa-eye"></i> {{$receita->visualizacoes ? $receita->visualizacoes->where('receita_id', $receita->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
