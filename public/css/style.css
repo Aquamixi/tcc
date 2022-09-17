@@ -157,3 +157,8 @@ html, body {
 .enviaComentario{
     color: rgb(0, 98, 255);
 }
+
+.fonteMissoes{
+    color:#000;
+    font-size: larger;
+}
