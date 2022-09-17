@@ -4,7 +4,7 @@
 
 @section('conteudo')
 <main role="main">
-    <div class="container-fluid row align-items-start ">
+    <div class="container-fluid row align-items-start">
         <div class="container" style="height: 600px">
             <div class="container mt-5 p-2">
                 <div class="row justify-content-center">

@@ -18,6 +18,6 @@ class favorito extends Model
     
     public function receita()
     {
-        return $this->hasOne(receita::class, 'id', 'receita_id');
+        return $this->belongsTo(receita::class, 'receita_id', 'id');
     }
 }

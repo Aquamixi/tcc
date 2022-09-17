@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\avaliacao;
 use App\Models\categoria;
+use App\Models\comentario;
+use App\Models\curtida;
 use App\Models\endereco;
+use App\Models\favorito;
 use App\Models\fotoUser;
 use App\Models\pai;
 use App\Models\receita;
@@ -11,6 +15,9 @@ use App\Models\sabor;
 use App\Models\seguidor;
 use App\Models\uf;
 use App\Models\User;
+use App\Models\UserMac;
+use App\Models\userMissoe;
+use App\Models\visualizacao;
 use App\Scopes\ReceitaScope;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -43,7 +50,14 @@ class UserController extends Controller
         $novo_seguidor->usuario_id = $request->id;
         $novo_seguidor->status = 'Seguindo';
         $novo_seguidor->save();
-        
+
+        $missao_dois = userMissoe::where('user_id', Auth::user()->id)->where('missao', 2)->first();
+        if(!isset($missao_dois->id)){
+            $segunda_completa = new userMissoe();
+            $segunda_completa->user_id = Auth::user()->id;
+            $segunda_completa->missao = 2;
+            $segunda_completa->save();
+        }
     }
 
     public function deixar_seguir(Request $request)
@@ -54,17 +68,32 @@ class UserController extends Controller
 
     public function profile(Request $request)
     {
+        $seguindo = seguidor::where('seguidor_id', Auth::user()->id)->with('usuario')->get();
+            
+        $array_seguindo = [];
+        foreach($seguindo as $s){
+            $array_seguindo[] = $s->usuario_id;
+        }
+
         $sabores = sabor::get();
         $categorias = categoria::get();
 
         $paises = pai::get();
         $ufs = uf::get();
         
-        $usuario = User::with('curtidas.receita', 'favoritas.receita', 'receitas.velocidade', 'endereco', 'receitas')->findOrFail($request->id);
+        $usuario = User::findOrFail($request->id);
+        
+        $receitas = receita::where('user_id', $request->id)->get();
 
-        $escondidas = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->where('escondida', 1)->where('user_id', $request->id)->get();
+        $curtidas = curtida::where('user_id', $request->id)->get();
 
-        return view('usuario.profile', compact('usuario', 'sabores', 'categorias', 'escondidas', 'ufs', 'paises'));
+        $favoritas = favorito::where('user_id', $request->id)->get();
+    
+        $escondidas = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)
+        ->where('escondida', 1)
+        ->where('user_id', $request->id)->get();
+
+        return view('usuario.profile', compact('usuario', 'sabores', 'categorias', 'receitas', 'ufs', 'paises', 'curtidas', 'favoritas', 'escondidas', 'array_seguindo'));
     }
 
     public function amigos($id)
@@ -94,6 +123,7 @@ class UserController extends Controller
             'uf' => 'required',
             'pais' => 'required'
         ]);
+        
         if(Auth::user()->endereco_id){
             $endereco = endereco::findOrFail(Auth::user()->endereco_id);
             if($request->rua){
@@ -118,7 +148,6 @@ class UserController extends Controller
                 $endereco->pai_id = $request->pais;
             }
             $endereco->update();
-
         }
         else{
             $endereco = new endereco();
@@ -141,7 +170,9 @@ class UserController extends Controller
         
         $user->name = $request->nome;
         $user->email = $request->email;
-        $user->password = Hash::make($request->senha);
+        if ($request->senha) {
+            $user->password = Hash::make($request->senha);
+        }
         $user->updated_at = Carbon::now();
         $user->telefone = $request->telefone;
         $user->data_nascimento = $request->nascimento;
@@ -155,7 +186,7 @@ class UserController extends Controller
         $user_id = $user->id;
 
         if($request->imagem){
-            $last_imagem = fotoUser::where('user_id', $request->id)->first();
+            $last_imagem = fotoUser::where('user_id', Auth::user()->id)->first();
             if(isset($last_imagem)){
                 $last_imagem->delete();
             }
@@ -174,7 +205,83 @@ class UserController extends Controller
             $linha_user_foto->anexo = $nome_imagem;
             $linha_user_foto->save();
         }
+
+        $missao_um = userMissoe::where('user_id', Auth::user()->id)->where('missao', 1)->first();
+        $missao_dois = userMissoe::where('user_id', Auth::user()->id)->where('missao', 2)->first();
+        $missao_tres = userMissoe::where('user_id', Auth::user()->id)->where('missao', 3)->first();
+        $missao_quatro = userMissoe::where('user_id', Auth::user()->id)->where('missao', 4)->first();
+        $missao_cinco = userMissoe::where('user_id', Auth::user()->id)->where('missao', 5)->first();
+        if(!isset($missao_cinco->id) and isset($missao_um->id) and isset($missao_dois->id) and isset($missao_tres->id) and isset($missao_quatro->id)){
+            $quinta_completa = new userMissoe();
+            $quinta_completa->user_id = Auth::user()->id;
+            $quinta_completa->missao = 5;
+            $quinta_completa->save();
+
+            $aprendiz = User::findOrFail(Auth::user()->id);
+            $aprendiz->rank = 'Aprendiz';
+            $aprendiz->update();
+        }
         
         return redirect()->route('profile', ['id' => Auth::user()->id, 'editado' => 'editado']);
+    }
+
+    public function excluir_usuario(Request $request)
+    {
+        $receitas = receita::where('user_id', $request->id)->get();
+        foreach($receitas as $receita){
+            $array = array($receita->id);
+
+            $id_receita = new \Illuminate\Http\Request($array);
+
+            ReceitaController::excluir_receita($id_receita);
+        }
+        
+        $curtidas = curtida::where('user_id', $request->id)->get();
+        foreach($curtidas as $curtida){
+            $curtida->delete();
+        }
+
+        $favoritas = favorito::where('user_id', $request->id)->get();
+        foreach($favoritas as $favorita){
+            $favorita->delete();
+        }
+
+        $comentarios = comentario::where('user_id', $request->id)->get();
+        foreach($comentarios as $comentario){
+            $comentario->delete();
+        }
+
+        $avaliacaos = avaliacao::where('user_id', $request->id)->get();
+        foreach($avaliacaos as $avaliacao){
+            $avaliacao->delete();
+        }
+
+        $foto = fotoUser::where('user_id', $request->id)->get();
+        foreach($foto as $f){
+            $f->delete();
+        }
+
+        $seguindo = seguidor::where('seguidor_id', $request->id)->get();
+        foreach($seguindo as $s){
+            $s->delete();
+        }
+
+        $seguidores = seguidor::where('usuario_id', $request->id)->get();
+        foreach($seguidores as $s){
+            $s->delete();
+        }
+
+        $macs = UserMac::where('usuario_id', $request->id)->get();
+        foreach($macs as $mac){
+            $mac->delete();
+        }
+
+        $views = visualizacao::where('user_id', $request->id)->get();
+        foreach($views as $view){
+            $view->delete();
+        }
+
+        $usuario = User::findOrFail($request->id);
+        $usuario->delete();
     }
 }

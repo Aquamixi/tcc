@@ -19,8 +19,6 @@ class VisitanteController extends Controller
         $sabores = sabor::get();
         $categorias = categoria::get();
 
-        // $today = '2022-04-21';
-
         $receita_hoje = receita::has('foto')
         ->where('data_postagem', $today)->take(5)->get();
 
@@ -37,6 +35,7 @@ class VisitanteController extends Controller
                 $q->where('categoria', $request->categoria);
             });
         }
+
         $verificar = receita::first();
 
         $receitas = $receitas->simplePaginate(10);

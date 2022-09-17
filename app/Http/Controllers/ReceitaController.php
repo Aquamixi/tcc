@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\avaliacao;
 use App\Models\categoria;
+use App\Models\comentario;
 use App\Models\curtida;
 use App\Models\favorito;
 use App\Models\fotoReceita;
 use App\Models\nacionalidade;
 use App\Models\receita;
 use App\Models\receitaIngrediente;
+use App\Models\resposta;
 use App\Models\sabor;
+use App\Models\userMissoe;
+use App\Models\visualizacao;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -118,6 +123,14 @@ class ReceitaController extends Controller
             $linha_receita_foto->save();
 
         }
+        
+        $missao_tres = userMissoe::where('user_id', Auth::user()->id)->where('missao', 3)->first();
+        if(!isset($missao_tres->id)){
+            $terceira_completa = new userMissoe();
+            $terceira_completa->user_id = Auth::user()->id;
+            $terceira_completa->missao = 3;
+            $terceira_completa->save();
+        }
 
         return redirect()->route('home', ['confirm' => 'receita_cadastrada']);
     }
@@ -158,7 +171,7 @@ class ReceitaController extends Controller
             'sabor' => 'required'
         ]);
 
-        $linha = receita::findOrFail($request->id);
+        $linha = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
         $linha->titulo_receita = $request->titulo;
         $linha->modo_preparo = nl2br($request->preparo);
         $linha->tempo_preparo = $request->tempo;
@@ -241,13 +254,18 @@ class ReceitaController extends Controller
     {
         $sabores = sabor::get();
         $categorias = categoria::get();
-        $user = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->select('user_id')->findOrFail($request->id);
-        if($user->user_id == Auth::user()->id){
-            $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
-        }
-        else{
-            $receita = receita::findOrFail($request->id);
-        }
+        
+        $receita = receita::findOrFail($request->id);
+
+        return view('receitas.visualizar_receitas', compact("sabores", "categorias", "receita"));
+    }
+
+    public function visualizar_receita_escondida(Request $request)
+    {
+        $sabores = sabor::get();
+        $categorias = categoria::get();
+        
+        $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
 
         return view('receitas.visualizar_receitas', compact("sabores", "categorias", "receita"));
     }
@@ -278,5 +296,144 @@ class ReceitaController extends Controller
     {
         $favorito = favorito::where('receita_id', $request->id)->first();
         $favorito->delete();
+    }
+
+    public function comentar_receita(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'comentario' => 'required'
+        ]);
+
+        $linha = new comentario();
+        $linha->data_comentario = Carbon::today();
+        $linha->user_id = Auth::user()->id;
+        $linha->receita_id = $request->id;
+        $linha->comentario = nl2br($request->comentario);
+        $linha->save();
+
+        return redirect()->route('visualizar_receitas', ['id' => $request->id]);
+    }
+
+    public function editar_comentario(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'comentario' => 'required'
+        ]);
+
+        $linha = comentario::findOrFail($request->id);
+        $linha->comentario = nl2br($request->comentario);
+        $linha->update();
+
+        return redirect()->route('visualizar_receitas', ['id' => $request->id]);
+    }
+
+    public function deletar_comentario(Request $request)
+    {
+        $linha = comentario::findOrFail($request->id);
+        $respostas = resposta::where('comentario_id', $request->id)->get();
+        foreach($respostas as $resposta){
+            $resposta->delete();
+        }
+        $linha->delete();
+
+        return redirect()->route('visualizar_receitas', ['id' => $request->id]);
+    }
+
+    public function compartilhar_receita()
+    {
+        $missao_quatro = userMissoe::where('user_id', Auth::user()->id)->where('missao', 4)->first();
+        if(!isset($missao_quatro->id)){
+            $quarta_completa = new userMissoe();
+            $quarta_completa->user_id = Auth::user()->id;
+            $quarta_completa->missao = 4;
+            $quarta_completa->save();
+        }
+    }
+
+    public function compartilhar_receita_escondida(Request $request)
+    {
+        $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
+        $receita->token_acesso = $request->token;
+        $receita->data_token_validade = Carbon::tomorrow();
+        $receita->update();
+
+        $missao_quatro = userMissoe::where('user_id', Auth::user()->id)->where('missao', 4)->first();
+        if(!isset($missao_quatro->id)){
+            $quarta_completa = new userMissoe();
+            $quarta_completa->user_id = Auth::user()->id;
+            $quarta_completa->missao = 4;
+            $quarta_completa->save();
+        }
+    }
+
+    public function avaliar_receita(Request $request)
+    {
+        $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
+
+        $last_avaliacao = avaliacao::where('receita_id', $receita->id)
+        ->where('user_id', Auth::user()->id)
+        ->first();
+
+        if(isset($last_avaliacao->qtde)){
+            $avaliacao = avaliacao::findOrFail($last_avaliacao->id);
+            $avaliacao->qtde = $request->value;
+            $avaliacao->save();
+        }
+        else{
+            $avaliacao = new avaliacao();
+            $avaliacao->user_id = Auth::user()->id;
+            $avaliacao->receita_id = $receita->id;
+            $avaliacao->qtde = $request->value;
+            $avaliacao->save();
+        }
+
+        $avaliacaos = avaliacao::where('receita_id', $receita->id)->get();
+        $total = $avaliacaos->sum('qtde') / $avaliacaos->count();
+
+        $receita->avaliacao = $total;
+        $receita->update();
+    }
+
+    public static function excluir_receita(Request $request)
+    {
+        $curtidas = curtida::where('receita_id', $request->id)->get();
+        foreach($curtidas as $curtida){
+            $curtida->delete();
+        }
+
+        $favoritas = favorito::where('receita_id', $request->id)->get();
+        foreach($favoritas as $favorita){
+            $favorita->delete();
+        }
+
+        $comentarios = comentario::where('receita_id', $request->id)->get();
+        foreach($comentarios as $comentario){
+            $comentario->delete();
+        }
+
+        $avaliacaos = avaliacao::where('receita_id', $request->id)->get();
+        foreach($avaliacaos as $avaliacao){
+            $avaliacao->delete();
+        }
+
+        $ingredientes = receitaIngrediente::where('receita_id', $request->id)->get();
+        foreach($ingredientes as $ingrediente){
+            $ingrediente->delete();
+        }
+
+        $foto = fotoReceita::where('receita_id', $request->id)->get();
+        foreach($foto as $f){
+            $f->delete();
+        }
+
+        $views = visualizacao::where('receita_id', $request->id)->get();
+        foreach($views as $view){
+            $view->delete();
+        }
+
+        $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
+        $receita->delete();
     }
 }

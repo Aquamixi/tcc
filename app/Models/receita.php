@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Scopes\ReceitaScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class receita extends Model
 {
@@ -30,7 +31,9 @@ class receita extends Model
         'categoria_id',
         'velocidade_id',
         'mais_dezoito',
-        'escondida'
+        'escondida',
+        'token_acesso',
+        'data_token_validade'
     ];
 
     public function usuario()
@@ -55,17 +58,36 @@ class receita extends Model
 
     public function curtida()
     {
-        return $this->hasOne(curtida::class, 'receita_id', 'id');
+        return $this->hasMany(curtida::class, 'receita_id', 'id');
     }
 
+    public function visualizacoes()
+    {
+        return $this->hasMany(visualizacao::class, 'receita_id', 'id');
+    }
     public function favoritada()
     {
-        return $this->hasOne(favorito::class, 'receita_id', 'id');
+        return $this->hasMany(favorito::class, 'receita_id', 'id');
+    }
+
+    public function curtida_user()
+    {
+        return $this->hasMany(curtida::class, 'receita_id', 'id')->where('user_id', Auth::user()->id);
+    }
+
+    public function favoritada_user()
+    {
+        return $this->hasMany(favorito::class, 'receita_id', 'id')->where('user_id', Auth::user()->id);
     }
 
     public function nacionalidade()
     {
         return $this->belongsTo(nacionalidade::class, 'nacionalidade_id', 'id');
+    }
+
+    public function avaliacaos()
+    {
+        return $this->hasMany(avaliacao::class, 'receita_id', 'id');
     }
 
     public function velocidade(){

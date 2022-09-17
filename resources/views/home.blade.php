@@ -5,12 +5,21 @@
 @section('conteudo')
     <main role="main" class="fundobom">
         @if(empty($verificar))
-            <div class="container pt-5 ">
+            <div class="container pt-5">
                 <h1 class="fonteMaisFamosas text-center">
                     Ainda não possuímos receitas cadastradas!
                 </h1>
                 <h3 class="fonteMaisFamosas text-center">
                     <p>Inscreva-se e cadastre uma!</p>
+                </h3>
+            </div>
+        @elseif(count($receitas) == 0)
+            <div class="container pt-5">
+                <h1 class="fonteMaisFamosas text-center">
+                    Não foi possível encontrar receitas para esta pesquisa!
+                </h1>
+                <h3 class="fonteMaisFamosas text-center">
+                    <p>Tente uma nova!</p>
                 </h3>
             </div>
         @else
@@ -63,7 +72,7 @@
                         <div class="card m-2 col-5" >
                             <div class="row g-0">
                                 <div class="col-sm-4 mb-2 mt-2" style="height: 10rem; width: 10rem;">
-                                    <img src="{{$receita->foto ? asset('foto_receitas/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start " style="height: 10rem; width: 10rem;">
+                                    <img src="{{$receita->foto ? asset('foto_receitas/' . $receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 10rem; width: 10rem;">
                                 </div>
                                 <div class="col-sm-7" >
                                     <div class="card-body">
@@ -78,14 +87,17 @@
                                             @endif
                                             <h6 class="card-text col-12">{!! substr($receita->descricao, 0, 180) . '...' !!}</h6>
                                         </a>
-                                        <p class="text-end">Curtidas: {{$receita->curtida ? $receita->curtida->where('receita_id', $receita->id)->count() : 0}}</p>
+                                        <div class="text-end">
+                                            <i class="fa-regular fa-eye"></i> {{$receita->visualizacoes ? $receita->visualizacoes->where('receita_id', $receita->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                            <i class="fa-solid fa-thumbs-up"></i> {{$receita->curtida ? $receita->curtida->where('receita_id', $receita->id)->count() : 0}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
                     @endforeach
-                    <div class="text-center m-2">
+                    <div class="text-center m-3 pb-3">
                         {!! $receitas->links() !!}
                     </div>
                 </div>
@@ -93,10 +105,8 @@
         @endif
     </main>
 
-    <div class="modal fade" id="avisoModal" role="dialog">
+    <div class="modal fade" id="avisoModal" data-bs-backdrop="static" role="dialog">
         <div class="modal-dialog">
-        
-            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Aviso</h4>
@@ -108,7 +118,6 @@
                     <button type="button" id="fechaAviso" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
-    
         </div>
     </div>
 

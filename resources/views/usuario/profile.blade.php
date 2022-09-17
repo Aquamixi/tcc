@@ -2,18 +2,22 @@
     @section('titulo', 'MyRecipes')
     @section('conteudo')
         <main role="main">
-            <div class="container p-2">
-                <div class="d-flex  align-items-start">
+            <div class="container pt-3 pb-3">
+                <div class="d-flex align-items-start">
                     <div class="container row">
                         @if (Auth::user()->id == $usuario->id)
-                            <div class="card col-3" style="width:13.5rem; max-height: 30rem ">
+                            <div class="card col-3 me-3" style="width:13.5rem; max-height: 30rem">
                         @else
-                            <div class="card col-3" style="width:13.5rem; max-height: 21rem ">         
+                            <div class="card col-3 me-3" style="width:13.5rem; max-height: 22rem">         
                         @endif 
                             <div class="card-body">
                                 <div class="nav flex-column nav-pills me-3 mx-auto" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                    <button class="nav-link active mt-2 botaousuario" id="v-pills-perfil-tab" data-bs-toggle="pill" data-bs-target="#v-pills-perfil" type="button" role="tab" aria-controls="v-pills-perfil" aria-selected="true" style="height: 3.6rem; width:10rem ;">Perfil</button>
-                                    <button class="nav-link mt-2 botaousuario" id="v-pills-receita-tab" data-bs-toggle="pill" data-bs-target="#v-pills-receita" type="button" role="tab" aria-controls="v-pills-receita" aria-selected="false" style="height: 3.6rem; width:10rem ;">Minhas&nbsp;Receitas</button>
+                                    <button class="nav-link active botaousuario" id="v-pills-perfil-tab" data-bs-toggle="pill" data-bs-target="#v-pills-perfil" type="button" role="tab" aria-controls="v-pills-perfil" aria-selected="true" style="height: 3.6rem; width:10rem ;">Perfil</button>
+                                    @if (Auth::user()->id == $usuario->id)
+                                        <button class="nav-link mt-2 botaousuario" id="v-pills-receita-tab" data-bs-toggle="pill" data-bs-target="#v-pills-receita" type="button" role="tab" aria-controls="v-pills-receita" aria-selected="false" style="height: 3.6rem; width:10rem ;">Minhas&nbsp;Receitas</button>
+                                    @else
+                                        <button class="nav-link mt-2 botaousuario" id="v-pills-receita-tab" data-bs-toggle="pill" data-bs-target="#v-pills-receita" type="button" role="tab" aria-controls="v-pills-receita" aria-selected="false" style="height: 3.6rem; width:10rem ;">Receitas</button>
+                                    @endif
                                     <button class="nav-link mt-2 botaousuario" id="v-pills-curtida-tab" data-bs-toggle="pill" data-bs-target="#v-pills-curtida" type="button" role="tab" aria-controls="v-pills-curtida" aria-selected="false" style="height: 3.6rem; width:10rem ;">Curtidas</button>
                                     <button class="nav-link mt-2 botaousuario" id="v-pills-favoritas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favoritas" type="button" role="tab" aria-controls="v-pills-favoritas" aria-selected="false" style="height: 3.6rem; width:10rem ;">Favoritadas</button>
                                     @if (Auth::user()->id == $usuario->id)
@@ -26,60 +30,86 @@
                         </div>
                         <div class="tab-content col-9" id="v-pills-tabContent">
                             <div class="tab-pane fade show active bg-transparent" id="v-pills-perfil" role="tabpanel" aria-labelledby="v-pills-perfil-tab">
-                                <div class="card ">
-                                    <div class="row g-0 m-4">
-                                        <div class="col-md-4 ">
-                                        <img src="{{$usuario->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" class="img-fluid rounded-start" height="500px">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <div class="container mt-3 row">
-                                                    <h5 class=" col-12 ">Nome: {{$usuario->name}}</h5>
+                                <div class="row col">
+                                    <div class="card">
+                                        <div class="row g-0">
+                                            <div class="col-md-4 mb-3 mt-3">
+                                                <img src="{{$usuario->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" class="img-fluid rounded-start" height="500px">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <div class="container mt-3 row">
+                                                        <h5 class=" col-12">Nome: {{$usuario->name}}</h5>
+                                                    </div>
+                                                    @if (Auth::user()->rank != 'incompleto')
+                                                        <div class="container mt-3 row">
+                                                            <h5 class=" col-12">Rank: {{$usuario->rank}}</h5>
+                                                        </div>
+                                                    @endif
+                                                    <div class="container mt-3 row">
+                                                        <h5 class="col-12">Email: {{$usuario->email}}</h5>
+                                                    </div>
+                                                    <div class="container mt-3 row">
+                                                        <h5 class="col-6">Entrou: {{Carbon\Carbon::parse($usuario->created_at)->format('d-m-Y')}}</h5>
+                                                        <h5 class=" col-6 text-end">Idade: {{$usuario->data_nascimento ? Carbon\Carbon::parse($usuario->data_nascimento)->diffInYears(Carbon\Carbon::today()) . ' Anos' : 'Não Informada'}}</h5>
+                                                    </div>
                                                 </div>
-                                                <div class="container mt-3 row">
-                                                    <h5 class="col-12">Email: {{$usuario->email}}</h5>
-                                                </div>
-                                                <div class="container mt-3 row">
-                                                    <h5 class="col-6">Entrou: {{Carbon\Carbon::parse($usuario->created_at)->format('d-m-Y')}}</h5>
-                                                    <h5 class=" col-6 text-end">Idade: {{$usuario->data_nascimento ? Carbon\Carbon::parse($usuario->data_nascimento)->diffInYears(Carbon\Carbon::today()) . ' Anos' : 'Não Informada'}}</h5>
+                                                <div class="text-end">
+                                                    @unless (Auth::user()->id == $usuario->id)
+                                                        @if(in_array($usuario->id, $array_seguindo))
+                                                            <a data-usuario="{{$usuario->id}}" class="deixar_seguir" title="Deixar de Seguir">
+                                                                <i class="fa-solid fa-user-check"></i>
+                                                            </a>
+                                                        @else
+                                                            <a data-usuario="{{$usuario->id}}" class="seguir" title="Seguir">
+                                                                <i class="fa-solid fa-user-plus"></i>
+                                                            </a>
+                                                        @endif
+                                                    @endunless
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="v-pills-receita" role="tabpanel" aria-labelledby="v-pills-receita-tab">
+                            <div class="tab-pane fade show" id="v-pills-receita" role="tabpanel" aria-labelledby="v-pills-receita-tab">
                                 <div class="row col">
-                                    @if (count($usuario->receitas) == 0)
-                                        <div class="card text-center ms-3">
+                                    @if (count($receitas) == 0)
+                                        <div class="card text-center">
                                             <p class="pt-3 pb-1">Este Usuário Não Possui Receitas Cadastradas</p>
                                         </div>
                                     @else
-                                        @foreach ($usuario->receitas as $item)
-                                            <div class="card m-2 " >
+                                        @foreach ($receitas as $item)
+                                            <div class="card mb-3">
                                                 <div class="row g-0">
                                                     <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
-                                                        <img src="{{$item->foto ? asset('foto_receitas/' . $item->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start " style="height: 15rem; width: 15rem;">
+                                                        <img src="{{$item->foto ? asset('foto_receitas/' . $item->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem; width: 15rem;">
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="card-body">
                                                             <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->id}}" style="text-decoration: none; color: black">
                                                                 <h5 class="card-title col-6">{{$item->titulo_receita}}</h5>
                                                                 @if ($item->velocidade_id == 1)
-                                                                    <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
+                                                                    <h6 class="card-text col-6 text-end mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
                                                                 @elseif($item->velocidade_id == 2)
-                                                                    <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
+                                                                    <h6 class="card-text col-6 text-end mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
                                                                 @else
-                                                                    <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
+                                                                    <h6 class="card-text col-6 text-end mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
                                                                 @endif
                                                                 <h5 class="card-text col-12">{!! substr($item->descricao, 0, 180) . '...' !!}</h5>
                                                             </a>
-                                                            <p class="text-end">Curtidas: {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}</p>
-                                                            @if (Auth::user()->id == $usuario->id)
+                                                            <div class="text-end">
+                                                                <i class="fa-regular fa-eye"></i> {{$item->visualizacoes ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                                                <i class="fa-solid fa-thumbs-up"></i> {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}
+                                                            </div>
+                                                            @if (Auth::user()->id == $item->user_id)
                                                                 <div class="text-end">
-                                                                    <a href="{{url('editar_receitas/')}}/{{$item->id}}" class="btn btn-warning text-light text-center " style="height: 38px">
+                                                                    <a href="{{url('editar_receitas/')}}/{{$item->id}}" class="btn btn-warning text-light text-center" style="height: 36px">
                                                                         <h6>editar receita</h6>
                                                                     </a>
+                                                                    <button data-id="{{$item->id}}" class="btn btn-danger deletar_receita text-light text-center">
+                                                                        <i class="fa-solid fa-trash"></i>
+                                                                    </button>
                                                                 </div>  
                                                             @endif 
                                                         </div>
@@ -90,50 +120,53 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="v-pills-curtida" role="tabpanel" aria-labelledby="v-pills-curtida-tab">
+                            <div class="tab-pane fade show" id="v-pills-curtida" role="tabpanel" aria-labelledby="v-pills-curtida-tab">
                                 <div class="row col">
-                                    @if (count($usuario->curtidas) == 0)
-                                        <div class="card text-center ms-3">
+                                    @if (count($curtidas) == 0)
+                                        <div class="card text-center">
                                             <p class="pt-3 pb-1">Este Usuário Não Curtiu Receitas</p>
                                         </div>
                                     @else
-                                        @foreach ($usuario->curtidas as $item)
-                                        <div class="card m-2 " >
-                                            <div class="row g-0">
-                                                <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
-                                                    <img src="{{$item->receita->foto ? asset('foto_receitas/' . $item->receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem; width: 15rem;">
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="card-body">
-                                                        <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->receita_id}}" style="text-decoration: none; color: black">
-                                                            <h5 class="card-title col-6">{{$item->receita->titulo_receita}}</h5>
-                                                            @if ($item->velocidade_id == 1)
-                                                                <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
-                                                            @elseif($item->velocidade_id == 2)
-                                                                <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
-                                                            @else
-                                                                <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
-                                                            @endif
-                                                            <h5 class="card-text col-12">{!! substr($item->receita->descricao, 0, 180) . '...' !!}</h5>
-                                                        </a>
-                                                        <p class="text-end">Curtidas: {{$item->where('receita_id', $item->receita_id)->count()}}</p>
+                                        @foreach ($curtidas as $item)
+                                            <div class="card mb-3">
+                                                <div class="row g-0">
+                                                    <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
+                                                        <img src="{{$item->receita->foto ? asset('foto_receitas/' . $item->receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem; width: 15rem;">
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
+                                                            <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->receita_id}}" style="text-decoration: none; color: black">
+                                                                <h5 class="card-title col-6">{{$item->receita->titulo_receita}}</h5>
+                                                                @if ($item->receita->velocidade_id == 1)
+                                                                    <h6 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
+                                                                @elseif($item->receita->velocidade_id == 2)
+                                                                    <h6 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
+                                                                @else
+                                                                    <h6 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
+                                                                @endif
+                                                                <h5 class="card-text col-12">{!! substr($item->receita->descricao, 0, 180) . '...' !!}</h5>
+                                                            </a>
+                                                            <div class="text-end">
+                                                                <i class="fa-regular fa-eye"></i> {{$item->visualizacoes ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                                                <i class="fa-solid fa-thumbs-up"></i> {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         @endforeach
                                     @endif
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="v-pills-favoritas" role="tabpanel" aria-labelledby="v-pills-favoritas-tab">
+                            <div class="tab-pane fade show" id="v-pills-favoritas" role="tabpanel" aria-labelledby="v-pills-favoritas-tab">
                                 <div class="row col">
-                                    @if (count($usuario->favoritas) == 0)
-                                        <div class="card text-center ms-3">
+                                    @if (count($favoritas) == 0)
+                                        <div class="card text-center">
                                             <p class="pt-3 pb-1">Este Usuário Não Tem Receitas Favoritas</p>
                                         </div>
                                     @else
-                                        @foreach ($usuario->favoritas as $item)
-                                        <div class="card m-2 " >
+                                        @foreach ($favoritas as $item)
+                                        <div class="card mb-3">
                                             <div class="row g-0">
                                                 <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
                                                     <img src="{{$item->receita->foto ? asset('foto_receitas/' . $item->receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem; width: 15rem;">
@@ -142,16 +175,19 @@
                                                     <div class="card-body">
                                                         <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->receita_id}}" style="text-decoration: none; color: black">
                                                             <h5 class="card-title col-6">{{$item->receita->titulo_receita}}</h5>
-                                                            @if ($item->velocidade_id == 1)
-                                                                <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
-                                                            @elseif($item->velocidade_id == 2)
-                                                                <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
+                                                            @if ($item->receita->velocidade_id == 1)
+                                                                <h6 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
+                                                            @elseif($item->receita->velocidade_id == 2)
+                                                                <h6 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
                                                             @else
-                                                                <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
+                                                                <h6 class="card-text col-6 text-end mb-1">{{$item->receita->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
                                                             @endif
                                                             <h5 class="card-text col-12">{!! substr($item->receita->descricao, 0, 180) . '...' !!}</h5>
                                                         </a>
-                                                        <p class="text-end">Curtidas: {{$item->receita->curtida ? $item->receita->curtida->where('receita_id', $item->receita_id)->count() : 0}}</p>
+                                                        <div class="text-end">
+                                                            <i class="fa-regular fa-eye"></i> {{$item->visualizacoes ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                                            <i class="fa-solid fa-thumbs-up"></i> {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -160,33 +196,46 @@
                                     @endif
                                 </div>
                             </div>                            
-                            <div class="tab-pane fade" id="v-pills-escondida" role="tabpanel" aria-labelledby="v-pills-escondida-tab">
+                            <div class="tab-pane fade show" id="v-pills-escondida" role="tabpanel" aria-labelledby="v-pills-escondida-tab">
                                 <div class="row col">
                                     @if (count($escondidas) == 0)
-                                        <div class="card text-center ms-3">
+                                        <div class="card text-center">
                                             <p class="pt-3 pb-1">Você Não Tem Receitas Escondidas</p>
                                         </div>
                                     @else
                                         @foreach ($escondidas as $item)
-                                            <div class="card m-2 " >
+                                            <div class="card mb-3" >
                                                 <div class="row g-0">
                                                     <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
-                                                        <img src="{{$item->foto ? asset('foto_receitas/' . $item->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start " style="height: 15rem; width: 15rem;">
+                                                        <img src="{{$item->foto ? asset('foto_receitas/' . $item->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem; width: 15rem;">
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="card-body">
-                                                            <a class="row" href="{{url('visualizar_receitas/')}}/{{$item->id}}" style="text-decoration: none; color: black">
+                                                            <a class="row" href="{{url('visualizar_receita_escondida/')}}/{{$item->id}}" style="text-decoration: none; color: black">
                                                                 <h5 class="card-title col-6">{{$item->titulo_receita}}</h5>
                                                                 @if ($item->velocidade_id == 1)
-                                                                    <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
+                                                                    <h6 class="card-text col-6 text-end mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(18, 233, 18)"></i></h6>
                                                                 @elseif($item->velocidade_id == 2)
-                                                                    <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
+                                                                    <h6 class="card-text col-6 text-end mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 233, 18)"></i></h6>
                                                                 @else
-                                                                    <h6 class="card-text col-6  mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
+                                                                    <h6 class="card-text col-6 text-end mb-1">{{$item->velocidade->velocidade}} <i class="fa-solid fa-clock" style="color: rgb(233, 18, 18)"></i></h6>
                                                                 @endif
                                                                 <h5 class="card-text col-12">{!! substr($item->descricao, 0, 180) . '...' !!}</h5>
                                                             </a>
-                                                            <p class="text-end">Curtidas: {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}</p>
+                                                            <div class="text-end">
+                                                                <i class="fa-regular fa-eye"></i> {{$item->visualizacoes ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                                                <i class="fa-solid fa-thumbs-up"></i> {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}
+                                                            </div>
+                                                            @if (Auth::user()->id == $item->user_id)
+                                                                <div class="text-end">
+                                                                    <a href="{{url('editar_receitas/')}}/{{$item->id}}" class="btn btn-warning text-light text-center" style="height: 36px">
+                                                                        <h6>editar receita</h6>
+                                                                    </a>
+                                                                    <button data-id="{{$item->id}}" class="btn btn-danger deletar_receita text-light text-center">
+                                                                        <i class="fa-solid fa-trash"></i>
+                                                                    </button>
+                                                                </div>  
+                                                            @endif 
                                                         </div>
                                                     </div>
                                                 </div>
@@ -195,85 +244,120 @@
                                     @endif
                                 </div>
                             </div>                           
-                            <div class="tab-pane fade" id="v-pills-detalhes" role="tabpanel" aria-labelledby="v-pills-detalhes-tab">
-                                <div class="card ps-4">
-                                    <form method="POST" action="{{ url('editar_usuario') }}" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="card-body mt-3">
-                                            <div class="input-group mb-3 row">
-                                                <span class="input-group-text col-2" id="inputGroup-sizing-default">Nome:</span>
-                                                <input type="text" value="{{$usuario->name}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nome" id="nome">
+                            <div class="tab-pane fade show" id="v-pills-detalhes" role="tabpanel" aria-labelledby="v-pills-detalhes-tab">
+                                <div class="row col">
+                                    <div class="card ps-4">
+                                        <form method="POST" action="{{ url('editar_usuario') }}" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="card-body mt-3">
+                                                <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados">
+                                                        <h6>{{$errors->has('nome') ? $errors->first('nome') : ''}}</h6>
+                                                    </label>
+                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">
+                                                        Nome:
+                                                    </span>
+                                                    <input type="text" value="{{$usuario->name}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nome" id="nome">
+                                                </div>
+                                                <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados">
+                                                        <h6>{{$errors->has('email') ? $errors->first('email') : ''}}</h6>
+                                                    </label>
+                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">E-mail:</span>
+                                                    <input type="text" value="{{$usuario->email}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="email" id="email">
+                                                </div>
+                                                <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados">
+                                                        <h6>{{$errors->has('senha') ? $errors->first('senha') : ''}}</h6>
+                                                    </label>
+                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">Senha:</span>
+                                                    <input type="password" placeholder="Nào é necessário preencher este campo se quiser manter a mesma senha" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="senha" id="senha">
+                                                </div>
+                                                <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
+                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">Telefone:</span>
+                                                    <input type="text" value="{{$usuario->telefone ? $usuario->telefone : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="DDD com 0 e 9 adicional" name="telefone" id="telefone">
+                                                </div>
+                                                <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
+                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">Data Nascimento:</span>
+                                                    <input type="date" value="{{$usuario->data_nascimento ? $usuario->data_nascimento : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nascimento" id="nascimento">
+                                                </div>
+                                                <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
+                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">Gênero:</span>
+                                                    <input type="text" value="{{$usuario->genero}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="genero" id="genero">
+                                                </div>
+                                                <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
+                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">Rua:</span>
+                                                    <input type="text" value="{{$usuario->endereco ? $usuario->endereco->rua : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="rua" id="rua">
+                                                </div>
+                                                <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
+                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">Número:</span>
+                                                    <input type="text" value="{{$usuario->endereco ? $usuario->endereco->numero : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="numero" id="numero">
+                                                </div>
+                                                <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
+                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">Bairro:</span>
+                                                    <input type="text" value="{{$usuario->endereco ? $usuario->endereco->bairro : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="bairro" id="bairro">
+                                                </div>
+                                                <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
+                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">Cidade:</span>
+                                                    <input type="text" value="{{$usuario->endereco ? $usuario->endereco->cidade : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="cidade" id="cidade">
+                                                </div>
+                                                <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
+                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">CEP:</span>
+                                                    <input type="text" value="{{$usuario->endereco ? $usuario->endereco->cep : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="cep" id="cep">
+                                                </div>
+                                                <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados">
+                                                        <h6>{{$errors->has('uf') ? $errors->first('uf') : ''}}</h6>
+                                                    </label>
+                                                    <label class="input-group-text col-2" for="inputuf">UF:</label>
+                                                    <select class="form-select col-9" name="uf" disabled id="uf">
+                                                        <option value="{{$usuario->endereco ? $usuario->endereco->uf_id : ''}}">{{$usuario->endereco ? $usuario->endereco->uf->uf : ''}}</option>
+                                                        @foreach ($ufs as $item)
+                                                            <option value="{{$item->id}}">{{$item->uf}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="input-group mb-3 row">
+                                                    <label class="form-label faltadados">
+                                                        <h6>{{$errors->has('pais') ? $errors->first('pais') : ''}}</h6>
+                                                    </label>
+                                                    <label class="input-group-text col-2" for="inputpais">País:</label>
+                                                    <select class="form-select col-9" name="pais" disabled id="pais">
+                                                        <option value="{{$usuario->endereco ? $usuario->endereco->pai_id : ''}}">{{$usuario->endereco ? $usuario->endereco->pais->pais : ''}}</option>
+                                                        @foreach ($paises as $item)
+                                                            <option value="{{$item->id}}">{{$item->pais}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="input-group mb-3 row" id="botao_imagem" hidden>
+                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
+                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">Foto:</span>
+                                                    <input type="file" class="form-control col-9" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="imagem" id="imagem">
+                                                </div>
+                                                <div class="container text-center">
+                                                    <button class="btn btn-primary col-2 border-0" type="button" id="editar" style="height:50px; background-color: #ff8c00; color:white">Editar</button>
+                                                </div>
+                                                <div class="container text-center">
+                                                    <input class="btn btn-primary col-2 border-0" type="submit" value="Salvar" id="salvar" style="height:50px; background-color: #ff8c00; color:white" hidden>
+                                                </div>
                                             </div>
-                                            <div class="input-group mb-3 row">
-                                                <span class="input-group-text col-2" id="inputGroup-sizing-default">E-mail:</span>
-                                                <input type="text" value="{{$usuario->email}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="email" id="email">
-                                            </div>
-                                            <div class="input-group mb-3 row">
-                                                <span class="input-group-text col-2" id="inputGroup-sizing-default">Senha:</span>
-                                                <input type="password" value="********" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="senha" id="senha">
-                                            </div>
-                                            <div class="input-group mb-3 row">
-                                                <span class="input-group-text col-2" id="inputGroup-sizing-default">Telefone:</span>
-                                                <input type="text" value="{{$usuario->telefone ? $usuario->telefone : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="telefone" id="telefone">
-                                            </div>
-                                            <div class="input-group mb-3 row">
-                                                <span class="input-group-text col-2" id="inputGroup-sizing-default">Data Nascimento:</span>
-                                                <input type="date" value="{{$usuario->data_nascimento ? $usuario->data_nascimento : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nascimento" id="nascimento">
-                                            </div>
-                                            <div class="input-group mb-3 row">
-                                                <span class="input-group-text col-2" id="inputGroup-sizing-default">Gênero:</span>
-                                                <input type="text" value="{{$usuario->genero}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="genero" id="genero">
-                                            </div>
-                                            <div class="input-group mb-3 row">
-                                                <span class="input-group-text col-2" id="inputGroup-sizing-default">Rua:</span>
-                                                <input type="text" value="{{$usuario->endereco ? $usuario->endereco->rua : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="rua" id="rua">
-                                            </div>
-                                            <div class="input-group mb-3 row">
-                                                <span class="input-group-text col-2" id="inputGroup-sizing-default">Número:</span>
-                                                <input type="text" value="{{$usuario->endereco ? $usuario->endereco->numero : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="numero" id="numero">
-                                            </div>
-                                            <div class="input-group mb-3 row">
-                                                <span class="input-group-text col-2" id="inputGroup-sizing-default">Bairro:</span>
-                                                <input type="text" value="{{$usuario->endereco ? $usuario->endereco->bairro : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="bairro" id="bairro">
-                                            </div>
-                                            <div class="input-group mb-3 row">
-                                                <span class="input-group-text col-2" id="inputGroup-sizing-default">Cidade:</span>
-                                                <input type="text" value="{{$usuario->endereco ? $usuario->endereco->cidade : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="cidade" id="cidade">
-                                            </div>
-                                            <div class="input-group mb-3 row">
-                                                <span class="input-group-text col-2" id="inputGroup-sizing-default">CEP:</span>
-                                                <input type="text" value="{{$usuario->endereco ? $usuario->endereco->cep : ''}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="cep" id="cep">
-                                            </div>
-                                            <div class="input-group mb-3 row ">
-                                                <label class="input-group-text col-2 " for="inputuf">UF:</label>
-                                                <select class="form-select col-9" name="uf" disabled id="uf">
-                                                    <option value="{{$usuario->endereco ? $usuario->endereco->uf_id : ''}}">{{$usuario->endereco ? $usuario->endereco->uf->uf : ''}}</option>
-                                                    @foreach ($ufs as $item)
-                                                        <option value="{{$item->id}}">{{$item->uf}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="input-group mb-3 row ">
-                                                <label class="input-group-text col-2 " for="inputpais">País:</label>
-                                                <select class="form-select col-9 " name="pais" disabled id="pais">
-                                                    <option value="{{$usuario->endereco ? $usuario->endereco->pai_id : ''}}">{{$usuario->endereco ? $usuario->endereco->pais->pais : ''}}</option>
-                                                    @foreach ($paises as $item)
-                                                        <option value="{{$item->id}}">{{$item->pais}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="input-group mb-3 row" id="botao_imagem" hidden>
-                                                <span class="input-group-text col-2" id="inputGroup-sizing-default">Foto:</span>
-                                                <input type="file" class="form-control col-9" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="imagem" id="imagem">
-                                            </div>
-                                            <div class="container text-center ">
-                                                <button class="btn btn-primary col-2 border-0" type="button" id="editar" style="height:50px; background-color: #ff8c00; color:white">Editar</button>
-                                            </div>
-                                            <div class="container text-center ">
-                                                <input class="btn btn-primary col-2 border-0" type="submit" value="Salvar" id="salvar" style="height:50px; background-color: #ff8c00; color:white" hidden>
-                                            </div>
+                                        </form>
+                                        <div class="container text-end">
+                                            @if (Auth::user()->id == $usuario->id)
+                                                <button class="btn btn-danger deletar_user text-light text-center">
+                                                    Deletar Conta
+                                                </button>
+                                            @endif
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -288,13 +372,57 @@
             </div>
         </div>
 
+        <div class="NoCanto" id="alerta_sucesso_seguir" hidden>
+            <div class="alert alert-success" role="alert">
+                Você começou a segui-lo(a)!
+            </div>
+        </div>
+
+        <div class="NoCanto" id="alerta_sucesso_deixar_seguir" hidden>
+            <div class="alert alert-success" role="alert">
+                Você deixou de segui-lo(a)!
+            </div>
+        </div>
+
+        <div class="NoCanto" id="alerta_sucesso_deletar_receita" hidden>
+            <div class="alert alert-success" role="alert">
+                Receita Deletada Com Sucesso!
+            </div>
+        </div>
+
+        <div class="NoCanto" id="alerta_sucesso_deletar_user" hidden>
+            <div class="alert alert-success" role="alert">
+                Triste Em Lhe Ver Partir, Até Breve!
+            </div>
+        </div>
+
+        <div class="modal fade" id="avisoModal" data-bs-backdrop="static" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Aviso</h4>
+                    </div>
+                    <div class="modal-body">
+                        Ao clicar em deletar, sua conta e suas receitas serão todas deletadas!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
+                        @if (Auth::user()->id == $usuario->id)
+                            <button data-id="{{$usuario->id}}" class="btn btn-danger deletar text-light text-center">
+                                Deletar
+                            </button>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
     @endsection
     @section('pos-script')
         <script type="text/javascript">
             $(document).on('click', '#editar', function(){
                 $('#editar').prop('hidden', true);
                 $('#salvar').prop('hidden', false);
-
                 $('#nome').prop('readonly', false);
                 $('#email').prop('readonly', false);
                 $('#senha').prop('readonly', false);
@@ -309,6 +437,7 @@
                 $('#uf').prop('disabled', false);
                 $('#pais').prop('disabled', false);
                 $('#botao_imagem').prop('hidden', false);
+                $('.deletar_user').prop('hidden', true);
             });
 
             const urlParams = new URLSearchParams(window.location.search);
@@ -322,7 +451,99 @@
                 setTimeout(() => {
                     $('#alerta_sucesso_editar').remove()
                 }, 5050);
-
             }
+
+            $("input[name='telefone']").keyup(function() {
+                $(this).val($(this).val().replace(/^(\d{3})(\d{1})(\d{4})(\d{4})$/, "($1) $2 $3-$4"));
+            });
+
+            $(document).on('click', '.seguir', function(){
+                $.ajax({
+                    type: 'POST', 
+                    url: "{{ url('seguir') }}", 
+                    data: { 
+                        id: $(this).data('usuario'),
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function(){
+                        $('#alerta_sucesso_seguir').prop('hidden', false);
+
+                        $('#alerta_sucesso_seguir').fadeOut(5000);
+
+                        setTimeout(() => {
+                            $('#alerta_sucesso_seguir').remove()
+                            window.location.reload(true);
+                        }, 5050);
+                    }
+                });
+            });
+
+            $(document).on('click', '.deixar_seguir', function(){
+                $.ajax({
+                    type: 'POST', 
+                    url: "{{ url('deixar_seguir') }}", 
+                    data: { 
+                        id: $(this).data('usuario'),
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function(){
+                        $('#alerta_sucesso_deixar_seguir').prop('hidden', false);
+
+                        $('#alerta_sucesso_deixar_seguir').fadeOut(5000);
+
+                        setTimeout(() => {
+                            $('#alerta_sucesso_deixar_seguir').remove()
+                            window.location.reload(true);
+                        }, 5050);
+                    }
+                });
+            });
+            
+            $(document).on('click', '.deletar_receita', function(){
+                $.ajax({
+                    type: 'POST', 
+                    url: "{{url('excluir_receita')}}", 
+                    data: { 
+                        id: $(this).data('id'),
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function(){
+                        $('#alerta_sucesso_deletar_receita').prop('hidden', false);
+
+                        $('#alerta_sucesso_deletar_receita').fadeOut(5000);
+
+                        setTimeout(() => {
+                            $('#alerta_sucesso_deletar_receita').remove()
+                            window.location.reload(true);
+                        }, 5050);
+                    }
+                });
+            });
+
+            $(document).on('click', '.deletar_user', function(){
+                $("#avisoModal").modal('show');
+            });
+
+            $(document).on('click', '.deletar', function(){
+                $("#avisoModal").modal('hide');
+                $.ajax({
+                    type: 'POST', 
+                    url: "{{url('excluir_usuario')}}", 
+                    data: { 
+                        id: $(this).data('id'),
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function(){
+                        $('#alerta_sucesso_deletar_user').prop('hidden', false);
+
+                        $('#alerta_sucesso_deletar_user').fadeOut(5000);
+
+                        setTimeout(() => {
+                            $('#alerta_sucesso_deletar_user').remove()
+                            window.location.href = "{{url('/')}}";
+                        }, 5050);
+                    }
+                });
+            });
         </script>
     @endsection

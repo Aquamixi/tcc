@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class comentario extends Model
+class avaliacao extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
     protected $primaryKey = 'id';
     protected $fillable = [
+        'qtde',
         'user_id',
-        'receita_id',
-        'comentario',
-        'data_comentario'
+        'receita_id'
     ];
 }

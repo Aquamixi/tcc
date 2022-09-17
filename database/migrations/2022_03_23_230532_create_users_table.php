@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->date('data_nascimento')->nullable();
             $table->boolean('first_login');
             $table->string('genero')->nullable();
+            $table->string('rank')->nullable()->default('incompleto');
         });
         
         Schema::table('users', function (Blueprint $table) {

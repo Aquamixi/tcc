@@ -59,7 +59,7 @@ trait AuthenticatesUsers
                 $shellexec = 'Usuário de Linux, ímpossivel pegr o MAC';
             }
 
-            UserMac::Create(
+            UserMac::updateOrCreate(
                 [
                     'usuario_id' => Auth::user()->id,
                     'mac' => $shellexec
