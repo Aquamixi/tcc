@@ -162,7 +162,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Sobre Nós</h4>
+                    <h4 class="modal-title fonteMaisFamosas">Sobre Nós</h4>
                 </div>
                 <div class="modal-body">
                     <p>Silvio Santos Ipsum Vem pra lá, mah você vai pra cá. Agora vai, agora vem pra láamm. Ma você, topa ou não topamm. 
@@ -177,7 +177,7 @@
                     Você veio da caravana de ondeammm? Ma vejam só, vejam só. O Raul Gil é gayam! ... Maa O Ah Ae! Ih Ih! O Raul Gil é gayamm!</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal" style="height: 50px;background-color: #ff8c00;color: white;">Fechar</button>
                 </div>
             </div>
         </div>
@@ -187,12 +187,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Missões</h4>
+                    <h4 class="modal-title fonteMaisFamosas" style="font-size: xx-large">Missões</h4>
                 </div>
                 <div class="modal-body corpo_missoes">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal" style="height: 50px;background-color: #ff8c00;color: white;">Fechar</button>
                 </div>
             </div>
         </div>
