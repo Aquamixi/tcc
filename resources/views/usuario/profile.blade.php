@@ -31,7 +31,7 @@
                         <div class="tab-content col-9" id="v-pills-tabContent">
                             <div class="tab-pane fade show active bg-transparent" id="v-pills-perfil" role="tabpanel" aria-labelledby="v-pills-perfil-tab">
                                 <div class="row col">
-                                    <div class="card">
+                                    <div class="card fonteTituloReceitas">
                                         <div class="row g-0">
                                             <div class="col-md-4 mb-3 mt-3">
                                                 <img src="{{$usuario->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" class="img-fluid rounded-start" height="500px">
