@@ -12,7 +12,7 @@
             </div>
             <div class="container row">
                 <div class="card col-12">
-                    <div class="row m-1 mb-2">
+                    <div class="row m-1 mb-2 fonteTituloReceitas">
                         <div class="text-center">
                             <a href="{{url('profile') . '/' . $receita->user_id}}" style="text-decoration: none; color:black">
                                 <h4>Criador: {{$receita->usuario->name}}</h4>
@@ -62,7 +62,7 @@
                                     @endif
                                     <a title="Compartilhar" class="botaoshare" id="share"><i class="fa-solid fa-share"></i></a>
                                 @endif
-                                @if (Auth::user()->id == $receita->user_id)
+                                @if (Auth::user()->id == $receita->user_id and $receita->escondida == 1)
                                     <a title="Compartilhar" class="botaoshare" id="share_escondida" data-id="{{$receita->id}}"><i class="fa-solid fa-share"></i></a>
                                 @endif
                                 <h6>Data Postagem: {{Carbon\Carbon::parse($receita->data_postagem)->format('d-m-Y')}}</h6>
@@ -78,34 +78,86 @@
                         {!! $receita->descricao !!}
                     </div>
                 </div>
-                <div class="container  row mx-auto col-12">
-                    <div class="container col-6">
-                        <div>
-                            <h5 class="fonteMaisFamosas mt-3">Ingredientes</h5>
+                    <div class="">
+                        <h5 class="fonteMaisFamosas mt-3">Ingredientes</h5>
+                    </div>
+                    <div class="card  col-12">
+                        <div class="card-body " style="height:170px;">
+                            @foreach ($receita->ingrediente as $item)
+                                @if ($loop->last)
+                                    {{$item->ingrediente}}
+                                @else
+                                    {{$item->ingrediente}},
+                                @endif
+                            @endforeach
                         </div>
-                        <div class="card col-12">
-                            <div class="card-body" style="height:170px;">
-                                @foreach ($receita->ingrediente as $item)
-                                    @if ($loop->last)
-                                        {{$item->ingrediente}}
-                                    @else
-                                        {{$item->ingrediente}},
-                                    @endif
-                                @endforeach
+                    </div>
+                    <div class="">
+                        <h5 class="fonteMaisFamosas mt-3">Modo De Preparo</h5>
+                    </div>
+                    <div class="card col-12 mb-3" >
+                        <div class="card-body" style="height:170px;">
+                            {!! $receita->modo_preparo !!}
+                        </div>
+                    </div>
+                    <div class="">
+                        <h5 class="fonteMaisFamosas mt-3">Comentarios</h5>
+                    </div>
+                    <div class="card col-12 mb-3">
+                        <div class="card-header row">
+                            <h5 class="col-6">nome:aaaaaaaa</h5>                          
+                            <h6 class="col-5 text-end ">10/01/14</h6>                           
+                            <h5 class="col-1 text-end ">
+                                <div class=" dropend">
+                                    <button type="button" class="  border-0 bg-transparent dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" >
+                                        <li ><button class="btn bg-transparent" type="submit"><i class="fa-solid fa-trash"></i> Excluir</button></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><button class="btn bg-transparent" type="submit"><i class="fa-solid fa-pen"></i>Editar</button></li>
+                                    </ul>
+                                </div>
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <h5>comentario aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h5>
+                        </div>
+                        <div class="card-footer row">
+                            <h5 class="col-10">
+                                <button class="btn btn-link respostas" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                    Respostas:15
+                                </button>
+                            </h5>
+                            <h5 class="col-1 text-end mt-2">
+                                @if (count($receita->curtida_user) > 0)
+                                    <a title="Descurtir" class="curtido" id="descurtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                @else
+                                    <a title="Curtir" class="botaocurtir" id="curtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                @endif
+                            </h5>
+                            <h5 class="col-1 text-end mt-2">
+                                <a title="Responder" class="comentar" id="responder"><i class="fa-solid fa-comments"></i></a>
+                            </h5>
+                            <div class="collapse" id="collapseExample">
+                                <div class="card">                                    
+                                    <div class="row card-header mx-0">
+                                        <h6 class="col-11 ">nome aaaa</h6>
+                                        <h6 class="col-1 text-end">
+                                            @if (count($receita->curtida_user) > 0)
+                                            <a title="Descurtir" class="curtido" id="descurtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                            @else
+                                            <a title="Curtir" class="botaocurtir" id="curtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                            @endif
+                                        </h6>                                        
+                                    </div>   
+                                    <div class="card-body">
+                                        aaaaaaaaaaaaaaaaaaaaaaaaaaaa    
+                                    </div>                                
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="container col-6 mb-2">
-                        <div>
-                            <h5 class="fonteMaisFamosas mt-3">Modo De Preparo</h5>
-                        </div>
-                        <div class="card col-12">
-                            <div class="card-body" style="height:170px;">
-                                {!! $receita->modo_preparo !!}
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>         
         </div>
     </main>
@@ -125,6 +177,27 @@
                     <div class="modal-footer">
                         <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
                         <input id="enviaComentario" class="btn btn-primary col-2 border-0" type="submit" value="Enviar" data-bs-dismiss="modal" style="height:40px; background-color: #ff8c00; color:white"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalResponder" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title fonteMaisFamosas">Responder</h3>
+                </div>
+                <form action="{{url('comentar_receita')}}" method="post">
+                    @csrf
+                    <input value="{{$receita->id}}" name="id" hidden>
+                    <div class="modal-body">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Escreva aqui a sua resposta" name="resposta" style="resize: none; height:115.7px;">{{old('resposta') ? old('resposta') : ''}}</textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
+                        <input id="enviaResposta" class="btn btn-primary col-2 border-0" type="submit" value="Enviar" data-bs-dismiss="modal" style="height:40px; background-color: #ff8c00; color:white"/>
                     </div>
                 </form>
             </div>
@@ -175,6 +248,7 @@
         let urlAtual = window.location.href;
 
         $(document).on('click', '#share', function(){
+            $('#share').prop('disabled', true);
             $.ajax({
                 type: 'POST', 
                 url: "{{ url('compartilhar_receita') }}", 
@@ -193,6 +267,7 @@
         });
 
         $(document).on('click', '#curtir', function(){
+            $('#curtir').prop('disabled', true);
             $.ajax({
                 type: 'POST', 
                 url: "{{ url('curtir_receita') }}", 
@@ -212,6 +287,7 @@
         });
 
         $(document).on('click', '#favoritar', function(){
+            $('#favoritar').prop('disabled', true);
             $.ajax({
                 type: 'POST', 
                 url: "{{ url('favoritar_receita') }}", 
@@ -231,6 +307,7 @@
         });
 
         $(document).on('click', '#descurtir', function(){
+            $('#descurtir').prop('disabled', true);
             $.ajax({
                 type: 'POST', 
                 url: "{{ url('descurtir_receita') }}", 
@@ -250,6 +327,7 @@
         });
 
         $(document).on('click', '#desfavoritar', function(){
+            $('#desfavoritar').prop('disabled', true);
             $.ajax({
                 type: 'POST', 
                 url: "{{ url('desfavoritar_receita') }}", 
@@ -271,8 +349,13 @@
         $(document).on('click', '#comentar', function(){
             $("#modalComentario").modal('show');
         });
+
+        $(document).on('click', '#responder', function(){
+            $("#modalResponder").modal('show');
+        });
         
         $(document).on('click', '#share_escondida', function(){
+            $('#share_escondida').prop('disabled', true);
             var random_token = Math.random().toString(16).substr(2);
             $.ajax({
                 type: 'POST', 
@@ -297,6 +380,7 @@
 
         $(ids).each(function(id){
             $(document).on('click', `#${id}`, function(){
+            $(`#${id}`).prop('disabled', true);
                 $.ajax({
                     type: 'POST', 
                     url: "{{ url('avaliar_receita') }}", 
