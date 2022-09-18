@@ -36,6 +36,11 @@ class receita extends Model
         'data_token_validade'
     ];
 
+    public function comentario()
+    {
+        return $this->hasMany(comentario::class, 'receita_id', 'id');
+    }
+
     public function usuario()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');

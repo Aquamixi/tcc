@@ -100,64 +100,74 @@
                             {!! $receita->modo_preparo !!}
                         </div>
                     </div>
-                    <div class="">
-                        <h5 class="fonteMaisFamosas mt-3">Comentarios</h5>
-                    </div>
-                    <div class="card col-12 mb-3">
-                        <div class="card-header row">
-                            <h5 class="col-6">nome:aaaaaaaa</h5>                          
-                            <h6 class="col-5 text-end ">10/01/14</h6>                           
-                            <h5 class="col-1 text-end ">
-                                <div class=" dropend">
-                                    <button type="button" class="  border-0 bg-transparent dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fa-solid fa-ellipsis-vertical"></i>
-                                    </button>
-                                    <ul class="dropdown-menu" >
-                                        <li ><button class="btn bg-transparent" type="submit"><i class="fa-solid fa-trash"></i> Excluir</button></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><button class="btn bg-transparent" type="submit"><i class="fa-solid fa-pen"></i>Editar</button></li>
-                                    </ul>
+                    @if (count($receita->comentario) > 0)
+                        <div class="">
+                            <h5 class="fonteMaisFamosas">Comentarios</h5>
+                        </div>
+                        @foreach ($receita->comentario as $item)
+                            <div class="card col-12 mb-3">
+                                <div class="card-header row">
+                                    <h5 class="col-6 mt-2">{{$item->usuario->name}}</h5>                          
+                                    <h6 class="col-5 mt-2 text-end">{{Carbon\Carbon::parse($item->data_comentario)->format('d-m-Y')}}</h6>                           
+                                    <h5 class="col-1 mt-2 text-end">
+                                        <div class=" dropend">
+                                            <button type="button" class="  border-0 bg-transparent dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu text-center" >
+                                                <li><button class="btn bg-transparent" data-id="{{$item->id}}" id="excluir_comentario" type="submit"><i class="fa-solid fa-trash"></i> Excluir</button></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><button class="btn bg-transparent" data-id="{{$item->id}}" id="editar_comentario" type="submit"><i class="fa-solid fa-pen"></i> Editar</button></li>
+                                            </ul>
+                                        </div>
+                                    </h5>
                                 </div>
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <h5>comentario aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h5>
-                        </div>
-                        <div class="card-footer row">
-                            <h5 class="col-10">
-                                <button class="btn btn-link respostas" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                    Respostas:15
-                                </button>
-                            </h5>
-                            <h5 class="col-1 text-end mt-2">
-                                @if (count($receita->curtida_user) > 0)
-                                    <a title="Descurtir" class="curtido" id="descurtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
-                                @else
-                                    <a title="Curtir" class="botaocurtir" id="curtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
-                                @endif
-                            </h5>
-                            <h5 class="col-1 text-end mt-2">
-                                <a title="Responder" class="comentar" id="responder"><i class="fa-solid fa-comments"></i></a>
-                            </h5>
-                            <div class="collapse" id="collapseExample">
-                                <div class="card">                                    
-                                    <div class="row card-header mx-0">
-                                        <h6 class="col-11 ">nome aaaa</h6>
-                                        <h6 class="col-1 text-end">
-                                            @if (count($receita->curtida_user) > 0)
-                                            <a title="Descurtir" class="curtido" id="descurtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
-                                            @else
-                                            <a title="Curtir" class="botaocurtir" id="curtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
-                                            @endif
-                                        </h6>                                        
-                                    </div>   
-                                    <div class="card-body">
-                                        aaaaaaaaaaaaaaaaaaaaaaaaaaaa    
-                                    </div>                                
+                                <div class="card-body">
+                                    <h5>
+                                        {!! $item->comentario !!}
+                                    </h5>
+                                </div>
+                                <div class="card-footer row">
+                                    <h5 class="col-10">
+                                        @if (count($item->respostas) > 0)
+                                            <button class="btn btn-link respostas" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                                Respostas: {{$item->respostas->count()}}
+                                            </button>
+                                        @endif
+                                    </h5>
+                                    <h5 class="col-1 text-end mt-2">
+                                        @if (count($item->curtida_user) > 0)
+                                            <a title="Descurtir" class="curtido" id="descurtircomentario" data-id="{{$item->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                        @else
+                                            <a title="Curtir" class="botaocurtir" id="curtircomentario" data-id="{{$item->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                        @endif
+                                    </h5>
+                                    <h5 class="col-1 text-end mt-2">
+                                        <a title="Responder" class="comentar" id="responder" data-comentario_id="{{$item->id}}"><i class="fa-solid fa-comments"></i></a>
+                                    </h5>
+                                    <div class="collapse" id="collapseExample">
+                                        @foreach ($item->respostas as $r)
+                                            <div class="card">                                    
+                                                <div class="row card-header mx-0">
+                                                    <h6 class="col-11 mt-2">{{$r->usuario->name}}</h6>
+                                                    <h6 class="col-1 mt-2 text-end">
+                                                        @if (count($r->curtida_user) > 0)
+                                                        <a title="Descurtir" class="curtido" id="descurtir_resposta" data-id="{{$r->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                                        @else
+                                                        <a title="Curtir" class="botaocurtir" id="curtir_resposta" data-id="{{$r->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                                        @endif
+                                                    </h6>                                        
+                                                </div>   
+                                                <div class="card-body">
+                                                    {!! $r->resposta !!}
+                                                </div>                                
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        @endforeach
+                    @endif
             </div>         
         </div>
     </main>
@@ -189,17 +199,15 @@
                 <div class="modal-header">
                     <h3 class="modal-title fonteMaisFamosas">Responder</h3>
                 </div>
-                <form action="{{url('comentar_receita')}}" method="post">
-                    @csrf
-                    <input value="{{$receita->id}}" name="id" hidden>
-                    <div class="modal-body">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Escreva aqui a sua resposta" name="resposta" style="resize: none; height:115.7px;">{{old('resposta') ? old('resposta') : ''}}</textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
-                        <input id="enviaResposta" class="btn btn-primary col-2 border-0" type="submit" value="Enviar" data-bs-dismiss="modal" style="height:40px; background-color: #ff8c00; color:white"/>
-                    </div>
-                </form>
+                <input id="comentario_id" hidden>
+                <input value="{{$receita->id}}" id="id_da_receita" hidden>
+                <div class="modal-body">
+                    <textarea class="form-control" placeholder="Escreva aqui a sua resposta" id="resposta" name="resposta" style="resize: none; height:115.7px;">{{old('resposta') ? old('resposta') : ''}}</textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
+                    <input id="enviaResposta" class="btn btn-primary col-2 border-0" type="submit" value="Enviar" data-bs-dismiss="modal" style="height:40px; background-color: #ff8c00; color:white"/>
+                </div>
             </div>
         </div>
     </div>
@@ -237,6 +245,48 @@
     <div class="NoCanto" id="alertaSucessoAvaliar" hidden>
         <div class="alert alert-success" role="alert">
             Receita Avaliada Com Sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alertaSucessoResposta" hidden>
+        <div class="alert alert-success" role="alert">
+            Comentario Respondido Com Sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alertaSucessoCurtircomentario" hidden>
+        <div class="alert alert-success" role="alert">
+            Comentario Curtido Com Sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alertaSucessoDesCurtircomentario" hidden>
+        <div class="alert alert-success" role="alert">
+            Comentario Descurtido Com Sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alertaSucessoExcluirComentario" hidden>
+        <div class="alert alert-success" role="alert">
+            Comentario Excluído Com Sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alertaSucessoEditarComentario" hidden>
+        <div class="alert alert-success" role="alert">
+            Comentario Editado Com Sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alertaSucessoCurtirresposta" hidden>
+        <div class="alert alert-success" role="alert">
+            Resposta Curtida Com Sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alertaSucessoDesCurtirresposta" hidden>
+        <div class="alert alert-success" role="alert">
+            Resposta Descurtida Com Sucesso!
         </div>
     </div>
 @endsection
@@ -350,10 +400,35 @@
             $("#modalComentario").modal('show');
         });
 
-        $(document).on('click', '#responder', function(){
+        $(document).on('click', '#responder', function(e){
+            e.preventDefault();
+            var id_do_comentario = $(this).data('comentario_id');
             $("#modalResponder").modal('show');
+            $('#comentario_id').val(id_do_comentario);
         });
         
+        $(document).on('click', '#enviaResposta', function(){
+            $('#enviaResposta').prop('disabled', true);
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('responder_comentario') }}", 
+                data: { 
+                    id: $('#id_da_receita').val(),
+                    comentario_id: $('#comentario_id').val(),
+                    resposta: $('#resposta').val(),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoResposta').prop('hidden', false);
+                    $('#alertaSucessoResposta').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoResposta').remove()
+                        window.location.reload(true);
+                    }, 5050);
+                }
+            });
+        });
+
         $(document).on('click', '#share_escondida', function(){
             $('#share_escondida').prop('disabled', true);
             var random_token = Math.random().toString(16).substr(2);
@@ -454,5 +529,124 @@
             $('#1').removeClass( "checkedfor" );   
         });
 
+        $(document).on('click', '#curtircomentario', function(){
+            $('#curtircomentario').prop('disabled', true);
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('curtir_comentario') }}", 
+                data: { 
+                    id: $(this).data('id'),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoCurtircomentario').prop('hidden', false);
+                    $('#alertaSucessoCurtircomentario').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoCurtircomentario').remove()
+                        window.location.reload(true);
+                    }, 5050);
+                }
+            });
+        });
+
+        $(document).on('click', '#descurtircomentario', function(){
+            $('#descurtircomentario').prop('disabled', true);
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('descurtir_comentario') }}", 
+                data: { 
+                    id: $(this).data('id'),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoDesCurtircomentario').prop('hidden', false);
+                    $('#alertaSucessoDesCurtircomentario').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoDesCurtir').remove()
+                        window.location.reload(true);
+                    }, 5050);
+                }
+            });
+        });
+
+        $(document).on('click', '#excluir_comentario', function(){
+            $('#excluir_comentario').prop('disabled', true);
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('excluir_comentario') }}", 
+                data: { 
+                    id: $(this).data('id'),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoExcluirComentario').prop('hidden', false);
+                    $('#alertaSucessoExcluirComentario').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoExcluirComentario').remove()
+                        window.location.reload(true);
+                    }, 5050);
+                }
+            });
+        });
+
+        $(document).on('click', '#editar_comentario', function(){
+            $('#editar_comentario').prop('disabled', true);
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('editar_comentario') }}", 
+                data: { 
+                    id: $(this).data('id'),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoEditarComentario').prop('hidden', false);
+                    $('#alertaSucessoEditarComentario').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoEditarComentario').remove()
+                        window.location.reload(true);
+                    }, 5050);
+                }
+            });
+        });
+
+        $(document).on('click', '#curtir_resposta', function(){
+            $('#curtir_resposta').prop('disabled', true);
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('curtir_resposta') }}", 
+                data: { 
+                    id: $(this).data('id'),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoCurtirresposta').prop('hidden', false);
+                    $('#alertaSucessoCurtirresposta').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoCurtirresposta').remove()
+                        window.location.reload(true);
+                    }, 5050);
+                }
+            });
+        });
+
+        $(document).on('click', '#descurtir_resposta', function(){
+            $('#descurtir_resposta').prop('disabled', true);
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('descurtir_resposta') }}", 
+                data: { 
+                    id: $(this).data('id'),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoDesCurtirresposta').prop('hidden', false);
+                    $('#alertaSucessoDesCurtirresposta').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoDesCurtirresposta').remove()
+                        window.location.reload(true);
+                    }, 5050);
+                }
+            });
+        });
     </script>
 @endsection

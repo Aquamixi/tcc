@@ -25,11 +25,16 @@ Route::post('descurtir_receita', [App\Http\Controllers\ReceitaController::class,
 Route::post('desfavoritar_receita', [App\Http\Controllers\ReceitaController::class, 'desfavoritar_receita']);
 Route::post('comentar_receita', [App\Http\Controllers\ReceitaController::class, 'comentar_receita']);
 Route::post('editar_comentario', [App\Http\Controllers\ReceitaController::class, 'editar_comentario']);
-Route::post('deletar_comentario', [App\Http\Controllers\ReceitaController::class, 'deletar_comentario']);
+Route::post('excluir_comentario', [App\Http\Controllers\ReceitaController::class, 'excluir_comentario']);
 Route::post('compartilhar_receita', [App\Http\Controllers\ReceitaController::class, 'compartilhar_receita']);
 Route::post('compartilhar_receita_escondida', [App\Http\Controllers\ReceitaController::class, 'compartilhar_receita_escondida']);
 Route::post('avaliar_receita', [App\Http\Controllers\ReceitaController::class, 'avaliar_receita']);
 Route::post('excluir_receita', [App\Http\Controllers\ReceitaController::class, 'excluir_receita']);
+Route::post('responder_comentario', [App\Http\Controllers\ReceitaController::class, 'responder_comentario']);
+Route::post('curtir_comentario', [App\Http\Controllers\ReceitaController::class, 'curtir_comentario']);
+Route::post('descurtir_comentario', [App\Http\Controllers\ReceitaController::class, 'descurtir_comentario']);
+Route::post('curtir_resposta', [App\Http\Controllers\ReceitaController::class, 'curtir_resposta']);
+Route::post('descurtir_resposta', [App\Http\Controllers\ReceitaController::class, 'descurtir_resposta']);
 
 Route::post('definir_first_login', [App\Http\Controllers\UserController::class, 'definir_first_login']);
 

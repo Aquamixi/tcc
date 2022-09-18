@@ -16,7 +16,6 @@ class CreateRespostasTable extends Migration
         Schema::create('respostas', function (Blueprint $table) {
             $table->id();
             $table->text('resposta')->nullable();
-            $table->boolean('curtida');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('comentario_id');
         });

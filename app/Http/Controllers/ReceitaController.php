@@ -7,6 +7,8 @@ use App\Models\avaliacao;
 use App\Models\categoria;
 use App\Models\comentario;
 use App\Models\curtida;
+use App\Models\curtidaComentario;
+use App\Models\curtidaResposta;
 use App\Models\favorito;
 use App\Models\fotoReceita;
 use App\Models\nacionalidade;
@@ -255,7 +257,8 @@ class ReceitaController extends Controller
         $sabores = sabor::get();
         $categorias = categoria::get();
         
-        $receita = receita::findOrFail($request->id);
+        $receita = receita::with('ingrediente', 'foto', 'comentario.usuario', 'comentario.respostas.usuario')
+        ->findOrFail($request->id);
 
         return view('receitas.visualizar_receitas', compact("sabores", "categorias", "receita"));
     }
@@ -265,7 +268,9 @@ class ReceitaController extends Controller
         $sabores = sabor::get();
         $categorias = categoria::get();
         
-        $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
+        $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)
+        ->with('ingrediente', 'foto', 'comentario.usuario', 'comentario.respostas.usuario')
+        ->findOrFail($request->id);
 
         return view('receitas.visualizar_receitas', compact("sabores", "categorias", "receita"));
     }
@@ -288,13 +293,19 @@ class ReceitaController extends Controller
 
     public function descurtir_receita(Request $request)
     {
-        $curtida = curtida::where('receita_id', $request->id)->first();
+        $curtida = curtida::where('receita_id', $request->id)
+        ->where('user_id', Auth::user()->id)
+        ->first();
+
         $curtida->delete();
     }
 
     public function desfavoritar_receita(Request $request)
     {
-        $favorito = favorito::where('receita_id', $request->id)->first();
+        $favorito = favorito::where('receita_id', $request->id)
+        ->where('user_id', Auth::user()->id)
+        ->first();
+
         $favorito->delete();
     }
 
@@ -315,6 +326,23 @@ class ReceitaController extends Controller
         return redirect()->route('visualizar_receitas', ['id' => $request->id]);
     }
 
+    public function responder_comentario(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'resposta' => 'required',
+            'comentario_id' => 'required'
+        ]);
+
+        $linha = new resposta();
+        $linha->resposta = nl2br($request->resposta);
+        $linha->comentario_id = $request->comentario_id;
+        $linha->user_id = Auth::user()->id;
+        $linha->save();
+
+        return redirect()->route('visualizar_receitas', ['id' => $request->id]);
+    }
+
     public function editar_comentario(Request $request)
     {
         $request->validate([
@@ -329,16 +357,24 @@ class ReceitaController extends Controller
         return redirect()->route('visualizar_receitas', ['id' => $request->id]);
     }
 
-    public function deletar_comentario(Request $request)
+    public function excluir_comentario(Request $request)
     {
         $linha = comentario::findOrFail($request->id);
-        $respostas = resposta::where('comentario_id', $request->id)->get();
+
+        $respostas = resposta::where('comentario_id', $linha->id)->get();
         foreach($respostas as $resposta){
+            $curitda_resposta = curtidaResposta::where('resposta_id', $resposta->id)->first();
+            $curitda_resposta->delete();
+
             $resposta->delete();
         }
-        $linha->delete();
 
-        return redirect()->route('visualizar_receitas', ['id' => $request->id]);
+        $curtidas = curtidaComentario::where('comentario_id', $linha->id)->get();
+        foreach($curtidas as $c){
+            $c->delete();
+        }
+
+        $linha->delete();
     }
 
     public function compartilhar_receita()
@@ -435,5 +471,39 @@ class ReceitaController extends Controller
 
         $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
         $receita->delete();
+    }
+
+    public function curtir_comentario(Request $request)
+    {
+        $curtida = new curtidaComentario();
+        $curtida->comentario_id = $request->id;
+        $curtida->user_id = Auth::user()->id;
+        $curtida->save();
+    }
+
+    public function descurtir_comentario(Request $request)
+    {
+        $curtida = curtidaComentario::where('comentario_id', $request->id)
+        ->where('user_id', Auth::user()->id)
+        ->first();
+
+        $curtida->delete();
+    }
+
+    public function curtir_resposta(Request $request)
+    {
+        $curtida = new curtidaResposta();
+        $curtida->resposta_id = $request->id;
+        $curtida->user_id = Auth::user()->id;
+        $curtida->save();
+    }
+
+    public function descurtir_resposta(Request $request)
+    {
+        $curtida = curtidaResposta::where('resposta_id', $request->id)
+        ->where('user_id', Auth::user()->id)
+        ->first();
+
+        $curtida->delete();
     }
 }
