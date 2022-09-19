@@ -130,7 +130,6 @@ class UserController extends Controller
         $request->validate([
             'nome' => 'required',
             'email' => 'required',
-            'senha' => 'required',
             'uf' => 'required',
             'pais' => 'required'
         ]);
@@ -235,7 +234,7 @@ class UserController extends Controller
 
         notificacao::create([
             'user_id' => Auth::user()->id,
-            'notificacao' => 'Parabéns por concluir suas missões, você oficialmente se tornou um aprendiz de cozinheiro',
+            'notificacao' => 'Parabéns por concluir suas missões!, você oficialmente se tornou um aprendiz de cozinheiro',
             'lido' => 0
         ]);
         
