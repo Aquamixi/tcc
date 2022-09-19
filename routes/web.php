@@ -24,6 +24,7 @@ Route::post('favoritar_receita', [App\Http\Controllers\ReceitaController::class,
 Route::post('descurtir_receita', [App\Http\Controllers\ReceitaController::class, 'descurtir_receita']);
 Route::post('desfavoritar_receita', [App\Http\Controllers\ReceitaController::class, 'desfavoritar_receita']);
 Route::post('comentar_receita', [App\Http\Controllers\ReceitaController::class, 'comentar_receita']);
+Route::get('visualizar_comentario_edicao', [App\Http\Controllers\ReceitaController::class, 'visualizar_comentario_edicao']);
 Route::post('editar_comentario', [App\Http\Controllers\ReceitaController::class, 'editar_comentario']);
 Route::post('excluir_comentario', [App\Http\Controllers\ReceitaController::class, 'excluir_comentario']);
 Route::post('compartilhar_receita', [App\Http\Controllers\ReceitaController::class, 'compartilhar_receita']);
@@ -35,6 +36,9 @@ Route::post('curtir_comentario', [App\Http\Controllers\ReceitaController::class,
 Route::post('descurtir_comentario', [App\Http\Controllers\ReceitaController::class, 'descurtir_comentario']);
 Route::post('curtir_resposta', [App\Http\Controllers\ReceitaController::class, 'curtir_resposta']);
 Route::post('descurtir_resposta', [App\Http\Controllers\ReceitaController::class, 'descurtir_resposta']);
+Route::post('excluir_resposta', [App\Http\Controllers\ReceitaController::class, 'excluir_resposta']);
+Route::get('visualizar_resposta_edicao', [App\Http\Controllers\ReceitaController::class, 'visualizar_resposta_edicao']);
+Route::post('editar_resposta', [App\Http\Controllers\ReceitaController::class, 'editar_resposta']);
 
 Route::post('definir_first_login', [App\Http\Controllers\UserController::class, 'definir_first_login']);
 
@@ -45,4 +49,6 @@ Route::post('seguir', [App\Http\Controllers\UserController::class, 'seguir']);
 Route::post('deixar_seguir', [App\Http\Controllers\UserController::class, 'deixar_seguir']);
 
 Route::get('profile/{id}', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
+Route::post('ler_notificacao', [App\Http\Controllers\UserController::class, 'ler_notificacao']);
+
 Route::get('amigos/{id}', [App\Http\Controllers\UserController::class, 'amigos']);

@@ -33,6 +33,20 @@
                                 <div class="row col">
                                     <div class="card fonteTituloReceitas">
                                         <div class="row g-0">
+                                            @if (Auth::user()->id == $usuario->id)
+                                                <div class="text-end pe-2" style="z-index: 10; top: 0px; left: 0px; position: absolute;">
+                                                    <button type="button" class="position-relative bg-transparent border-0" id="notificacao">
+                                                        <i class="fa-solid fa-bell"></i>
+                                                        @if (count($notificacaos) > 0)
+                                                            <h6>
+                                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                                    {{$notificacaos->count() > 10 ? '9+' : $notificacaos->count()}}
+                                                                </span>
+                                                            </h6>
+                                                        @endif
+                                                    </button>
+                                                </div>
+                                            @endif
                                             <div class="col-md-4 mb-3 mt-3">
                                                 <img src="{{$usuario->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" class="img-fluid rounded-start" height="500px">
                                             </div>
@@ -406,13 +420,19 @@
 
         <div class="NoCanto" id="alerta_sucesso_deletar_receita" hidden>
             <div class="alert alert-success" role="alert">
-                Receita Deletada Com Sucesso!
+                Receita deletada com sucesso!
             </div>
         </div>
 
         <div class="NoCanto" id="alerta_sucesso_deletar_user" hidden>
             <div class="alert alert-success" role="alert">
-                Triste Em Lhe Ver Partir, Até Breve!
+                Triste em lhe ver partir, Até Breve!
+            </div>
+        </div>
+
+        <div class="NoCanto" id="alerta_sucesso_ler" hidden>
+            <div class="alert alert-success" role="alert">
+                Notificação lida com sucesso!
             </div>
         </div>
 
@@ -432,6 +452,41 @@
                                 Deletar
                             </button>
                         @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="notificacaoModal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Notificações</h4>
+                    </div>
+                    <div class="modal-body">
+                        @if (count($notificacaos) == 0)
+                            <p>Sem notficações</p>
+                        @else
+                            @foreach ($notificacaos as $n)
+                                <div class="row">
+                                    <div class="text-start col-9">
+                                        {{$n->notificacao}}
+                                    </div>
+                                    <div class="text-end col-3">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" data-id="{{$n->id}}" type="checkbox" id="confirmar">
+                                            <label class="form-check-label" for="{{$n->id}}">Marcar como lido</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (!$loop->last)
+                                    <hr>
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
                     </div>
                 </div>
             </div>
@@ -561,6 +616,29 @@
                         setTimeout(() => {
                             $('#alerta_sucesso_deletar_user').remove()
                             window.location.href = "{{url('/')}}";
+                        }, 5050);
+                    }
+                });
+            });
+
+            $(document).on('click', '#notificacao', function(){
+                $("#notificacaoModal").modal('show');
+            })
+
+            $(document).on('click', '#confirmar', function(){
+                $.ajax({
+                    type: 'POST', 
+                    url: "{{ url('ler_notificacao') }}", 
+                    data: { 
+                        id: $(this).data('id'),
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function(){
+                        $('#alerta_sucesso_ler').prop('hidden', false);
+                        $('#alerta_sucesso_ler').fadeOut(5000);
+                        setTimeout(() => {
+                            $('#alerta_sucesso_ler').remove()
+                            window.location.reload(true);
                         }, 5050);
                     }
                 });

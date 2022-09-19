@@ -108,16 +108,22 @@
                             <div class="card col-12 mb-3">
                                 <div class="card-header row">
                                     <h5 class="col-6 mt-2">{{$item->usuario->name}}</h5>                          
-                                    <h6 class="col-5 mt-2 text-end">{{Carbon\Carbon::parse($item->data_comentario)->format('d-m-Y')}}</h6>                           
+                                    <h5 class="col-5 mt-2 text-end">{{Carbon\Carbon::parse($item->data_comentario)->format('d-m-Y')}}</h5>                           
                                     <h5 class="col-1 mt-2 text-end">
-                                        <div class=" dropend">
-                                            <button type="button" class="  border-0 bg-transparent dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <div class="dropend">
+                                            <button type="button" class="border-0 bg-transparent dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                                             </button>
-                                            <ul class="dropdown-menu text-center" >
-                                                <li><button class="btn bg-transparent" data-id="{{$item->id}}" id="excluir_comentario" type="submit"><i class="fa-solid fa-trash"></i> Excluir</button></li>
-                                                <li><hr class="dropdown-divider"></li>
-                                                <li><button class="btn bg-transparent" data-id="{{$item->id}}" id="editar_comentario" type="submit"><i class="fa-solid fa-pen"></i> Editar</button></li>
+                                            <ul class="dropdown-menu text-center">
+                                                @if (Auth::user()->id == $item->user_id)
+                                                    <li><button class="btn bg-transparent" data-id="{{$item->id}}" id="excluir_comentario" type="submit"><i class="fa-solid fa-trash"></i> Excluir</button></li>
+                                                    @if (Carbon\Carbon::today()->diffInHours(Carbon\Carbon::parse($item->data_comentario), false) < 24 and Carbon\Carbon::today()->diffInHours(Carbon\Carbon::parse($item->data_comentario), false) > 0)
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        <li><button class="btn bg-transparent" data-id="{{$item->id}}" id="editar_comentario" type="submit"><i class="fa-solid fa-pen"></i> Editar</button></li>
+                                                    @endif
+                                                @else
+                                                    oi
+                                                @endif
                                             </ul>
                                         </div>
                                     </h5>
@@ -130,7 +136,7 @@
                                 <div class="card-footer row">
                                     <h5 class="col-10">
                                         @if (count($item->respostas) > 0)
-                                            <button class="btn btn-link respostas" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                            <button style="background-color: #ff8c00; color:white" class="btn btn-link respostas" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{$item->id}}" aria-expanded="false" aria-controls="collapseExample">
                                                 Respostas: {{$item->respostas->count()}}
                                             </button>
                                         @endif
@@ -145,18 +151,37 @@
                                     <h5 class="col-1 text-end mt-2">
                                         <a title="Responder" class="comentar" id="responder" data-comentario_id="{{$item->id}}"><i class="fa-solid fa-comments"></i></a>
                                     </h5>
-                                    <div class="collapse" id="collapseExample">
+                                    <div class="collapse" id="collapseExample{{$item->id}}">
                                         @foreach ($item->respostas as $r)
-                                            <div class="card">                                    
+                                            <div class="card mb-2">                                    
                                                 <div class="row card-header mx-0">
-                                                    <h6 class="col-11 mt-2">{{$r->usuario->name}}</h6>
+                                                    <h6 class="col-2 mt-2 text-start">{{Carbon\Carbon::parse($item->data_comentario)->format('d-m-Y')}}</h6>        
+                                                    <h6 class="col-8 mt-2 text-center">{{$r->usuario->name}}</h6>
                                                     <h6 class="col-1 mt-2 text-end">
                                                         @if (count($r->curtida_user) > 0)
                                                         <a title="Descurtir" class="curtido" id="descurtir_resposta" data-id="{{$r->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
                                                         @else
                                                         <a title="Curtir" class="botaocurtir" id="curtir_resposta" data-id="{{$r->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
                                                         @endif
-                                                    </h6>                                        
+                                                    </h6>     
+                                                    <h6 class="col-1 mt-2 text-end">
+                                                        <div class="dropend">
+                                                            <button type="button" class="border-0 bg-transparent dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu text-center">
+                                                                @if (Auth::user()->id == $r->user_id)
+                                                                    <li><button class="btn bg-transparent" data-id="{{$r->id}}" id="excluir_resposta" type="submit"><i class="fa-solid fa-trash"></i> Excluir</button></li>
+                                                                    @if (Carbon\Carbon::today()->diffInHours(Carbon\Carbon::parse($r->data_resposta), false) < 24 and Carbon\Carbon::today()->diffInHours(Carbon\Carbon::parse($r->data_resposta), false) > 0)
+                                                                        <li><hr class="dropdown-divider"></li>
+                                                                        <li><button class="btn bg-transparent" data-id="{{$r->id}}" id="editar_resposta" type="submit"><i class="fa-solid fa-pen"></i> Editar</button></li>
+                                                                    @endif
+                                                                @else
+                                                                    oi
+                                                                @endif
+                                                            </ul>
+                                                        </div>
+                                                    </h6>                                   
                                                 </div>   
                                                 <div class="card-body">
                                                     {!! $r->resposta !!}
@@ -193,6 +218,19 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modalEComentario" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title fonteMaisFamosas">Editar Comentario</h3>
+                </div>
+                <input id="id_comentario" hidden>
+                <div class="modal-body editar-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="modalResponder" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -207,6 +245,19 @@
                 <div class="modal-footer">
                     <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
                     <input id="enviaResposta" class="btn btn-primary col-2 border-0" type="submit" value="Enviar" data-bs-dismiss="modal" style="height:40px; background-color: #ff8c00; color:white"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="modalEResposta" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title fonteMaisFamosas">Editar Resposta</h3>
+                </div>
+                <input id="id_comentario" hidden>
+                <div class="modal-body editar_r-body">
                 </div>
             </div>
         </div>
@@ -287,6 +338,12 @@
     <div class="NoCanto" id="alertaSucessoDesCurtirresposta" hidden>
         <div class="alert alert-success" role="alert">
             Resposta Descurtida Com Sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alertaSucessoExcluirresposta" hidden>
+        <div class="alert alert-success" role="alert">
+            Resposta Excluída Com Sucesso!
         </div>
     </div>
 @endsection
@@ -590,21 +647,29 @@
         });
 
         $(document).on('click', '#editar_comentario', function(){
-            $('#editar_comentario').prop('disabled', true);
+            $("#modalEComentario").modal('show');
             $.ajax({
-                type: 'POST', 
-                url: "{{ url('editar_comentario') }}", 
-                data: { 
-                    id: $(this).data('id'),
-                    "_token": "{{ csrf_token() }}",
+                type: 'GET', 
+                url: "{{ url('visualizar_comentario_edicao') }}", 
+                data: {
+                    id: $(this).data('id')
                 },
-                success: function(){
-                    $('#alertaSucessoEditarComentario').prop('hidden', false);
-                    $('#alertaSucessoEditarComentario').fadeOut(5000);
-                    setTimeout(() => {
-                        $('#alertaSucessoEditarComentario').remove()
-                        window.location.reload(true);
-                    }, 5050);
+                success: function(data){
+                    $('.editar-body').html(data);
+                }
+            });
+        });
+
+        $(document).on('click', '#editar_resposta', function(){
+            $("#modalEResposta").modal('show');
+            $.ajax({
+                type: 'GET', 
+                url: "{{ url('visualizar_resposta_edicao') }}", 
+                data: {
+                    id: $(this).data('id')
+                },
+                success: function(data){
+                    $('.editar_r-body').html(data);
                 }
             });
         });
@@ -643,6 +708,26 @@
                     $('#alertaSucessoDesCurtirresposta').fadeOut(5000);
                     setTimeout(() => {
                         $('#alertaSucessoDesCurtirresposta').remove()
+                        window.location.reload(true);
+                    }, 5050);
+                }
+            });
+        });
+
+        $(document).on('click', '#excluir_resposta', function(){
+            $('#excluir_resposta').prop('disabled', true);
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('excluir_resposta') }}", 
+                data: { 
+                    id: $(this).data('id'),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoExcluirresposta').prop('hidden', false);
+                    $('#alertaSucessoExcluirresposta').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoExcluirresposta').remove()
                         window.location.reload(true);
                     }, 5050);
                 }

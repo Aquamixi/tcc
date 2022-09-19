@@ -12,6 +12,7 @@ use App\Models\curtidaResposta;
 use App\Models\favorito;
 use App\Models\fotoReceita;
 use App\Models\nacionalidade;
+use App\Models\notificacao;
 use App\Models\receita;
 use App\Models\receitaIngrediente;
 use App\Models\resposta;
@@ -281,6 +282,14 @@ class ReceitaController extends Controller
         $curtida->receita_id = $request->id;
         $curtida->user_id = Auth::user()->id;
         $curtida->save();
+
+        $receita = receita::findOrFail($request->id);
+
+        notificacao::create([
+            'user_id' => $receita->user_id,
+            'notificacao' => Auth::user()->name . ' curtiu a sua receita: ' . $receita->titulo_receita,
+            'lido' => 0
+        ]);
     }
 
     public function favoritar_receita(Request $request)
@@ -317,13 +326,21 @@ class ReceitaController extends Controller
         ]);
 
         $linha = new comentario();
-        $linha->data_comentario = Carbon::today();
+        $linha->data_comentario = Carbon::now();
         $linha->user_id = Auth::user()->id;
         $linha->receita_id = $request->id;
         $linha->comentario = nl2br($request->comentario);
         $linha->save();
 
-        return redirect()->route('visualizar_receitas', ['id' => $request->id]);
+        $receita = receita::findOrFail($request->id);
+
+        notificacao::create([
+            'user_id' => $receita->user_id,
+            'notificacao' => Auth::user()->name . ' comentou na sua receita: ' . $receita->titulo_receita,
+            'lido' => 0
+        ]);
+
+        return back();
     }
 
     public function responder_comentario(Request $request)
@@ -337,10 +354,25 @@ class ReceitaController extends Controller
         $linha = new resposta();
         $linha->resposta = nl2br($request->resposta);
         $linha->comentario_id = $request->comentario_id;
+        $linha->data_resposta = Carbon::now();
         $linha->user_id = Auth::user()->id;
         $linha->save();
 
-        return redirect()->route('visualizar_receitas', ['id' => $request->id]);
+        $comentario = comentario::findOrFail($request->comentario_id);
+        $receita = receita::findOrFail($comentario->receita_id);
+
+        notificacao::create([
+            'user_id' => $comentario->user_id,
+            'notificacao' => Auth::user()->name . ' respondeu o seu comentario na receita: ' . $receita->titulo_receita . "'$comentario->comentario'",
+            'lido' => 0
+        ]);
+    }
+
+    public function visualizar_comentario_edicao(Request $request)
+    {
+        $linha = comentario::findOrFail($request->id);
+        
+        return view('receitas.visualizacao.editar_comentario', compact('linha'));
     }
 
     public function editar_comentario(Request $request)
@@ -354,7 +386,7 @@ class ReceitaController extends Controller
         $linha->comentario = nl2br($request->comentario);
         $linha->update();
 
-        return redirect()->route('visualizar_receitas', ['id' => $request->id]);
+        return back();
     }
 
     public function excluir_comentario(Request $request)
@@ -479,6 +511,15 @@ class ReceitaController extends Controller
         $curtida->comentario_id = $request->id;
         $curtida->user_id = Auth::user()->id;
         $curtida->save();
+        
+        $comentario = comentario::findOrFail($request->id);
+        $receita = receita::findOrFail($comentario->receita_id);
+
+        notificacao::create([
+            'user_id' => $comentario->user_id,
+            'notificacao' => Auth::user()->name . ' curtiu o seu comentario na receita: ' . $receita->titulo_receita . "'$comentario->comentario'",
+            'lido' => 0
+        ]);
     }
 
     public function descurtir_comentario(Request $request)
@@ -496,6 +537,14 @@ class ReceitaController extends Controller
         $curtida->resposta_id = $request->id;
         $curtida->user_id = Auth::user()->id;
         $curtida->save();
+
+        $resposta = resposta::findOrFail($request->id);
+
+        notificacao::create([
+            'user_id' => $resposta->user_id,
+            'notificacao' => Auth::user()->name . ' curtiu a sua resposta: ' . "'$resposta->resposta'",
+            'lido' => 0
+        ]);
     }
 
     public function descurtir_resposta(Request $request)
@@ -505,5 +554,41 @@ class ReceitaController extends Controller
         ->first();
 
         $curtida->delete();
+    }
+
+    public function excluir_resposta(Request $request)
+    {
+        $resposta = resposta::findOrFail($request->id);
+
+        $curtidas = curtidaResposta::where('resposta_id', $resposta->id)
+        ->where('user_id', Auth::user()->id)
+        ->get();
+
+        foreach($curtidas as $c){
+            $c->delete();
+        }
+
+        $resposta->delete();
+    }
+
+    public function visualizar_resposta_edicao(Request $request)
+    {
+        $linha = resposta::findOrFail($request->id);
+        
+        return view('receitas.visualizacao.editar_resposta', compact('linha'));
+    }
+
+    public function editar_resposta(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'resposta' => 'required'
+        ]);
+
+        $linha = resposta::findOrFail($request->id);
+        $linha->resposta = nl2br($request->resposta);
+        $linha->update();
+
+        return back();
     }
 }

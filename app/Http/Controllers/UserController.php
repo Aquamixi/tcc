@@ -9,6 +9,7 @@ use App\Models\curtida;
 use App\Models\endereco;
 use App\Models\favorito;
 use App\Models\fotoUser;
+use App\Models\notificacao;
 use App\Models\pai;
 use App\Models\receita;
 use App\Models\sabor;
@@ -58,6 +59,12 @@ class UserController extends Controller
             $segunda_completa->missao = 2;
             $segunda_completa->save();
         }
+
+        notificacao::create([
+            'user_id' => $request->id,
+            'notificacao' => Auth::user()->name . ' começou a seguir você',
+            'lido' => 0
+        ]);
     }
 
     public function deixar_seguir(Request $request)
@@ -80,6 +87,10 @@ class UserController extends Controller
 
         $paises = pai::get();
         $ufs = uf::get();
+
+        $notificacaos = notificacao::where('user_id', Auth::user()->id)
+        ->where('lido', 0)
+        ->get();
         
         $usuario = User::findOrFail($request->id);
         
@@ -93,7 +104,7 @@ class UserController extends Controller
         ->where('escondida', 1)
         ->where('user_id', $request->id)->get();
 
-        return view('usuario.profile', compact('usuario', 'sabores', 'categorias', 'receitas', 'ufs', 'paises', 'curtidas', 'favoritas', 'escondidas', 'array_seguindo'));
+        return view('usuario.profile', compact('usuario', 'sabores', 'categorias', 'receitas', 'ufs', 'paises', 'curtidas', 'favoritas', 'escondidas', 'array_seguindo', 'notificacaos'));
     }
 
     public function amigos($id)
@@ -221,6 +232,12 @@ class UserController extends Controller
             $aprendiz->rank = 'Aprendiz';
             $aprendiz->update();
         }
+
+        notificacao::create([
+            'user_id' => Auth::user()->id,
+            'notificacao' => 'Parabéns por concluir suas missões, você oficialmente se tornou um aprendiz de cozinheiro',
+            'lido' => 0
+        ]);
         
         return redirect()->route('profile', ['id' => Auth::user()->id, 'editado' => 'editado']);
     }
@@ -283,5 +300,12 @@ class UserController extends Controller
 
         $usuario = User::findOrFail($request->id);
         $usuario->delete();
+    }
+
+    public function ler_notificacao(Request $request)
+    {
+        $notificacao = notificacao::findOrFail($request->id);
+        $notificacao->lido = 1;
+        $notificacao->update();
     }
 }
