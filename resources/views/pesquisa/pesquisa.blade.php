@@ -98,7 +98,7 @@
                                                 @endif
                                             @endunless
                                         </div>
-                                        <p class="fonteDescricaoReceitas">Rank: {{$usuario->rank}}</p> 
+                                        <p class="p-0 fonteDescricaoReceitas">Rank: {{$usuario->rank}}</p> 
                                     </div>
                                 </div>
                             </div>
