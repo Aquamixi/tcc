@@ -28,13 +28,13 @@
                 <div class="container col-6">
                     <div class="card bg-transparent mb-2 border-0">
                         <div class="card-body">                      
-                            <center>"
+                            <center>
                                 <label for="exampleFormControlTextarea1" class="form-label"><h3 class="fonteMaisFamosas">Adicione&nbsp;a&nbsp;foto&nbsp;da&nbsp;sua&nbsp;receita</h3></label>
                                 <label class="picture" for="picture__input" tabIndex="0">
                                     <span class="picture__image"></span>
                                 </label>                              
                                 <input type="file" name="imagem" id="picture__input" >
-                            </center>"
+                            </center>
                         </div>
                     </div>
                     <div class="container d-flex justify-content-center">               
@@ -167,7 +167,7 @@
     <script type="text/javascript">
         const inputFile = document.querySelector("#picture__input");
         const pictureImage = document.querySelector(".picture__image");
-        const pictureImageTxt = "<img height='150px' src='{{asset("foto_receitas") . "/" . $linha->foto->anexo}}'>" ;
+        const pictureImageTxt = "<img height='150px' src='{{$linha->foto ? asset("foto_receitas") . "/" . $linha->foto->anexo : asset("foto_receitas/baiacu_2.0.png")}}'>" ;
         pictureImage.innerHTML = pictureImageTxt;
 
         inputFile.addEventListener("change", function (e) {

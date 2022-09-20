@@ -50,5 +50,6 @@ Route::post('deixar_seguir', [App\Http\Controllers\UserController::class, 'deixa
 
 Route::get('profile/{id}', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
 Route::post('ler_notificacao', [App\Http\Controllers\UserController::class, 'ler_notificacao']);
+Route::post('ler_todas', [App\Http\Controllers\UserController::class, 'ler_todas']);
 
 Route::get('amigos/{id}', [App\Http\Controllers\UserController::class, 'amigos']);

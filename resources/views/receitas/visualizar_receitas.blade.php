@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <a title="comentar" href="#" class="comentar" id="comentar"><i class="fa-solid fa-comment"></i></a>
+                                <a title="comentar" class="comentar" id="comentar"><i class="fa-solid fa-comment"></i></a>
                                 @if ($receita->escondida == 0)
                                     @if (count($receita->curtida_user) > 0)
                                         <a title="Descurtir" class="curtido" id="descurtir" data-id="{{$receita->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
@@ -166,20 +166,18 @@
                                                     </h6>     
                                                     <h6 class="col-1 mt-2 text-end">
                                                         <div class="dropend">
-                                                            <button type="button" class="border-0 bg-transparent dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                                                            </button>
-                                                            <ul class="dropdown-menu text-center">
-                                                                @if (Auth::user()->id == $r->user_id)
+                                                            @if (Auth::user()->id == $r->user_id)
+                                                                <button type="button" class="border-0 bg-transparent dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu text-center">
                                                                     <li><button class="btn bg-transparent" data-id="{{$r->id}}" id="excluir_resposta" type="submit"><i class="fa-solid fa-trash"></i> Excluir</button></li>
                                                                     @if (Carbon\Carbon::today()->diffInHours(Carbon\Carbon::parse($r->data_resposta), false) < 24 and Carbon\Carbon::today()->diffInHours(Carbon\Carbon::parse($r->data_resposta), false) > 0)
                                                                         <li><hr class="dropdown-divider"></li>
                                                                         <li><button class="btn bg-transparent" data-id="{{$r->id}}" id="editar_resposta" type="submit"><i class="fa-solid fa-pen"></i> Editar</button></li>
                                                                     @endif
-                                                                @else
-                                                                    oi
-                                                                @endif
-                                                            </ul>
+                                                                </ul>
+                                                            @endif
                                                         </div>
                                                     </h6>                                   
                                                 </div>   
@@ -346,6 +344,12 @@
             Resposta Excluída Com Sucesso!
         </div>
     </div>
+
+    <div class="NoCanto" id="alertaSucessoComentar" hidden>
+        <div class="alert alert-success" role="alert">
+            Receita Comentada Com Sucesso!
+        </div>
+    </div>
 @endsection
 
 @section('pos-script')
@@ -507,6 +511,19 @@
                 }
             });
         });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const comentado = urlParams.get('comentado');
+
+        if(comentado == 'comentado'){
+            $(document).ready(function(){
+                $('#alertaSucessoComentar').prop('hidden', false);
+                $('#alertaSucessoComentar').fadeOut(5000);
+                setTimeout(() => {
+                    $('#alertaSucessoComentar').remove()
+                }, 5050);
+            });
+        }
 
         let ids = [1, 2, 3, 4, 5, 6];
 

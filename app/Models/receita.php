@@ -110,8 +110,8 @@ class receita extends Model
                 $q->where('categoria', 'LIKE', '%' . $val . '%');
             })
             ->orWhereHas('categoria', function($q) use ($val){
-                $q->whereHas('sub_categoria', function($fundo) use ($val){
-                    $fundo->where('sub_categoria', 'LIKE', '%' . $val . '%');
+                $q->whereHas('sub_categoria', function($q) use ($val){
+                    $q->where('sub_categoria', 'LIKE', '%' . $val . '%');
                 });
             })
             ->orWhereHas('nacionalidade', function($q) use ($val){
@@ -128,7 +128,9 @@ class receita extends Model
                         $sem_espaco[$index] = trim($ingrediente);
                         $index++;
                     }
-                    $q->where('ingrediente', $sem_espaco);
+                    foreach($sem_espaco as $sem){
+                        $q->where('ingrediente', 'LIKE', '%' . $sem . '%');
+                    }
                 }
                 else{
                     $q->where('ingrediente', 'LIKE', '%' . $val . '%');

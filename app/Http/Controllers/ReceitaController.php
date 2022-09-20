@@ -332,7 +332,7 @@ class ReceitaController extends Controller
         $linha->comentario = nl2br($request->comentario);
         $linha->save();
 
-        $receita = receita::findOrFail($request->id);
+        $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
 
         notificacao::create([
             'user_id' => $receita->user_id,
@@ -340,7 +340,12 @@ class ReceitaController extends Controller
             'lido' => 0
         ]);
 
-        return back();
+        if($receita->escondida == 1){
+            return redirect()->route('visualizar_receita_escondida', ['id' => $request->id, 'comentado' => 'comentado']);
+        }
+        else{
+            return redirect()->route('visualizar_receitas', ['id' => $request->id, 'comentado' => 'comentado']);
+        }
     }
 
     public function responder_comentario(Request $request)
@@ -359,11 +364,11 @@ class ReceitaController extends Controller
         $linha->save();
 
         $comentario = comentario::findOrFail($request->comentario_id);
-        $receita = receita::findOrFail($comentario->receita_id);
+        $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($comentario->receita_id);
 
         notificacao::create([
             'user_id' => $comentario->user_id,
-            'notificacao' => Auth::user()->name . ' respondeu o seu comentario na receita: ' . $receita->titulo_receita . "'$comentario->comentario'",
+            'notificacao' => Auth::user()->name . ' respondeu o seu comentario na receita: ' . $receita->titulo_receita . " '$comentario->comentario'",
             'lido' => 0
         ]);
     }
@@ -478,6 +483,20 @@ class ReceitaController extends Controller
 
         $comentarios = comentario::where('receita_id', $request->id)->get();
         foreach($comentarios as $comentario){
+            $respostas = resposta::where('comentario_id', $comentario->id)->first();
+            if(isset($respostas->id)){
+                $curtida_resposta = curtidaResposta::where('resposta_id', $respostas->id)->first();
+                if(isset($curtida_resposta->id)){
+                    $curtida_resposta->delete();
+                }
+                $respostas->delete();
+            }
+
+            $curtida_comentario = curtidaComentario::where('comentario_id', $comentario->id)->first();
+            if(isset($curtida_comentario->id)){
+                $curtida_comentario->delete();
+            }
+
             $comentario->delete();
         }
 
@@ -503,6 +522,8 @@ class ReceitaController extends Controller
 
         $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
         $receita->delete();
+
+        return redirect()->route('profile', ['id' => Auth::user()->id]);
     }
 
     public function curtir_comentario(Request $request)
@@ -513,11 +534,11 @@ class ReceitaController extends Controller
         $curtida->save();
         
         $comentario = comentario::findOrFail($request->id);
-        $receita = receita::findOrFail($comentario->receita_id);
+        $receita = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($comentario->receita_id);
 
         notificacao::create([
             'user_id' => $comentario->user_id,
-            'notificacao' => Auth::user()->name . ' curtiu o seu comentario na receita: ' . $receita->titulo_receita . "'$comentario->comentario'",
+            'notificacao' => Auth::user()->name . ' curtiu o seu comentario na receita: ' . $receita->titulo_receita . " '$comentario->comentario'",
             'lido' => 0
         ]);
     }
@@ -538,7 +559,7 @@ class ReceitaController extends Controller
         $curtida->user_id = Auth::user()->id;
         $curtida->save();
 
-        $resposta = resposta::findOrFail($request->id);
+        $resposta = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);
 
         notificacao::create([
             'user_id' => $resposta->user_id,

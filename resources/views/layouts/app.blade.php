@@ -87,7 +87,7 @@
                                 'data-bs-toggle' => "popover", 
                                 'title' => "Dica:", 
                                 'data-bs-placement' => "bottom", 
-                                'data-bs-content' => "Pesquise por títulos, nacionalidades, velocidades, categorias, sabores ou ingredientes separados por vírgulas"
+                                'data-bs-content' => "Pesquise por títulos, nacionalidades, velocidades, categorias, sabores ou ingredientes separados por vírgulas ou até mesmo usuários"
                             ]
                         ) !!}
                     {!! Form::close() !!}
@@ -192,7 +192,7 @@
                 <div class="modal-body corpo_missoes">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal" style="height: 50px;background-color: #ff8c00;color: white;">Fechar</button>
+                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal" style="background-color: #ff8c00;color: white;">Fechar</button>
                 </div>
             </div>
         </div>

@@ -118,8 +118,8 @@
                                                                 @endif
                                                             </a>
                                                             <div class="text-end">
-                                                                <i class="fa-regular fa-eye"></i> {{$item->visualizacoes ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
-                                                                <i class="fa-solid fa-thumbs-up"></i> {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}
+                                                                <i class="fa-regular fa-eye"></i> {{count($item->visualizacoes->where('receita_id', $item->id)) > 0 ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                                                <i class="fa-solid fa-thumbs-up"></i> {{count($item->curtida->where('receita_id', $item->id)) > 0 ? $item->curtida->where('receita_id', $item->id)->count() : 0}}
                                                             </div>
                                                             @if (Auth::user()->id == $item->user_id)
                                                                 <div class="text-end">
@@ -171,8 +171,8 @@
                                                                 @endif
                                                             </a>
                                                             <div class="text-end">
-                                                                <i class="fa-regular fa-eye"></i> {{$item->visualizacoes ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
-                                                                <i class="fa-solid fa-thumbs-up"></i> {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}
+                                                                <i class="fa-regular fa-eye"></i> {{count($item->receita->visualizacoes->where('receita_id', $item->receita_id)) > 0 ? $item->receita->visualizacoes->where('receita_id', $item->receita_id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                                                <i class="fa-solid fa-thumbs-up"></i> {{$item->where('receita_id', $item->receita_id)->count() ?? 0}}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -208,14 +208,14 @@
                                                             @endif
 
                                                             @if (strlen($item->receita->descricao) < 180)
-                                                                <h5 class="card-text col-12 fonteDescricaoReceitas">{!! substr($item->receita->descricao, 0, 180)!!}</h5>
+                                                                <h5 class="card-text col-12 fonteDescricaoReceitas">{!! substr($item->receita->descricao, 0, 180) !!}</h5>
                                                             @else
                                                                 <h5 class="card-text col-12 fonteDescricaoReceitas">{!! substr($item->receita->descricao, 0, 180) . '...' !!}</h5>
                                                             @endif
                                                         </a>
                                                         <div class="text-end">
-                                                            <i class="fa-regular fa-eye"></i> {{$item->visualizacoes ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
-                                                            <i class="fa-solid fa-thumbs-up"></i> {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}
+                                                            <i class="fa-regular fa-eye"></i> {{count($item->receita->visualizacoes->where('receita_id', $item->receita_id)) > 0 ? $item->receita->visualizacoes->where('receita_id', $item->receita_id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                                            <i class="fa-solid fa-thumbs-up"></i> {{count($item->receita->curtida->where('receita_id', $item->receita_id)) > 0  ? $item->receita->curtida->where('receita_id', $item->receita_id)->count() : 0}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -257,8 +257,7 @@
                                                                 @endif
                                                             </a>
                                                             <div class="text-end">
-                                                                <i class="fa-regular fa-eye"></i> {{$item->visualizacoes ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
-                                                                <i class="fa-solid fa-thumbs-up"></i> {{$item->curtida ? $item->curtida->where('receita_id', $item->id)->count() : 0}}
+                                                                <i class="fa-regular fa-eye"></i> {{count($item->visualizacoes->where('receita_id', $item->id)) > 0 ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}
                                                             </div>
                                                             @if (Auth::user()->id == $item->user_id)
                                                                 <div class="text-end">
@@ -285,8 +284,8 @@
                                             @csrf
                                             <div class="card-body mt-3">
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label faltadados">
-                                                        <h6>{{$errors->has('nome') ? $errors->first('nome') : ''}}</h6>
+                                                    <label class="form-label obri faltadados" hidden>
+                                                        <h6>Obrigatório</h6>
                                                     </label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">
                                                         Nome:
@@ -294,62 +293,54 @@
                                                     <input type="text" value="{{$usuario->name}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nome" id="nome">
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label faltadados">
-                                                        <h6>{{$errors->has('email') ? $errors->first('email') : ''}}</h6>
+                                                    <label class="form-label obri faltadados" hidden>
+                                                        <h6>Obrigatório</h6>
                                                     </label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">E-mail:</span>
                                                     <input type="text" value="{{$usuario->email}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="email" id="email">
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label faltadados">
-                                                        <h6>{{$errors->has('senha') ? $errors->first('senha') : ''}}</h6>
+                                                    <label class="form-label obri faltadados" hidden>
+                                                        <h6>Obrigatório</h6>
                                                     </label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Senha:</span>
                                                     <input type="password" placeholder="Nào é necessário preencher este campo se quiser manter a mesma senha" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="senha" id="senha">
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Telefone:</span>
                                                     <input type="text" value="{{old('telefone') ? old('telefone') : ($usuario->telefone ? $usuario->telefone : '')}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="DDD com 0 e 9 adicional" name="telefone" id="telefone">
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
-                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">Data Nascimento:</span>
+                                                    <span class="input-group-text col-3" id="inputGroup-sizing-default">Data Nascimento:</span>
                                                     <input type="date" value="{{old('nascimento') ? old('nascimento') : ($usuario->data_nascimento ? $usuario->data_nascimento : '')}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nascimento" id="nascimento">
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Gênero:</span>
                                                     <input type="text" value="{{old('genero') ? old('genero') : ($usuario->genero)}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="genero" id="genero">
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Rua:</span>
                                                     <input type="text" value="{{old('rua') ? old('rua') : ($usuario->endereco ? $usuario->endereco->rua : '')}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="rua" id="rua">
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Número:</span>
                                                     <input type="text" value="{{old('numero') ? old('numero') : ($usuario->endereco ? $usuario->endereco->numero : '')}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="numero" id="numero">
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Bairro:</span>
                                                     <input type="text" value="{{old('bairro') ? old('bairro') : ($usuario->endereco ? $usuario->endereco->bairro : '')}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="bairro" id="bairro">
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Cidade:</span>
                                                     <input type="text" value="{{old('cidade') ? old('cidade') : ($usuario->endereco ? $usuario->endereco->cidade : '')}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="cidade" id="cidade">
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">CEP:</span>
                                                     <input type="text" value="{{old('cep') ? old('cep') : ($usuario->endereco ? $usuario->endereco->cep : '')}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="cep" id="cep">
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label faltadados">
-                                                        <h6>{{$errors->has('uf') ? $errors->first('uf') : ''}}</h6>
+                                                    <label class="form-label obri faltadados" hidden>
+                                                        <h6>Obrigatório</h6>
                                                     </label>
                                                     <label class="input-group-text col-2" for="inputuf">UF:</label>
                                                     <select class="form-select col-9" name="uf" disabled id="uf">
@@ -360,8 +351,8 @@
                                                     </select>
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label faltadados">
-                                                        <h6>{{$errors->has('pais') ? $errors->first('pais') : ''}}</h6>
+                                                    <label class="form-label obri faltadados" hidden>
+                                                        <h6>Obrigatório</h6>
                                                     </label>
                                                     <label class="input-group-text col-2" for="inputpais">País:</label>
                                                     <select class="form-select col-9" name="pais" disabled id="pais">
@@ -372,7 +363,6 @@
                                                     </select>
                                                 </div>
                                                 <div class="input-group mb-3 row" id="botao_imagem" hidden>
-                                                    <label class="form-label faltadados" for=""><h6>{{''}}</h6></label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Foto:</span>
                                                     <input type="file" class="form-control col-9" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="imagem" id="imagem">
                                                 </div>
@@ -436,6 +426,12 @@
             </div>
         </div>
 
+        <div class="NoCanto" id="alerta_sucesso_ler_todas" hidden>
+            <div class="alert alert-success" role="alert">
+                Notificações lidas com sucesso!
+            </div>
+        </div>
+
         <div class="modal fade" id="avisoModal" data-bs-backdrop="static" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -462,6 +458,12 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Notificações</h4>
+                        <div class="text-end col-2">
+                            <div class="form-check text-right form-switch">
+                                <input class="form-check-input" type="checkbox" id="confirmar_tudo">
+                                <label class="form-check-label" for="confirmar_tudo">Ler todas</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-body">
                         @if (count($notificacaos) == 0)
@@ -517,6 +519,19 @@
 
             const urlParams = new URLSearchParams(window.location.search);
             const editado = urlParams.get('editado');
+            const n = urlParams.get('n');
+
+            if(n == 'faltam_dados'){
+                $(document).ready(function(){
+                    $('#v-pills-detalhes').addClass( "active" );
+                    $('#v-pills-detalhes-tab').addClass( "active" ); 
+
+                    $('#v-pills-perfil').removeClass( "active" ); 
+                    $('#v-pills-perfil-tab').removeClass( "active" );  
+
+                    $('.obri').prop('hidden', false);
+                });
+            }
 
             if(editado == 'editado'){
                 $('#alerta_sucesso_editar').prop('hidden', false);
@@ -638,10 +653,26 @@
                         $('#alerta_sucesso_ler').fadeOut(5000);
                         setTimeout(() => {
                             $('#alerta_sucesso_ler').remove()
-                            window.location.reload(true);
                         }, 5050);
                     }
                 });
             });
+
+            $(document).on('click', '#confirmar_tudo', function(){
+                $.ajax({
+                    type: 'POST', 
+                    url: "{{ url('ler_todas') }}", 
+                    data: { 
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function(){
+                        $('#alerta_sucesso_ler_todas').prop('hidden', false);
+                        $('#alerta_sucesso_ler_todas').fadeOut(5000);
+                        setTimeout(() => {
+                            $('#alerta_sucesso_ler_todas').remove()
+                        }, 5050);
+                    }
+                });
+            })
         </script>
     @endsection

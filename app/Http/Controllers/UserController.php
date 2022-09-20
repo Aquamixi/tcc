@@ -6,12 +6,15 @@ use App\Models\avaliacao;
 use App\Models\categoria;
 use App\Models\comentario;
 use App\Models\curtida;
+use App\Models\curtidaComentario;
+use App\Models\curtidaResposta;
 use App\Models\endereco;
 use App\Models\favorito;
 use App\Models\fotoUser;
 use App\Models\notificacao;
 use App\Models\pai;
 use App\Models\receita;
+use App\Models\resposta;
 use App\Models\sabor;
 use App\Models\seguidor;
 use App\Models\uf;
@@ -24,6 +27,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -127,12 +131,16 @@ class UserController extends Controller
 
     public function editar_usuario(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'nome' => 'required',
             'email' => 'required',
             'uf' => 'required',
             'pais' => 'required'
         ]);
+        
+        if ($validator->fails()) {
+            return redirect()->route('profile', ['id' => Auth::user()->id, 'n' => 'faltam_dados']);
+        }
         
         if(Auth::user()->endereco_id){
             $endereco = endereco::findOrFail(Auth::user()->endereco_id);
@@ -243,61 +251,91 @@ class UserController extends Controller
 
     public function excluir_usuario(Request $request)
     {
-        $receitas = receita::where('user_id', $request->id)->get();
+        $receitas = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)
+        ->where('user_id', Auth::user()->id)
+        ->get();
+        
         foreach($receitas as $receita){
-            $array = array($receita->id);
+            $array = [
+                'id' => $receita->id
+            ];
 
             $id_receita = new \Illuminate\Http\Request($array);
 
             ReceitaController::excluir_receita($id_receita);
         }
+    
         
-        $curtidas = curtida::where('user_id', $request->id)->get();
+        $curtidas = curtida::where('user_id', Auth::user()->id)->get();
         foreach($curtidas as $curtida){
             $curtida->delete();
         }
 
-        $favoritas = favorito::where('user_id', $request->id)->get();
+        $favoritas = favorito::where('user_id', Auth::user()->id)->get();
         foreach($favoritas as $favorita){
             $favorita->delete();
         }
 
-        $comentarios = comentario::where('user_id', $request->id)->get();
+        $comentarios = comentario::where('user_id', Auth::user()->id)->get();
         foreach($comentarios as $comentario){
+            $respostas = resposta::where('comentario_id', $comentario->id)->first();
+            if(isset($respostas->id)){
+                $curtida_resposta = curtidaResposta::where('resposta_id', $respostas->id)->first();
+                if(isset($curtida_resposta->id)){
+                    $curtida_resposta->delete();
+                }
+                $respostas->delete();
+            }
+
+            $curtida_comentario = curtidaComentario::where('comentario_id', $comentario->id)->first();
+            if(isset($curtida_comentario->id)){
+                $curtida_comentario->delete();
+            }
+
             $comentario->delete();
         }
 
-        $avaliacaos = avaliacao::where('user_id', $request->id)->get();
+        $avaliacaos = avaliacao::where('user_id', Auth::user()->id)->get();
         foreach($avaliacaos as $avaliacao){
             $avaliacao->delete();
         }
 
-        $foto = fotoUser::where('user_id', $request->id)->get();
+        $foto = fotoUser::where('user_id', Auth::user()->id)->get();
         foreach($foto as $f){
             $f->delete();
         }
 
-        $seguindo = seguidor::where('seguidor_id', $request->id)->get();
+        $seguindo = seguidor::where('seguidor_id', Auth::user()->id)->get();
         foreach($seguindo as $s){
             $s->delete();
         }
 
-        $seguidores = seguidor::where('usuario_id', $request->id)->get();
+        $seguidores = seguidor::where('usuario_id', Auth::user()->id)->get();
         foreach($seguidores as $s){
             $s->delete();
         }
 
-        $macs = UserMac::where('usuario_id', $request->id)->get();
+        $macs = UserMac::where('usuario_id', Auth::user()->id)->get();
         foreach($macs as $mac){
             $mac->delete();
         }
 
-        $views = visualizacao::where('user_id', $request->id)->get();
+        $views = visualizacao::where('user_id', Auth::user()->id)->get();
         foreach($views as $view){
             $view->delete();
         }
 
-        $usuario = User::findOrFail($request->id);
+        $notificacoes = notificacao::where('user_id', Auth::user()->id)->get();
+        foreach($notificacoes as $n){
+            $n->delete();
+        }
+
+        $missoes = userMissoe::where('user_id', Auth::user()->id)->get();
+        foreach($missoes as $m){
+            $m->delete();
+        }
+        
+        $usuario = User::findOrFail(Auth::user()->id);
         $usuario->delete();
     }
 
@@ -306,5 +344,15 @@ class UserController extends Controller
         $notificacao = notificacao::findOrFail($request->id);
         $notificacao->lido = 1;
         $notificacao->update();
+    }
+
+    public function ler_todas(Request $request)
+    {
+        $notificacao = notificacao::where('user_id', Auth::user()->id)->get();
+
+        foreach($notificacao as $n){
+            $n->lido = 1;
+            $n->update();
+        }
     }
 }
