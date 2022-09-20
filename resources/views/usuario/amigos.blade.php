@@ -24,10 +24,10 @@
                             </h1>
                         </div>
                     @else
-                        <table class="table">
+                        <table class="table text-light">
                             <thead>
                                 <tr>
-                                    Seguindo
+                                    <h3 class="fonteMaisFamosas text-center">Seguindo</h3> 
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,7 +36,7 @@
                                         <td>
                                             <img class="rounded-circle" src="{{$segue->usuario->foto ? asset('foto_usuario' . '/' . $segue->usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" width="32" height="32">
                                         </td>
-                                        <td>
+                                        <td class="fonteTituloReceitas">
                                             <a href="{{url('profile')}}/{{$segue->usuario_id}}" style="text-decoration: none; color: black">
                                                 {{$segue->usuario->name}}
                                             </a>
