@@ -78,8 +78,12 @@
                                 <img class="pt-2" src="{{$usuario->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" class="card-img-top">
                                 <div class="card-body">
                                     <div class="row">
-                                        <h6 class="fs-5 card-title ps-0 col-10">
-                                            <a href="{{url('profile')}}/{{$usuario->id}}" style="text-decoration: none; color: black">{{substr($usuario->name, 0, 8) . '...'}}</a>
+                                        <h6 class="fs-5 card-title ps-0 col-10 fonteTituloReceitas">
+                                            @if (strlen($usuario->name) > 8)
+                                                <a href="{{url('profile')}}/{{$usuario->id}}" style="text-decoration: none; color: black">{{substr($usuario->name, 0, 8) . '...'}}</a>
+                                            @else
+                                                <a href="{{url('profile')}}/{{$usuario->id}}" style="text-decoration: none; color: black">{{substr($usuario->name, 0, 8)}}</a>
+                                            @endif
                                         </h6>
                                         <div class="col-2 text-right">
                                             @unless ($usuario->id == Auth::user()->id)
@@ -94,7 +98,7 @@
                                                 @endif
                                             @endunless
                                         </div>
-                                        Rank: {{$usuario->rank}}
+                                        <p class="fonteDescricaoReceitas">Rank: {{$usuario->rank}}</p> 
                                     </div>
                                 </div>
                             </div>
