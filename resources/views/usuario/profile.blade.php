@@ -280,12 +280,11 @@
                             <div class="tab-pane fade show" id="v-pills-detalhes" role="tabpanel" aria-labelledby="v-pills-detalhes-tab">
                                 <div class="row col">
                                     <div class="card ps-4">
-                                        <form method="POST" action="{{ url('editar_usuario') }}" enctype="multipart/form-data">
+                                        {!! Form::open(["id"=>"editForm"]) !!}
                                             @csrf
                                             <div class="card-body mt-3">
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label obri faltadados" hidden>
-                                                        <h6>Obrigatório</h6>
+                                                    <label class="form-label obrinome faltadados" hidden>
                                                     </label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">
                                                         Nome:
@@ -293,22 +292,23 @@
                                                     <input type="text" value="{{$usuario->name}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nome" id="nome">
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label obri faltadados" hidden>
-                                                        <h6>Obrigatório</h6>
+                                                    <label class="form-label obriemail faltadados" hidden>
+                                                    </label>
+                                                    <label class="form-label usoemail faltadados" hidden>
+                                                        <h6>Este E-Mail já está em uso</h6>
                                                     </label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">E-mail:</span>
                                                     <input type="text" value="{{$usuario->email}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="email" id="email">
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label obri faltadados" hidden>
-                                                        <h6>Obrigatório</h6>
+                                                    <label class="form-label obrisenha faltadados" hidden>
                                                     </label>
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Senha:</span>
                                                     <input type="password" placeholder="Nào é necessário preencher este campo se quiser manter a mesma senha" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="senha" id="senha">
                                                 </div>
                                                 <div class="input-group mb-3 row">
                                                     <span class="input-group-text col-2" id="inputGroup-sizing-default">Telefone:</span>
-                                                    <input type="text" value="{{old('telefone') ? old('telefone') : ($usuario->telefone ? $usuario->telefone : '')}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="DDD com 0 e 9 adicional" name="telefone" id="telefone">
+                                                    <input type="text" value="{{old('telefone') ? old('telefone') : ($usuario->telefone ? $usuario->telefone : '')}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="DDD e 9 adicional" name="telefone" id="telefone">
                                                 </div>
                                                 <div class="input-group mb-3 row">
                                                     <span class="input-group-text col-3" id="inputGroup-sizing-default">Data Nascimento:</span>
@@ -339,8 +339,7 @@
                                                     <input type="text" value="{{old('cep') ? old('cep') : ($usuario->endereco ? $usuario->endereco->cep : '')}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="cep" id="cep">
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label obri faltadados" hidden>
-                                                        <h6>Obrigatório</h6>
+                                                    <label class="form-label obriuf faltadados" hidden>
                                                     </label>
                                                     <label class="input-group-text col-2" for="inputuf">UF:</label>
                                                     <select class="form-select col-9" name="uf" disabled id="uf">
@@ -351,8 +350,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <label class="form-label obri faltadados" hidden>
-                                                        <h6>Obrigatório</h6>
+                                                    <label class="form-label obripais faltadados" hidden>
                                                     </label>
                                                     <label class="input-group-text col-2" for="inputpais">País:</label>
                                                     <select class="form-select col-9" name="pais" disabled id="pais">
@@ -370,10 +368,10 @@
                                                     <button class="btn btn-primary col-2 border-0" type="button" id="editar" style="height:50px; background-color: #ff8c00; color:white">Editar</button>
                                                 </div>
                                                 <div class="container text-center">
-                                                    <input class="btn btn-primary col-2 border-0" type="submit" value="Salvar" id="salvar" style="height:50px; background-color: #ff8c00; color:white" hidden>
+                                                    <input class="btn btn-primary col-2 border-0" type="button" value="Salvar" id="salvar" style="height:50px; background-color: #ff8c00; color:white" hidden>
                                                 </div>
                                             </div>
-                                        </form>
+                                        {!! Form::close() !!}
                                         <div class="container text-end">
                                             @if (Auth::user()->id == $usuario->id)
                                                 <button class="btn btn-danger deletar_user text-light text-center">
@@ -458,12 +456,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Notificações</h4>
-                        <div class="text-end col-2">
-                            <div class="form-check text-right form-switch">
-                                <input class="form-check-input" type="checkbox" id="confirmar_tudo">
-                                <label class="form-check-label" for="confirmar_tudo">Ler todas</label>
+                        @if (count($notificacaos) > 0)
+                            <div class="text-end col-2">
+                                <div class="form-check text-right form-switch">
+                                    <input class="form-check-input" type="checkbox" id="confirmar_tudo">
+                                    <label class="form-check-label" for="confirmar_tudo">Ler todas</label>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                     <div class="modal-body">
                         @if (count($notificacaos) == 0)
@@ -517,34 +517,44 @@
                 $('.deletar_user').prop('hidden', true);
             });
 
-            const urlParams = new URLSearchParams(window.location.search);
-            const editado = urlParams.get('editado');
-            const n = urlParams.get('n');
+            $(document).on('click', '#salvar', function(){
+                var formData = new FormData($("#editForm")[0]);
+                $.ajax({ // Conex�o ajax e dados a serem enviados
+                    type: "POST",
+                    url: "{{url('editar_usuario')}}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        if ((data.errors)) {
+                            $('#v-pills-detalhes').addClass( "active" );
+                            $('#v-pills-detalhes-tab').addClass( "active" ); 
 
-            if(n == 'faltam_dados'){
-                $(document).ready(function(){
-                    $('#v-pills-detalhes').addClass( "active" );
-                    $('#v-pills-detalhes-tab').addClass( "active" ); 
+                            $('#v-pills-perfil').removeClass( "active" ); 
+                            $('#v-pills-perfil-tab').removeClass( "active" );  
+                            
+                            $.each(data.errors, function(index, element){
+                                $(".obri"+index).prop("hidden", false);
+                                $(".obri"+index).text(element);
+                            });
+                        }
+                        else{
+                            $('#alerta_sucesso_editar').prop('hidden', false);
 
-                    $('#v-pills-perfil').removeClass( "active" ); 
-                    $('#v-pills-perfil-tab').removeClass( "active" );  
+                            $('#alerta_sucesso_editar').fadeOut(5000);
 
-                    $('.obri').prop('hidden', false);
+                            setTimeout(() => {
+                                $('#alerta_sucesso_editar').remove()
+                                window.location.reload(true);
+                            }, 5050);
+                        }
+                    }
                 });
-            }
-
-            if(editado == 'editado'){
-                $('#alerta_sucesso_editar').prop('hidden', false);
-
-                $('#alerta_sucesso_editar').fadeOut(5000);
-
-                setTimeout(() => {
-                    $('#alerta_sucesso_editar').remove()
-                }, 5050);
-            }
+            });
 
             $("input[name='telefone']").keyup(function() {
-                $(this).val($(this).val().replace(/^(\d{3})(\d{1})(\d{4})(\d{4})$/, "($1) $2 $3-$4"));
+                $(this).val($(this).val().replace(/^(\d{2})(\d{1})(\d{4})(\d{4})$/, "($1) $2 $3-$4"));
             });
 
             $(document).on('click', '.seguir', function(){

@@ -55,7 +55,7 @@ class ReceitaController extends Controller
             'qtde_porcoes' => 'required',
             'categoria' => 'required',
             'descricao' => 'required',
-            'nacionalidade' => 'required',
+            'nacionalidade' => 'required|min:4',
             'ingrediente' => 'required',
             'sabor' => 'required'
         ]);

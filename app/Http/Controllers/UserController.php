@@ -27,6 +27,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -131,15 +132,25 @@ class UserController extends Controller
 
     public function editar_usuario(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'nome' => 'required',
-            'email' => 'required',
-            'uf' => 'required',
-            'pais' => 'required'
-        ]);
+        if($request->email and $request->email == Auth::user()->email){
+            $validator = Validator::make($request->all(), [
+                'nome' => 'required',
+                'email' => 'required',
+                'uf' => 'required',
+                'pais' => 'required'
+            ]);
+        }
+        else{
+            $validator = Validator::make($request->all(), [
+                'nome' => 'required',
+                'email' => 'required|unique:users',
+                'uf' => 'required',
+                'pais' => 'required'
+            ]);
+        }
         
         if ($validator->fails()) {
-            return redirect()->route('profile', ['id' => Auth::user()->id, 'n' => 'faltam_dados']);
+            return Response::json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         
         if(Auth::user()->endereco_id){
@@ -238,15 +249,15 @@ class UserController extends Controller
             $aprendiz = User::findOrFail(Auth::user()->id);
             $aprendiz->rank = 'Aprendiz';
             $aprendiz->update();
-        }
 
-        notificacao::create([
-            'user_id' => Auth::user()->id,
-            'notificacao' => 'Parabéns por concluir suas missões!, você oficialmente se tornou um aprendiz de cozinheiro',
-            'lido' => 0
-        ]);
+            notificacao::create([
+                'user_id' => Auth::user()->id,
+                'notificacao' => 'Parabéns por concluir suas missões!, você oficialmente se tornou um aprendiz de cozinheiro',
+                'lido' => 0
+            ]);
+        }
         
-        return redirect()->route('profile', ['id' => Auth::user()->id, 'editado' => 'editado']);
+        return redirect()->route('profile', ['id' => Auth::user()->id]);
     }
 
     public function excluir_usuario(Request $request)
