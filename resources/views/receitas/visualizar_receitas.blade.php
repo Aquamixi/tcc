@@ -24,7 +24,7 @@
                         <div class="col-md-8 ms-0">
                             <div class="card-body">
                                 <div class="container mt-3 row">
-                                    <h5 class="col-6">Tempo: {{$receita->tempo_preparo}}</h5>
+                                    <h5 class="col-6">Tempo Preparo: {{$receita->tempo_preparo}}</h5>
                                     <h5 class="col-6 text-end">Serve: {{$receita->qtde_porcoes}} Pessoas</h5>
                                 </div>
                                 <div class="container mt-3 row">
@@ -219,7 +219,7 @@
     </div>
 
     <div class="modal fade" id="modalEComentario" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog bordaBonita">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title fonteMaisFamosas">Editar Comentario</h3>
@@ -255,12 +255,11 @@
     </div>
     
     <div class="modal fade" id="modalEResposta" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog bordaBonita">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title fonteMaisFamosas">Editar Resposta</h3>
                 </div>
-                <input id="id_comentario" hidden>
                 <div class="modal-body editar_r-body">
                 </div>
                 <div class="modal-footer">
@@ -306,10 +305,16 @@
             Receita Avaliada Com Sucesso!
         </div>
     </div>
-
+    
     <div class="NoCanto" id="alertaSucessoResposta" hidden>
         <div class="alert alert-success" role="alert">
             Comentario Respondido Com Sucesso!
+        </div>
+    </div>
+
+    <div class="NoCanto" id="alertaSucessoRespostaE" hidden>
+        <div class="alert alert-success" role="alert">
+            Resposta Editada Com Sucesso!
         </div>
     </div>
 
@@ -328,12 +333,6 @@
     <div class="NoCanto" id="alertaSucessoExcluirComentario" hidden>
         <div class="alert alert-success" role="alert">
             Comentario Excluído Com Sucesso!
-        </div>
-    </div>
-
-    <div class="NoCanto" id="alertaSucessoEditarComentario" hidden>
-        <div class="alert alert-success" role="alert">
-            Comentario Editado Com Sucesso!
         </div>
     </div>
 
@@ -736,6 +735,28 @@
                 },
                 success: function(data){
                     $('.editar_r-body').html(data);
+                }
+            });
+        });
+
+        $(document).on('click', '#enviaEResposta', function(e){
+            e.preventDefault();
+            $('#enviaEResposta').prop('disabled', true);
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('editar_resposta') }}", 
+                data: { 
+                    id: $('#resposta_id').val(),
+                    resposta: $('#nova_resposta').val(),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoRespostaE').prop('hidden', false);
+                    $('#alertaSucessoRespostaE').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoRespostaE').remove();
+                        window.location.reload(true);
+                    }, 5050);
                 }
             });
         });

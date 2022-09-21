@@ -431,7 +431,7 @@
         </div>
 
         <div class="modal fade" id="avisoModal" data-bs-backdrop="static" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog bordaBonita">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title fonteMaisFamosas">Aviso</h4>
