@@ -205,9 +205,9 @@
                 </div>
                 <form action="{{url('comentar_receita')}}" method="post">
                     @csrf
-                    <input value="{{$receita->id}}" name="id" hidden>
+                    <input id="receita_id_comentario" value="{{$receita->id}}" name="id" hidden>
                     <div class="modal-body">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Escreva aqui o seu comentario" name="comentario" style="resize: none; height:115.7px;">{{old('comentario') ? old('comentario') : ''}}</textarea>
+                        <textarea class="form-control" id="comentario_id" placeholder="Escreva aqui o seu comentario" name="comentario" style="resize: none; height:115.7px;">{{old('comentario') ? old('comentario') : ''}}</textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
@@ -226,6 +226,10 @@
                 </div>
                 <input id="id_comentario" hidden>
                 <div class="modal-body editar-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
+                    <input id="enviaEComentario" class="btn btn-primary col-2 border-0" type="submit" value="Enviar" data-bs-dismiss="modal" style="height:40px; background-color: #ff8c00; color:white"/>
                 </div>
             </div>
         </div>
@@ -258,6 +262,10 @@
                 </div>
                 <input id="id_comentario" hidden>
                 <div class="modal-body editar_r-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
+                    <input id="enviaEResposta" class="btn btn-primary col-2 border-0" type="submit" value="Enviar" data-bs-dismiss="modal" style="background-color: #ff8c00; color:white"/>
                 </div>
             </div>
         </div>
@@ -352,6 +360,12 @@
             Receita Comentada Com Sucesso!
         </div>
     </div>
+
+    <div class="NoCanto" id="alertaSucessoComentarE" hidden>
+        <div class="alert alert-success" role="alert">
+            Comentario Editado Com Sucesso!
+        </div>
+    </div>
 @endsection
 
 @section('pos-script')
@@ -372,7 +386,7 @@
                     $('#alertaSucessoCopia').prop('hidden', false);
                     $('#alertaSucessoCopia').fadeOut(5000);
                     setTimeout(() => {
-                        $('#alertaSucessoCopia').remove()
+                        $('#alertaSucessoCopia').remove();
                     }, 5050);
                     return navigator.clipboard.writeText(urlAtual);
                 }
@@ -392,7 +406,7 @@
                     $('#alertaSucessoCurtir').prop('hidden', false);
                     $('#alertaSucessoCurtir').fadeOut(5000);
                     setTimeout(() => {
-                        $('#alertaSucessoCurtir').remove()
+                        $('#alertaSucessoCurtir').remove();
                         window.location.reload(true);
                     }, 5050);
                 }
@@ -412,7 +426,7 @@
                     $('#alertaSucessoFavoritar').prop('hidden', false);
                     $('#alertaSucessoFavoritar').fadeOut(5000);
                     setTimeout(() => {
-                        $('#alertaSucessoFavoritar').remove()
+                        $('#alertaSucessoFavoritar').remove();
                         window.location.reload(true);
                     }, 5050);
                 }
@@ -432,7 +446,7 @@
                     $('#alertaSucessoDesCurtir').prop('hidden', false);
                     $('#alertaSucessoDesCurtir').fadeOut(5000);
                     setTimeout(() => {
-                        $('#alertaSucessoDesCurtir').remove()
+                        $('#alertaSucessoDesCurtir').remove();
                         window.location.reload(true);
                     }, 5050);
                 }
@@ -452,7 +466,7 @@
                     $('#alertaSucessoDesFavoritar').prop('hidden', false);
                     $('#alertaSucessoDesFavoritar').fadeOut(5000);
                     setTimeout(() => {
-                        $('#alertaSucessoDesFavoritar').remove()
+                        $('#alertaSucessoDesFavoritar').remove();
                         window.location.reload(true);
                     }, 5050);
                 }
@@ -485,7 +499,7 @@
                     $('#alertaSucessoResposta').prop('hidden', false);
                     $('#alertaSucessoResposta').fadeOut(5000);
                     setTimeout(() => {
-                        $('#alertaSucessoResposta').remove()
+                        $('#alertaSucessoResposta').remove();
                         window.location.reload(true);
                     }, 5050);
                 }
@@ -507,7 +521,7 @@
                     $('#alertaSucessoCopia').prop('hidden', false);
                     $('#alertaSucessoCopia').fadeOut(5000);
                     setTimeout(() => {
-                        $('#alertaSucessoCopia').remove()
+                        $('#alertaSucessoCopia').remove();
                     }, 5050);
                     return navigator.clipboard.writeText(`${urlAtual}/${random_token}`);
                 }
@@ -531,7 +545,7 @@
                         $('#alertaSucessoAvaliar').prop('hidden', false);
                         $('#alertaSucessoAvaliar').fadeOut(5000);
                         setTimeout(() => {
-                            $('#alertaSucessoAvaliar').remove()
+                            $('#alertaSucessoAvaliar').remove();
                             window.location.reload(true);
                         }, 5050);
                     }
@@ -539,58 +553,60 @@
             });
         });
 
-        $(document).on('mouseover', '#5', function(){
-            $('#5').addClass( "checkedfor" );
-            $('#4').addClass( "checkedfor" );
-            $('#3').addClass( "checkedfor" );
-            $('#2').addClass( "checkedfor" );
-            $('#1').addClass( "checkedfor" );
-        });
-            
-        $(document).on('mouseover', '#4', function(){
-            $('#4').addClass( "checkedfor" );
-            $('#3').addClass( "checkedfor" );
-            $('#2').addClass( "checkedfor" );
-            $('#1').addClass( "checkedfor" );   
-        });                 
-            
-        $(document).on('mouseover', '#3', function(){
-            $('#3').addClass( "checkedfor" );
-            $('#2').addClass( "checkedfor" );
-            $('#1').addClass( "checkedfor" );    
-        });                
-            
-        $(document).on('mouseover', '#2', function(){
-            $('#2').addClass( "checkedfor" );
-            $('#1').addClass( "checkedfor" );   
-        });
+        //altera classe das estrelas
+            $(document).on('mouseover', '#5', function(){
+                $('#5').addClass( "checkedfor" );
+                $('#4').addClass( "checkedfor" );
+                $('#3').addClass( "checkedfor" );
+                $('#2').addClass( "checkedfor" );
+                $('#1').addClass( "checkedfor" );
+            });
+                
+            $(document).on('mouseover', '#4', function(){
+                $('#4').addClass( "checkedfor" );
+                $('#3').addClass( "checkedfor" );
+                $('#2').addClass( "checkedfor" );
+                $('#1').addClass( "checkedfor" );   
+            });                 
+                
+            $(document).on('mouseover', '#3', function(){
+                $('#3').addClass( "checkedfor" );
+                $('#2').addClass( "checkedfor" );
+                $('#1').addClass( "checkedfor" );    
+            });                
+                
+            $(document).on('mouseover', '#2', function(){
+                $('#2').addClass( "checkedfor" );
+                $('#1').addClass( "checkedfor" );   
+            });
 
-        $(document).on('mouseout', '#5', function(){
-            console.log('oi');
-            $('#5').removeClass( "checkedfor" );
-            $('#4').removeClass( "checkedfor" );
-            $('#3').removeClass( "checkedfor" );
-            $('#2').removeClass( "checkedfor" );
-            $('#1').removeClass( "checkedfor" );
-        });
-            
-        $(document).on('mouseout', '#4', function(){
-            $('#4').removeClass( "checkedfor" );
-            $('#3').removeClass( "checkedfor" );
-            $('#2').removeClass( "checkedfor" );
-            $('#1').removeClass( "checkedfor" );   
-        });                 
-            
-        $(document).on('mouseout', '#3', function(){
-            $('#3').removeClass( "checkedfor" );
-            $('#2').removeClass( "checkedfor" );
-            $('#1').removeClass( "checkedfor" );    
-        });                
-            
-        $(document).on('mouseout', '#2', function(){
-            $('#2').removeClass( "checkedfor" );
-            $('#1').removeClass( "checkedfor" );   
-        });
+            $(document).on('mouseout', '#5', function(){
+                console.log('oi');
+                $('#5').removeClass( "checkedfor" );
+                $('#4').removeClass( "checkedfor" );
+                $('#3').removeClass( "checkedfor" );
+                $('#2').removeClass( "checkedfor" );
+                $('#1').removeClass( "checkedfor" );
+            });
+                
+            $(document).on('mouseout', '#4', function(){
+                $('#4').removeClass( "checkedfor" );
+                $('#3').removeClass( "checkedfor" );
+                $('#2').removeClass( "checkedfor" );
+                $('#1').removeClass( "checkedfor" );   
+            });                 
+                
+            $(document).on('mouseout', '#3', function(){
+                $('#3').removeClass( "checkedfor" );
+                $('#2').removeClass( "checkedfor" );
+                $('#1').removeClass( "checkedfor" );    
+            });                
+                
+            $(document).on('mouseout', '#2', function(){
+                $('#2').removeClass( "checkedfor" );
+                $('#1').removeClass( "checkedfor" );   
+            });
+        //fim
 
         $(document).on('click', '#curtircomentario', function(){
             $('#curtircomentario').prop('disabled', true);
@@ -605,7 +621,7 @@
                     $('#alertaSucessoCurtircomentario').prop('hidden', false);
                     $('#alertaSucessoCurtircomentario').fadeOut(5000);
                     setTimeout(() => {
-                        $('#alertaSucessoCurtircomentario').remove()
+                        $('#alertaSucessoCurtircomentario').remove();
                         window.location.reload(true);
                     }, 5050);
                 }
@@ -625,7 +641,7 @@
                     $('#alertaSucessoDesCurtircomentario').prop('hidden', false);
                     $('#alertaSucessoDesCurtircomentario').fadeOut(5000);
                     setTimeout(() => {
-                        $('#alertaSucessoDesCurtir').remove()
+                        $('#alertaSucessoDesCurtir').remove();
                         window.location.reload(true);
                     }, 5050);
                 }
@@ -645,7 +661,7 @@
                     $('#alertaSucessoExcluirComentario').prop('hidden', false);
                     $('#alertaSucessoExcluirComentario').fadeOut(5000);
                     setTimeout(() => {
-                        $('#alertaSucessoExcluirComentario').remove()
+                        $('#alertaSucessoExcluirComentario').remove();
                         window.location.reload(true);
                     }, 5050);
                 }
@@ -665,19 +681,50 @@
                 }
             });
         });
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const comentado = urlParams.get('comentado');
-
-        if(comentado == 'comentado'){
-            $(document).ready(function(){
-                $('#alertaSucessoComentar').prop('hidden', false);
-                $('#alertaSucessoComentar').fadeOut(5000);
-                setTimeout(() => {
-                    $('#alertaSucessoComentar').remove()
-                }, 5050);
+        
+        $(document).on('click', '#enviaComentario', function(e){
+            e.preventDefault();
+            $('#enviaComentario').prop('disabled', true);
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('comentar_receita') }}", 
+                data: { 
+                    id: $('#receita_id_comentario').val(),
+                    comentario: $('#comentario_id').val(),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoComentar').prop('hidden', false);
+                    $('#alertaSucessoComentar').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoComentar').remove();
+                        window.location.reload(true);
+                    }, 5050);
+                }
             });
-        }
+        });
+
+        $(document).on('click', '#enviaEComentario', function(e){
+            e.preventDefault();
+            $('#enviaEComentario').prop('disabled', true);
+            $.ajax({
+                type: 'POST', 
+                url: "{{ url('editar_comentario') }}", 
+                data: { 
+                    id: $('#comentario_id_editar').val(),
+                    comentario: $('#novo_comentario').val(),
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(){
+                    $('#alertaSucessoComentarE').prop('hidden', false);
+                    $('#alertaSucessoComentarE').fadeOut(5000);
+                    setTimeout(() => {
+                        $('#alertaSucessoComentarE').remove();
+                        window.location.reload(true);
+                    }, 5050);
+                }
+            });
+        });
 
         $(document).on('click', '#editar_resposta', function(){
             $("#modalEResposta").modal('show');
@@ -706,7 +753,7 @@
                     $('#alertaSucessoCurtirresposta').prop('hidden', false);
                     $('#alertaSucessoCurtirresposta').fadeOut(5000);
                     setTimeout(() => {
-                        $('#alertaSucessoCurtirresposta').remove()
+                        $('#alertaSucessoCurtirresposta').remove();
                         window.location.reload(true);
                     }, 5050);
                 }
@@ -726,7 +773,7 @@
                     $('#alertaSucessoDesCurtirresposta').prop('hidden', false);
                     $('#alertaSucessoDesCurtirresposta').fadeOut(5000);
                     setTimeout(() => {
-                        $('#alertaSucessoDesCurtirresposta').remove()
+                        $('#alertaSucessoDesCurtirresposta').remove();
                         window.location.reload(true);
                     }, 5050);
                 }
@@ -746,7 +793,7 @@
                     $('#alertaSucessoExcluirresposta').prop('hidden', false);
                     $('#alertaSucessoExcluirresposta').fadeOut(5000);
                     setTimeout(() => {
-                        $('#alertaSucessoExcluirresposta').remove()
+                        $('#alertaSucessoExcluirresposta').remove();
                         window.location.reload(true);
                     }, 5050);
                 }
