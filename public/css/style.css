@@ -225,3 +225,9 @@ html, body {
     color:#000;
     text-decoration: none;
 }
+
+.bordaBonita{
+    background: linear-gradient(to right, #FFF323, #FFF323);
+    padding: 3px;
+    border-radius: 0.5rem;
+}
