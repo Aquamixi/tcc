@@ -116,9 +116,9 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Aviso</h4>
+                    <h4 class="modal-title fonteMaisFamosas">Aviso</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body fonteVelocidadeReceitas">
                     Faça login em um computador Windows, para maior segurança e nossa confiança.
                 </div>
                 <div class="modal-footer">

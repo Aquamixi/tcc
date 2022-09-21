@@ -24,8 +24,8 @@
                         <div class="col-md-8 ms-0">
                             <div class="card-body">
                                 <div class="container mt-3 row">
-                                    <h5 class="col-6">Velocidade: {{$receita->velocidade->velocidade}}</h5>
-                                    <h5 class="col-6 text-end">Quantidade Porções: {{$receita->qtde_porcoes}}</h5>
+                                    <h5 class="col-6">Tempo: {{$receita->tempo_preparo}}</h5>
+                                    <h5 class="col-6 text-end">Serve: {{$receita->qtde_porcoes}} Pessoas</h5>
                                 </div>
                                 <div class="container mt-3 row">
                                     <h5 class="col-6">Região: {{$receita->nacionalidade->nacionalidade}}</h5>
@@ -140,11 +140,13 @@
                                         @endif
                                     </h5>
                                     <h5 class="col-1 text-end mt-2">
-                                        @if (count($item->curtida_user) > 0)
-                                            <a title="Descurtir" class="curtido" id="descurtircomentario" data-id="{{$item->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
-                                        @else
-                                            <a title="Curtir" class="botaocurtir" id="curtircomentario" data-id="{{$item->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
-                                        @endif
+                                        @unless (Auth::user()->id == $item->user_id)
+                                            @if (count($item->curtida_user) > 0)
+                                                <a title="Descurtir" class="curtido" id="descurtircomentario" data-id="{{$item->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                            @else
+                                                <a title="Curtir" class="botaocurtir" id="curtircomentario" data-id="{{$item->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                            @endif
+                                        @endunless
                                     </h5>
                                     <h5 class="col-1 text-end mt-2">
                                         <a title="Responder" class="comentar" id="responder" data-comentario_id="{{$item->id}}"><i class="fa-solid fa-comments"></i></a>
@@ -156,11 +158,13 @@
                                                     <h6 class="col-2 mt-2 text-start">{{Carbon\Carbon::parse($item->data_comentario)->format('d-m-Y')}}</h6>        
                                                     <h6 class="col-8 mt-2 text-center">{{$r->usuario->name}}</h6>
                                                     <h6 class="col-1 mt-2 text-end">
-                                                        @if (count($r->curtida_user) > 0)
-                                                        <a title="Descurtir" class="curtido" id="descurtir_resposta" data-id="{{$r->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
-                                                        @else
-                                                        <a title="Curtir" class="botaocurtir" id="curtir_resposta" data-id="{{$r->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
-                                                        @endif
+                                                        @unless (Auth::user()->id == $r->user_id)
+                                                            @if (count($r->curtida_user) > 0)
+                                                                <a title="Descurtir" class="curtido" id="descurtir_resposta" data-id="{{$r->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                                            @else
+                                                                <a title="Curtir" class="botaocurtir" id="curtir_resposta" data-id="{{$r->id}}"><i class="fa-solid fa-thumbs-up"></i></a>
+                                                            @endif
+                                                        @endunless
                                                     </h6>     
                                                     <h6 class="col-1 mt-2 text-end">
                                                         <div class="dropend">
@@ -510,19 +514,6 @@
             });
         });
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const comentado = urlParams.get('comentado');
-
-        if(comentado == 'comentado'){
-            $(document).ready(function(){
-                $('#alertaSucessoComentar').prop('hidden', false);
-                $('#alertaSucessoComentar').fadeOut(5000);
-                setTimeout(() => {
-                    $('#alertaSucessoComentar').remove()
-                }, 5050);
-            });
-        }
-
         let ids = [1, 2, 3, 4, 5, 6];
 
         $(ids).each(function(id){
@@ -675,16 +666,18 @@
             });
         });
 
-        $(document).on('click', '#enviaComentario', function(e){
-            e.preventDefault();
-            $('#alertaSucessoComentar').prop('hidden', false);
-            $('#alertaSucessoComentar').fadeOut(5000);
-            setTimeout(() => {
-                $('#alertaSucessoComentar').remove()
-                window.location.reload(true);
-            }, 5050);
+        const urlParams = new URLSearchParams(window.location.search);
+        const comentado = urlParams.get('comentado');
 
-        });
+        if(comentado == 'comentado'){
+            $(document).ready(function(){
+                $('#alertaSucessoComentar').prop('hidden', false);
+                $('#alertaSucessoComentar').fadeOut(5000);
+                setTimeout(() => {
+                    $('#alertaSucessoComentar').remove()
+                }, 5050);
+            });
+        }
 
         $(document).on('click', '#editar_resposta', function(){
             $("#modalEResposta").modal('show');

@@ -164,7 +164,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title fonteMaisFamosas">Sobre Nós</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body fonteVelocidadeReceitas">
                     <p>Silvio Santos Ipsum Vem pra lá, mah você vai pra cá. Agora vai, agora vem pra láamm. Ma você, topa ou não topamm. 
                     Ma você está certo dissoam? Ma não existem mulher feiam, existem mulher que não conhece os produtos Jequitiamm.
                     Ha hai. Bem boladoam, bem boladoam. Bem gozadoam. Wellintaaammmmmmmmm. Boca sujuam... sem vergonhuamm.</p>
@@ -177,7 +177,7 @@
                     Você veio da caravana de ondeammm? Ma vejam só, vejam só. O Raul Gil é gayam! ... Maa O Ah Ae! Ih Ih! O Raul Gil é gayamm!</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal" style="height: 50px;background-color: #ff8c00;color: white;">Fechar</button>
+                    <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal" style="background-color: #ff8c00;color: white;">Fechar</button>
                 </div>
             </div>
         </div>

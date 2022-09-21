@@ -434,9 +434,9 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Aviso</h4>
+                        <h4 class="modal-title fonteMaisFamosas">Aviso</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body fonteVelocidadeReceitas">
                         Ao clicar em deletar, sua conta e suas receitas serão todas deletadas!
                     </div>
                     <div class="modal-footer">
@@ -460,7 +460,7 @@
                             <div class="text-end col-2">
                                 <div class="form-check text-right form-switch">
                                     <input class="form-check-input" type="checkbox" id="confirmar_tudo">
-                                    <label class="form-check-label" for="confirmar_tudo">Ler todas</label>
+                                    <label class="form-check-label fonteVelocidadeReceitas" for="confirmar_tudo">Ler todas</label>
                                 </div>
                             </div>
                         @endif
@@ -488,7 +488,7 @@
                         @endif
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-bs-dismiss="modal" style="height: 50px;background-color: #ff8c00;color: white;">Fechar</button>
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal" style="background-color: #ff8c00;color: white;">Fechar</button>
                     </div>
                 </div>
             </div>
