@@ -677,6 +677,17 @@
             });
         });
 
+        $(document).on('click', '#enviaComentario', function(e){
+            e.preventDefault();
+            $('#alertaSucessoComentar').prop('hidden', false);
+            $('#alertaSucessoComentar').fadeOut(5000);
+            setTimeout(() => {
+                $('#alertaSucessoComentar').remove()
+                window.location.reload(true);
+            }, 5050);
+
+        });
+
         $(document).on('click', '#editar_resposta', function(){
             $("#modalEResposta").modal('show');
             $.ajax({
