@@ -121,8 +121,6 @@
                                                         <li><hr class="dropdown-divider"></li>
                                                         <li><button class="btn bg-transparent" data-id="{{$item->id}}" id="editar_comentario" type="submit"><i class="fa-solid fa-pen"></i> Editar</button></li>
                                                     @endif
-                                                @else
-                                                    oi
                                                 @endif
                                             </ul>
                                         </div>
