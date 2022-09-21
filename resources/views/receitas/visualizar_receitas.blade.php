@@ -198,7 +198,7 @@
     </main>
 
     <div class="modal fade" id="modalComentario" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog bordaBonita">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title fonteMaisFamosas">Comentar</h3>
@@ -232,7 +232,7 @@
     </div>
 
     <div class="modal fade" id="modalResponder" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog bordaBonita">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title fonteMaisFamosas">Responder</h3>

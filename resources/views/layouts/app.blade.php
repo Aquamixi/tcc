@@ -159,7 +159,7 @@
     </body>
 
     <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog bordaBonita">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title fonteMaisFamosas">Sobre Nós</h4>
@@ -168,7 +168,7 @@
                     <p>Silvio Santos Ipsum Vem pra lá, mah você vai pra cá. Agora vai, agora vem pra láamm. Ma você, topa ou não topamm. 
                     Ma você está certo dissoam? Ma não existem mulher feiam, existem mulher que não conhece os produtos Jequitiamm.
                     Ha hai. Bem boladoam, bem boladoam. Bem gozadoam. Wellintaaammmmmmmmm. Boca sujuam... sem vergonhuamm.</p>
-
+                    
                     <p>Qual é a musicamm? Mah ooooee vem pra cá. Vem pra cá. É bom ou não éam? Patríciaaammmm... Luiz Ricardouaaammmmmm. 
                     Vem pra lá, mah você vai pra cá. Agora vai, agora vem pra láamm. É por sua conta e riscoamm?</p>
                     
@@ -184,7 +184,7 @@
     </div>
 
     <div class="modal fade" id="missoesModal" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog bordaBonita">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title fonteMaisFamosas" style="font-size: xx-large">Missões</h4>
