@@ -452,7 +452,7 @@
         </div>
 
         <div class="modal fade" id="notificacaoModal" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-dialog modal-lg bordaBonita">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title fonteMaisFamosas">Notificações</h4>

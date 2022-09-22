@@ -72,9 +72,11 @@
                             </h1>
                         </div>
                     @else
-                        <table class="table">
+                        <table class="table text-light">
                             <thead>
-                                <tr>Seguidores</tr>
+                                <tr>
+                                    <h3 class="fonteMaisFamosas text-center">Seguidores</h3> 
+                                </tr>
                             </thead>
                             <tbody>
                                 @foreach ($seguidores as $segue)
@@ -83,7 +85,7 @@
                                             <img class="rounded-circle" src="{{$segue->seguidor->foto ? asset('foto_usuario' . '/' . $segue->seguidor->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" width="32" height="32">
                                         </td>
                                         <td>
-                                            <a href="{{url('profile')}}/{{$segue->seguidor_id}}" style="text-decoration: none; color: black">
+                                            <a href="{{url('profile')}}/{{$segue->seguidor_id}}" class="fonteTituloReceitas" style="text-decoration: none; color: black">
                                                 {{$segue->seguidor->name}}
                                             </a>
                                         </td>
