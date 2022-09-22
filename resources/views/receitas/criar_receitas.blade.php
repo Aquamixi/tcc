@@ -82,17 +82,15 @@
                             <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Separe os ingredientes por virgula assim: Cebola, Tomate" name="ingrediente" style="resize: none; height:115.7px;">{{old('ingrediente') ? old('ingrediente') : ''}}</textarea>
                         </div>
                     </div>
-                </div>
-                <div class="container col-6">
                     <div class="card bg-transparent border-0">                   
                         <div class="card-body height:114px">
-                            <div class="row">                              
-                                <label for="exampleFormControlTextarea1" class="form-label col-6"><h3 class="fonteMaisFamosas">Descrição</h3></label>
+                            <div class="row">                             
+                                <h3 class="fonteMaisFamosas col-5">Modo De Preparo</h3>
                                 <label class="form-label faltadados col-5">
-                                    <h6>{{$errors->has('descricao') ? "Obrigatório" : ''}}</h6>
+                                    <h6>{{$errors->has('preparo') ? "Obrigatório" : ''}}</h6>
                                 </label>
                             </div>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Descreva brevemente a sua receita" name="descricao" style="resize: none; height:115.7px;">{{old('descricao') ? old('descricao') : ''}}</textarea>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Descreva como Preparar" name="preparo" style="resize: none; height:115.7px;">{{old('preparo') ? old('preparo') : ''}}</textarea>
                         </div>
                     </div>
                     <div class="container d-flex mt-2 justify-content-center">    
@@ -114,7 +112,20 @@
                             </select>
                         </div>
                     </div>
-                    <div class="container mt-4 d-flex justify-content-center">
+                </div>
+                <div class="container mt-2 col-6">
+                    <div class="card bg-transparent border-0">                   
+                        <div class="card-body height:114px">
+                            <div class="row">                              
+                                <label for="exampleFormControlTextarea1" class="form-label col-6"><h3 class="fonteMaisFamosas">Descrição</h3></label>
+                                <label class="form-label faltadados col-5">
+                                    <h6>{{$errors->has('descricao') ? "Obrigatório" : ''}}</h6>
+                                </label>
+                            </div>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Descreva brevemente a sua receita" name="descricao" style="resize: none; height:115.7px;">{{old('descricao') ? old('descricao') : ''}}</textarea>
+                        </div>
+                    </div>
+                    <div class="container mt-2 d-flex justify-content-center">
                         <div class="mx-auto col-6 ms-1">
                             <div class="row">
                                 <h3 class="fonteMaisFamosas col-6">Tempo&nbsp;Preparo</h3>
@@ -122,53 +133,42 @@
                                     <h6>{{$errors->has('tempo') ? "Obrigatório" : ''}}</h6>
                                 </label>
                             </div>
-                            <input type="number" class="form-control" name="tempo" value="{{old('tempo')}}" id="exampleFormControlInput1" placeholder="Tempo Em Minutos" style="height: 3.1rem ;">    
+                            <input type="number" class="form-control" name="tempo" value="{{old('tempo')}}" id="exampleFormControlInput1" placeholder="Tempo em Minutos" style="height: 3.1rem ;">    
                         </div>
                         <div class="mx-auto col-6 ms-1">
                             <div class="row">
-                                <h3 class="fonteMaisFamosas col-6">Porções</h3>
+                                <h3 class="fonteMaisFamosas col-6">Servem</h3>
                                 <label class="form-label faltadados col-5">
                                     <h6>{{$errors->has('qtde_porcoes') ? "Obrigatório" : ''}}</h6>
                                 </label>
                             </div>
-                            <input type="number" class="form-control" name="qtde_porcoes" value="{{old('qtde_porcoes')}}" id="exampleFormControlInput1" placeholder="Quantidade Em Números" style="height: 3.1rem ;" >    
-                        </div>
-                    </div>
-                    <div class="card bg-transparent mt-3 mb-3 border-0">                   
-                        <div class="card-body height:114px">
-                            <div class="row">                             
-                                <h3 class="fonteMaisFamosas col-5">Modo De Preparo</h3>
-                                <label class="form-label faltadados col-5">
-                                    <h6>{{$errors->has('preparo') ? "Obrigatório" : ''}}</h6>
-                                </label>
-                            </div>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Descreva como Preparar" name="preparo" style="resize: none; height:115.7px;">{{old('preparo') ? old('preparo') : ''}}</textarea>
+                            <input type="number" class="form-control" name="qtde_porcoes" value="{{old('qtde_porcoes')}}" id="exampleFormControlInput1" placeholder="Quantidade de Pessoas" style="height: 3.1rem ;" >    
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="text-right col-2 mb-1">
+                <div class="row justify-content-center pt-4 ">
+                    <div class="text-center col-2 mb-1">
                         <div class="text-center mx-0">
                             <ul class="list-group">
                                 <li class="list-group-item">
                                     @if (old('mais_dezoito'))
-                                        <input class="form-check-input me-1" checked name="mais_dezoito" type="checkbox" id="firstCheckbox">
+                                        <input class="form-check-input" checked name="mais_dezoito" type="checkbox" id="firstCheckbox">
                                     @else
-                                        <input class="form-check-input me-1" name="mais_dezoito" type="checkbox" id="firstCheckbox">
+                                        <input class="form-check-input" name="mais_dezoito" type="checkbox" id="firstCheckbox">
                                     @endif
                                     <label class="form-check-label" for="firstCheckbox">Receita +18</label>
                                 </li>
                             </ul>
                         </div>  
                     </div>  
-                    <div class="text-left col-2 mb-1">
+                    <div class="text-center col-2 mb-1">
                         <div class="text-center mx-0">
                             <ul class="list-group">
                                 <li class="list-group-item">
                                     @if (old('escondida'))
-                                        <input class="form-check-input me-1" name="escondida" checked type="checkbox" id="secondCheckbox">
+                                        <input class="form-check-input" name="escondida" checked type="checkbox" id="secondCheckbox">
                                     @else
-                                        <input class="form-check-input me-1" name="escondida" type="checkbox" id="secondCheckbox">
+                                        <input class="form-check-input" name="escondida" type="checkbox" id="secondCheckbox">
                                     @endif
                                     <label class="form-check-label" for="secondCheckbox">Escondida</label>
                                 </li>

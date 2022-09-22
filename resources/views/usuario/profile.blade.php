@@ -55,7 +55,7 @@
                                                     <div class="container mt-3 row">
                                                         <h5 class=" col-12">Nome: {{$usuario->name}}</h5>
                                                     </div>
-                                                    @if (Auth::user()->rank != 'incompleto')
+                                                    @if ($usuario->rank != 'incompleto')
                                                         <div class="container mt-3 row">
                                                             <h5 class=" col-12">Rank: {{$usuario->rank}}</h5>
                                                         </div>
@@ -69,6 +69,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="text-end">
+                                                    Seguidores: {{count($usuario->seguidor->where('usuario_id', $usuario->id)) > 0 ? $usuario->seguidor->where('usuario_id', $usuario->id)->count() : 0}}
                                                     @unless (Auth::user()->id == $usuario->id)
                                                         @if(in_array($usuario->id, $array_seguindo))
                                                             <a data-usuario="{{$usuario->id}}" class="deixar_seguir" title="Deixar de Seguir">
