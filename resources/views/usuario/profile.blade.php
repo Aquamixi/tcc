@@ -52,7 +52,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="card-body">
-                                                    <div class="container mt-3 row">
+                                                    <div class="container row">
                                                         <h5 class=" col-12">Nome: {{$usuario->name}}</h5>
                                                     </div>
                                                     @if ($usuario->rank != 'incompleto')
@@ -67,20 +67,29 @@
                                                         <h5 class="col-6">Entrou: {{Carbon\Carbon::parse($usuario->created_at)->format('d-m-Y')}}</h5>
                                                         <h5 class=" col-6 text-end">Idade: {{$usuario->data_nascimento ? Carbon\Carbon::parse($usuario->data_nascimento)->diffInYears(Carbon\Carbon::today()) . ' Anos' : 'Não Informada'}}</h5>
                                                     </div>
-                                                </div>
-                                                <div class="text-end">
-                                                    Seguidores: {{count($usuario->seguidor->where('usuario_id', $usuario->id)) > 0 ? $usuario->seguidor->where('usuario_id', $usuario->id)->count() : 0}}
-                                                    @unless (Auth::user()->id == $usuario->id)
-                                                        @if(in_array($usuario->id, $array_seguindo))
-                                                            <a data-usuario="{{$usuario->id}}" class="deixar_seguir" title="Deixar de Seguir">
-                                                                <i class="fa-solid fa-user-check"></i>
-                                                            </a>
-                                                        @else
-                                                            <a data-usuario="{{$usuario->id}}" class="seguir" title="Seguir">
-                                                                <i class="fa-solid fa-user-plus"></i>
-                                                            </a>
-                                                        @endif
-                                                    @endunless
+                                                    <div class="container mt-3 row">
+                                                        <h5 class="col-12">
+                                                            Seguidores: {{count($usuario->seguidor->where('usuario_id', $usuario->id)) > 0 ? $usuario->seguidor->where('usuario_id', $usuario->id)->count() : 0}}
+                                                        </h5>
+                                                    </div>
+                                                    <div class="container mt-3 row">
+                                                        <h5 class="col-6">
+                                                            Seguindo: {{count($usuario->seguindo->where('seguidor_id', $usuario->id)) > 0 ? $usuario->seguindo->where('seguidor_id', $usuario->id)->count() : 0}}
+                                                        </h5>
+                                                        <h5 class="text-end col-6">
+                                                            @unless (Auth::user()->id == $usuario->id)
+                                                                @if(in_array($usuario->id, $array_seguindo))
+                                                                    <a data-usuario="{{$usuario->id}}" class="deixar_seguir" title="Deixar de Seguir">
+                                                                        <i class="fa-solid fa-user-check"></i>
+                                                                    </a>
+                                                                @else
+                                                                    <a data-usuario="{{$usuario->id}}" class="seguir" title="Seguir">
+                                                                        <i class="fa-solid fa-user-plus"></i>
+                                                                    </a>
+                                                                @endif
+                                                            @endunless
+                                                        </h5>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -118,21 +127,23 @@
                                                                     <h5 class="card-text col-12 fonteDescricaoReceitas">{!! substr($item->descricao, 0, 180) . '...' !!}</h5>
                                                                 @endif
                                                             </a>
-                                                            <div class="text-end">
-                                                                <i class="fa-regular fa-eye"></i> {{count($item->visualizacoes->where('receita_id', $item->id)) > 0 ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
-                                                                <i class="fa-solid fa-thumbs-up"></i> {{count($item->curtida->where('receita_id', $item->id)) > 0 ? $item->curtida->where('receita_id', $item->id)->count() : 0}}
-                                                            </div>
-                                                            @if (Auth::user()->id == $item->user_id)
-                                                                <div class="text-end">
-                                                                    <a href="{{url('editar_receitas/')}}/{{$item->id}}" class="btn btn-warning text-light text-center" style="height: 36px">
-                                                                        <h6>editar receita</h6>
-                                                                    </a>
-                                                                    <button data-id="{{$item->id}}" class="btn btn-danger deletar_receita text-light text-center">
-                                                                        <i class="fa-solid fa-trash"></i>
-                                                                    </button>
-                                                                </div>  
-                                                            @endif 
                                                         </div>
+                                                    </div>
+                                                    <div class="card-footer border-0 bg-transparent">
+                                                        <div class="text-end">
+                                                            <i class="fa-regular fa-eye"></i> {{count($item->visualizacoes->where('receita_id', $item->id)) > 0 ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                                            <i class="fa-solid fa-thumbs-up"></i> {{count($item->curtida->where('receita_id', $item->id)) > 0 ? $item->curtida->where('receita_id', $item->id)->count() : 0}}
+                                                        </div>
+                                                        @if (Auth::user()->id == $item->user_id)
+                                                            <div class="text-end">
+                                                                <a href="{{url('editar_receitas/')}}/{{$item->id}}" class="btn btn-warning text-light text-center" style="height: 36px">
+                                                                    <h6>editar receita</h6>
+                                                                </a>
+                                                                <button data-id="{{$item->id}}" class="btn btn-danger deletar_receita text-light text-center">
+                                                                    <i class="fa-solid fa-trash"></i>
+                                                                </button>
+                                                            </div>  
+                                                        @endif 
                                                     </div>
                                                 </div>
                                             </div>
@@ -171,10 +182,12 @@
                                                                     <h5 class="card-text col-12 fonteDescricaoReceitas">{!! substr($item->receita->descricao, 0, 180) . '...' !!}</h5>
                                                                 @endif
                                                             </a>
-                                                            <div class="text-end">
-                                                                <i class="fa-regular fa-eye"></i> {{count($item->receita->visualizacoes->where('receita_id', $item->receita_id)) > 0 ? $item->receita->visualizacoes->where('receita_id', $item->receita_id)->count() : 0}}&nbsp;&nbsp;&nbsp;
-                                                                <i class="fa-solid fa-thumbs-up"></i> {{$item->where('receita_id', $item->receita_id)->count() ?? 0}}
-                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer border-0 bg-transparent">
+                                                        <div class="text-end">
+                                                            <i class="fa-regular fa-eye"></i> {{count($item->receita->visualizacoes->where('receita_id', $item->receita_id)) > 0 ? $item->receita->visualizacoes->where('receita_id', $item->receita_id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                                            <i class="fa-solid fa-thumbs-up"></i> {{$item->where('receita_id', $item->receita_id)->count() ?? 0}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -214,10 +227,12 @@
                                                                 <h5 class="card-text col-12 fonteDescricaoReceitas">{!! substr($item->receita->descricao, 0, 180) . '...' !!}</h5>
                                                             @endif
                                                         </a>
-                                                        <div class="text-end">
-                                                            <i class="fa-regular fa-eye"></i> {{count($item->receita->visualizacoes->where('receita_id', $item->receita_id)) > 0 ? $item->receita->visualizacoes->where('receita_id', $item->receita_id)->count() : 0}}&nbsp;&nbsp;&nbsp;
-                                                            <i class="fa-solid fa-thumbs-up"></i> {{count($item->receita->curtida->where('receita_id', $item->receita_id)) > 0  ? $item->receita->curtida->where('receita_id', $item->receita_id)->count() : 0}}
-                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer border-0 bg-transparent">
+                                                    <div class="text-end">
+                                                        <i class="fa-regular fa-eye"></i> {{count($item->receita->visualizacoes->where('receita_id', $item->receita_id)) > 0 ? $item->receita->visualizacoes->where('receita_id', $item->receita_id)->count() : 0}}&nbsp;&nbsp;&nbsp;
+                                                        <i class="fa-solid fa-thumbs-up"></i> {{count($item->receita->curtida->where('receita_id', $item->receita_id)) > 0  ? $item->receita->curtida->where('receita_id', $item->receita_id)->count() : 0}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -257,20 +272,22 @@
                                                                     <h5 class="card-text col-12 fonteDescricaoReceitas">{!! substr($item->descricao, 0, 180) . '...' !!}</h5>
                                                                 @endif
                                                             </a>
-                                                            <div class="text-end">
-                                                                <i class="fa-regular fa-eye"></i> {{count($item->visualizacoes->where('receita_id', $item->id)) > 0 ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}
-                                                            </div>
-                                                            @if (Auth::user()->id == $item->user_id)
-                                                                <div class="text-end">
-                                                                    <a href="{{url('editar_receitas/')}}/{{$item->id}}" class="btn btn-warning text-light text-center" style="height: 36px">
-                                                                        <h6>editar receita</h6>
-                                                                    </a>
-                                                                    <button data-id="{{$item->id}}" class="btn btn-danger deletar_receita text-light text-center">
-                                                                        <i class="fa-solid fa-trash"></i>
-                                                                    </button>
-                                                                </div>  
-                                                            @endif 
                                                         </div>
+                                                    </div>
+                                                    <div class="card-footer border-0 bg-transparent">
+                                                        <div class="text-end">
+                                                            <i class="fa-regular fa-eye"></i> {{count($item->visualizacoes->where('receita_id', $item->id)) > 0 ? $item->visualizacoes->where('receita_id', $item->id)->count() : 0}}
+                                                        </div>
+                                                        @if (Auth::user()->id == $item->user_id)
+                                                            <div class="text-end">
+                                                                <a href="{{url('editar_receitas/')}}/{{$item->id}}" class="btn btn-warning text-light text-center" style="height: 36px">
+                                                                    <h6>editar receita</h6>
+                                                                </a>
+                                                                <button data-id="{{$item->id}}" class="btn btn-danger deletar_receita text-light text-center">
+                                                                    <i class="fa-solid fa-trash"></i>
+                                                                </button>
+                                                            </div>  
+                                                        @endif 
                                                     </div>
                                                 </div>
                                             </div>
@@ -472,13 +489,13 @@
                         @else
                             @foreach ($notificacaos as $n)
                                 <div class="row">
-                                    <div class="text-start col-9">
+                                    <div class="text-start col-10">
                                         {{$n->notificacao}}
                                     </div>
-                                    <div class="text-end col-3">
+                                    <div class="col-2">
                                         <div class="form-check form-switch">
                                             <input class="form-check-input" data-id="{{$n->id}}" type="checkbox" id="confirmar">
-                                            <label class="form-check-label" for="{{$n->id}}">Marcar como lido</label>
+                                            <label class="form-check-label" for="{{$n->id}}">Lido</label>
                                         </div>
                                     </div>
                                 </div>

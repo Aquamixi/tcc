@@ -19,12 +19,12 @@
                                     <h6>{{$errors->has('titulo') ? $errors->first('titulo') : ''}}</h6>
                                 </label>
                             </div>
-                            <input type="text" value="{{$linha->titulo_receita}}" class="form-control fonteCriarReceitas" name="titulo" id="exampleFormControlInput1" placeholder="coloque aqui seu titulo">
+                            <input style="height: 50px" type="text" value="{{$linha->titulo_receita}}" class="form-control fonteCriarReceitas" name="titulo" id="exampleFormControlInput1" placeholder="coloque aqui seu titulo">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="container-fluid  mx-0">
+            <div class="container-fluid row-md mx-0">
                 <div class="container col-6">
                     <div class="card bg-transparent mb-2 border-0">
                         <div class="card-body">                      

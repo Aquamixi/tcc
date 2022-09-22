@@ -25,7 +25,7 @@
                             <div class="card-body">
                                 <div class="container mt-3 row">
                                     <h5 class="col-6">Tempo Preparo: {{$receita->tempo_preparo}}</h5>
-                                    <h5 class="col-6 text-end">Serve: {{$receita->qtde_porcoes}} Pessoas</h5>
+                                    <h5 class="col-6 text-end">Serve: {{$receita->qtde_porcoes}} Pessoa{{$receita->qtde_porcoes > 1 ? 's' : ''}}</h5>
                                 </div>
                                 <div class="container mt-3 row">
                                     <h5 class="col-6">Região: {{$receita->nacionalidade->nacionalidade}}</h5>
