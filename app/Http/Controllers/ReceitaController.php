@@ -191,6 +191,16 @@ class ReceitaController extends Controller
         }
         if($request->escondida){
             $linha->escondida = 1;
+
+            $favoritadas = favorito::where('receita_id', $request->id)->get();
+            foreach($favoritadas as $f){
+                $f->delete();
+            }
+
+            $curtidas = curtida::where('receita_id', $request->id)->get();
+            foreach($curtidas as $c){
+                $c->delete();
+            }
         }
         else{
             $linha->escondida = 0;

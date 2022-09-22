@@ -106,7 +106,7 @@
                                         @foreach ($receitas as $item)
                                             <div class="card mb-3">
                                                 <div class="row g-0">
-                                                    <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
+                                                    <div class="col-md-4 mb-2 mt-2" style="max-height: 11rem; width: 15rem;">
                                                         <img src="{{$item->foto ? asset('foto_receitas/' . $item->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem; width: 15rem;">
                                                     </div>
                                                     <div class="col-md-8">
@@ -161,7 +161,7 @@
                                         @foreach ($curtidas as $item)
                                             <div class="card mb-3">
                                                 <div class="row g-0">
-                                                    <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
+                                                    <div class="col-md-4 mb-2 mt-2" style="max-height: 13rem; width: 15rem;">
                                                         <img src="{{$item->receita->foto ? asset('foto_receitas/' . $item->receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem; width: 15rem;">
                                                     </div>
                                                     <div class="col-md-8">
@@ -206,7 +206,7 @@
                                         @foreach ($favoritas as $item)
                                         <div class="card mb-3">
                                             <div class="row g-0">
-                                                <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
+                                                <div class="col-md-4 mb-2 mt-2" style="max-height: 13rem; width: 15rem;">
                                                     <img src="{{$item->receita->foto ? asset('foto_receitas/' . $item->receita->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem; width: 15rem;">
                                                 </div>
                                                 <div class="col-md-8">
@@ -251,7 +251,7 @@
                                         @foreach ($escondidas as $item)
                                             <div class="card mb-3" >
                                                 <div class="row g-0">
-                                                    <div class="col-md-4 mb-2 mt-2" style="height: 15rem; width: 15rem;">
+                                                    <div class="col-md-4 mb-2 mt-2" style="max-height: 11rem; width: 15rem;">
                                                         <img src="{{$item->foto ? asset('foto_receitas/' . $item->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" class="img-fluid rounded-start" style="height: 15rem; width: 15rem;">
                                                     </div>
                                                     <div class="col-md-8">
