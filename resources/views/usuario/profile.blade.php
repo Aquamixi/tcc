@@ -47,7 +47,7 @@
                                                     </button>
                                                 </div>
                                             @endif
-                                            <div class="col-md-4 mb-3 mt-3">
+                                            <div class="col-md-4 mb-2 mt-2">
                                                 <img src="{{$usuario->foto ? asset('foto_usuario' . '/' . $usuario->foto->anexo) : asset('foto_usuario/baiacu_2.0.jpg')}}" class="img-fluid rounded-start" height="500px">
                                             </div>
                                             <div class="col-md-8">
@@ -56,23 +56,23 @@
                                                         <h5 class=" col-12">Nome: {{$usuario->name}}</h5>
                                                     </div>
                                                     @if ($usuario->rank != 'incompleto')
-                                                        <div class="container mt-3 row">
+                                                        <div class="container mt-2 row">
                                                             <h5 class=" col-12">Rank: {{$usuario->rank}}</h5>
                                                         </div>
                                                     @endif
-                                                    <div class="container mt-3 row">
+                                                    <div class="container mt-2 row">
                                                         <h5 class="col-12">Email: {{$usuario->email}}</h5>
                                                     </div>
-                                                    <div class="container mt-3 row">
+                                                    <div class="container mt-2 row">
                                                         <h5 class="col-6">Entrou: {{Carbon\Carbon::parse($usuario->created_at)->format('d-m-Y')}}</h5>
                                                         <h5 class=" col-6 text-end">Idade: {{$usuario->data_nascimento ? Carbon\Carbon::parse($usuario->data_nascimento)->diffInYears(Carbon\Carbon::today()) . ' Anos' : 'Não Informada'}}</h5>
                                                     </div>
-                                                    <div class="container mt-3 row">
+                                                    <div class="container mt-2 row">
                                                         <h5 class="col-12">
                                                             Seguidores: {{count($usuario->seguidor->where('usuario_id', $usuario->id)) > 0 ? $usuario->seguidor->where('usuario_id', $usuario->id)->count() : 0}}
                                                         </h5>
                                                     </div>
-                                                    <div class="container mt-3 row">
+                                                    <div class="container mt-2 row">
                                                         <h5 class="col-6">
                                                             Seguindo: {{count($usuario->seguindo->where('seguidor_id', $usuario->id)) > 0 ? $usuario->seguindo->where('seguidor_id', $usuario->id)->count() : 0}}
                                                         </h5>
