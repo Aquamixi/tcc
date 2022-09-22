@@ -381,7 +381,6 @@
                                                 <div class="container text-center mb-3" id="botao_imagem" hidden>
                                                     <input type="file" value="Nova Imagem" name="imagem" id="imagem" hidden>
                                                     <label class="btn btn-dark" for="imagem">Nova Foto</label>
-                                                    
                                                 </div>
                                                 <div class="container text-center">
                                                     <button class="btn btn-primary col-2 border-0" type="button" id="editar" style="height:50px; background-color: #ff8c00; color:white">Editar</button>
