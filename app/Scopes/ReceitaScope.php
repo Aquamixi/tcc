@@ -2,7 +2,7 @@
 
 namespace App\Scopes;
 
-use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
@@ -19,10 +19,12 @@ class ReceitaScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
+        $usuario = new User();
+
         $builder->where('escondida', 0);
         
         if(Auth::check() and Auth::user()->data_nascimento){
-            if(Carbon::parse(Auth::user()->data_nascimento)->diffInYears(Carbon::today()) < 18){
+            if($usuario->usuario_idade() < 18){
                 $builder->where('mais_dezoito', 0);
             }
         }

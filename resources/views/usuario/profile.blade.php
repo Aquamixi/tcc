@@ -65,7 +65,7 @@
                                                     </div>
                                                     <div class="container mt-2 row">
                                                         <h5 class="col-6">Entrou: {{Carbon\Carbon::parse($usuario->created_at)->format('d-m-Y')}}</h5>
-                                                        <h5 class=" col-6 text-end">Idade: {{$usuario->data_nascimento ? Carbon\Carbon::parse($usuario->data_nascimento)->diffInYears(Carbon\Carbon::today()) . ' Anos' : 'Não Informada'}}</h5>
+                                                        <h5 class=" col-6 text-end">Idade: {{$usuario->data_nascimento ? $usuario->usuario_idade() . ' Anos' : 'Não Informada'}}</h5>
                                                     </div>
                                                     <div class="container mt-2 row">
                                                         <h5 class="col-12">
@@ -329,7 +329,7 @@
                                                     <input type="text" value="{{old('telefone') ? old('telefone') : ($usuario->telefone ? $usuario->telefone : '')}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="DDD e 9 adicional" name="telefone" id="telefone">
                                                 </div>
                                                 <div class="input-group mb-3 row">
-                                                    <span class="input-group-text col-3" id="inputGroup-sizing-default">Data Nascimento:</span>
+                                                    <span class="input-group-text col-2" id="inputGroup-sizing-default">Nascido em:</span>
                                                     <input type="date" value="{{old('nascimento') ? old('nascimento') : ($usuario->data_nascimento ? $usuario->data_nascimento : '')}}" class="form-control col-9" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nascimento" id="nascimento">
                                                 </div>
                                                 <div class="input-group mb-3 row">

@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Notifications\RedefinirSenhaNotification;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use \Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
@@ -67,6 +67,17 @@ class User extends Authenticatable
     public function endereco()
     {
         return $this->belongsTo(endereco::class, 'endereco_id', 'id');
+    }
+
+    public function usuario_idade()
+    {
+        if(Auth::user()->data_nascimento){
+            $data = Carbon::parse(Auth::user()->data_nascimento);
+        }
+        else{
+            $data = Carbon::parse(Carbon::today());
+        }
+        return $data->diffInYears(Carbon::today());
     }
 
 }
