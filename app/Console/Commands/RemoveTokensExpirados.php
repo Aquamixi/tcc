@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Carbon\Carbon;
+use DateTimeZone;
 use Illuminate\Console\Command;
 
 class RemoveTokensExpirados extends Command
@@ -30,7 +31,7 @@ class RemoveTokensExpirados extends Command
     {
         $tokens = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->whereNotNull('token_acesso')->get();
         foreach($tokens as $token){
-            if(Carbon::now()->diffInHours(Carbon::parse($token->data_token_validade), false) <= 0){
+            if(Carbon::now(new DateTimeZone('America/Sao_Paulo'))->diffInHours(Carbon::parse($token->data_token_validade), false) <= 0){
                 $token->token_acesso = null;
                 $token->data_token_validade = null;
                 $token->update();

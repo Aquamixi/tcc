@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Notifications\RedefinirSenhaNotification;
 use Carbon\Carbon;
+use DateTimeZone;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use \Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -75,9 +76,9 @@ class User extends Authenticatable
             $data = Carbon::parse(Auth::user()->data_nascimento);
         }
         else{
-            $data = Carbon::parse(Carbon::today());
+            $data = Carbon::parse(Carbon::today(new DateTimeZone('America/Sao_Paulo')));
         }
-        return $data->diffInYears(Carbon::today());
+        return $data->diffInYears(Carbon::today(new DateTimeZone('America/Sao_Paulo')));
     }
 
 }

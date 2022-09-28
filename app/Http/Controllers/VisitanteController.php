@@ -9,13 +9,14 @@ use App\Models\sabor;
 use App\Models\seguidor;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use DateTimeZone;
 use Illuminate\Support\Facades\Auth;
 
 class VisitanteController extends Controller
 {
     public function home(Request $request)
     {
-        $today = Carbon::today()->format('Y-m-d');
+        $today = Carbon::today(new DateTimeZone('America/Sao_Paulo'))->format('Y-m-d');
         $sabores = sabor::get();
         $categorias = categoria::get();
 

@@ -20,6 +20,7 @@ use App\Models\sabor;
 use App\Models\userMissoe;
 use App\Models\visualizacao;
 use Carbon\Carbon;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -65,7 +66,7 @@ class ReceitaController extends Controller
         $linha->modo_preparo = nl2br($request->preparo);
         $linha->tempo_preparo = $request->tempo;
         $linha->qtde_porcoes = $request->qtde_porcoes;
-        $linha->data_postagem = Carbon::today();
+        $linha->data_postagem = Carbon::today(new DateTimeZone('America/Sao_Paulo'));
         $linha->user_id = Auth::user()->id;
         $linha->categoria_id = $request->categoria;
         $linha->descricao = nl2br($request->descricao);
@@ -82,8 +83,13 @@ class ReceitaController extends Controller
             $linha->escondida = 0;
         }
 
-        $nacio = nacionalidade::where('nacionalidade', $request->nacionalidade)->first();
-        $linha->nacionalidade_id = $nacio->id;
+        $nacio = nacionalidade::where('nacionalidade', 'LIKE', "$request->nacionalidade%")->first();
+        if(isset($nacio->id)){
+            $linha->nacionalidade_id = $nacio->id;
+        }
+        else{
+            $linha->nacionalidade_id = 8;
+        }
 
         $linha->sabor_id = $request->sabor;
 
@@ -179,7 +185,7 @@ class ReceitaController extends Controller
         $linha->modo_preparo = nl2br($request->preparo);
         $linha->tempo_preparo = $request->tempo;
         $linha->qtde_porcoes = $request->qtde_porcoes;
-        $linha->data_postagem = Carbon::today();
+        $linha->data_postagem = Carbon::today(new DateTimeZone('America/Sao_Paulo'));
         $linha->user_id = Auth::user()->id;
         $linha->categoria_id = $request->categoria;
         $linha->descricao = nl2br($request->descricao);
@@ -206,9 +212,14 @@ class ReceitaController extends Controller
             $linha->escondida = 0;
         }
 
-        $nacio = nacionalidade::where('nacionalidade', $request->nacionalidade)->first();
-        $linha->nacionalidade_id = $nacio->id;
-
+        $nacio = nacionalidade::where('nacionalidade', 'LIKE', "$request->nacionalidade%")->first();
+        if(isset($nacio->id)){
+            $linha->nacionalidade_id = $nacio->id;
+        }
+        else{
+            $linha->nacionalidade_id = 8;
+        }
+        
         $linha->sabor_id = $request->sabor;
 
         if($request->tempo >= 0 and $request->tempo <= 30){
@@ -336,7 +347,7 @@ class ReceitaController extends Controller
         ]);
 
         $linha = new comentario();
-        $linha->data_comentario = Carbon::now();
+        $linha->data_comentario = Carbon::now(new DateTimeZone('America/Sao_Paulo'));
         $linha->user_id = Auth::user()->id;
         $linha->receita_id = $request->id;
         $linha->comentario = nl2br($request->comentario);
@@ -369,7 +380,7 @@ class ReceitaController extends Controller
         $linha = new resposta();
         $linha->resposta = nl2br($request->resposta);
         $linha->comentario_id = $request->comentario_id;
-        $linha->data_resposta = Carbon::now();
+        $linha->data_resposta = Carbon::now(new DateTimeZone('America/Sao_Paulo'));
         $linha->user_id = Auth::user()->id;
         $linha->save();
 

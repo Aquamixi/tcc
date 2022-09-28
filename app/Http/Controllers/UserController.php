@@ -24,6 +24,7 @@ use App\Models\userMissoe;
 use App\Models\visualizacao;
 use App\Scopes\ReceitaScope;
 use Carbon\Carbon;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -202,7 +203,7 @@ class UserController extends Controller
         if ($request->senha) {
             $user->password = Hash::make($request->senha);
         }
-        $user->updated_at = Carbon::now();
+        $user->updated_at = Carbon::now(new DateTimeZone('America/Sao_Paulo'));
         $user->telefone = $request->telefone;
         $user->data_nascimento = $request->nascimento;
         if($request->genero){

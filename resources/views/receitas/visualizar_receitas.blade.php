@@ -117,7 +117,7 @@
                                             <ul class="dropdown-menu text-center">
                                                 @if (Auth::user()->id == $item->user_id)
                                                     <li><button class="btn bg-transparent" data-id="{{$item->id}}" id="excluir_comentario" type="submit"><i class="fa-solid fa-trash"></i> Excluir</button></li>
-                                                    @if (Carbon\Carbon::today()->diffInHours(Carbon\Carbon::parse($item->data_comentario), false) < 24 and Carbon\Carbon::today()->diffInHours(Carbon\Carbon::parse($item->data_comentario), false) > 0)
+                                                    @if (Carbon\Carbon::today(new DateTimeZone('America/Sao_Paulo'))->diffInHours(Carbon\Carbon::parse($item->data_comentario), false) < 24 and Carbon\Carbon::today(new DateTimeZone('America/Sao_Paulo'))->diffInHours(Carbon\Carbon::parse($item->data_comentario), false) > 0)
                                                         <li><hr class="dropdown-divider"></li>
                                                         <li><button class="btn bg-transparent" data-id="{{$item->id}}" id="editar_comentario" type="submit"><i class="fa-solid fa-pen"></i> Editar</button></li>
                                                     @endif
@@ -174,7 +174,7 @@
                                                                 </button>
                                                                 <ul class="dropdown-menu text-center">
                                                                     <li><button class="btn bg-transparent" data-id="{{$r->id}}" id="excluir_resposta" type="submit"><i class="fa-solid fa-trash"></i> Excluir</button></li>
-                                                                    @if (Carbon\Carbon::today()->diffInHours(Carbon\Carbon::parse($r->data_resposta), false) < 24 and Carbon\Carbon::today()->diffInHours(Carbon\Carbon::parse($r->data_resposta), false) > 0)
+                                                                    @if (Carbon\Carbon::today(new DateTimeZone('America/Sao_Paulo'))->diffInHours(Carbon\Carbon::parse($r->data_resposta), false) < 24 and Carbon\Carbon::today(new DateTimeZone('America/Sao_Paulo'))->diffInHours(Carbon\Carbon::parse($r->data_resposta), false) > 0)
                                                                         <li><hr class="dropdown-divider"></li>
                                                                         <li><button class="btn bg-transparent" data-id="{{$r->id}}" id="editar_resposta" type="submit"><i class="fa-solid fa-pen"></i> Editar</button></li>
                                                                     @endif

@@ -10,6 +10,7 @@ use App\Models\seguidor;
 use App\Models\userMissoe;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use DateTimeZone;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -31,7 +32,7 @@ class HomeController extends Controller
      */
     public function home(Request $request)
     {
-        $today = Carbon::today()->format('Y-m-d');
+        $today = Carbon::today(new DateTimeZone('America/Sao_Paulo'))->format('Y-m-d');
         $sabores = sabor::get();
         $categorias = categoria::get();
 

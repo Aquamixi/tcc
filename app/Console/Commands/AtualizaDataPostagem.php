@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\receita;
 use Carbon\Carbon;
+use DateTimeZone;
 use Illuminate\Console\Command;
 
 class AtualizaDataPostagem extends Command
@@ -29,7 +30,7 @@ class AtualizaDataPostagem extends Command
      */
     public function handle()
     {
-        $today = Carbon::today()->format('Y-m-d');
+        $today = Carbon::today(new DateTimeZone('America/Sao_Paulo'))->format('Y-m-d');
 
         $receita_hoje = receita::has('foto')
             ->take(5)

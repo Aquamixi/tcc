@@ -85,7 +85,7 @@
                     <div class="card bg-transparent border-0">                   
                         <div class="card-body height:114px">
                             <div class="row">                             
-                                <h3 class="fonteMaisFamosas col-5">Modo De Preparo</h3>
+                                <h3 class="fonteMaisFamosas col-6">Modo De Preparo</h3>
                                 <label class="form-label faltadados col-5">
                                     <h6>{{$errors->has('preparo') ? "Obrigatório" : ''}}</h6>
                                 </label>
