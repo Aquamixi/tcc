@@ -282,6 +282,7 @@ class ReceitaController extends Controller
         $receita = receita::with('ingrediente', 'foto', 'comentario.usuario', 'comentario.respostas.usuario')
         ->findOrFail($request->id);
 
+        $completo = [];
         foreach($receita->ingrediente as $ingrediente){
             $completo[] = $ingrediente->ingrediente;
         }
@@ -298,7 +299,12 @@ class ReceitaController extends Controller
         ->with('ingrediente', 'foto', 'comentario.usuario', 'comentario.respostas.usuario')
         ->findOrFail($request->id);
 
-        return view('receitas.visualizar_receitas', compact("sabores", "categorias", "receita"));
+        $completo = [];
+        foreach($receita->ingrediente as $ingrediente){
+            $completo[] = $ingrediente->ingrediente;
+        }
+
+        return view('receitas.visualizar_receitas', compact("sabores", "categorias", "receita", "completo"));
     }
 
     public function curtir_receita(Request $request)
@@ -347,7 +353,7 @@ class ReceitaController extends Controller
     {
         $request->validate([
             'id' => 'required',
-            'comentario' => 'required|max:1500'
+            'comentario' => 'required'
         ]);
 
         $linha = new comentario();
@@ -377,7 +383,7 @@ class ReceitaController extends Controller
     {
         $request->validate([
             'id' => 'required',
-            'resposta' => 'required|max:1500',
+            'resposta' => 'required',
             'comentario_id' => 'required'
         ]);
 
@@ -409,7 +415,7 @@ class ReceitaController extends Controller
     {
         $request->validate([
             'id' => 'required',
-            'comentario' => 'required|max:1500'
+            'comentario' => 'required'
         ]);
 
         $linha = comentario::findOrFail($request->id);
@@ -628,7 +634,7 @@ class ReceitaController extends Controller
     {
         $request->validate([
             'id' => 'required',
-            'resposta' => 'required|max:1500'
+            'resposta' => 'required'
         ]);
 
         $linha = resposta::findOrFail($request->id);
