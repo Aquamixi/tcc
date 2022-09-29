@@ -16,7 +16,7 @@
                                     <h2>Titulo Da Receita</h2>     
                                 </label>
                                 <label class="form-label faltadados">
-                                    <h6>{{$errors->has('titulo') ? $errors->first('titulo') : ''}}</h6>
+                                    <h6>{{$errors->has('titulo') ? "Obrigatório" : ''}}</h6>
                                 </label>
                             </div>
                             <input style="height: 50px" type="text" value="{{$linha->titulo_receita}}" class="form-control fonteCriarReceitas" name="titulo" id="exampleFormControlInput1" placeholder="coloque aqui seu titulo">
@@ -42,7 +42,7 @@
                             <div class="row">
                             <h3 class="fonteMaisFamosas col-6">Sabor</h3>
                             <label class="form-label faltadados col-5">
-                                <h6>{{$errors->has('sabor') ? $errors->first('sabor') : ''}}</h6>
+                                <h6>{{$errors->has('sabor') ? "Obrigatório" : ''}}</h6>
                             </label>
                             </div>
                             <select class="form-select" aria-label="Default select example"  name="sabor" style="height: 50px;">
@@ -55,8 +55,8 @@
                         <div class="mx-auto col-6 ms-1">
                             <div class="row">
                                 <h3 class="fonteMaisFamosas col-6">Nacionalidade</h3>
-                                <label class="form-label faltadados col-5">
-                                    <h6>{{$errors->has('nacionalidade') ? $errors->first('nacionalidade') : ''}}</h6>
+                                <label class="form-label faltadados col-6 text-end">
+                                    <h6>{{$errors->has('nacionalidade') ? "Obrigatório" : ''}}</h6>
                                 </label>
                             </div>
                             <input class="form-control" value="{{$linha->nacionalidade->nacionalidade}}" aria-label="Default select example" list="datalistOptions" name="nacionalidade" style="height: 50px" />
@@ -70,22 +70,22 @@
                     <div class="card bg-transparent mt-3 border-0">                   
                         <div class="card-body height:114px">
                             <div class="row">
-                                <label for="exampleFormControlTextarea1"  class="form-label col-6">
+                                <label for="exampleFormControlTextarea1" class="form-label col-6">
                                     <h3 class="fonteMaisFamosas">Ingredientes</h3>
                                 </label>
-                                <label class="form-label faltadados col-5">
-                                    <h6>{{$errors->has('ingrediente') ? $errors->first('ingrediente') : ''}}</h6>
+                                <label class="form-label faltadados col-6 text-end">
+                                    <h6>{{$errors->has('ingrediente') ? "Obrigatório" : ''}}</h6>
                                 </label>
                             </div>
                             <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Separe os ingredientes por virgula assim: Cebola, Tomate" name="ingrediente" style="resize: none; height:115.7px;">{{implode(',', $completo)}}</textarea>
                         </div>
                     </div>
-                    <div class="card bg-transparent  border-0">                   
+                    <div class="card bg-transparent border-0">                   
                         <div class="card-body height:114px">
                             <div class="row">
                                     <h3 class="fonteMaisFamosas col-6">Modo De Preparo</h3>
                                 <label class="form-label faltadados col-5">
-                                    <h6>{{$errors->has('preparo') ? $errors->first('preparo') : ''}}</h6>
+                                    <h6>{{$errors->has('preparo') ? "Obrigatório" : ''}}</h6>
                                 </label>
                             </div>
                             <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Minha receita é um bolo de cocaina" name="preparo" style="resize: none; height:115.7px;">{{str_replace('<br />', "", $linha->modo_preparo)}}</textarea>
@@ -96,7 +96,7 @@
                             <div class="row">
                                 <h3 class="fonteMaisFamosas col-6">Categoria</h3>
                                 <label class="form-label faltadados col-5">
-                                    <h6>{{$errors->has('categoria') ? $errors->first('categoria') : ''}}</h6>
+                                    <h6>{{$errors->has('categoria') ? "Obrigatório" : ''}}</h6>
                                 </label>
                             </div>
                             <select class="form-select" aria-label="Default select example" name="categoria" style="height: 50px" placeholder="Categoria">
@@ -115,7 +115,7 @@
                                 <label for="exampleFormControlTextarea1" class="form-label col-6"><h3 class="fonteMaisFamosas">Descrição</h3></label>
                                 <label class="form-label faltadados col-5">
                             </div>
-                                <h6>{{$errors->has('descricao') ? $errors->first('descricao') : ''}}</h6>
+                                <h6>{{$errors->has('descricao') ? "Obrigatório" : ''}}</h6>
                             </label>
                             <textarea class="form-control" id="descricao" placeholder="Descreva brevemente a sua receita" name="descricao" style="height:115.7px;">{{str_replace('<br />', "", $linha->descricao)}}</textarea>
                         </div>
@@ -124,8 +124,8 @@
                         <div class="mx-auto col-6 ms-1">
                             <div class="row">
                                 <h3 class="fonteMaisFamosas col-6">Tempo&nbsp;Preparo</h3>                            
-                                <label class="form-label faltadados col-5">
-                                    <h6>{{$errors->has('tempo') ? $errors->first('tempo') : ''}}</h6>
+                                <label class="form-label faltadados col-6 text-end">
+                                    <h6>{{$errors->has('tempo') ? "Obrigatório" : ''}}</h6>
                                 </label>
                             </div>
                             <input type="number" class="form-control" name="tempo" value="{{$linha->tempo_preparo}}" id="exampleFormControlInput1" placeholder="Tempo Em Minutos" style="height: 3.1rem ;">    
@@ -134,7 +134,7 @@
                             <div class="row">
                                 <h3 class="fonteMaisFamosas col-6">Servem</h3>
                                 <label class="form-label faltadados col-5">
-                                    <h6>{{$errors->has('qtde_porcoes') ? $errors->first('qtde_porcoes') : ''}}</h6>
+                                    <h6>{{$errors->has('qtde_porcoes') ? "Obrigatório" : ''}}</h6>
                                 </label>
                             </div>
                             <input type="number" class="form-control" name="qtde_porcoes" value="{{$linha->qtde_porcoes}}" id="exampleFormControlInput1" placeholder="Quantidade Em Números" style="height: 3.1rem ;" >    

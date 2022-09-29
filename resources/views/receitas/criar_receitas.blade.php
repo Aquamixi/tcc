@@ -57,7 +57,7 @@
                         <div class="mx-auto col-6 ms-1">
                             <div class="row">
                                 <h3 class="fonteMaisFamosas col-6">Nacionalidade</h3>
-                                <label class="form-label faltadados col-5">
+                                <label class="form-label faltadados col-6 text-end">
                                     <h6 >{{$errors->has('nacionalidade') ? "Obrigatório" : ''}}</h6>
                                 </label>
                             </div>
@@ -72,7 +72,7 @@
                     <div class="card bg-transparent mt-3 border-0">                   
                         <div class="card-body height:114px">
                             <div class="row">                              
-                                <label for="exampleFormControlTextarea1"  class="form-label col-6">
+                                <label for="exampleFormControlTextarea1" class="form-label col-6">
                                     <h3 class="fonteMaisFamosas">Ingredientes</h3>
                                 </label>
                                 <label class="form-label faltadados col-5">
@@ -129,7 +129,7 @@
                         <div class="mx-auto col-6 ms-1">
                             <div class="row">
                                 <h3 class="fonteMaisFamosas col-6">Tempo&nbsp;Preparo</h3>
-                                <label class="form-label faltadados col-5">
+                                <label class="form-label faltadados text-end col-6">
                                     <h6>{{$errors->has('tempo') ? "Obrigatório" : ''}}</h6>
                                 </label>
                             </div>
