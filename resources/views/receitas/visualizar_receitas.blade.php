@@ -74,31 +74,20 @@
                     <h5 class="fonteMaisFamosas mt-3">Descrição</h5>
                 </div>
                 <div class="card col-12">
-                    <div class="card-body" style="height:170px;">
-                        {!! $receita->descricao !!}
-                    </div>
+                    {!! Form::textarea('view', str_replace('<br />', "", $receita->descricao), ['class' => 'form-control textarea-100 autoExpand', 'readonly', 'rows' => count(preg_split('/\n|\r|<br \/>/',$receita->descricao)), 'style' => 'border: 0px; box-shadow: none; background-color: white;']) !!}
                 </div>
                     <div class="">
                         <h5 class="fonteMaisFamosas mt-3">Ingredientes</h5>
                     </div>
-                    <div class="card  col-12">
-                        <div class="card-body " style="height:170px;">
-                            @foreach ($receita->ingrediente as $item)
-                                @if ($loop->last)
-                                    {{$item->ingrediente}}
-                                @else
-                                    {{$item->ingrediente}},
-                                @endif
-                            @endforeach
-                        </div>
+                    <div class="card col-12">
+                        {!! Form::textarea('view', " " . implode(',', $completo), ['class' => 'form-control textarea-100 autoExpand', 'readonly', 'rows' => '7', 'style' => 'border: 0px; box-shadow: none; background-color: white;']) !!}
                     </div>
                     <div class="">
                         <h5 class="fonteMaisFamosas mt-3">Modo De Preparo</h5>
                     </div>
                     <div class="card col-12 mb-3" >
-                        <div class="card-body" style="height:170px;">
-                            {!! $receita->modo_preparo !!}
-                        </div>
+                        {!! Form::textarea('view', str_replace('<br />', "", $receita->modo_preparo), ['class' => 'form-control textarea-100 autoExpand', 'readonly', 'rows' => count(preg_split('/\n|\r|<br \/>/',$receita->modo_preparo)), 'style' => 'border: 0px; box-shadow: none; background-color: white;']) !!}
+                        
                     </div>
                     @if (count($receita->comentario) > 0)
                         <div class="">
@@ -198,7 +187,7 @@
     </main>
 
     <div class="modal fade" id="modalComentario" role="dialog">
-        <div class="modal-dialog bordaBonita">
+        <div class="modal-dialog modal-lg bordaBonita">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title fonteMaisFamosas">Comentar</h3>
@@ -207,7 +196,7 @@
                     @csrf
                     <input id="receita_id_comentario" value="{{$receita->id}}" name="id" hidden>
                     <div class="modal-body">
-                        <textarea class="form-control" id="comentario_id" placeholder="Escreva aqui o seu comentario" name="comentario" style="resize: none; height:115.7px;">{{old('comentario') ? old('comentario') : ''}}</textarea>
+                        {!! Form::textarea('comentario', null, ['id' => 'comentario_id', 'class' => 'form-control textarea-100 autoExpand', 'placeholder' => 'Escreva aqui o seu comentario', 'data-min-rows' => '3']) !!}
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
@@ -219,7 +208,7 @@
     </div>
 
     <div class="modal fade" id="modalEComentario" role="dialog">
-        <div class="modal-dialog bordaBonita">
+        <div class="modal-dialog modal-lg bordaBonita">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title fonteMaisFamosas">Editar Comentario</h3>
@@ -236,7 +225,7 @@
     </div>
 
     <div class="modal fade" id="modalResponder" role="dialog">
-        <div class="modal-dialog bordaBonita">
+        <div class="modal-dialog modal-lg bordaBonita">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title fonteMaisFamosas">Responder</h3>
@@ -244,7 +233,7 @@
                 <input id="comentario_id" hidden>
                 <input value="{{$receita->id}}" id="id_da_receita" hidden>
                 <div class="modal-body">
-                    <textarea class="form-control" placeholder="Escreva aqui a sua resposta" id="resposta" name="resposta" style="resize: none; height:115.7px;">{{old('resposta') ? old('resposta') : ''}}</textarea>
+                    {!! Form::textarea('resposta', null, ['id' => 'resposta', 'class' => 'form-control textarea-100 autoExpand', 'placeholder' => 'Escreva aqui a sua resposta', 'data-min-rows' => '3']) !!}
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="fecha" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
@@ -255,7 +244,7 @@
     </div>
     
     <div class="modal fade" id="modalEResposta" role="dialog">
-        <div class="modal-dialog bordaBonita">
+        <div class="modal-dialog modal-lg bordaBonita">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title fonteMaisFamosas">Editar Resposta</h3>

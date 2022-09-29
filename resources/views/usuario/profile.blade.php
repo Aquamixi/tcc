@@ -490,7 +490,11 @@
                             @foreach ($notificacaos as $n)
                                 <div class="row">
                                     <div class="text-start col-10">
-                                        {{$n->notificacao}}
+                                        @if (strlen($n->notificacao) < 100)
+                                            {!! substr($n->notificacao, 0, 100)!!}
+                                        @else
+                                            {!! substr($n->notificacao, 0, 100) . '...' !!}
+                                        @endif
                                     </div>
                                     <div class="col-2">
                                         <div class="form-check form-switch">

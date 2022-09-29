@@ -1,5 +1,5 @@
 <form action="{{url('editar_resposta')}}" method="post">
     @csrf
     <input id="resposta_id" name="id" value="{{$linha->id}}" hidden>
-    <textarea class="form-control" id="nova_resposta" placeholder="Escreva aqui o seu comentario" name="resposta" style="resize: none; height:115.7px;">{{str_replace('<br />', "", $linha->resposta)}}</textarea>
+    {!! Form::textarea('resposta', str_replace('<br />', "", $linha->resposta), ['id' => 'nova_resposta', 'class' => 'form-control textarea-100 autoExpand', 'placeholder' => '...', 'rows' => count(preg_split('/\n|\r|<br \/>/',$linha->resposta))]) !!}
 </form>

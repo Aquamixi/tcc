@@ -278,11 +278,15 @@ class ReceitaController extends Controller
     {
         $sabores = sabor::get();
         $categorias = categoria::get();
-        
+
         $receita = receita::with('ingrediente', 'foto', 'comentario.usuario', 'comentario.respostas.usuario')
         ->findOrFail($request->id);
 
-        return view('receitas.visualizar_receitas', compact("sabores", "categorias", "receita"));
+        foreach($receita->ingrediente as $ingrediente){
+            $completo[] = $ingrediente->ingrediente;
+        }
+        
+        return view('receitas.visualizar_receitas', compact("sabores", "categorias", "receita", "completo"));
     }
 
     public function visualizar_receita_escondida(Request $request)
@@ -343,7 +347,7 @@ class ReceitaController extends Controller
     {
         $request->validate([
             'id' => 'required',
-            'comentario' => 'required'
+            'comentario' => 'required|max:1500'
         ]);
 
         $linha = new comentario();
@@ -373,7 +377,7 @@ class ReceitaController extends Controller
     {
         $request->validate([
             'id' => 'required',
-            'resposta' => 'required',
+            'resposta' => 'required|max:1500',
             'comentario_id' => 'required'
         ]);
 
@@ -405,7 +409,7 @@ class ReceitaController extends Controller
     {
         $request->validate([
             'id' => 'required',
-            'comentario' => 'required'
+            'comentario' => 'required|max:1500'
         ]);
 
         $linha = comentario::findOrFail($request->id);
@@ -624,7 +628,7 @@ class ReceitaController extends Controller
     {
         $request->validate([
             'id' => 'required',
-            'resposta' => 'required'
+            'resposta' => 'required|max:1500'
         ]);
 
         $linha = resposta::findOrFail($request->id);

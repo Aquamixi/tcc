@@ -122,7 +122,7 @@
                     Faça login em um computador Windows, para maior segurança e nossa confiança.
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="fechaAviso" class="btn btn-default" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" id="fechaAviso" class="btn btn-default" style="background-color: #ff8c00;color: white;" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
