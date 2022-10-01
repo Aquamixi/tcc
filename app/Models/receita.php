@@ -128,9 +128,11 @@ class receita extends Model
                         $sem_espaco[$index] = trim($ingrediente);
                         $index++;
                     }
+                    $ingre = [];
                     foreach($sem_espaco as $sem){
-                        $q->where('ingrediente', 'LIKE', '%' . $sem . '%');
+                        $ingre[] = ['ingrediente', 'LIKE', '%' . $sem . '%'];
                     }
+                    $q->orWhere($ingre);
                 }
                 else{
                     $q->where('ingrediente', 'LIKE', '%' . $val . '%');
