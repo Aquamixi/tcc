@@ -45,7 +45,7 @@
                                     @endif
                                         <img src="{{$item->foto ? asset('foto_receitas' . '/' . $item->foto->anexo) : asset('foto_receitas/baiacu_2.0.png')}}" height="400px" width="300px" class="d-block w-100" >
                                         <div class="carousel-caption d-none d-md-block">
-                                            <h5 class="fonteTituloReceitas"><a href="{{url('visualizar_receitas/')}}/{{$item->id}}" style="text-decoration: none; color: black">{{$item->titulo_receita}}</a></h5>
+                                            <h5 class="fonteMaisFamosas text-center"><a href="{{url('visualizar_receitas/')}}/{{$item->id}}" style="text-decoration: none; color: white">{{$item->titulo_receita}}</a></h5>
                                         </div>
                                     </div>
                                 @endforeach
