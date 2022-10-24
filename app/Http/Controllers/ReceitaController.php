@@ -58,7 +58,8 @@ class ReceitaController extends Controller
             'descricao' => 'required',
             'nacionalidade' => 'required|min:4',
             'ingrediente' => 'required',
-            'sabor' => 'required'
+            'sabor' => 'required',
+            'imagem' => 'image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
         $linha = new receita();
@@ -177,7 +178,8 @@ class ReceitaController extends Controller
             'descricao' => 'required',
             'nacionalidade' => 'required',
             'ingrediente' => 'required',
-            'sabor' => 'required'
+            'sabor' => 'required',
+            'imagem' => 'image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
         $linha = \App\Models\receita::withoutGlobalScope(\App\Scopes\ReceitaScope::class)->findOrFail($request->id);

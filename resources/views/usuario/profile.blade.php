@@ -143,6 +143,10 @@
                                                                     <i class="fa-solid fa-trash"></i>
                                                                 </button>
                                                             </div>  
+                                                        @else
+                                                            <div class="text-end" style="height: 36px">
+                                                                
+                                                            </div>  
                                                         @endif 
                                                     </div>
                                                 </div>

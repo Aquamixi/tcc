@@ -138,7 +138,8 @@ class UserController extends Controller
                 'nome' => 'required',
                 'email' => 'required',
                 'uf' => 'required',
-                'pais' => 'required'
+                'pais' => 'required',
+                'imagem' => 'image|mimes:jpeg,png,jpg,gif,svg'
             ]);
         }
         else{
@@ -146,7 +147,8 @@ class UserController extends Controller
                 'nome' => 'required',
                 'email' => 'required|unique:users',
                 'uf' => 'required',
-                'pais' => 'required'
+                'pais' => 'required',
+                'imagem' => 'image|mimes:jpeg,png,jpg,gif,svg'
             ]);
         }
         
