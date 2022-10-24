@@ -100,18 +100,20 @@
                                     <h5 class="col-5 mt-2 text-end">{{Carbon\Carbon::parse($item->data_comentario)->format('d-m-Y')}}</h5>                           
                                     <h5 class="col-1 mt-2 text-end">
                                         <div class="dropend">
-                                            <button type="button" class="border-0 bg-transparent dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                                            </button>
-                                            <ul class="dropdown-menu text-center">
-                                                @if (Auth::user()->id == $item->user_id)
-                                                    <li><button class="btn bg-transparent" data-id="{{$item->id}}" id="excluir_comentario" type="submit"><i class="fa-solid fa-trash"></i> Excluir</button></li>
-                                                    @if (Carbon\Carbon::today(new DateTimeZone('America/Sao_Paulo'))->diffInHours(Carbon\Carbon::parse($item->data_comentario), false) < 24 and Carbon\Carbon::today(new DateTimeZone('America/Sao_Paulo'))->diffInHours(Carbon\Carbon::parse($item->data_comentario), false) > 0)
-                                                        <li><hr class="dropdown-divider"></li>
-                                                        <li><button class="btn bg-transparent" data-id="{{$item->id}}" id="editar_comentario" type="submit"><i class="fa-solid fa-pen"></i> Editar</button></li>
+                                            @if (Auth::user()->id == $item->user_id)
+                                                <button type="button" class="border-0 bg-transparent dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                </button>
+                                                <ul class="dropdown-menu text-center">
+                                                    @if (Auth::user()->id == $item->user_id)
+                                                        <li><button class="btn bg-transparent" data-id="{{$item->id}}" id="excluir_comentario" type="submit"><i class="fa-solid fa-trash"></i> Excluir</button></li>
+                                                        @if (Carbon\Carbon::today(new DateTimeZone('America/Sao_Paulo'))->diffInHours(Carbon\Carbon::parse($item->data_comentario), false) < 24 and Carbon\Carbon::today(new DateTimeZone('America/Sao_Paulo'))->diffInHours(Carbon\Carbon::parse($item->data_comentario), false) > 0)
+                                                            <li><hr class="dropdown-divider"></li>
+                                                            <li><button class="btn bg-transparent" data-id="{{$item->id}}" id="editar_comentario" type="submit"><i class="fa-solid fa-pen"></i> Editar</button></li>
+                                                        @endif
                                                     @endif
-                                                @endif
-                                            </ul>
+                                                </ul>
+                                            @endif
                                         </div>
                                     </h5>
                                 </div>
