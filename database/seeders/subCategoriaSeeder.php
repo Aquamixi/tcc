@@ -13,7 +13,7 @@ class subCategoriaSeeder extends Seeder
      */
     public function run()
     {
-        $sub_categorias = ['Saladas', 'Churrasco', 'Sopas', 'Gelatinas', 'Bolos', 'Arroz', 'Massas', 'Bebidas'];
+        $sub_categorias = ['Saladas', 'Churrasco', 'Sopas', 'Gelatinas', 'Bolos', 'Arroz', 'Massas'];
         $index = 1;
         foreach($sub_categorias as $sub_categoria){
             $linha = new \App\Models\subCategoria();

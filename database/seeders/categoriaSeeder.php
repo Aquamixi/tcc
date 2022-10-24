@@ -13,7 +13,7 @@ class categoriaSeeder extends Seeder
      */
     public function run()
     {
-        $categorias = ['Sobremesa', 'Almoço', 'Janta', 'Café da Manhã', 'Lanche da Tarde', 'Brunch', 'Microondas'];
+        $categorias = ['Sobremesa', 'Almoço', 'Janta', 'Café da Manhã', 'Lanche da Tarde', 'Brunch', 'Microondas', 'Bebidas'];
 
         foreach($categorias as $categoria){
             $linha = new \App\Models\categoria();
