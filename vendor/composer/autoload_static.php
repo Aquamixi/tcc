@@ -571,7 +571,6 @@ class ComposerStaticInited72676c06d2bb8ae7ef136cda579ae8
         'App\\Models\\fotoUser' => __DIR__ . '/../..' . '/app/Models/fotoUser.php',
         'App\\Models\\nacionalidade' => __DIR__ . '/../..' . '/app/Models/nacionalidade.php',
         'App\\Models\\notificacao' => __DIR__ . '/../..' . '/app/Models/notificacao.php',
-        'App\\Models\\notificacaoUser' => __DIR__ . '/../..' . '/app/Models/notificacaoUser.php',
         'App\\Models\\pai' => __DIR__ . '/../..' . '/app/Models/pai.php',
         'App\\Models\\receita' => __DIR__ . '/../..' . '/app/Models/receita.php',
         'App\\Models\\receitaIngrediente' => __DIR__ . '/../..' . '/app/Models/receitaIngrediente.php',

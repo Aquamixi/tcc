@@ -50,7 +50,6 @@ return array(
     'App\\Models\\fotoUser' => $baseDir . '/app/Models/fotoUser.php',
     'App\\Models\\nacionalidade' => $baseDir . '/app/Models/nacionalidade.php',
     'App\\Models\\notificacao' => $baseDir . '/app/Models/notificacao.php',
-    'App\\Models\\notificacaoUser' => $baseDir . '/app/Models/notificacaoUser.php',
     'App\\Models\\pai' => $baseDir . '/app/Models/pai.php',
     'App\\Models\\receita' => $baseDir . '/app/Models/receita.php',
     'App\\Models\\receitaIngrediente' => $baseDir . '/app/Models/receitaIngrediente.php',

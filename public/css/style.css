@@ -6,6 +6,7 @@ main {
 html, body {
     height: 100%;
     width: 100%;
+    -webkit-print-color-adjust: exact;
 }
 
 
