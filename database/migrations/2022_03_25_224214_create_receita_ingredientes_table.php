@@ -16,7 +16,7 @@ class CreateReceitaIngredientesTable extends Migration
         Schema::create('receita_ingredientes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('receita_id');
-            $table->string('ingrediente');
+            $table->text('ingrediente');
         });
 
         Schema::table('receita_ingredientes', function (Blueprint $table) {

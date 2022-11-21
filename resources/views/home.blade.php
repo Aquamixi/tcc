@@ -112,22 +112,6 @@
         @endif
     </main>
 
-    <div class="modal fade" id="avisoModal" data-bs-backdrop="static" role="dialog">
-        <div class="modal-dialog bordaBonita">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title fonteMaisFamosas">Aviso</h4>
-                </div>
-                <div class="modal-body fonteVelocidadeReceitas">
-                    Faça login em um computador Windows, para maior segurança e nossa confiança.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="fechaAviso" class="btn btn-default" style="background-color: #ff8c00;color: white;" data-bs-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="NoCanto" id="alerta_sucesso_cadastrar" hidden>
         <div class="alert alert-success" role="alert">
             Receita Cadastrada com Sucesso!
@@ -154,27 +138,8 @@
 @endsection
 @section('pos-script')
     <script type="text/javascript">
-        var first = {{$first_login ?? 0}};
-
         const urlParams = new URLSearchParams(window.location.search);
         const confirm = urlParams.get('confirm');
-
-        if(first == 1){
-            $(document).ready(function(){
-                $("#avisoModal").modal('show');
-            });
-        }
-
-        $('.modal-footer').on('click', '#fechaAviso', function(){
-            $.ajax({
-                type: 'POST', 
-                url: "{{ url('definir_first_login') }}", 
-                data: { 
-                    data: '0',
-                    "_token": "{{ csrf_token() }}",
-                } 
-            });
-        });
 
         if(confirm == 'receita_cadastrada'){
 

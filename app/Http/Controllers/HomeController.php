@@ -41,8 +41,6 @@ class HomeController extends Controller
         ->take(5)
         ->get();
 
-        $first_login = Auth::user()->first_login;
-
         $receitas = receita::select();
 
         if($request->search){
@@ -58,7 +56,7 @@ class HomeController extends Controller
 
             $receitas = $receitas->get();
 
-            return view('pesquisa.pesquisa', compact('array_seguindo', 'usuarios', 'first_login', 'receitas', 'sabores', 'categorias'));
+            return view('pesquisa.pesquisa', compact('array_seguindo', 'usuarios', 'receitas', 'sabores', 'categorias'));
         }
 
         if($request->seguindo){
@@ -72,7 +70,7 @@ class HomeController extends Controller
         $verificar = receita::first();
         $receitas = $receitas->simplePaginate(10);
 
-        return view('home', compact('receitas', 'first_login', 'receita_hoje', 'sabores', 'categorias', 'verificar'));
+        return view('home', compact('receitas', 'receita_hoje', 'sabores', 'categorias', 'verificar'));
     }
 
     public function visualizar_missoes()
