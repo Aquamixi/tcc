@@ -68,7 +68,7 @@ class HomeController extends Controller
         }
 
         $verificar = receita::first();
-        $receitas = $receitas->simplePaginate(10);
+        $receitas = $receitas->orderByDesc('data_postagem')->simplePaginate(10);
 
         return view('home', compact('receitas', 'receita_hoje', 'sabores', 'categorias', 'verificar'));
     }
