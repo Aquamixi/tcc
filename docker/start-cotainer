@@ -10,8 +10,6 @@ fi
 
 composer install
 php artisan config:cache
-php artisan migrate:fresh
-php artisan db:seed
 chmod -R ugo+rw /.composer
 
 if [ ! -z "$PORT" ]; then
@@ -28,3 +26,6 @@ if [ $# -gt 0 ];then
 else
     /usr/bin/supervisord
 fi
+
+php artisan migrate:fresh --force
+php artisan db:seed --force
