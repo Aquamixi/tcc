@@ -4,6 +4,7 @@ namespace Illuminate\Database;
 
 use Doctrine\DBAL\Types\Type;
 use Illuminate\Database\Connectors\ConnectionFactory;
+use Illuminate\Database\Events\ConnectionEstablished;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ConfigurationUrlParser;
 use Illuminate\Support\Str;
@@ -38,14 +39,14 @@ class DatabaseManager implements ConnectionResolverInterface
     /**
      * The active connection instances.
      *
-     * @var array
+     * @var array<string, \Illuminate\Database\Connection>
      */
     protected $connections = [];
 
     /**
      * The custom connection resolvers.
      *
-     * @var array
+     * @var array<string, callable>
      */
     protected $extensions = [];
 
@@ -59,7 +60,7 @@ class DatabaseManager implements ConnectionResolverInterface
     /**
      * The custom Doctrine column types.
      *
-     * @var array
+     * @var array<string, array>
      */
     protected $doctrineTypes = [];
 
@@ -99,6 +100,12 @@ class DatabaseManager implements ConnectionResolverInterface
             $this->connections[$name] = $this->configure(
                 $this->makeConnection($database), $type
             );
+
+            if ($this->app->bound('events')) {
+                $this->app['events']->dispatch(
+                    new ConnectionEstablished($this->connections[$name])
+                );
+            }
         }
 
         return $this->connections[$name];
@@ -369,7 +376,7 @@ class DatabaseManager implements ConnectionResolverInterface
     /**
      * Get all of the support drivers.
      *
-     * @return array
+     * @return string[]
      */
     public function supportedDrivers()
     {
@@ -379,7 +386,7 @@ class DatabaseManager implements ConnectionResolverInterface
     /**
      * Get all of the drivers that are actually available.
      *
-     * @return array
+     * @return string[]
      */
     public function availableDrivers()
     {
@@ -415,7 +422,7 @@ class DatabaseManager implements ConnectionResolverInterface
     /**
      * Return all of the created connections.
      *
-     * @return array
+     * @return array<string, \Illuminate\Database\Connection>
      */
     public function getConnections()
     {

@@ -2,8 +2,6 @@
 
 namespace Illuminate\Foundation\Auth;
 
-use App\Models\categoria;
-use App\Models\sabor;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -20,10 +18,7 @@ trait RegistersUsers
      */
     public function showRegistrationForm()
     {
-        $sabores = sabor::get();
-        $categorias = categoria::get();
-        
-        return view('auth.register', compact('sabores', 'categorias'));
+        return view('auth.register');
     }
 
     /**
