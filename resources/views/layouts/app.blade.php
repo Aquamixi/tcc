@@ -15,7 +15,242 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         @yield('extra_css')
     </head>
+    <style>
+        main {
+    min-height: 100%;
+    background-image: linear-gradient(0deg, #FFF323, #ffa700, #ff7400, #ff6600);
+    background-size: cover;
+}
+html, body {
+    height: 100%;
+    width: 100%;
+    -webkit-print-color-adjust: exact;
+}
 
+
+@font-face {
+    font-family: Muthiara;
+    src: url(font/Muthiara\ demo\ version.otf);
+}
+@font-face {
+    font-family: PoetsenOne;
+    src: url(font/PoetsenOne-Regular.ttf);
+}
+.fonteMyrecipes {
+    font-family: Muthiara;
+    text-decoration: none;
+    color: #fff;
+    text-shadow: 3px 0 0 #ff6600, -3px 0 0 #ff6600, 0 3px 0 #ff6600, 0 -3px 0 #ff6600, 1.5px 1.5px #ff6600, -1.5px -1.5px 0 #ff6600, 1.5px -1.5px 0 #ff6600, -1.5px 1.5px 0 #ff6600;
+}
+.fonteMyrecipes:hover {
+    -webkit-transition: all 0.5s ease-out;
+    color: #fce620;
+}
+
+.fonteMaisFamosas{
+    font-family: PoetsenOne;
+    color: #fff;
+    text-align: left;
+    text-shadow: 2px 0 0 #ff9000, -2px 0 0 #ff9000, 0 2px 0 #ff9000, 0 -2px 0 #ff9000, 1px 1px #ff9000, -1px -1px 0 #ff9000, 1px -1px 0 #ff9000, -1px 1px 0 #ff9000;
+}
+
+.faltadados{
+    font-family: PoetsenOne;
+    color: #fff;
+    text-align: left;
+    text-shadow: 2px 0 0 #cc1414, -2px 0 0 #cc1414, 0 2px 0 #cc1414, 0 -2px 0 #cc1414, 1px 1px #cc1414, -1px -1px 0 #cc1414, 1px -1px 0 #cc1414, -1px 1px 0 #cc1414;
+}
+
+.fonteCriarReceitas{
+    font-family: PoetsenOne;
+    /* opacity: 0.5; */
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    max-height: 50%;
+}
+
+.content {
+    flex-grow: 1;
+}
+
+.NoCanto{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    width: 30%;
+    height: 30%;
+    float: right;
+    z-index: 999;
+}
+
+.checked{
+    color: #ffc400;
+}
+
+.checkedfor{
+    color: #ffc400;
+}
+
+.ajusta_imagem{
+    object-fit: fill;
+}
+
+.botaostar{
+    border: 0;
+    background: #fff;
+}
+
+.botaostar:hover{
+    color: #ffc400;
+}
+
+.botaoshare{
+    border: 0;
+    background: #fff;
+    text-decoration: none;
+    color: #000;
+}
+
+.botaoshare:hover{
+    color: #ff9000;
+    cursor: pointer;
+}
+
+.botaofavoritar{
+    border: 0;
+    background: #fff;
+    text-decoration: none;
+    color: #000;
+}
+
+.botaofavoritar:hover{
+    color: red;
+    cursor: pointer;
+}
+
+.botaocurtir{
+    border: 0;
+    background: #fff;
+    text-decoration: none;
+    color: #000;
+}
+
+.botaocurtir:hover{
+    color: rgb(0, 98, 255);
+    cursor: pointer;
+}
+
+.favoritado{
+    color: red;
+    cursor: pointer;
+}
+
+.favoritado:hover{
+    color:#000;
+}
+
+.curtido{
+    color: rgb(0, 98, 255);
+    cursor: pointer;
+}
+
+.curtido:hover{
+    color:#000;
+}
+
+.comentar{
+    color:rgb(0, 0, 0);
+}
+
+.comentar:hover{
+    color:rgb(24, 194, 69);
+}
+
+.botaousuario{
+    color: #000;
+    font-family: PoetsenOne;
+    padding: 0.5rem ;
+}
+.enviaComentario{
+    color: rgb(0, 98, 255);
+}
+
+.fonteMissoes{
+    color:#000;
+    font-size: larger;
+}
+
+.fonteTituloReceitas{
+    font-size: 1.5rem;
+    font-family: PoetsenOne;
+}
+
+.fonteVelocidadeReceitas{
+    font-size: 1rem;
+    font-family: PoetsenOne;
+    color: rgba(0, 0, 0, 0.897);
+}
+
+.fonteDescricaoReceitas{
+    font-size: 0.8rem;
+    font-family: PoetsenOne;
+    color: rgba(0, 0, 0, 0.73);
+}
+
+#picture__input {
+    display: none;
+}
+
+.picture {
+    width: 400px;
+    aspect-ratio: 16/9;
+    background: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    border: 2px dashed currentcolor;
+    cursor: pointer;
+    font-family: sans-serif;
+    transition: color 300ms ease-in-out, background 300ms ease-in-out;
+    outline: none;
+    overflow: hidden;
+}
+
+.picture:hover {
+    color: #777;
+    background: #ccc;
+}
+
+.picture:active {
+    border-color: turquoise;
+    color: turquoise;
+    background: #eee;
+}
+
+.picture:focus {
+    color: #777;
+    background: #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.picture__img {
+    max-width: 100%;
+}
+
+.respostas{
+    color:#000;
+    text-decoration: none;
+}
+
+.bordaBonita{
+    background: linear-gradient(to right, #FFF323, #FFF323);
+    padding: 3px;
+    border-radius: 0.5rem;
+}
+    </style>
     <body>
         <header class="p-1">
             <nav class="navbar navbar-expand navbar-light bg-white">
