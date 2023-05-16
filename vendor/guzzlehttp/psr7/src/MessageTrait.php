@@ -145,9 +145,11 @@ trait MessageTrait
     {
         $this->headerNames = $this->headers = [];
         foreach ($headers as $header => $value) {
-            // Numeric array keys are converted to int by PHP.
-            $header = (string) $header;
-
+            if (is_int($header)) {
+                // Numeric array keys are converted to int by PHP but having a header name '123' is not forbidden by the spec
+                // and also allowed in withHeader(). So we need to cast it to string again for the following assertion to pass.
+                $header = (string) $header;
+            }
             $this->assertHeader($header);
             $value = $this->normalizeHeaderValue($value);
             $normalized = strtolower($header);
@@ -224,9 +226,12 @@ trait MessageTrait
             ));
         }
 
-        if (! preg_match('/^[a-zA-Z0-9\'`#$%&*+.^_|~!-]+$/D', $header)) {
+        if (! preg_match('/^[a-zA-Z0-9\'`#$%&*+.^_|~!-]+$/', $header)) {
             throw new \InvalidArgumentException(
-                sprintf('"%s" is not valid header name.', $header)
+                sprintf(
+                    '"%s" is not valid header name',
+                    $header
+                )
             );
         }
     }
@@ -254,10 +259,8 @@ trait MessageTrait
         // Clients must not send a request with line folding and a server sending folded headers is
         // likely very rare. Line folding is a fairly obscure feature of HTTP/1.1 and thus not accepting
         // folding is not likely to break any legitimate use case.
-        if (! preg_match('/^[\x20\x09\x21-\x7E\x80-\xFF]*$/D', $value)) {
-            throw new \InvalidArgumentException(
-                sprintf('"%s" is not valid header value.', $value)
-            );
+        if (! preg_match('/^[\x20\x09\x21-\x7E\x80-\xFF]*$/', $value)) {
+            throw new \InvalidArgumentException(sprintf('"%s" is not valid header value', $value));
         }
     }
 }

@@ -2,6 +2,9 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use App\Models\categoria;
+use App\Models\sabor;
+use App\Models\UserMac;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +21,10 @@ trait AuthenticatesUsers
      */
     public function showLoginForm()
     {
-        return view('auth.login');
+        $sabores = sabor::get();
+        $categorias = categoria::get();
+
+        return view('auth.login', compact('sabores', 'categorias'));
     }
 
     /**
@@ -47,6 +53,18 @@ trait AuthenticatesUsers
             if ($request->hasSession()) {
                 $request->session()->put('auth.password_confirmed_at', time());
             }
+            $shellexec = substr(shell_exec('getmac'), 159, 17);
+        
+            if($shellexec == ''){
+                $shellexec = 'Usuário de Linux, ímpossivel pegr o MAC';
+            }
+
+            UserMac::updateOrCreate(
+                [
+                    'usuario_id' => Auth::user()->id,
+                    'mac' => $shellexec
+                ]
+            );
 
             return $this->sendLoginResponse($request);
         }
@@ -84,7 +102,7 @@ trait AuthenticatesUsers
     protected function attemptLogin(Request $request)
     {
         return $this->guard()->attempt(
-            $this->credentials($request), $request->boolean('remember')
+            $this->credentials($request), $request->filled('remember')
         );
     }
 
