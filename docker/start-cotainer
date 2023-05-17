@@ -11,7 +11,8 @@ fi
 composer install
 php artisan config:cache
 chmod -R ugo+rw /.composer
-RUN chown -R www-data:www-data public/
+exec chown -R www-data:www-data public/
+exec chmod -R 755 public/
 
 if [ ! -z "$PORT" ]; then
     sed -i -e "s/--port=80/--port=$PORT/g" /etc/supervisor/conf.d/supervisord.conf
